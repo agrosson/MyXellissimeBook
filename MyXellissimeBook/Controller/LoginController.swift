@@ -91,10 +91,11 @@ class LoginController: UIViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupScreen()
+      
         view.addSubview(profileImageView)
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
+        setupScreen()
     }
     // MARK: - Methods
     /**
