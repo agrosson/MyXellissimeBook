@@ -18,10 +18,12 @@ class ViewController: UITableViewController {
         // Create the left button
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
     }
-    // Function that shows the loginviewcontroller when left button pressed
+    // MARK: - Method  - Actions with objc functions
+    /**
+     Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed
+     */
     @objc func handleLogout() {
         let loginController = LoginController()
         present(loginController, animated: true, completion: nil)
     }
-    
 }
