@@ -8,8 +8,14 @@
 
 import Foundation
 
+// MARK: - User class
+/**
+ This class defines the user attributes
+ */
 class User {
+    /// Var name of the user
     var name: String
+    /// Var email of the user
     var email: String
 
     init(name: String, email: String) {
