@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+
 
 // home Screen 
 class ViewController: UITableViewController {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginController: UIViewController {
     
@@ -22,19 +23,42 @@ class LoginController: UIViewController {
     }()
     
     // create button
-    let loginRegisterButton : UIButton = {
+    lazy var loginRegisterButton : UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
         button.setTitle("Register", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 5
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func handleRegister(){
+        // Create a user
+        
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            //Todo an alert to be done
+            print("Should create an alert")
+            return
+        }
+        Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
+            // identification creation failed
+            if error != nil {
+                print(error.debugDescription)
+                print("identification creation failed")
+                return
+            }
+            print("Register in firebase suuceeded")
+        }
+    
+      
+    }
     // create textfield
     let nameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Name"
+        textField.keyboardType = UIKeyboardType.default
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
@@ -51,6 +75,7 @@ class LoginController: UIViewController {
     let emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Email address"
+        textField.keyboardType = UIKeyboardType.default
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
@@ -67,7 +92,9 @@ class LoginController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "Password"
         // protect the text
+        // todo: see the problem with keyboard azerty
         textField.isSecureTextEntry = true
+        textField.keyboardType = UIKeyboardType.default
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
@@ -91,6 +118,7 @@ class LoginController: UIViewController {
         setupInputsContrainerView()
         setupLoginRegisterButton()
         setupProfileImageView()
+        manageTextField()
     }
     
     private func setupScreen(){
@@ -169,5 +197,23 @@ class LoginController: UIViewController {
 extension UIColor {
     convenience init(myRed: CGFloat, myGreen: CGFloat, myBlue: CGFloat){
         self.init(red: myRed/255, green: myGreen, blue: myBlue, alpha : 1)
+    }
+}
+
+extension LoginController: UITextFieldDelegate {
+    /**
+     Function that manages TextField
+     */
+    private func manageTextField() {
+        nameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        nameTextField.resignFirstResponder()
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        return true
     }
 }
