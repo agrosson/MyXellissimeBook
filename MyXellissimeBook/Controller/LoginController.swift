@@ -31,7 +31,7 @@ class LoginController: UIViewController {
         button.layer.borderWidth = 1
         button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
         return button
     }()
     /// TextField to get user name
@@ -185,15 +185,12 @@ class LoginController: UIViewController {
     /**
      Function that sets up inputsContainerView
      */
-   
     private func setupInputsContrainerView(){
         // need x and y , width height contraints
         // todo : check safe width when rotate
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
-        inputsContainerView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-     
         inputsContainerViewHeightConstraint = inputsContainerView.heightAnchor.constraint(equalToConstant: 150)
         inputsContainerViewHeightConstraint?.isActive = true
         
@@ -244,43 +241,10 @@ class LoginController: UIViewController {
         loginRegisterButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
-    // MARK: - Method  - Actions with objc functions
-    /**
-     Action for switch segmented control
-     */
-    @objc private func toggleSegment(){
-        let title = loginRegisteredSegmentedControl.titleForSegment(at: loginRegisteredSegmentedControl.selectedSegmentIndex)
-        loginRegisterButton.setTitle(title, for: .normal)
-        
-        // change height of container
-        inputsContainerViewHeightConstraint?.constant = loginRegisteredSegmentedControl.selectedSegmentIndex == 0 ? 100 : 150
-        
-        // change height of name textField
-        nameTextFieldViewHeightConstraint?.isActive = false
-        nameTextFieldViewHeightConstraint = nameTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisteredSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1/3)
-        nameTextFieldViewHeightConstraint?.isActive = true
-        
-        // change height of Email textfield
-        emailTextFieldViewHeightConstraint?.isActive = false
-        emailTextFieldViewHeightConstraint = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisteredSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
-        emailTextFieldViewHeightConstraint?.isActive = true
-        
-        // change height of name separator
-         nameSeperatorTextFieldViewHeightConstraint?.constant = loginRegisteredSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1
-        
-    }
-    /**
-     Action for tap and Swipe Gesture Recognizer
-     */
-    @objc private func myTap() {
-        nameTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-        emailTextField.resignFirstResponder()
-    }
     /**
      Function that handles Registration
      */
-    @objc private func handleRegister(){
+    private func handleRegister(){
         guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
             //Todo an alert to be done
             print("Should create an alert")
@@ -311,11 +275,80 @@ class LoginController: UIViewController {
                     return
                 }
                 print("\(name) has been saved successfully in FireBase database")
-                
                 self.dismiss(animated: true, completion: nil)
             })
         }
     }
+    /**
+     Function that handles Login
+     */
+    private func handleLogin(){
+        // Get info from textField
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            //Todo an alert to be done
+            print("Should create an alert because loggin items not completed")
+            return
+        }
+        // Connect to Firebase Auth
+        Auth.auth().signIn(withEmail: email, password: password) { (resultSignIn, errorSignIn) in
+            if errorSignIn != nil {
+                print("Should create an alert because loggin items are false")
+                return
+            }
+            self.dismiss(animated: true, completion: nil)
+            print("\(email) has been saved successfully signed in !")
+        }
+    }
+    // MARK: - Method  - Actions with objc functions
+    /**
+     Action for switch segmented control
+     */
+    @objc private func toggleSegment(){
+        let title = loginRegisteredSegmentedControl.titleForSegment(at: loginRegisteredSegmentedControl.selectedSegmentIndex)
+        loginRegisterButton.setTitle(title, for: .normal)
+        
+        // change height of container
+        inputsContainerViewHeightConstraint?.isActive = false
+        inputsContainerViewHeightConstraint?.constant = loginRegisteredSegmentedControl.selectedSegmentIndex == 0 ? 100 : 150
+         inputsContainerViewHeightConstraint?.isActive = true
+        
+        // change height of name textField
+        nameTextFieldViewHeightConstraint?.isActive = false
+        nameTextFieldViewHeightConstraint = nameTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisteredSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1/3)
+        nameTextFieldViewHeightConstraint?.isActive = true
+        
+        // change height of Email textfield
+        emailTextFieldViewHeightConstraint?.isActive = false
+        emailTextFieldViewHeightConstraint = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisteredSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
+        emailTextFieldViewHeightConstraint?.isActive = true
+        
+        // change height of name separator
+        nameSeperatorTextFieldViewHeightConstraint?.isActive = false
+        nameSeperatorTextFieldViewHeightConstraint?.constant = loginRegisteredSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1
+        nameSeperatorTextFieldViewHeightConstraint?.isActive = true
+    }
+    /**
+     Action for tap and Swipe Gesture Recognizer
+     */
+    @objc private func myTap() {
+        nameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        emailTextField.resignFirstResponder()
+    }
+    /**
+     Function that handles Registration/Login
+     Switch on function depending on segmented item selected
+     */
+    @objc private func handleLoginRegister() {
+        if loginRegisteredSegmentedControl.selectedSegmentIndex == 0 {
+            handleLogin()
+        } else {
+            handleRegister()
+        }
+    }
+    
+    
+
 }
     // MARK: - Extensions
     /**
