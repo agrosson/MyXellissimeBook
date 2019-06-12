@@ -12,6 +12,7 @@
 		C19371DC22B0FC500017E696 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19371DA22B0FC500017E696 /* Main.storyboard */; };
 		C19371DE22B0FC510017E696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C19371DD22B0FC510017E696 /* Assets.xcassets */; };
 		C19371E122B0FC510017E696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19371DF22B0FC510017E696 /* LaunchScreen.storyboard */; };
+		C19371EA22B0FD070017E696 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19371E922B0FD070017E696 /* LoginController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		C19371DD22B0FC510017E696 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C19371E022B0FC510017E696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C19371E222B0FC510017E696 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C19371E922B0FD070017E696 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,23 @@
 		C19371D522B0FC500017E696 /* MyXellissimeBook */ = {
 			isa = PBXGroup;
 			children = (
+				C19371E822B0FCA70017E696 /* Controller */,
 				C19371D622B0FC500017E696 /* AppDelegate.swift */,
-				C19371D822B0FC500017E696 /* ViewController.swift */,
 				C19371DA22B0FC500017E696 /* Main.storyboard */,
 				C19371DD22B0FC510017E696 /* Assets.xcassets */,
 				C19371DF22B0FC510017E696 /* LaunchScreen.storyboard */,
 				C19371E222B0FC510017E696 /* Info.plist */,
 			);
 			path = MyXellissimeBook;
+			sourceTree = "<group>";
+		};
+		C19371E822B0FCA70017E696 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C19371D822B0FC500017E696 /* ViewController.swift */,
+				C19371E922B0FD070017E696 /* LoginController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C19371D922B0FC500017E696 /* ViewController.swift in Sources */,
+				C19371EA22B0FD070017E696 /* LoginController.swift in Sources */,
 				C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +297,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2UG4LAMEK9;
 				INFOPLIST_FILE = MyXellissimeBook/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,6 +316,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2UG4LAMEK9;
 				INFOPLIST_FILE = MyXellissimeBook/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
