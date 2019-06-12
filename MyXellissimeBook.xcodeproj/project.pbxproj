@@ -15,9 +15,24 @@
 		C19371E122B0FC510017E696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19371DF22B0FC510017E696 /* LaunchScreen.storyboard */; };
 		C19371EA22B0FD070017E696 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19371E922B0FD070017E696 /* LoginController.swift */; };
 		C19371EC22B1005B0017E696 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C19371EB22B1005B0017E696 /* GoogleService-Info.plist */; };
+		C1B42B7922B13FAF00982194 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B7822B13FAF00982194 /* User.swift */; };
+		C1B42B8522B140EF00982194 /* MyXellissimeBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */; };
+		C1B42B8D22B1412000982194 /* UserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8C22B1412000982194 /* UserTest.swift */; };
+		F9FD6C546E60F13112A3A05B /* Pods_MyXellissimeBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4CB8B24C6201E44EC28B02 /* Pods_MyXellissimeBookTests.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C1B42B8722B140EF00982194 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C19371CB22B0FC500017E696 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C19371D222B0FC500017E696;
+			remoteInfo = MyXellissimeBook;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		0C4CB8B24C6201E44EC28B02 /* Pods_MyXellissimeBookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyXellissimeBookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4912A2591C27597BF3C33A39 /* Pods-MyXellissimeBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBook.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBook/Pods-MyXellissimeBook.release.xcconfig"; sourceTree = "<group>"; };
 		5039E6534E02372DEB3671A4 /* Pods-MyXellissimeBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBook/Pods-MyXellissimeBook.debug.xcconfig"; sourceTree = "<group>"; };
 		9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyXellissimeBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,6 +45,13 @@
 		C19371E222B0FC510017E696 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C19371E922B0FD070017E696 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C19371EB22B1005B0017E696 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C1B42B7822B13FAF00982194 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C1B42B8222B140EF00982194 /* MyXellissimeBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyXellissimeBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyXellissimeBookTests.swift; sourceTree = "<group>"; };
+		C1B42B8622B140EF00982194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1B42B8C22B1412000982194 /* UserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTest.swift; sourceTree = "<group>"; };
+		D150990AA3C5194A0169970A /* Pods-MyXellissimeBookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBookTests/Pods-MyXellissimeBookTests.release.xcconfig"; sourceTree = "<group>"; };
+		DF6572B50869E9097F08E23E /* Pods-MyXellissimeBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBookTests/Pods-MyXellissimeBookTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +63,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C1B42B7F22B140EF00982194 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9FD6C546E60F13112A3A05B /* Pods_MyXellissimeBookTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -48,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */,
+				0C4CB8B24C6201E44EC28B02 /* Pods_MyXellissimeBookTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -57,6 +88,8 @@
 			children = (
 				5039E6534E02372DEB3671A4 /* Pods-MyXellissimeBook.debug.xcconfig */,
 				4912A2591C27597BF3C33A39 /* Pods-MyXellissimeBook.release.xcconfig */,
+				DF6572B50869E9097F08E23E /* Pods-MyXellissimeBookTests.debug.xcconfig */,
+				D150990AA3C5194A0169970A /* Pods-MyXellissimeBookTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -65,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				C19371D522B0FC500017E696 /* MyXellissimeBook */,
+				C1B42B8322B140EF00982194 /* MyXellissimeBookTests */,
 				C19371D422B0FC500017E696 /* Products */,
 				7F6950B9F33C0D67F2E59DD5 /* Pods */,
 				79850C0125A74725E8FDC603 /* Frameworks */,
@@ -75,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				C19371D322B0FC500017E696 /* MyXellissimeBook.app */,
+				C1B42B8222B140EF00982194 /* MyXellissimeBookTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,6 +117,7 @@
 		C19371D522B0FC500017E696 /* MyXellissimeBook */ = {
 			isa = PBXGroup;
 			children = (
+				C1B42B7722B13F8700982194 /* Model */,
 				C19371E822B0FCA70017E696 /* Controller */,
 				C19371D622B0FC500017E696 /* AppDelegate.swift */,
 				C19371DA22B0FC500017E696 /* Main.storyboard */,
@@ -100,6 +136,24 @@
 				C19371E922B0FD070017E696 /* LoginController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		C1B42B7722B13F8700982194 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C1B42B7822B13FAF00982194 /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C1B42B8322B140EF00982194 /* MyXellissimeBookTests */ = {
+			isa = PBXGroup;
+			children = (
+				C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */,
+				C1B42B8622B140EF00982194 /* Info.plist */,
+				C1B42B8C22B1412000982194 /* UserTest.swift */,
+			);
+			path = MyXellissimeBookTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +178,26 @@
 			productReference = C19371D322B0FC500017E696 /* MyXellissimeBook.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C1B42B8122B140EF00982194 /* MyXellissimeBookTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1B42B8922B140EF00982194 /* Build configuration list for PBXNativeTarget "MyXellissimeBookTests" */;
+			buildPhases = (
+				490557DB273CD8A9BB5F3568 /* [CP] Check Pods Manifest.lock */,
+				C1B42B7E22B140EF00982194 /* Sources */,
+				C1B42B7F22B140EF00982194 /* Frameworks */,
+				C1B42B8022B140EF00982194 /* Resources */,
+				33958913E632ED6DB8DA6129 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C1B42B8822B140EF00982194 /* PBXTargetDependency */,
+			);
+			name = MyXellissimeBookTests;
+			productName = MyXellissimeBookTests;
+			productReference = C1B42B8222B140EF00982194 /* MyXellissimeBookTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -136,6 +210,10 @@
 				TargetAttributes = {
 					C19371D222B0FC500017E696 = {
 						CreatedOnToolsVersion = 10.2.1;
+					};
+					C1B42B8122B140EF00982194 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = C19371D222B0FC500017E696;
 					};
 				};
 			};
@@ -153,6 +231,7 @@
 			projectRoot = "";
 			targets = (
 				C19371D222B0FC500017E696 /* MyXellissimeBook */,
+				C1B42B8122B140EF00982194 /* MyXellissimeBookTests */,
 			);
 		};
 /* End PBXProject section */
@@ -169,9 +248,46 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C1B42B8022B140EF00982194 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		33958913E632ED6DB8DA6129 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MyXellissimeBookTests/Pods-MyXellissimeBookTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyXMLParser/SwiftyXMLParser.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyXMLParser.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyXellissimeBookTests/Pods-MyXellissimeBookTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4889AAEABD3C51605BBBAA14 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -188,6 +304,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-MyXellissimeBook-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		490557DB273CD8A9BB5F3568 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyXellissimeBookTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -231,13 +369,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1B42B7922B13FAF00982194 /* User.swift in Sources */,
 				C19371D922B0FC500017E696 /* ViewController.swift in Sources */,
 				C19371EA22B0FD070017E696 /* LoginController.swift in Sources */,
 				C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C1B42B7E22B140EF00982194 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1B42B8D22B1412000982194 /* UserTest.swift in Sources */,
+				C1B42B8522B140EF00982194 /* MyXellissimeBookTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C1B42B8822B140EF00982194 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C19371D222B0FC500017E696 /* MyXellissimeBook */;
+			targetProxy = C1B42B8722B140EF00982194 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C19371DA22B0FC500017E696 /* Main.storyboard */ = {
@@ -415,6 +571,48 @@
 			};
 			name = Release;
 		};
+		C1B42B8A22B140EF00982194 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF6572B50869E9097F08E23E /* Pods-MyXellissimeBookTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2UG4LAMEK9;
+				INFOPLIST_FILE = MyXellissimeBookTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.GROSSON.MyXellissimeBookTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyXellissimeBook.app/MyXellissimeBook";
+			};
+			name = Debug;
+		};
+		C1B42B8B22B140EF00982194 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D150990AA3C5194A0169970A /* Pods-MyXellissimeBookTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2UG4LAMEK9;
+				INFOPLIST_FILE = MyXellissimeBookTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.GROSSON.MyXellissimeBookTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyXellissimeBook.app/MyXellissimeBook";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -432,6 +630,15 @@
 			buildConfigurations = (
 				C19371E622B0FC510017E696 /* Debug */,
 				C19371E722B0FC510017E696 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C1B42B8922B140EF00982194 /* Build configuration list for PBXNativeTarget "MyXellissimeBookTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1B42B8A22B140EF00982194 /* Debug */,
+				C1B42B8B22B140EF00982194 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -210,7 +210,7 @@ class LoginController: UIViewController {
      Function that handles Registration
      */
     @objc private func handleRegister(){
-        guard let email = emailTextField.text, let password = passwordTextField.text else {
+        guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
             //Todo an alert to be done
             print("Should create an alert")
             return
@@ -223,8 +223,24 @@ class LoginController: UIViewController {
                 print("identification creation failed")
                 return
             }
-            // todo : make other things
-            print("Register in firebase suuceeded")
+            // Create a unique UID for the user
+            guard let uid = authDataResult?.user.uid else {
+                return
+            }
+            // the ref of the database
+            let ref = Database.database().reference(fromURL: "https://myxellissimebook.firebaseio.com")
+            // the user reference in database
+            let userReference = ref.child("users").child(uid)
+            // create the dictionary of user attributes
+            let values = ["name": name, "email":email]
+            // update the values for the current user
+            userReference.updateChildValues(values, withCompletionBlock: { (errorUpdate, dataRefUpdate) in
+                if errorUpdate != nil {
+                    print(errorUpdate?.localizedDescription as Any)
+                    return
+                }
+                print("\(name) has been saved successfully in FireBase database")
+            })
         }
     }
 }
