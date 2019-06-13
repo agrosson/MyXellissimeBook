@@ -14,19 +14,33 @@ import Firebase
 class InitialViewController: UITableViewController {
     
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Create the left button
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-        setupScreen()
         
         // Setup screen
          setupScreen()
-        
+        checkIfUserIsAlreadyLoggedIn()
+    }
+    
+    fileprivate func checkIfUserIsAlreadyLoggedIn() {
         // check if user is already logged in
         
         if Auth.auth().currentUser?.uid == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
+        } else {
+            guard let uid = Auth.auth().currentUser?.uid else {return}
+            Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+                if let dictionary = snapshot.value as? [String : Any] {
+                    self.navigationItem.title = dictionary["name"] as? String
+                    self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+                }
+               print(snapshot)
+            }
+            
         }
     }
     
