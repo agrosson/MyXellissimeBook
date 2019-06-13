@@ -14,12 +14,7 @@ import Foundation
  */
 class User {
     /// Var name of the user
-    var name: String
+    var name: String?
     /// Var email of the user
-    var email: String
-
-    init(name: String, email: String) {
-        self.name = name
-        self.email = email
-    }
+    var email: String?
 }

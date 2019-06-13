@@ -11,12 +11,36 @@ import Firebase
 
 class TchatTableViewController: UITableViewController {
 
+    // Give an identifier name to the cell
+    let cellId = "cellId"
+    var users = [User]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupScreen()
-        
+        fetchUsers()
     }
 
+    private func fetchUsers(){
+            let rootRef = Database.database().reference()
+            let query = rootRef.child("users").queryOrdered(byChild: "name")
+            query.observe(.value) { (snapshot) in
+                for child in snapshot.children.allObjects as! [DataSnapshot] {
+                    if let value = child.value as? NSDictionary {
+                        let user = User()
+                        let name = value["name"] as? String ?? "Name not found"
+                        let email = value["email"] as? String ?? "Email not found"
+                        user.name = name
+                        user.email = email
+                        print(user.name as Any, user.email as Any)
+                        self.users.append(user)
+                        DispatchQueue.main.async { self.tableView.reloadData() }
+                    }
+                }
+            }
+        }
+    
+    
     /**
      Function that setup screen
      */
@@ -34,23 +58,24 @@ class TchatTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return users.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+       // let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        // Configure the cell...
-
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
+        cell.textLabel?.text = "Dummy cell"
+        cell.detailTextLabel?.text = "really dummy"
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
