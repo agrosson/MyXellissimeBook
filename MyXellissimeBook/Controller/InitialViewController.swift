@@ -11,12 +11,17 @@ import Firebase
 
 
 // home Screen 
-class ViewController: UITableViewController {
+class InitialViewController: UITableViewController {
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Create the left button
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+        setupScreen()
+        
+        // Setup screen
+         setupScreen()
         
         // check if user is already logged in
         
@@ -24,6 +29,14 @@ class ViewController: UITableViewController {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         }
     }
+    
+    /**
+     Function that setup screen
+     */
+    private func setupScreen(){
+        view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+    }
+    
     // MARK: - Method  - Actions with objc functions
     /**
      Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed

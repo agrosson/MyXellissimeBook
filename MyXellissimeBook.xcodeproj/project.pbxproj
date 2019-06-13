@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0ECCF58DCFEF7CD98451C9A5 /* Pods_MyXellissimeBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */; };
+		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
+		C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5522B292C500BF01B5 /* SearchViewController.swift */; };
+		C17EEF5822B2934100BF01B5 /* TchatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5722B2934100BF01B5 /* TchatTableViewController.swift */; };
 		C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19371D622B0FC500017E696 /* AppDelegate.swift */; };
-		C19371D922B0FC500017E696 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19371D822B0FC500017E696 /* ViewController.swift */; };
+		C19371D922B0FC500017E696 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19371D822B0FC500017E696 /* InitialViewController.swift */; };
 		C19371DC22B0FC500017E696 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19371DA22B0FC500017E696 /* Main.storyboard */; };
 		C19371DE22B0FC510017E696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C19371DD22B0FC510017E696 /* Assets.xcassets */; };
 		C19371E122B0FC510017E696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19371DF22B0FC510017E696 /* LaunchScreen.storyboard */; };
@@ -36,9 +39,12 @@
 		4912A2591C27597BF3C33A39 /* Pods-MyXellissimeBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBook.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBook/Pods-MyXellissimeBook.release.xcconfig"; sourceTree = "<group>"; };
 		5039E6534E02372DEB3671A4 /* Pods-MyXellissimeBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBook/Pods-MyXellissimeBook.debug.xcconfig"; sourceTree = "<group>"; };
 		9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyXellissimeBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInitialTabBarController.swift; sourceTree = "<group>"; };
+		C17EEF5522B292C500BF01B5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		C17EEF5722B2934100BF01B5 /* TchatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TchatTableViewController.swift; sourceTree = "<group>"; };
 		C19371D322B0FC500017E696 /* MyXellissimeBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyXellissimeBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C19371D622B0FC500017E696 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C19371D822B0FC500017E696 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C19371D822B0FC500017E696 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		C19371DB22B0FC500017E696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C19371DD22B0FC510017E696 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C19371E022B0FC510017E696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -132,7 +138,10 @@
 		C19371E822B0FCA70017E696 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C19371D822B0FC500017E696 /* ViewController.swift */,
+				C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */,
+				C19371D822B0FC500017E696 /* InitialViewController.swift */,
+				C17EEF5722B2934100BF01B5 /* TchatTableViewController.swift */,
+				C17EEF5522B292C500BF01B5 /* SearchViewController.swift */,
 				C19371E922B0FD070017E696 /* LoginController.swift */,
 			);
 			path = Controller;
@@ -369,10 +378,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */,
+				C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */,
 				C1B42B7922B13FAF00982194 /* User.swift in Sources */,
-				C19371D922B0FC500017E696 /* ViewController.swift in Sources */,
+				C19371D922B0FC500017E696 /* InitialViewController.swift in Sources */,
 				C19371EA22B0FD070017E696 /* LoginController.swift in Sources */,
 				C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */,
+				C17EEF5822B2934100BF01B5 /* TchatTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
