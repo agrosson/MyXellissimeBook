@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0ECCF58DCFEF7CD98451C9A5 /* Pods_MyXellissimeBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */; };
+		C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */; };
 		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
 		C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5522B292C500BF01B5 /* SearchViewController.swift */; };
 		C17EEF5822B2934100BF01B5 /* TchatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5722B2934100BF01B5 /* TchatTableViewController.swift */; };
@@ -39,6 +40,7 @@
 		4912A2591C27597BF3C33A39 /* Pods-MyXellissimeBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBook.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBook/Pods-MyXellissimeBook.release.xcconfig"; sourceTree = "<group>"; };
 		5039E6534E02372DEB3671A4 /* Pods-MyXellissimeBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBook/Pods-MyXellissimeBook.debug.xcconfig"; sourceTree = "<group>"; };
 		9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyXellissimeBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtilities.swift; sourceTree = "<group>"; };
 		C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInitialTabBarController.swift; sourceTree = "<group>"; };
 		C17EEF5522B292C500BF01B5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C17EEF5722B2934100BF01B5 /* TchatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TchatTableViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 		C1B42B7722B13F8700982194 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */,
 				C1B42B7822B13FAF00982194 /* User.swift */,
 			);
 			path = Model;
@@ -385,6 +388,7 @@
 				C19371EA22B0FD070017E696 /* LoginController.swift in Sources */,
 				C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */,
 				C17EEF5822B2934100BF01B5 /* TchatTableViewController.swift in Sources */,
+				C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

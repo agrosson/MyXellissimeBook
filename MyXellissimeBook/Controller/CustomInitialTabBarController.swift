@@ -9,10 +9,18 @@
 import Foundation
 import UIKit
 
+
+// MARK: - Class CustomInitialTabBarController
+/**
+ This class defines the CustomInitialTabBarController : is defined as the windows.rootViewController in appDelegate
+ */
 class CustomInitialTabBarController: UITabBarController {
-   
+    
+    /// instance of InitialViewController
     let initialViewController = UINavigationController(rootViewController: InitialViewController())
+    /// instance of SearchViewController
     let searchViewController = UINavigationController(rootViewController: SearchViewController())
+    /// instance of TchatTableViewController
     let tchatTableViewController = UINavigationController(rootViewController: TchatTableViewController())
     
     override func viewDidLoad() {

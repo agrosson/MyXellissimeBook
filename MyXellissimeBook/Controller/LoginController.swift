@@ -9,6 +9,10 @@
 import UIKit
 import Firebase
 
+// MARK: - Class LoginController
+/**
+ This class defines the Login ViewController
+ */
 class LoginController: UIViewController {
     // MARK: - Outlets and properties
     /// Container View for inputs during registration

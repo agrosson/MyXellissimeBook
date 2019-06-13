@@ -10,45 +10,36 @@ import UIKit
 import Firebase
 
 
-// home Screen 
-class InitialViewController: UITableViewController {
-    
-    
 
-    
+// MARK: - Class InitialViewController
+/**
+ This class defines the InitialViewController
+ */
+class InitialViewController: UITableViewController {
+   
+    // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         // Create the left button
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-        
-        // Setup screen
-         setupScreen()
+        setupScreen()
         checkIfUserIsAlreadyLoggedIn()
     }
+    // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         setupScreen()
     }
-    
-    
+    // MARK: - Methods
+    /**
+     Function that checks if user already loggedin
+     */
     fileprivate func checkIfUserIsAlreadyLoggedIn() {
         // check if user is already logged in
-        
         if Auth.auth().currentUser?.uid == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
-        } else {
-            guard let uid = Auth.auth().currentUser?.uid else {return}
-            Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-                if let dictionary = snapshot.value as? [String : Any] {
-                    self.navigationItem.title = dictionary["name"] as? String
-                    self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-                }
-               print(snapshot)
-            }
-            
         }
     }
-    
     /**
      Function that setup screen
      */
@@ -68,6 +59,7 @@ class InitialViewController: UITableViewController {
      Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed
      */
     @objc func handleLogout() {
+         print("You are here")
         // Try to log out
         do {
             try Auth.auth().signOut()
