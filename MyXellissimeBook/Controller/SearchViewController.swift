@@ -17,6 +17,11 @@ class SearchViewController: UIViewController {
         setupScreen()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+        setupScreen()
+    }
+    
     /**
      Function that setup screen
      */

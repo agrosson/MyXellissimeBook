@@ -121,6 +121,10 @@ class LoginController: UIViewController {
         view.addSubview(loginRegisteredSegmentedControl)
         setupScreen()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     // MARK: - Methods
     /**
      Function that setup screen

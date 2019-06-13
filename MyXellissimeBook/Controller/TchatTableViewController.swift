@@ -11,8 +11,9 @@ import Firebase
 
 class TchatTableViewController: UITableViewController {
 
-    // Give an identifier name to the cell
+    /// Identifier of the cell
     let cellId = "cellId"
+    /// Array of users
     var users = [User]()
     
     override func viewDidLoad() {
@@ -52,7 +53,7 @@ class TchatTableViewController: UITableViewController {
                 self.navigationItem.title = dictionary["name"] as? String
                 self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
             }
-    }
+        }
     }
     // MARK: - Table view data source
 
@@ -71,8 +72,9 @@ class TchatTableViewController: UITableViewController {
        // let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
-        cell.textLabel?.text = "Dummy cell"
-        cell.detailTextLabel?.text = "really dummy"
+        let user = users[indexPath.row]
+        cell.textLabel?.text = user.name
+        cell.detailTextLabel?.text = user.email
         return cell
     }
     
