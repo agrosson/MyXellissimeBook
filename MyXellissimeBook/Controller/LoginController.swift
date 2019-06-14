@@ -95,7 +95,7 @@ class LoginController: UIViewController {
     
     /// SegmentedControl to switch from Login/Register
     lazy var loginRegisteredSegmentedControl: UISegmentedControl = {
-       let segment = UISegmentedControl(items: ["Login","Register"])
+        let segment = UISegmentedControl(items: ["Login","Register"])
         segment.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         segment.selectedSegmentIndex = 1
         segment.translatesAutoresizingMaskIntoConstraints = false
@@ -104,7 +104,7 @@ class LoginController: UIViewController {
     }()
     
     /// Height constraint of the input container
-     var inputsContainerViewHeightConstraint: NSLayoutConstraint?
+    var inputsContainerViewHeightConstraint: NSLayoutConstraint?
     /// Height constraint of the nametextfied
     var nameTextFieldViewHeightConstraint: NSLayoutConstraint?
     /// Height constraint of the emailTextField
@@ -120,14 +120,14 @@ class LoginController: UIViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         view.addSubview(profileImageView)
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         view.addSubview(loginRegisteredSegmentedControl)
         setupScreen()
     }
-     // MARK: - Method viewWillAppear
+    // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -320,7 +320,7 @@ class LoginController: UIViewController {
         // change height of container
         inputsContainerViewHeightConstraint?.isActive = false
         inputsContainerViewHeightConstraint?.constant = loginRegisteredSegmentedControl.selectedSegmentIndex == 0 ? 100 : 150
-         inputsContainerViewHeightConstraint?.isActive = true
+        inputsContainerViewHeightConstraint?.isActive = true
         
         // change height of name textField
         nameTextFieldViewHeightConstraint?.isActive = false
@@ -356,24 +356,17 @@ class LoginController: UIViewController {
             handleRegister()
         }
     }
-    /**
-     Function that handles selection of photo profile
-     */
-    @objc private func handleSelectProfileImage() {
-        print("choose a photo for profile")
-    }
-
 }
-    // MARK: - Extensions
-    /**
-    Initializer for UIColor
-    */
+// MARK: - Extensions
+/**
+ Initializer for UIColor
+ */
 extension UIColor {
     convenience init(myRed: CGFloat, myGreen: CGFloat, myBlue: CGFloat){
         self.init(red: myRed/255, green: myGreen, blue: myBlue, alpha : 1)
     }
 }
-    // MARK: - Extensions   UITextFieldDelegate
+// MARK: - Extensions   UITextFieldDelegate
 extension LoginController: UITextFieldDelegate {
     /**
      UITextFieldDelegate : defines how textFieldShouldReturn
@@ -384,4 +377,40 @@ extension LoginController: UITextFieldDelegate {
         passwordTextField.resignFirstResponder()
         return true
     }
+}
+
+extension LoginController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    /**
+     Function that handles selection of photo profile
+     */
+    @objc private func handleSelectProfileImage() {
+        // create a instance of UIImagePickerController()
+        let picker = UIImagePickerController()
+        
+        // delegate to self
+        picker.delegate = self
+        // Enable to edit the photo (zoom, resize etc)
+        picker.allowsEditing = true
+        // present the picker
+        present(picker, animated: true, completion: nil)
+    }
+    //delegate function get info from picker
+    func  imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var selectedImageFromPicker = UIImage()
+        // Get edited or originl image from picker
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else {
+            guard let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {return}
+            selectedImageFromPicker = originalImage
+        }
+        self.profileImageView.image = selectedImageFromPicker
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
