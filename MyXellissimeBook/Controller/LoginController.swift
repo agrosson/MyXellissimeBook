@@ -251,44 +251,7 @@ class LoginController: UIViewController {
         loginRegisterButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
-    /**
-     Function that handles Registration
-     */
-    private func handleRegister(){
-        guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
-            //Todo an alert to be done
-            print("Should create an alert")
-            return
-        }
-        // Create a user
-        Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
-            // identification creation failed
-            if error != nil {
-                print(error.debugDescription)
-                print("identification creation failed")
-                return
-            }
-            // Create a unique UID for the user
-            guard let uid = authDataResult?.user.uid else {
-                return
-            }
-            // the ref of the database
-            let ref = Database.database().reference(fromURL: "https://myxellissimebook.firebaseio.com")
-            // the user reference in database
-            let userReference = ref.child("users").child(uid)
-            // create the dictionary of user attributes
-            let values = ["name": name, "email":email]
-            // update the values for the current user
-            userReference.updateChildValues(values, withCompletionBlock: { (errorUpdate, dataRefUpdate) in
-                if errorUpdate != nil {
-                    print(errorUpdate?.localizedDescription as Any)
-                    return
-                }
-                print("\(name) has been saved successfully in FireBase database")
-                self.dismiss(animated: true, completion: nil)
-            })
-        }
-    }
+
     /**
      Function that handles Login
      */

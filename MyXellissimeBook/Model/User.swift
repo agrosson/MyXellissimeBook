@@ -17,4 +17,6 @@ class User {
     var name: String?
     /// Var email of the user
     var email: String?
+    /// Var user UID which is also imageProfileName
+    var profileImageURL: String?
 }
