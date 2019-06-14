@@ -100,14 +100,13 @@ class TchatTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! UserCell
         let user = users[indexPath.row]
         cell.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         cell.textLabel?.text = user.name
         cell.textLabel?.textColor = .white
         cell.detailTextLabel?.text = user.email
         cell.detailTextLabel?.textColor = .white
-      //  cell.imageView?.image = UIImage(named: "profileDefault")
         cell.imageView?.contentMode = .scaleAspectFill
 
         if let userProfileImageURL = user.profileImageURL {
@@ -126,7 +125,7 @@ class TchatTableViewController: UITableViewController {
                         print("error here : \(error.debugDescription)")
                     }
                     print("download succeeded !")
-                 //   cell.imageView?.image = UIImage(data: data)
+                    cell.profileImageView.image = UIImage(data: data)
                     download.resume()
                 })
             }
