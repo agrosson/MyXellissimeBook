@@ -10,6 +10,7 @@
 		0ECCF58DCFEF7CD98451C9A5 /* Pods_MyXellissimeBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */; };
 		C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */; };
 		C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124D22B37469006A3F2C /* AddBookViewController.swift */; };
+		C12C125022B3839D006A3F2C /* AddManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */; };
 		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
 		C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5522B292C500BF01B5 /* SearchViewController.swift */; };
 		C17EEF5822B2934100BF01B5 /* TchatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5722B2934100BF01B5 /* TchatTableViewController.swift */; };
@@ -43,6 +44,7 @@
 		9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyXellissimeBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtilities.swift; sourceTree = "<group>"; };
 		C12C124D22B37469006A3F2C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
+		C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManuallyViewController.swift; sourceTree = "<group>"; };
 		C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInitialTabBarController.swift; sourceTree = "<group>"; };
 		C17EEF5522B292C500BF01B5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C17EEF5722B2934100BF01B5 /* TchatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TchatTableViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				C17EEF5522B292C500BF01B5 /* SearchViewController.swift */,
 				C19371E922B0FD070017E696 /* LoginController.swift */,
 				C12C124D22B37469006A3F2C /* AddBookViewController.swift */,
+				C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */,
 				C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */,
 				C1B42B7922B13FAF00982194 /* User.swift in Sources */,
+				C12C125022B3839D006A3F2C /* AddManuallyViewController.swift in Sources */,
 				C19371D922B0FC500017E696 /* InitialViewController.swift in Sources */,
 				C19371EA22B0FD070017E696 /* LoginController.swift in Sources */,
 				C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */,

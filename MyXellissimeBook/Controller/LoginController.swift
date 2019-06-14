@@ -125,7 +125,7 @@ class LoginController: UIViewController {
         view.addSubview(loginRegisteredSegmentedControl)
         setupScreen()
     }
-    
+     // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }

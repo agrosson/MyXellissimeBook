@@ -79,7 +79,7 @@ class InitialViewController: UITableViewController {
      */
     @objc func addBook() {
         print("You will add a book")
-        // present LoginController
+        // present addBookViewController
         let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
         present(addBookViewController, animated: true, completion: nil)
     }

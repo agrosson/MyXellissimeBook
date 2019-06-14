@@ -9,8 +9,12 @@
 import UIKit
 import Firebase
 
+// MARK: - Class AddBookViewController
+/**
+ This class defines the AddBookViewController 
+ */
 class AddBookViewController: UIViewController {
-
+    // MARK: - Outlets and properties
     // create button
     /// Add with scan Button
     lazy var addWithScanButton : UIButton = {
@@ -40,7 +44,7 @@ class AddBookViewController: UIViewController {
         button.addTarget(self, action: #selector(addManually), for: .touchUpInside)
         return button
     }()
-    
+    // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissCurrentView))
@@ -49,13 +53,14 @@ class AddBookViewController: UIViewController {
         setupScreen()
         
     }
+    // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super .viewWillAppear(animated)
     
         setupScreen()
     }
-    
+    // MARK: - Methods
     /**
      Function that setup screen
      */
@@ -93,7 +98,7 @@ class AddBookViewController: UIViewController {
         addManuallyButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
 
-    
+    // MARK: - Methods @objc - Actions
     @objc private func dismissCurrentView(){
         self.dismiss(animated: true, completion: nil)
     }
@@ -102,7 +107,12 @@ class AddBookViewController: UIViewController {
         print("go to scan")
     }
     
+    /**
+     Function that presents addManually ViewController
+     */
     @objc private func addManually(){
         print("go to add manually")
+        let addManuallyViewController = UINavigationController(rootViewController: AddManuallyViewController())
+        present(addManuallyViewController, animated: true, completion: nil)
     }
 }
