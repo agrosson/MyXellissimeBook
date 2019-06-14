@@ -110,25 +110,7 @@ class TchatTableViewController: UITableViewController {
         cell.imageView?.contentMode = .scaleAspectFill
 
         if let userProfileImageURL = user.profileImageURL {
-            var download:StorageDownloadTask!
-            print("let's download")
-            let storageRef = Storage.storage().reference().child("profileImage").child("\(userProfileImageURL).jpg")
-            DispatchQueue.main.async {
-                print("let's be inside")
-                download = storageRef.getData(maxSize: 1024*1024*5, completion:  { (data, error) in
-                    print("let's be inside download")
-                    guard let data = data else {
-                        print("no data here")
-                        return
-                    }
-                    if error != nil {
-                        print("error here : \(error.debugDescription)")
-                    }
-                    print("download succeeded !")
-                    cell.profileImageView.image = UIImage(data: data)
-                    download.resume()
-                })
-            }
+            cell.profileImageView.loadingImageUsingCacheWithUrlString(urlString: userProfileImageURL)
         }
         return cell
     }

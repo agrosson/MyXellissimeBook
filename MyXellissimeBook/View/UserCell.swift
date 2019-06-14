@@ -14,6 +14,7 @@ class UserCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "profileDefault")
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 30
         imageView.layer.masksToBounds = true
         return imageView
