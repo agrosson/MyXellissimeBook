@@ -27,7 +27,9 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         // present the picker
         present(picker, animated: true, completion: nil)
     }
-    //delegate function get info from picker
+    /**
+     Delegate function get info from picker, get photo and use it as profile photo
+     */
     func  imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         var selectedImageFromPicker = UIImage()
@@ -47,15 +49,22 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
     }
     /**
      Function that handles Registration
+    
+     When creating a user:
+     1. Save user's data in database
+     2. Store the image in Storage
+     3. Dismiss the view controller
      */
     func handleRegister(){
+        //get info from textFields
         guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
             //Todo an alert to be done
             print("Should create an alert")
             return
         }
-        
-        // Create a user
+        /*************************
+                 Create a user
+         **************************/
         Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
             // identification creation failed
             if error != nil {
@@ -67,11 +76,20 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             guard let uid = authDataResult?.user.uid else {
                 return
             }
+            // prepare dictionary with user info to upload in firebase
             let values = ["name" : name, "email" : email, "profileImageURL" : uid]
-            print("do we are at list ? ")
-            self.registerUserIntoDatabaseWithUid(uid: uid, values: values)
-            // First store the imageProfile of user
             
+            /*************************
+             Save user's data in database
+             **************************/
+
+            self.registerUserIntoDatabaseWithUid(uid: uid, values: values)
+            
+            /*************************
+             Store the image in Storage
+             **************************/
+            
+            // get the profile image
             guard let image = self.profileImageView.image else {return}
             
             // test the size in byte of the image
@@ -96,7 +114,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             let uploadMetadata = StorageMetadata()
             // Describe the type of image stored in FireStorage
             uploadMetadata.contentType = "image/jpeg"
-            // Create the uopload task
+            // Create the upload task
             let uploadTask = storageRef.putData(imageDataToUpload, metadata: uploadMetadata) { (metada, error) in
                 if error != nil {
                     print("i received an error \(error?.localizedDescription ?? "error but no description")")
@@ -113,8 +131,16 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             }
             uploadTask.resume()
         }
+        /*************************
+         Dismiss the view controller
+         **************************/
           self.dismiss(animated: true, completion: nil)
     }
+    /**
+     Function that handles upload of data user in Firebase
+     - Parameter uid: the unique identifier (String) of the user
+     - Parameter values: the user's data to be saved in Firebase db as a dictionary
+     */
     private func registerUserIntoDatabaseWithUid(uid: String, values : [String: Any]) {
         print("do we are here? ")
         print(values)
