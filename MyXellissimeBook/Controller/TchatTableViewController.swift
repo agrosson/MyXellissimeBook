@@ -95,6 +95,9 @@ class TchatTableViewController: UITableViewController {
         return users.count
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
@@ -104,7 +107,7 @@ class TchatTableViewController: UITableViewController {
         cell.textLabel?.textColor = .white
         cell.detailTextLabel?.text = user.email
         cell.detailTextLabel?.textColor = .white
-        cell.imageView?.image = UIImage(named: "profileDefault")
+      //  cell.imageView?.image = UIImage(named: "profileDefault")
         cell.imageView?.contentMode = .scaleAspectFill
 
         if let userProfileImageURL = user.profileImageURL {
@@ -123,7 +126,7 @@ class TchatTableViewController: UITableViewController {
                         print("error here : \(error.debugDescription)")
                     }
                     print("download succeeded !")
-                    cell.imageView?.image = UIImage(data: data)
+                 //   cell.imageView?.image = UIImage(data: data)
                     download.resume()
                 })
             }
