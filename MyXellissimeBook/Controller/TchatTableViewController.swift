@@ -101,8 +101,11 @@ class TchatTableViewController: UITableViewController {
         
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
         let user = users[indexPath.row]
+        cell.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         cell.textLabel?.text = user.name
+        cell.textLabel?.textColor = .white
         cell.detailTextLabel?.text = user.email
+        cell.detailTextLabel?.textColor = .white
         return cell
     }
     
