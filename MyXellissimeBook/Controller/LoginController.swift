@@ -82,11 +82,13 @@ class LoginController: UIViewController {
         return textField
     }()
     /// ImageView to display user image/picture
-    let profileImageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "profileDefault")
         //scaleToFit = enlarges the image to much
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImage)))
+        imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -354,8 +356,12 @@ class LoginController: UIViewController {
             handleRegister()
         }
     }
-    
-    
+    /**
+     Function that handles selection of photo profile
+     */
+    @objc private func handleSelectProfileImage() {
+        print("choose a photo for profile")
+    }
 
 }
     // MARK: - Extensions

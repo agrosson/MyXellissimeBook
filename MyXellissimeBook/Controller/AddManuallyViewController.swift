@@ -72,7 +72,7 @@ class AddManuallyViewController: UIViewController {
     lazy var searchBookWithApiButton : UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor.clear
-        button.setTitle("Search book", for: .normal)
+        button.setTitle("Search book to add", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 2
