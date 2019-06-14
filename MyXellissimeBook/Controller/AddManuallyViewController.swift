@@ -82,7 +82,7 @@ class AddManuallyViewController: UIViewController {
         return button
     }()
     // create button
-    /// Launch search in APIs
+    /// Add book in Firebase database
     lazy var addBookInFirebaseButton : UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor.clear
