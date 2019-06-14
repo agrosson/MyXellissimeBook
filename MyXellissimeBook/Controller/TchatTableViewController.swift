@@ -48,9 +48,11 @@ class TchatTableViewController: UITableViewController {
                     let user = User()
                     let name = value["name"] as? String ?? "Name not found"
                     let email = value["email"] as? String ?? "Email not found"
+                    let profileImageURL = value["profileImageURL"] as? String ?? "profileImageURL not found"
                     user.name = name
                     user.email = email
-                    print(user.name as Any, user.email as Any)
+                    user.profileImageURL = profileImageURL
+                    print(user.name as Any, user.email as Any, user.profileImageURL as Any)
                     self.users.append(user)
                     DispatchQueue.main.async { self.tableView.reloadData() }
                 }
@@ -95,6 +97,67 @@ class TchatTableViewController: UITableViewController {
         cell.textLabel?.textColor = .white
         cell.detailTextLabel?.text = user.email
         cell.detailTextLabel?.textColor = .white
+        cell.imageView?.image = UIImage(named: "profileDefault")
+
+        if let userProfileImageURL = user.profileImageURL {
+            var download:StorageDownloadTask!
+            print("let's download")
+            let storageRef = Storage.storage().reference().child("profileImage").child("\(userProfileImageURL).jpg")
+            DispatchQueue.main.async {
+                print("let's be inside")
+                download = storageRef.getData(maxSize: 1024*1024*5, completion:  { (data, error) in
+                    print("let's be inside download")
+                    guard let data = data else {
+                        print("no data here")
+                        return
+                    }
+                    if error != nil {
+                        print("error here : \(error.debugDescription)")
+                    }
+                    print("download succeeded !")
+                    cell.imageView?.image = UIImage(data: data)
+                    download.resume()
+                })
+            }
+            
+            
+            
+            
+        }
+        
+        /**************************
+         var download:StorageDownloadTask!
+         print("let's download")
+         let storageRef = Storage.storage().reference().child("cover").child("MyTestImage.jpg")
+         print(storageRef.description)
+         DispatchQueue.main.async {
+         print("let's be inside")
+         download = storageRef.getData(maxSize: 1024*1024*5, completion:  { [weak self] (data, error) in
+         print("let's be inside download")
+         guard let data = data else {
+         print("no data here")
+         return
+         }
+         if error != nil {
+         print("error here : \(error.debugDescription)")
+         }
+         print("download succeeded !")
+         self!.imageViewDownload.image = UIImage(data: data)
+         download.resume()
+         })
+         }
+         
+         
+         
+         
+        ***************************/
+        
+        
+        
+        
+        
+        
+        
         return cell
     }
     
