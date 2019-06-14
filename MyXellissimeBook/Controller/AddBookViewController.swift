@@ -86,7 +86,7 @@ class AddBookViewController: UIViewController {
         addWithScanButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
         addWithScanButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         addWithScanButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
-}
+    }
     /**
      Function that sets up addManuallyButton
      */
