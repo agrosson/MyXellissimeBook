@@ -29,10 +29,14 @@ class ChatInitialViewController : UITableViewController {
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         navigationItem.title = InitialViewController.titleName
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))
     }
     @objc func handelCompose(){
         let chatTableViewController = UINavigationController(rootViewController: ChatTableViewController())
         present(chatTableViewController, animated: true, completion: nil)
     }
-    
+     @objc func showChatController(){
+        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewLayout())
+        navigationController?.pushViewController(chatLogController, animated: true)
+    }
 }
