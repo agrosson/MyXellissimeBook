@@ -26,22 +26,26 @@ extension UIViewController {
 
 let imageCache = NSCache<AnyObject, AnyObject>()
 
+// MARK: - extension UIImageView
+
+
+/*******************************************************
+ This extension manages cache when loading profile images
+ ********************************************************/
 extension UIImageView {
     
     func loadingImageUsingCacheWithUrlString(urlString : String){
         
+        // first set nil to image to avoid brightness
         self.image = nil
         
-        //Check cache for image first
-        
+        // Check cache for image : if image already in cache, use this image
         if let cachedImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
             self.image = cachedImage
             return
         }
-        
-        
-        // otherwise fire of new download
-        
+ 
+        // If image not in cache, the launch download from Firebase and store image recently downloaded in cache to reuse it later
         var download:StorageDownloadTask!
         print("let's download")
         let storageRef = Storage.storage().reference().child("profileImage").child("\(urlString).jpg")
@@ -57,7 +61,6 @@ extension UIImageView {
                     print("error here : \(error.debugDescription)")
                 }
                 print("download succeeded !")
-                
                 if let downloadedImage = UIImage(data: data) {
                     imageCache.setObject(downloadedImage, forKey: urlString as AnyObject)
                     self.image = downloadedImage

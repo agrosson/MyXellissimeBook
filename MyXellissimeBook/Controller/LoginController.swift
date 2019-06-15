@@ -14,6 +14,9 @@ import Firebase
  This class defines the Login ViewController
  */
 class LoginController: UIViewController {
+    
+    var initialViewController: InitialViewController?
+    
     // MARK: - Outlets and properties
     /// Container View for inputs during registration
     let inputsContainerView: UIView = {
@@ -268,6 +271,10 @@ class LoginController: UIViewController {
                 print("Should create an alert because loggin items are false")
                 return
             }
+            /*************************
+             update the title of the initialVC with new name
+             **************************/
+            self.initialViewController?.setNavigationItemTitle()
             self.dismiss(animated: true, completion: nil)
             print("\(email) has been saved successfully signed in !")
         }

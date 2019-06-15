@@ -1,5 +1,5 @@
 //
-//  TchatTableViewController.swift
+//  ChatTableViewController.swift
 //  MyXellissimeBook
 //
 //  Created by ALEXANDRE GROSSON on 13/06/2019.
@@ -9,11 +9,11 @@
 import UIKit
 import Firebase
 
-// MARK: - Class TchatTableViewController
+// MARK: - Class ChatTableViewController
 /**
- This class defines the TchatTableViewController : initial list of users
+ This class defines the ChatTableViewController : initial list of users
  */
-class TchatTableViewController: UITableViewController {
+class ChatTableViewController: UITableViewController {
     
     // MARK: - Properties
     /// Identifier of the cell
@@ -45,6 +45,7 @@ class TchatTableViewController: UITableViewController {
         rootRef = Database.database().reference()
         let query = rootRef.child("users").queryOrdered(byChild: "name")
         query.observe(.value) { (snapshot) in
+            // this to avoid duplicated row when reloaded
             self.users = [User]()
             for child in snapshot.children.allObjects as! [DataSnapshot] {
                 if let value = child.value as? NSDictionary {
@@ -69,13 +70,8 @@ class TchatTableViewController: UITableViewController {
      */
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-         guard let uid = Auth.auth().currentUser?.uid else {return}
-        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-            if let dictionary = snapshot.value as? [String : Any] {
-                self.navigationItem.title = dictionary["name"] as? String
-                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-            }
-        }
+        navigationItem.title = InitialViewController.titleName
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
     @objc private func handelCancel(){
@@ -109,6 +105,12 @@ class TchatTableViewController: UITableViewController {
         cell.detailTextLabel?.textColor = .white
         cell.imageView?.contentMode = .scaleAspectFill
 
+        /*************************
+         Reminder:
+         Cell is of type UserCell
+         Cell has a property profileImageView of type UIImageView
+         Thanks to extension UIImageView, var profileImageView can use function loadingImageUsingCacheWithUrlString is set its (self).image to user profile photo
+         **************************/
         if let userProfileImageURL = user.profileImageURL {
             cell.profileImageView.loadingImageUsingCacheWithUrlString(urlString: userProfileImageURL)
         }

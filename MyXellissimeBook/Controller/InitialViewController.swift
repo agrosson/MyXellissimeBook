@@ -17,6 +17,8 @@ import Firebase
  */
 class InitialViewController: UITableViewController {
    
+    static var titleName = ""
+    
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,14 +48,24 @@ class InitialViewController: UITableViewController {
      */
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+        setNavigationItemTitle()
+    }
+    /**
+     Function that sets title for NavBar
+     */
+    func setNavigationItemTitle(){
         guard let uid = Auth.auth().currentUser?.uid else {return}
         Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
             if let dictionary = snapshot.value as? [String : Any] {
-                self.navigationItem.title = dictionary["name"] as? String
+                if let title = dictionary["name"] as? String {
+                    InitialViewController.titleName = title
+                }
+                self.navigationItem.title = InitialViewController.titleName
                 self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
             }
         }
     }
+    
     
     // MARK: - Method  - Actions with objc functions
     /**
@@ -72,6 +84,7 @@ class InitialViewController: UITableViewController {
         }
         // present LoginController
         let loginController = LoginController()
+        loginController.initialViewController = self
         present(loginController, animated: true, completion: nil)
     }
     /**

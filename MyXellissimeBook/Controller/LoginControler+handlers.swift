@@ -130,7 +130,12 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                 print(progress.fractionCompleted)
             }
             uploadTask.resume()
+     //      InitialViewController.titleName = name
         }
+        /*************************
+         update the title of the initialVC with new name
+         **************************/
+          self.initialViewController?.setNavigationItemTitle()
         /*************************
          Dismiss the view controller
          **************************/
@@ -153,6 +158,10 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                 print(errorUpdate?.localizedDescription as Any)
                 return
             }
+            /*************************
+             update the title of the initialVC with new name
+             **************************/
+            self.initialViewController?.setNavigationItemTitle()
             print("\(String(describing: values["name"])) has been saved successfully in FireBase database")
         })
     }

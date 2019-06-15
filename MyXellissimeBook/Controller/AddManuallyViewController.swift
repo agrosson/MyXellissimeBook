@@ -11,7 +11,7 @@ import Firebase
 
 // MARK: - Class AddManuallyViewController
 /**
- This class defines the AddManuallyViewController
+ This class defines the AddManuallyViewController   
  */
 
 class AddManuallyViewController: UIViewController {
@@ -117,13 +117,8 @@ class AddManuallyViewController: UIViewController {
      */
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-            if let dictionary = snapshot.value as? [String : Any] {
-                self.navigationItem.title = dictionary["name"] as? String
-                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-            }
-        }
+        navigationItem.title = InitialViewController.titleName
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setupInputsContrainerView()
         setupssearchBookWithApiButton()
         setupaddBookInFirebaseButton()
