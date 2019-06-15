@@ -23,12 +23,15 @@ class CustomInitialTabBarController: UITabBarController {
     /// instance of ChatTableViewController
     let chatInitialTableViewController = UINavigationController(rootViewController: ChatInitialViewController())
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //setup custom VC
         setupTabBar()
         viewControllers = [initialViewController, searchViewController, chatInitialTableViewController ]
+        
+        
     }
     /**
      Function that setup tabBar

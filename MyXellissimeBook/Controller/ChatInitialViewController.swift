@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 import Firebase
 
-class ChatInitialViewController : UITableViewController {
+class ChatInitialViewController : UIViewController {
     
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -35,8 +35,8 @@ class ChatInitialViewController : UITableViewController {
         let chatTableViewController = UINavigationController(rootViewController: ChatTableViewController())
         present(chatTableViewController, animated: true, completion: nil)
     }
-     @objc func showChatController(){
-        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewLayout())
+    @objc func showChatController(){
+        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
         navigationController?.pushViewController(chatLogController, animated: true)
     }
 }
