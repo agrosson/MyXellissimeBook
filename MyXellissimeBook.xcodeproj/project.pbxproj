@@ -24,6 +24,7 @@
 		C19371E122B0FC510017E696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19371DF22B0FC510017E696 /* LaunchScreen.storyboard */; };
 		C19371EA22B0FD070017E696 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19371E922B0FD070017E696 /* LoginController.swift */; };
 		C19371EC22B1005B0017E696 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C19371EB22B1005B0017E696 /* GoogleService-Info.plist */; };
+		C1A5840E22B4F59200EABEBA /* ChatInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */; };
 		C1B42B7922B13FAF00982194 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B7822B13FAF00982194 /* User.swift */; };
 		C1B42B8522B140EF00982194 /* MyXellissimeBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */; };
 		C1B42B8D22B1412000982194 /* UserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8C22B1412000982194 /* UserTest.swift */; };
@@ -63,6 +64,7 @@
 		C19371E222B0FC510017E696 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C19371E922B0FD070017E696 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C19371EB22B1005B0017E696 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInitialViewController.swift; sourceTree = "<group>"; };
 		C1B42B7822B13FAF00982194 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C1B42B8222B140EF00982194 /* MyXellissimeBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyXellissimeBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyXellissimeBookTests.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */,
 				C19371D822B0FC500017E696 /* InitialViewController.swift */,
 				C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */,
+				C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */,
 				C17EEF5522B292C500BF01B5 /* SearchViewController.swift */,
 				C19371E922B0FD070017E696 /* LoginController.swift */,
 				C12C125822B3D5FD006A3F2C /* LoginControler+handlers.swift */,
@@ -409,6 +412,7 @@
 				C12C125922B3D5FD006A3F2C /* LoginControler+handlers.swift in Sources */,
 				C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */,
 				C12C125222B3915A006A3F2C /* Utilities.swift in Sources */,
+				C1A5840E22B4F59200EABEBA /* ChatInitialViewController.swift in Sources */,
 				C1B42B7922B13FAF00982194 /* User.swift in Sources */,
 				C12C125022B3839D006A3F2C /* AddManuallyViewController.swift in Sources */,
 				C19371D922B0FC500017E696 /* InitialViewController.swift in Sources */,
