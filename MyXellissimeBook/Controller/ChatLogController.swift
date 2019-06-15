@@ -90,12 +90,14 @@ class ChatLogController: UICollectionViewController {
         collectionView.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         navigationItem.title = "ChatLog for \(InitialViewController.titleName)"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        gestureTapCreation()
+        gestureswipeCreation()
     }
     
     @objc private func handelCancel(){
         self.dismiss(animated: true, completion: nil)
     }
-    @objc private func handleSend(){
+    @objc func handleSend(){
         guard let text = inputTextField.text else {return}
         print("message is : \(text)")
     }
@@ -139,9 +141,9 @@ extension ChatLogController : UITextFieldDelegate {
      UITextFieldDelegate : defines how textFieldShouldReturn
      */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        handleSend()
         inputTextField.resignFirstResponder()
         return true
     }
-    
-    
+
 }
