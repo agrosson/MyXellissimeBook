@@ -20,8 +20,16 @@ class ChatInitialViewController : UITableViewController {
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupScreen()
     }
-    
+    /**
+     Function that setup screen
+     */
+    private func setupScreen(){
+        view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+        navigationItem.title = InitialViewController.titleName
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    }
     @objc func handelCompose(){
         let chatTableViewController = UINavigationController(rootViewController: ChatTableViewController())
         present(chatTableViewController, animated: true, completion: nil)
