@@ -12,6 +12,8 @@ import Firebase
 
 class ChatLogController: UICollectionViewController {
     
+    var user: User?
+    
     lazy var inputTextField : UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter your message"
@@ -32,8 +34,8 @@ class ChatLogController: UICollectionViewController {
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-      //  setupScreen()
-      //  setInputComponents()
+        guard let name = user?.name else {return}
+        navigationItem.title = name
     }
     
     func setInputComponents(){

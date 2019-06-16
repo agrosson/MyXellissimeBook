@@ -122,7 +122,8 @@ class ChatTableViewController: UITableViewController {
         print("first step")
         dismiss(animated: true) {
              print("second step")
-            self.chatInitial?.showChatController()
+            let user = self.users[indexPath.row]
+            self.chatInitial?.showChatControllerForUser(user: user)
         }
     }
 }
