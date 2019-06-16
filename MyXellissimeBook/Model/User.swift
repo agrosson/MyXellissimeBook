@@ -13,10 +13,9 @@ import Foundation
  This class defines the user attributes
  */
 class User {
-    /// Var name of the user
     var name: String?
     /// Var email of the user
     var email: String?
     /// Var user UID which is also imageProfileName
-    var profileImageURL: String?
+    var profileId: String?
 }

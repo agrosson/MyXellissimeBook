@@ -56,8 +56,8 @@ class ChatTableViewController: UITableViewController {
                     let profileImageURL = value["profileImageURL"] as? String ?? "profileImageURL not found"
                     user.name = name
                     user.email = email
-                    user.profileImageURL = profileImageURL
-                    print(user.name as Any, user.email as Any, user.profileImageURL as Any)
+                    user.profileId = profileImageURL
+                    print(user.name as Any, user.email as Any, user.profileId as Any)
                     self.users.append(user)
                     DispatchQueue.main.async { self.tableView.reloadData() }
                 }
@@ -111,7 +111,7 @@ class ChatTableViewController: UITableViewController {
          Cell has a property profileImageView of type UIImageView
          Thanks to extension UIImageView, var profileImageView can use function loadingImageUsingCacheWithUrlString is set its (self).image to user profile photo
          **************************/
-        if let userProfileImageURL = user.profileImageURL {
+        if let userProfileImageURL = user.profileId {
             cell.profileImageView.loadingImageUsingCacheWithUrlString(urlString: userProfileImageURL)
         }
         return cell

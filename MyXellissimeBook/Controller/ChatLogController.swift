@@ -107,7 +107,8 @@ class ChatLogController: UICollectionViewController {
         guard let text = inputTextField.text else {return}
         let ref = Database.database().reference().child("messages")
         let childRef = ref.childByAutoId()
-        let values = ["text" : text]
+        guard let toId = user?.profileId else {return}
+        let values = ["text" : text, "toId" : toId]
         childRef.updateChildValues(values)
     }
     
