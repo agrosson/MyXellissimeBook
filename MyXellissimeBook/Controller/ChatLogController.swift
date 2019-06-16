@@ -12,10 +12,13 @@ import Firebase
 
 class ChatLogController: UICollectionViewController {
     
-    let inputTextField : UITextField = {
+    lazy var inputTextField : UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter your message"
         textField.textColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
+        textField.clearButtonMode = UITextField.ViewMode.whileEditing
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -99,7 +102,10 @@ class ChatLogController: UICollectionViewController {
     }
     @objc func handleSend(){
         guard let text = inputTextField.text else {return}
-        print("message is : \(text)")
+        let ref = Database.database().reference().child("messages")
+        let childRef = ref.childByAutoId()
+        let values = ["text" : text]
+        childRef.updateChildValues(values)
     }
     
     /**
