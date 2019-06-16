@@ -87,10 +87,9 @@ class ChatInitialViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
         let message = messages[indexPath.row]
-
+        
         if let toId = message.toId {
             let ref = Database.database().reference().child("users").child(toId)
             ref.observeSingleEvent(of: .value, with: { (snapShot) in
@@ -98,9 +97,10 @@ class ChatInitialViewController : UITableViewController {
                 
                 if let dictionary = snapShot.value as? [String : Any] {
                     cell.textLabel?.text = dictionary["name"] as? String
+                    if let profileImageURL = dictionary["profileImageURL"] as? String {
+                       cell.profileImageView.loadingImageUsingCacheWithUrlString(urlString: profileImageURL)
+                    }
                 }
-                
-                
             }, withCancel: nil)
         }
  
