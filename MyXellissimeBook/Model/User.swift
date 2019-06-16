@@ -12,7 +12,7 @@ import Foundation
 /**
  This class defines the user attributes
  */
-class User {
+class User : NSObject {
     var name: String?
     /// Var email of the user
     var email: String?

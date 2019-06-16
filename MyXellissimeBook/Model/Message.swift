@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Message {
+class Message: NSObject {
     var fromId: String?
     var text: String?
     var toId: String?
