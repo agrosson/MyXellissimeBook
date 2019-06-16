@@ -86,7 +86,9 @@ class ChatInitialViewController : UITableViewController {
 
         cell.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         cell.textLabel?.textColor = .white
-        cell.textLabel?.text = message.text
+        cell.textLabel?.text = message.toId
+        cell.detailTextLabel?.textColor = .white
+        cell.detailTextLabel?.text = message.text
         
         return cell
     }

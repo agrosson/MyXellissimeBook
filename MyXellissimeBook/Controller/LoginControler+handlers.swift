@@ -149,7 +149,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
     private func registerUserIntoDatabaseWithUid(uid: String, values : [String: Any]) {
         print("do we are here? ")
         print(values)
-        let ref = Database.database().reference(fromURL: "https://myxellissimebook.firebaseio.com")
+        let ref = Database.database().reference()
         let userReference = ref.child(FirebaseUtilities.shared.users).child(uid)
         print("do we are here? and here")
         userReference.updateChildValues(values, withCompletionBlock: { (errorUpdate, dataRefUpdate) in
