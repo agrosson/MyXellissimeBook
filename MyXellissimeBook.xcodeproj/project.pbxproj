@@ -14,6 +14,7 @@
 		C12C125222B3915A006A3F2C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125122B3915A006A3F2C /* Utilities.swift */; };
 		C12C125922B3D5FD006A3F2C /* LoginControler+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125822B3D5FD006A3F2C /* LoginControler+handlers.swift */; };
 		C12C125B22B40934006A3F2C /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125A22B40934006A3F2C /* UserCell.swift */; };
+		C1596ED822B6807500CBCD08 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1596ED722B6807500CBCD08 /* Message.swift */; };
 		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
 		C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5522B292C500BF01B5 /* SearchViewController.swift */; };
 		C17EEF5822B2934100BF01B5 /* ChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */; };
@@ -53,6 +54,7 @@
 		C12C125122B3915A006A3F2C /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		C12C125822B3D5FD006A3F2C /* LoginControler+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginControler+handlers.swift"; sourceTree = "<group>"; };
 		C12C125A22B40934006A3F2C /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		C1596ED722B6807500CBCD08 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInitialTabBarController.swift; sourceTree = "<group>"; };
 		C17EEF5522B292C500BF01B5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			children = (
 				C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */,
 				C1B42B7822B13FAF00982194 /* User.swift */,
+				C1596ED722B6807500CBCD08 /* Message.swift */,
 				C12C125122B3915A006A3F2C /* Utilities.swift */,
 			);
 			path = Model;
@@ -423,6 +426,7 @@
 				C19371EA22B0FD070017E696 /* LoginController.swift in Sources */,
 				C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */,
 				C17EEF5822B2934100BF01B5 /* ChatTableViewController.swift in Sources */,
+				C1596ED822B6807500CBCD08 /* Message.swift in Sources */,
 				C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */,
 				C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */,
 			);

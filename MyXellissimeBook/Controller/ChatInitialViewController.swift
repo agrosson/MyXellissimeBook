@@ -10,22 +10,25 @@ import Foundation
 import UIKit
 import Firebase
 
-class ChatInitialViewController : UIViewController {
+class ChatInitialViewController : UITableViewController {
     
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
-        observeMessages()
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
+        observeMessages()
     }
     
     private func  observeMessages() {
-//        let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
+       let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
+        ref.observe(.childAdded, with: { snapshot in
+            print(snapshot)
+        }, withCancel: nil)
     }
     
     /**
