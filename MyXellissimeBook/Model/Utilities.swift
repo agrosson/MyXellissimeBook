@@ -48,7 +48,7 @@ extension UIImageView {
         // If image not in cache, the launch download from Firebase and store image recently downloaded in cache to reuse it later
         var download:StorageDownloadTask!
         print("let's download")
-        let storageRef = Storage.storage().reference().child("profileImage").child("\(urlString).jpg")
+        let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.profileImage).child("\(urlString).jpg")
         DispatchQueue.main.async {
             print("let's be inside")
             download = storageRef.getData(maxSize: 1024*1024*5, completion:  { (data, error) in

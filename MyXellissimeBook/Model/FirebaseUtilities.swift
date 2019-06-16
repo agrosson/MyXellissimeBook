@@ -14,10 +14,19 @@ class FirebaseUtilities {
     static var shared = FirebaseUtilities()
     private init(){}
     
+    /*******************************************************
+     These variables used in Firebase to avoid misspelling
+     ********************************************************/
+    
+    let users = "users"
+    let profileImage = "profileImage"
+    let messages = "messages"
+    
+    
     var name = ""
     
     static func getUserName() -> String? {
-        guard let uid = Auth.auth().currentUser?.uid else {return "non name"}
+        guard let uid = Auth.auth().currentUser?.uid else {return "no name"}
         self.shared.name = "33"
         Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) {  (snapshot) in
             self.shared.name = ""

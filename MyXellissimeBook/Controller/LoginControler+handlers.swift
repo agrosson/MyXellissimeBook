@@ -109,7 +109,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                 imageDataToUpload = imageData
             }
             // Create a Storage reference with the bookId
-            let storageRef = Storage.storage().reference().child("profileImage").child("\(uid).jpg")
+            let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.profileImage).child("\(uid).jpg")
             // Create a Storage Metadata
             let uploadMetadata = StorageMetadata()
             // Describe the type of image stored in FireStorage
@@ -150,7 +150,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         print("do we are here? ")
         print(values)
         let ref = Database.database().reference(fromURL: "https://myxellissimebook.firebaseio.com")
-        let userReference = ref.child("users").child(uid)
+        let userReference = ref.child(FirebaseUtilities.shared.users).child(uid)
         print("do we are here? and here")
         userReference.updateChildValues(values, withCompletionBlock: { (errorUpdate, dataRefUpdate) in
             print("do we are here? an again ")

@@ -105,10 +105,12 @@ class ChatLogController: UICollectionViewController {
     }
     @objc func handleSend(){
         guard let text = inputTextField.text else {return}
+        guard let fromId = Auth.auth().currentUser?.uid else {return}
         let ref = Database.database().reference().child("messages")
         let childRef = ref.childByAutoId()
         guard let toId = user?.profileId else {return}
-        let values = ["text" : text, "toId" : toId]
+        let timestamp = Int(NSDate().timeIntervalSince1970)
+        let values = ["text" : text, "toId" : toId, "fromId" : fromId, "timestamp" : timestamp] as [String : Any]
         childRef.updateChildValues(values)
     }
     

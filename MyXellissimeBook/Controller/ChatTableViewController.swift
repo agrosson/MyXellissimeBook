@@ -44,7 +44,7 @@ class ChatTableViewController: UITableViewController {
      */
     private func fetchUsers(){
         rootRef = Database.database().reference()
-        let query = rootRef.child("users").queryOrdered(byChild: "name")
+        let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "name")
         query.observe(.value) { (snapshot) in
             // this to avoid duplicated row when reloaded
             self.users = [User]()

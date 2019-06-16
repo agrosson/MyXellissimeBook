@@ -16,12 +16,18 @@ class ChatInitialViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
+        observeMessages()
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
     }
+    
+    private func  observeMessages() {
+//        let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
+    }
+    
     /**
      Function that setup screen
      */
