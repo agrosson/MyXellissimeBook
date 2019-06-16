@@ -23,6 +23,7 @@ class ChatTableViewController: UITableViewController {
     /// Var that track the reference of the database
     var rootRef = DatabaseReference()
     
+    
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +79,6 @@ class ChatTableViewController: UITableViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -115,5 +115,14 @@ class ChatTableViewController: UITableViewController {
             cell.profileImageView.loadingImageUsingCacheWithUrlString(urlString: userProfileImageURL)
         }
         return cell
+    }
+    var chatInitial: ChatInitialViewController?
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("first step")
+        dismiss(animated: true) {
+             print("second step")
+            self.chatInitial?.showChatController()
+        }
     }
 }

@@ -32,8 +32,10 @@ class ChatInitialViewController : UIViewController {
         navigationController?.navigationBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))
     }
     @objc func handelCompose(){
-        let chatTableViewController = UINavigationController(rootViewController: ChatTableViewController())
-        present(chatTableViewController, animated: true, completion: nil)
+        let chatTableViewController = ChatTableViewController()
+        chatTableViewController.chatInitial = self
+        let navController = UINavigationController(rootViewController: chatTableViewController)
+        present(navController, animated: true, completion: nil)
     }
     @objc func showChatController(){
         let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
