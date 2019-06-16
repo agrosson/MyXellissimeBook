@@ -15,11 +15,14 @@ class ChatInitialViewController : UITableViewController {
      var rootRef = DatabaseReference()
     /// Array of users
     var messages = [Message]()
+    let cellId = "cellId"
     
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
+        
+     tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
      observeMessages()
     }
     // MARK: - Method - viewWillAppear
@@ -79,11 +82,29 @@ class ChatInitialViewController : UITableViewController {
         return messages.count
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
         let message = messages[indexPath.row]
 
+        if let toId = message.toId {
+            let ref = Database.database().reference().child("users").child(toId)
+            ref.observeSingleEvent(of: .value, with: { (snapShot) in
+                print(snapShot)
+                
+                if let dictionary = snapShot.value as? [String : Any] {
+                    cell.textLabel?.text = dictionary["name"] as? String
+                }
+                
+                
+            }, withCancel: nil)
+        }
+ 
+        
         cell.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         cell.textLabel?.textColor = .white
         cell.textLabel?.text = message.toId
