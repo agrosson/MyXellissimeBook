@@ -12,7 +12,11 @@ import Firebase
 
 class ChatLogController: UICollectionViewController {
     
-    var user: User?
+    var user: User? {
+        didSet {
+            navigationItem.title = user?.name
+        }
+    }
     
     lazy var inputTextField : UITextField = {
         let textField = UITextField()
@@ -34,8 +38,6 @@ class ChatLogController: UICollectionViewController {
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let name = user?.name else {return}
-        navigationItem.title = name
     }
     
     func setInputComponents(){
@@ -93,7 +95,6 @@ class ChatLogController: UICollectionViewController {
      */
     private func setupScreen(){
         collectionView.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-        navigationItem.title = "ChatLog for \(InitialViewController.titleName)"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         gestureTapCreation()
         gestureswipeCreation()
