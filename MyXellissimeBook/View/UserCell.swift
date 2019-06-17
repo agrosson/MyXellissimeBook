@@ -61,19 +61,11 @@ class UserCell: UITableViewCell {
     }
     
     private func setupNameAndImageProfile() {
-        let partnerId: String?
         
-        if messageUserCell?.fromId == Auth.auth().currentUser?.uid {
-            partnerId = messageUserCell?.toId
-        } else {
-            partnerId = messageUserCell?.fromId
-        }
-        
-        if let idToUse = partnerId {
+        if let idToUse = messageUserCell?.chatPartnerId() {
             let ref = Database.database().reference().child("users").child(idToUse)
             ref.observeSingleEvent(of: .value, with: { (snapShot) in
                 print(snapShot)
-                
                 if let dictionary = snapShot.value as? [String : Any] {
                     self.textLabel?.text = dictionary["name"] as? String
                     if let profileImageURL = dictionary["profileImageURL"] as? String {
@@ -82,12 +74,10 @@ class UserCell: UITableViewCell {
                 }
             }, withCancel: nil)
         }
-        
         backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         textLabel?.textColor = .white
         detailTextLabel?.textColor = .white
         detailTextLabel?.text = messageUserCell?.text
-        
         if let seconds = messageUserCell?.timestamp {
             let time = Date(timeIntervalSince1970: TimeInterval(seconds))
             let dateFormatter = DateFormatter()
