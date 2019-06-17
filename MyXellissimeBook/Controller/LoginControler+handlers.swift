@@ -77,7 +77,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                 return
             }
             // prepare dictionary with user info to upload in firebase
-            let values = ["name" : name, "email" : email, "profileImageURL" : uid]
+            let values = ["name" : name, "email" : email, "profileId" : uid]
             
             /*************************
              Save user's data in database

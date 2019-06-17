@@ -145,6 +145,20 @@ class ChatInitialViewController : UITableViewController {
         return messages.count
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let chatPartnerId = messages[indexPath.row].chatPartnerId() else {return}
+        // first get the identifier of the parner user clicked
+        let ref = Database.database().reference().child("users").child(chatPartnerId)
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            print(snapshot)
+             guard let dictionary = snapshot.value as? [String : Any] else {return}
+            let user = User()
+            user.setValuesForKeys(dictionary)
+            print(user.name as Any)
+            
+        }, withCancel: nil)
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }

@@ -32,7 +32,6 @@ class UserCell: UITableViewCell {
      // timestamp that is added to the .title cell
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "hh:mm:ss"
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -68,8 +67,8 @@ class UserCell: UITableViewCell {
                 print(snapShot)
                 if let dictionary = snapShot.value as? [String : Any] {
                     self.textLabel?.text = dictionary["name"] as? String
-                    if let profileImageURL = dictionary["profileImageURL"] as? String {
-                        self.profileImageView.loadingImageUsingCacheWithUrlString(urlString: profileImageURL)
+                    if let profileId = dictionary["profileId"] as? String {
+                        self.profileImageView.loadingImageUsingCacheWithUrlString(urlString: profileId)
                     }
                 }
             }, withCancel: nil)
