@@ -24,10 +24,9 @@ class ChatInitialViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
-        
-     tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
-     // observeMessages()
-    observeUserMessages()
+        setupScreen()
+        tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
+
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -107,7 +106,7 @@ class ChatInitialViewController : UITableViewController {
             
         }, withCancel: nil)
        
-        rootRef.removeAllObservers()
+      //  rootRef.removeAllObservers()
     }
     
     
@@ -115,7 +114,12 @@ class ChatInitialViewController : UITableViewController {
      Function that setup screen
      */
     private func setupScreen(){
+        messages.removeAll()
+        messagesDictionary.removeAll()
+        tableView.reloadData()
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+        observeUserMessages()
+        
         navigationItem.title = InitialViewController.titleName
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 //        navigationController?.navigationBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))

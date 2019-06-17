@@ -123,8 +123,13 @@ class ChatLogController: UICollectionViewController {
             let userMessageRef = Database.database().reference().child("user-messages").child(fromId)
             // get the key of the message
             let messageId = childRef.key
-            // store the key message here for the fromId user
+            // store the  message here for the fromId user
             userMessageRef.updateChildValues([messageId : 1])
+            // create a new node toId user
+            let recipientUserMessageRef = Database.database().reference().child("user-messages").child(toId)
+            // store the key message here for the toId user
+            recipientUserMessageRef.updateChildValues([messageId : 1])
+            
             
         }
         

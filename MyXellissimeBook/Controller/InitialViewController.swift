@@ -54,6 +54,7 @@ class InitialViewController: UITableViewController {
      Function that sets title for NavBar
      */
     func setNavigationItemTitle(){
+        
         guard let uid = Auth.auth().currentUser?.uid else {return}
         Database.database().reference().child(FirebaseUtilities.shared.users).child(uid).observeSingleEvent(of: .value) { (snapshot) in
             if let dictionary = snapshot.value as? [String : Any] {
