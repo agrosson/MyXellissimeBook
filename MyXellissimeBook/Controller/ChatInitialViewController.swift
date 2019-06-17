@@ -13,8 +13,11 @@ import Firebase
 class ChatInitialViewController : UITableViewController {
     
      var rootRef = DatabaseReference()
-    /// Array of users
+    /// Array of messages
     var messages = [Message]()
+    /// Dictionary of last message by users
+    var messagesDictionary = [String: Message]()
+    
     let cellId = "cellId"
     
     // MARK: - Method - viewDidLoad
@@ -48,7 +51,18 @@ class ChatInitialViewController : UITableViewController {
              message.toId = toId
              message.text = text
             
-            self.messages.append(message)
+            //self.messages.append(message)
+            // get the last message for toId
+            self.messagesDictionary[toId] = message
+            // and contruct an array with the values of the dictionary
+            self.messages = Array(self.messagesDictionary.values)
+            self.messages.sort(by: { (message1, message2) -> Bool in
+                
+                guard let time1 = message1.timestamp else {return false}
+                guard let time2 = message2.timestamp else {return false}
+                return time1 > time2
+            })
+            
             DispatchQueue.main.async { self.tableView.reloadData() }
             
         }, withCancel: nil)
