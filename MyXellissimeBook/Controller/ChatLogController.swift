@@ -104,6 +104,7 @@ class ChatLogController: UICollectionViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @objc func handleSend(){
+        // this block to save messages
         guard let text = inputTextField.text else {return}
         guard let fromId = Auth.auth().currentUser?.uid else {return}
         let ref = Database.database().reference().child("messages")
@@ -111,7 +112,23 @@ class ChatLogController: UICollectionViewController {
         guard let toId = user?.profileId else {return}
         let timestamp = Int(NSDate().timeIntervalSince1970)
         let values = ["text" : text, "toId" : toId, "fromId" : fromId, "timestamp" : timestamp] as [String : Any]
-        childRef.updateChildValues(values)
+       // childRef.updateChildValues(values)
+        // this block to save the message and then also make a reference and store the reference of message in antoher node
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            // create a new node fromId user
+            let userMessageRef = Database.database().reference().child("user-messages").child(fromId)
+            // get the key of the message
+            let messageId = childRef.key
+            // store the key message here for the fromId user
+            userMessageRef.updateChildValues([messageId : 1])
+            
+        }
+        
+        
     }
     
     /**
