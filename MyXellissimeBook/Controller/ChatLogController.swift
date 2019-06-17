@@ -99,20 +99,28 @@ class ChatLogController: UICollectionViewController {
         gestureTapCreation()
         gestureswipeCreation()
     }
-    
+    /**
+     Function that handle cancel
+     */
     @objc private func handelCancel(){
         self.dismiss(animated: true, completion: nil)
     }
+    /**
+     Function that handle send message
+     */
     @objc func handleSend(){
         // this block to save messages
         guard let text = inputTextField.text else {return}
+        // get the sender Id
         guard let fromId = Auth.auth().currentUser?.uid else {return}
         let ref = Database.database().reference().child("messages")
+        /// unique reference for the message
         let childRef = ref.childByAutoId()
+        /// get the recipient Id
         guard let toId = user?.profileId else {return}
         let timestamp = Int(NSDate().timeIntervalSince1970)
+        // Create a dictionary of values to save
         let values = ["text" : text, "toId" : toId, "fromId" : fromId, "timestamp" : timestamp] as [String : Any]
-       // childRef.updateChildValues(values)
         // this block to save the message and then also make a reference and store the reference of message in antoher node
         childRef.updateChildValues(values) { (error, ref) in
             if error != nil {
@@ -129,11 +137,7 @@ class ChatLogController: UICollectionViewController {
             let recipientUserMessageRef = Database.database().reference().child("user-messages").child(toId)
             // store the key message here for the toId user
             recipientUserMessageRef.updateChildValues([messageId : 1])
-            
-            
         }
-        
-        
     }
     
     /**
