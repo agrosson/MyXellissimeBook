@@ -127,7 +127,6 @@ class ChatInitialViewController : UITableViewController {
         
         navigationItem.title = InitialViewController.titleName
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-//        navigationController?.navigationBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showChatController)))
     }
     @objc func handelCompose(){
         let chatTableViewController = ChatTableViewController()
@@ -153,9 +152,16 @@ class ChatInitialViewController : UITableViewController {
             print(snapshot)
              guard let dictionary = snapshot.value as? [String : Any] else {return}
             let user = User()
-            user.setValuesForKeys(dictionary)
-            print(user.name as Any)
+          
+            guard let name = dictionary["name"] as? String else {return}
+            guard let email =  dictionary["email"] as? String else {return}
+            guard let profileId =  dictionary["profileId"] as? String else {return}
+            user.name = name
+            user.email = email
+            user.profileId = profileId
             
+            self.showChatControllerForUser(user: user)
+          
         }, withCancel: nil)
     }
     
