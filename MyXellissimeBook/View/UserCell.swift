@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import Firebase
 
 class UserCell: UITableViewCell {
-
+    
+    /****************************************************************************************
+     When this variable is set, it executes the block to fill the cell with accurate data
+     *****************************************************************************************/
+    // ImageView that is added to the .title cell
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -23,7 +28,7 @@ class UserCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-        
+        // add the profile image
         addSubview(profileImageView)
         
         // Contraints X Y Width height
@@ -33,7 +38,7 @@ class UserCell: UITableViewCell {
         profileImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
     }
-    
+        // rearrange the layout of the cell to push labels on the right (x = 76)
     override func layoutSubviews() {
         super.layoutSubviews()
         

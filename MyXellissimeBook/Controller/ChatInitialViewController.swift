@@ -87,7 +87,9 @@ class ChatInitialViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Create a cell of type UserCell
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
+        // Get the message from the Array
         let message = messages[indexPath.row]
         
         if let toId = message.toId {
