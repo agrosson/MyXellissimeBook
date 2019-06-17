@@ -16,7 +16,12 @@ class Message: NSObject {
     var toId: String?
     var timestamp: Int?
     
-    func chatPartnerId() -> String? {   
+    // MARK: - Methods
+    /**
+     Function that defines the partner id of the current user
+     - Returns: uid of partner as a String
+     */
+    func chatPartnerId() -> String? {
         return fromId == Auth.auth().currentUser?.uid ? toId: fromId
     }
 }
