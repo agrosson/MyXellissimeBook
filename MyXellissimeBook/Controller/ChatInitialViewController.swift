@@ -10,30 +10,37 @@ import Foundation
 import UIKit
 import Firebase
 
+// MARK: - Class ChatInitialViewController
+/**
+ This class defines the ChatInitialViewController
+ 
+ The controller will display the list of message sent and received by the user
+ */
 class ChatInitialViewController : UITableViewController {
     
      var rootRef = DatabaseReference()
-    /// Array of messages
+    /// Array of all messages
     var messages = [Message]()
-    /// Dictionary of last message by users
+    /// Dictionary of last messages by users
     var messagesDictionary = [String: Message]()
-    
+    /// Id of cell of the tableView
     let cellId = "cellId"
-    
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
         setupScreen()
+        // Registration of the reused cell
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
-
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
     }
-    // this observes all messages send by a single user
+    /**
+     function that observes all messages send by a single user
+     */
     private func observeUserMessages(){
         // get the Id of the user
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -57,12 +64,11 @@ class ChatInitialViewController : UITableViewController {
                 message.timestamp = timestamp
                 message.toId = toId
                 message.text = text
-                
                 // get the last message for toId
                 self.messagesDictionary[toId] = message
                 // and contruct an array with the values of the dictionary
                 self.messages = Array(self.messagesDictionary.values)
-                // sort the array of message
+                // sort the array of messages by date
                 self.messages.sort(by: { (message1, message2) -> Bool in
                     
                     guard let time1 = message1.timestamp else {return false}
@@ -71,11 +77,12 @@ class ChatInitialViewController : UITableViewController {
                 })
                 DispatchQueue.main.async { self.tableView.reloadData() }
             }, withCancel: nil)
-            
         }, withCancel: nil)
     }
     
-    // this obeserves all messages
+    /**
+     function that observes all messages
+     */
     private func  observeMessages() {
        let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
         ref.observe(.childAdded, with: { snapshot in
@@ -96,17 +103,15 @@ class ChatInitialViewController : UITableViewController {
             self.messages = Array(self.messagesDictionary.values)
             // sort the array of message
             self.messages.sort(by: { (message1, message2) -> Bool in
-                
                 guard let time1 = message1.timestamp else {return false}
                 guard let time2 = message2.timestamp else {return false}
                 return time1 > time2
             })
-            
             DispatchQueue.main.async { self.tableView.reloadData() }
-            
         }, withCancel: nil)
        
-      //  rootRef.removeAllObservers()
+    // Maybe necessary
+    //  rootRef.removeAllObservers()
     }
     
     
