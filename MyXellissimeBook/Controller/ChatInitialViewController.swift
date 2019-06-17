@@ -159,6 +159,7 @@ class ChatInitialViewController : UITableViewController {
             user.name = name
             user.email = email
             user.profileId = profileId
+            // Todo : check if  user.profileId should be chatPartnerId
             
             self.showChatControllerForUser(user: user)
           
