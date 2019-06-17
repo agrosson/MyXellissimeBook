@@ -91,28 +91,8 @@ class ChatInitialViewController : UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
         // Get the message from the Array
         let message = messages[indexPath.row]
-        
-        if let toId = message.toId {
-            let ref = Database.database().reference().child("users").child(toId)
-            ref.observeSingleEvent(of: .value, with: { (snapShot) in
-                print(snapShot)
-                
-                if let dictionary = snapShot.value as? [String : Any] {
-                    cell.textLabel?.text = dictionary["name"] as? String
-                    if let profileImageURL = dictionary["profileImageURL"] as? String {
-                       cell.profileImageView.loadingImageUsingCacheWithUrlString(urlString: profileImageURL)
-                    }
-                }
-            }, withCancel: nil)
-        }
- 
-        
-        cell.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-        cell.textLabel?.textColor = .white
-        cell.textLabel?.text = message.toId
-        cell.detailTextLabel?.textColor = .white
-        cell.detailTextLabel?.text = message.text
-        
+        cell.messageUserCell = message
+       
         return cell
     }
 }

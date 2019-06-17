@@ -11,6 +11,31 @@ import Firebase
 
 class UserCell: UITableViewCell {
     
+    var messageUserCell: Message? {
+        didSet{
+            
+            if let toId = messageUserCell?.toId {
+                let ref = Database.database().reference().child("users").child(toId)
+                ref.observeSingleEvent(of: .value, with: { (snapShot) in
+                    print(snapShot)
+                    
+                    if let dictionary = snapShot.value as? [String : Any] {
+                        self.textLabel?.text = dictionary["name"] as? String
+                        if let profileImageURL = dictionary["profileImageURL"] as? String {
+                            self.profileImageView.loadingImageUsingCacheWithUrlString(urlString: profileImageURL)
+                        }
+                    }
+                }, withCancel: nil)
+            }
+ 
+            backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+            textLabel?.textColor = .white
+  //          textLabel?.text = messageUserCell?.toId
+            detailTextLabel?.textColor = .white
+            detailTextLabel?.text = messageUserCell?.text
+        }
+    }
+    
     /****************************************************************************************
      When this variable is set, it executes the block to fill the cell with accurate data
      *****************************************************************************************/
