@@ -12,12 +12,15 @@ import Firebase
 
 class ChatLogController: UICollectionViewController {
     
+    // As soon as set, the navigationItem.title is updated
+    /// User logged in
     var user: User? {
         didSet {
             navigationItem.title = user?.name
         }
     }
     
+    /// TextField to write message
     lazy var inputTextField : UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter your message"
@@ -40,7 +43,10 @@ class ChatLogController: UICollectionViewController {
         super.viewWillAppear(animated)
     }
     
-    func setInputComponents(){
+    /**
+     Function that setup layout of container for writing
+     */
+    private func setInputComponents(){
         
         // create the container
         let containerView = UIView()
@@ -83,6 +89,7 @@ class ChatLogController: UICollectionViewController {
         separatorView.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(separatorView)
+        // need x and y , width height contraints
         separatorView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         separatorView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         separatorView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
@@ -107,6 +114,12 @@ class ChatLogController: UICollectionViewController {
     }
     /**
      Function that handle send message
+     
+     A message will be stored in the node "messages" with a specific id (childRef = ref.childByAutoId())
+     
+     This reference will be then stored in other places in the node "user-messages"
+     - one to identify the sender : child(fromId)
+     - one to identify the recipeint : child(toId)
      */
     @objc func handleSend(){
         // this block to save messages
@@ -181,6 +194,7 @@ extension ChatLogController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSend()
         inputTextField.resignFirstResponder()
+        // Question : is it accurate to dismiss the VC after sending message ?
         return true
     }
 
