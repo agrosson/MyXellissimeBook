@@ -26,19 +26,60 @@ class ChatInitialViewController : UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
         
      tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
-     observeMessages()
+     // observeMessages()
+    observeUserMessages()
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
     }
+    // this observes all messages send by a single user
+    private func observeUserMessages(){
+        // get the Id of the user
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        // get the ref of list of message for this uid
+        let ref = Database.database().reference().child("user-messages").child(uid)
+        // observe the node
+        ref.observe(.childAdded, with: { (snapshot) in
+            // get the key for the message
+            let messageId = snapshot.key
+            // get the reference of the message
+            let messagesReference = Database.database().reference().child("messages").child(messageId)
+            // observe the messages for this user
+            messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let dictionary = snapshot.value as? [String : Any] else {return}
+                let message = Message()
+                guard let fromId = dictionary["fromId"] as? String else {return}
+                guard let toId =  dictionary["toId"] as? String else {return}
+                guard let text =  dictionary["text"] as? String else {return}
+                guard let timestamp =  dictionary["timestamp"] as? Int else {return}
+                message.fromId = fromId
+                message.timestamp = timestamp
+                message.toId = toId
+                message.text = text
+                
+                // get the last message for toId
+                self.messagesDictionary[toId] = message
+                // and contruct an array with the values of the dictionary
+                self.messages = Array(self.messagesDictionary.values)
+                // sort the array of message
+                self.messages.sort(by: { (message1, message2) -> Bool in
+                    
+                    guard let time1 = message1.timestamp else {return false}
+                    guard let time2 = message2.timestamp else {return false}
+                    return time1 > time2
+                })
+                DispatchQueue.main.async { self.tableView.reloadData() }
+            }, withCancel: nil)
+            
+        }, withCancel: nil)
+    }
     
+    // this obeserves all messages
     private func  observeMessages() {
-        print("hello")
        let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
         ref.observe(.childAdded, with: { snapshot in
-            print("hello 2")
             print(snapshot)
             guard let dictionary = snapshot.value as? [String : Any] else {return}
             let message = Message()
@@ -50,12 +91,11 @@ class ChatInitialViewController : UITableViewController {
              message.timestamp = timestamp
              message.toId = toId
              message.text = text
-            
-            //self.messages.append(message)
             // get the last message for toId
             self.messagesDictionary[toId] = message
             // and contruct an array with the values of the dictionary
             self.messages = Array(self.messagesDictionary.values)
+            // sort the array of message
             self.messages.sort(by: { (message1, message2) -> Bool in
                 
                 guard let time1 = message1.timestamp else {return false}
