@@ -50,6 +50,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.delegate = self
         collectionView.dataSource = self
+       
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -57,7 +58,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width)
+        let width = (view.frame.height)
         return CGSize(width: width, height: 80)
     }
     
@@ -98,7 +99,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                 self.messages.append(message)
                 print(self.messages.count)
                 // do not forget to reload data here
-                DispatchQueue.main.async {self.collectionView.reloadData()}  
+                DispatchQueue.main.async {self.collectionView.reloadData()}
             }, withCancel: nil)
             
             
