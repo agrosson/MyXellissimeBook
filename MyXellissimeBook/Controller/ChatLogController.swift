@@ -11,7 +11,7 @@ import UIKit
 import Firebase
 
 class ChatLogController: UICollectionViewController {
-    
+   
     // As soon as set, the navigationItem.title is updated
     /// User logged in
     var user: User? {

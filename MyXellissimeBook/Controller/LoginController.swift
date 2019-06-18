@@ -47,6 +47,7 @@ class LoginController: UIViewController {
         textField.placeholder = "Name"
         textField.keyboardType = UIKeyboardType.default
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.tag = 1
         return textField
     }()
     /// View as a separator between textField
@@ -62,6 +63,7 @@ class LoginController: UIViewController {
         textField.placeholder = "Email address"
         textField.keyboardType = UIKeyboardType.default
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.tag = 2
         
         return textField
     }()
@@ -81,6 +83,7 @@ class LoginController: UIViewController {
         textField.isSecureTextEntry = true
         textField.keyboardType = UIKeyboardType.default
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.tag = 3
         
         return textField
     }()
@@ -128,6 +131,9 @@ class LoginController: UIViewController {
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         view.addSubview(loginRegisteredSegmentedControl)
+        if #available(iOS 12.0, *) {
+            passwordTextField.textContentType = .oneTimeCode
+        }
         setupScreen()
     }
     // MARK: - Method viewWillAppear
@@ -320,7 +326,11 @@ class LoginController: UIViewController {
      Switch on function depending on segmented item selected
      */
     @objc private func handleLoginRegister() {
+        if #available(iOS 12.0, *) {
+            passwordTextField.textContentType = .oneTimeCode
+        }
         if loginRegisteredSegmentedControl.selectedSegmentIndex == 0 {
+            
             handleLogin()
         } else {
             handleRegister()
@@ -342,9 +352,11 @@ extension LoginController: UITextFieldDelegate {
      UITextFieldDelegate : defines how textFieldShouldReturn
      */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        nameTextField.resignFirstResponder()
-        emailTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
+        if textField.tag != 3 {
+            self.view.viewWithTag(textField.tag + 1)?.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
         return true
     }
 }

@@ -29,7 +29,6 @@ class ChatTableViewController: UITableViewController {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handelCancel))
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
-        
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
