@@ -13,7 +13,7 @@ class UserCell: UITableViewCell {
     /****************************************************************************************
      When this variable is set, it executes the block to fill the cell with accurate data
      *****************************************************************************************/
-    var messageUserCell: Message? {
+    var message: Message? {
         didSet{
             setupNameAndImageProfile()
         }
@@ -61,7 +61,16 @@ class UserCell: UITableViewCell {
     
     private func setupNameAndImageProfile() {
         
-        if let idToUse = messageUserCell?.chatPartnerId() {
+        let chatPartnerId: String?
+        
+        if message?.fromId == Auth.auth().currentUser?.uid {
+            chatPartnerId = message?.toId
+        } else {
+            chatPartnerId = message?.fromId
+        }
+        
+        
+        if let idToUse = chatPartnerId {
             let ref = Database.database().reference().child("users").child(idToUse)
             ref.observeSingleEvent(of: .value, with: { (snapShot) in
                 print(snapShot)
@@ -76,8 +85,8 @@ class UserCell: UITableViewCell {
         backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         textLabel?.textColor = .white
         detailTextLabel?.textColor = .white
-        detailTextLabel?.text = messageUserCell?.text
-        if let seconds = messageUserCell?.timestamp {
+        detailTextLabel?.text = message?.text
+        if let seconds = message?.timestamp {
             let time = Date(timeIntervalSince1970: TimeInterval(seconds))
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "hh:mm:ss a"

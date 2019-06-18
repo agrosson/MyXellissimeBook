@@ -280,7 +280,7 @@ class LoginController: UIViewController {
             /*************************
              update the title of the initialVC with new name
              **************************/
-            self.initialViewController?.setNavigationItemTitle()
+            self.initialViewController?.fetchUserAndSetupNavBarTitle()
             self.dismiss(animated: true, completion: nil)
             print("\(email) has been saved successfully signed in !")
         }

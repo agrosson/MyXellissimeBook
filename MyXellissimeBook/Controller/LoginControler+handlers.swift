@@ -135,7 +135,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         /*************************
          update the title of the initialVC with new name
          **************************/
-          self.initialViewController?.setNavigationItemTitle()
+          self.initialViewController?.fetchUserAndSetupNavBarTitle()
         /*************************
          Dismiss the view controller
          **************************/
@@ -161,7 +161,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             /*************************
              update the title of the initialVC with new name
              **************************/
-            self.initialViewController?.setNavigationItemTitle()
+            self.initialViewController?.fetchUserAndSetupNavBarTitle()
             print("\(String(describing: values["name"])) has been saved successfully in FireBase database")
         })
     }

@@ -29,14 +29,14 @@ class ChatInitialViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
-        setupScreen()
+        fetchUserAndSetupNavBarTitle()
         // Registration of the reused cell
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupScreen()
+        fetchUserAndSetupNavBarTitle()
     }
     /**
      function that observes all messages send by a single user
@@ -60,12 +60,24 @@ class ChatInitialViewController : UITableViewController {
                 guard let toId =  dictionary["toId"] as? String else {return}
                 guard let text =  dictionary["text"] as? String else {return}
                 guard let timestamp =  dictionary["timestamp"] as? Int else {return}
+                
                 message.fromId = fromId
                 message.timestamp = timestamp
                 message.toId = toId
                 message.text = text
+                let chatPartnerId: String?
+                
+                if message.fromId == Auth.auth().currentUser?.uid {
+                    chatPartnerId = message.toId
+                } else {
+                    chatPartnerId = message.fromId
+                
+                }
+                print("here is the chatpertner \(String(describing: chatPartnerId))")
+                guard let idToUse = chatPartnerId else {return}
+               
                 // get the last message for toId
-                self.messagesDictionary[toId] = message
+                self.messagesDictionary[idToUse] = message
                 // and contruct an array with the values of the dictionary
                 self.messages = Array(self.messagesDictionary.values)
                 // sort the array of messages by date
@@ -78,6 +90,27 @@ class ChatInitialViewController : UITableViewController {
                 DispatchQueue.main.async { self.tableView.reloadData() }
             }, withCancel: nil)
         }, withCancel: nil)
+    }
+    
+
+    func fetchUserAndSetupNavBarTitle(){
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        Database.database().reference().child(FirebaseUtilities.shared.users).child(uid).observeSingleEvent(of: .value) { (snapshot) in
+            if let dictionary = snapshot.value as? [String : Any] {
+                
+                let user = User()
+                
+                guard let name = dictionary["name"] as? String else {return}
+                guard let email = dictionary["email"] as? String else {return}
+                guard let profileId = dictionary["profileId"] as? String else {return}
+                
+                user.name = name
+                user.email = email
+                user.profileId = profileId
+                self.setupScreen(user: user)
+            }
+        }
     }
     
     /**
@@ -118,14 +151,14 @@ class ChatInitialViewController : UITableViewController {
     /**
      Function that setup screen
      */
-    private func setupScreen(){
+     func setupScreen(user: User){
         messages.removeAll()
         messagesDictionary.removeAll()
         tableView.reloadData()
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         observeUserMessages()
         
-        navigationItem.title = InitialViewController.titleName
+        navigationItem.title = user.name
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     @objc func handelCompose(){
@@ -176,7 +209,7 @@ class ChatInitialViewController : UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
         // Get the message from the Array
         let message = messages[indexPath.row]
-        cell.messageUserCell = message
+        cell.message = message
        
         return cell
     }

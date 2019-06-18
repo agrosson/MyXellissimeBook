@@ -48,25 +48,36 @@ class InitialViewController: UITableViewController {
      */
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-        setNavigationItemTitle()
+        fetchUserAndSetupNavBarTitle()
     }
     /**
      Function that sets title for NavBar
      */
-    func setNavigationItemTitle(){
+    func fetchUserAndSetupNavBarTitle(){
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
         Database.database().reference().child(FirebaseUtilities.shared.users).child(uid).observeSingleEvent(of: .value) { (snapshot) in
             if let dictionary = snapshot.value as? [String : Any] {
-                if let title = dictionary["name"] as? String {
-                    InitialViewController.titleName = title
-                }
-                self.navigationItem.title = InitialViewController.titleName
+                
+                let user = User()
+                
+                guard let name = dictionary["name"] as? String else {return}
+                guard let email = dictionary["email"] as? String else {return}
+                guard let profileId = dictionary["profileId"] as? String else {return}
+                
+                user.name = name
+                user.email = email
+                user.profileId = profileId
+                
+                self.setupNavBarWithUser(user: user)
                 self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
             }
         }
     }
     
+    func setupNavBarWithUser(user: User){
+        navigationItem.title = user.name
+    }
     
     // MARK: - Method  - Actions with objc functions
     /**
