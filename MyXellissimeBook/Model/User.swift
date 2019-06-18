@@ -13,6 +13,9 @@ import Foundation
  This class defines the user attributes
  */
 class User : NSObject {
+    // should we need this ?
+    // var id : String?
+    
     var name: String?
     /// Var email of the user
     var email: String?

@@ -19,6 +19,8 @@ class ChatLogController: UICollectionViewController {
             navigationItem.title = user?.name
         }
     }
+    /// Id of cell of the Collection view
+    var cellId = "cellId"
     
     /// TextField to write message
     lazy var inputTextField : UITextField = {
