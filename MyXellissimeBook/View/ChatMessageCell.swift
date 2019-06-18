@@ -26,13 +26,14 @@ class ChatMessageCell: UICollectionViewCell {
     let bubbleView: UIView = {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
-        
+        view.layer.cornerRadius = 16
+        view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     
-    
+    var bubbleWidthAnchor : NSLayoutConstraint?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,9 +43,10 @@ class ChatMessageCell: UICollectionViewCell {
         
         let width = 3*UIScreen.main.bounds.width/4
         // Contraints X Y Width height
-        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        bubbleView.widthAnchor.constraint(equalToConstant: width).isActive = true
+        bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: width)
+        bubbleWidthAnchor?.isActive = true
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
         // Contraints X Y Width height : textview is embeded in bubble with left and right anchor

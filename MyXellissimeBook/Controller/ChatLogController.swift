@@ -46,8 +46,12 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         super.viewDidLoad()
         setupScreen()
         setInputComponents()
+        // Inset from top (first bubble)
+        collectionView.contentInset.top = 8
+        // Scroll activated
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        // register the cell as a ChatMessageCell
         collectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -63,16 +67,21 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         guard let text = messages[indexPath.row].text else {
             return CGSize(width: 0, height: 0)
         }
-        let height: CGFloat = estimateFrameFor(text: text).height + 20
+        let height: CGFloat = estimateFrameFor(text: text).height + 16
         return CGSize(width: view.frame.width, height: height)
     }
     
-    
+    // MARK: - Methods
+    /**
+     Function that returns a estimated CGRect given a String
+     - Parameter text: String embeded
+     - Returns: the CGRect that embeds the string
+     */
     private func estimateFrameFor(text : String) -> CGRect {
             let width = 3*UIScreen.main.bounds.width/4
             let size = CGSize(width: width, height: 1000)
             let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        
+        // this attribute (NSAttributedString.Key.font)  is necessary
         return  NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0)], context: nil)
         
     }
@@ -84,7 +93,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
         cell.backgroundColor = .clear
-        cell.textView.text = messages[indexPath.row].text
+        
+        guard let text = messages[indexPath.row].text else {return UICollectionViewCell()}
+        cell.textView.text = text
+        cell.bubbleWidthAnchor?.constant = estimateFrameFor(text: text).width + 25
         return cell
     }
     /**
