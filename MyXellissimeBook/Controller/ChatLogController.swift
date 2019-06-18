@@ -47,7 +47,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         setupScreen()
         setInputComponents()
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.delegate = self
         collectionView.dataSource = self
        
@@ -58,17 +58,17 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.height)
+        let width = (view.frame.width)
         return CGSize(width: width, height: 80)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return messages.count
+        return messages.count + 5
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        cell.backgroundColor = .white
+        cell.backgroundColor = .clear
         return cell
     }
     /**

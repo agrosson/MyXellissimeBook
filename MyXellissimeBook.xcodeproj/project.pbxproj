@@ -14,6 +14,7 @@
 		C12C125222B3915A006A3F2C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125122B3915A006A3F2C /* Utilities.swift */; };
 		C12C125922B3D5FD006A3F2C /* LoginControler+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125822B3D5FD006A3F2C /* LoginControler+handlers.swift */; };
 		C12C125B22B40934006A3F2C /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125A22B40934006A3F2C /* UserCell.swift */; };
+		C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */; };
 		C1596ED822B6807500CBCD08 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1596ED722B6807500CBCD08 /* Message.swift */; };
 		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
 		C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5522B292C500BF01B5 /* SearchViewController.swift */; };
@@ -54,6 +55,7 @@
 		C12C125122B3915A006A3F2C /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		C12C125822B3D5FD006A3F2C /* LoginControler+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginControler+handlers.swift"; sourceTree = "<group>"; };
 		C12C125A22B40934006A3F2C /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		C1596ED722B6807500CBCD08 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInitialTabBarController.swift; sourceTree = "<group>"; };
 		C17EEF5522B292C500BF01B5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		C12C125522B3A02C006A3F2C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */,
 				C12C125A22B40934006A3F2C /* UserCell.swift */,
 			);
 			path = View;
@@ -415,6 +418,7 @@
 			files = (
 				C1A5841022B4FE1000EABEBA /* ChatLogController.swift in Sources */,
 				C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */,
+				C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */,
 				C12C125B22B40934006A3F2C /* UserCell.swift in Sources */,
 				C12C125922B3D5FD006A3F2C /* LoginControler+handlers.swift in Sources */,
 				C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */,
