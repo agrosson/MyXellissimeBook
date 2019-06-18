@@ -46,6 +46,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         super.viewDidLoad()
         setupScreen()
         setInputComponents()
+        collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         collectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.delegate = self
@@ -63,12 +64,13 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return messages.count + 5
+        return messages.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
         cell.backgroundColor = .clear
+        cell.textView.text = messages[indexPath.row].text
         return cell
     }
     /**
@@ -96,10 +98,14 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                 message.toId = toId
                 message.text = text
                 print(text)
-                self.messages.append(message)
-                print(self.messages.count)
-                // do not forget to reload data here
-                DispatchQueue.main.async {self.collectionView.reloadData()}
+                // we only show the message concerning the user
+                if message.chatPartnerId() ==  self.user?.profileId {
+                    self.messages.append(message)
+                    print(self.messages.count)
+                    // do not forget to reload data here
+                    DispatchQueue.main.async {self.collectionView.reloadData()}
+                }
+                
             }, withCancel: nil)
             
             
