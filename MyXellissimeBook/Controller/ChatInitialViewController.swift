@@ -158,7 +158,7 @@ class ChatInitialViewController : UITableViewController {
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         observeUserMessages()
         
-        navigationItem.title = user.name
+        self.navigationItem.titleView = setupNavBarWithUser(user: user)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     @objc func handelCompose(){

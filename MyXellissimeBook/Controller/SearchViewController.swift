@@ -105,21 +105,41 @@ class SearchViewController: UIViewController {
         view.addSubview(searchLabel)
         view.addSubview(inputsContainerView)
         view.addSubview(searchBookInDatabaseButton)
-        setupScreen()
+        fetchUserAndSetupNavBarTitle()
     }
     // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        setupScreen()
+        fetchUserAndSetupNavBarTitle()
     }
     
+    
+    func fetchUserAndSetupNavBarTitle(){
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        Database.database().reference().child(FirebaseUtilities.shared.users).child(uid).observeSingleEvent(of: .value) { (snapshot) in
+            if let dictionary = snapshot.value as? [String : Any] {
+                
+                let user = User()
+                
+                guard let name = dictionary["name"] as? String else {return}
+                guard let email = dictionary["email"] as? String else {return}
+                guard let profileId = dictionary["profileId"] as? String else {return}
+                
+                user.name = name
+                user.email = email
+                user.profileId = profileId
+                self.setupScreen(user: user)
+            }
+        }
+    }
     // MARK: - Methods
     /**
      Function that setup screen
      */
-    private func setupScreen(){
+    private func setupScreen(user: User){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-        navigationItem.title = InitialViewController.titleName
+        navigationItem.titleView = setupNavBarWithUser(user: user)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         gestureTapCreation()
         gestureswipeCreation()
