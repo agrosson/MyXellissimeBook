@@ -47,10 +47,10 @@ class ChatMessageCell: UICollectionViewCell {
         bubbleView.widthAnchor.constraint(equalToConstant: width).isActive = true
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
-        // Contraints X Y Width height
-        textView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        // Contraints X Y Width height : textview is embeded in bubble with left and right anchor
+        textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 5).isActive = true
         textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        textView.widthAnchor.constraint(equalToConstant: width).isActive = true
+        textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
         textView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
     }
