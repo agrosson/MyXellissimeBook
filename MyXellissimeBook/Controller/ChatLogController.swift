@@ -17,6 +17,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     var user: User? {
         didSet {
             navigationItem.title = user?.name
+            
+            observeMessages()
         }
     }
     /// Id of cell of the Collection view
@@ -62,6 +64,18 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
         cell.backgroundColor = .white
         return cell
+    }
+    /**
+     Function that fetches message for the user
+     */
+    private func observeMessages() {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        let userMessageRef = Database.database().reference().child("user-messages").child(uid)
+        userMessageRef.observe(.childAdded, with: { (snapshot) in
+            print(snapshot as Any)
+        }, withCancel: nil)
+    
     }
     /**
      Function that setup layout of container for writing

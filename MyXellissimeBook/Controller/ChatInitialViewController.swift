@@ -151,6 +151,7 @@ class ChatInitialViewController : UITableViewController {
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             print(snapshot)
              guard let dictionary = snapshot.value as? [String : Any] else {return}
+            // a user is created and in chatlogController a function is called because a user is set
             let user = User()
           
             guard let name = dictionary["name"] as? String else {return}
