@@ -24,6 +24,11 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     /// Id of cell of the Collection view
     var cellId = "cellId"
     
+    /// Array of all messages
+    var messages = [Message]()
+    /// Dictionary of last messages by users
+    var messagesDictionary = [String: Message]()
+    
     /// TextField to write message
     lazy var inputTextField : UITextField = {
         let textField = UITextField()
@@ -57,7 +62,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return messages.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -74,6 +79,29 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let userMessageRef = Database.database().reference().child("user-messages").child(uid)
         userMessageRef.observe(.childAdded, with: { (snapshot) in
             print(snapshot as Any)
+           // get the key for the message
+            let messageId = snapshot.key
+            let messagesRef = Database.database().reference().child("messages").child(messageId)
+            messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                print(snapshot as Any)
+                guard let dictionary = snapshot.value as? [String : Any] else {return}
+                let message = Message()
+                guard let fromId = dictionary["fromId"] as? String else {return}
+                guard let toId =  dictionary["toId"] as? String else {return}
+                guard let text =  dictionary["text"] as? String else {return}
+                guard let timestamp =  dictionary["timestamp"] as? Int else {return}
+                message.fromId = fromId
+                message.timestamp = timestamp
+                message.toId = toId
+                message.text = text
+                print(text)
+                self.messages.append(message)
+                print(self.messages.count)
+                // do not forget to reload data here
+                DispatchQueue.main.async {self.collectionView.reloadData()}  
+            }, withCancel: nil)
+            
+            
         }, withCancel: nil)
     
     }
