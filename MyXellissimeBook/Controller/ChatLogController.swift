@@ -48,6 +48,9 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         setInputComponents()
         // Inset from top (first bubble)
         collectionView.contentInset.top = 8
+        collectionView.contentInset.bottom = 60
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
+        
         // Scroll activated
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
@@ -70,6 +73,11 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let height: CGFloat = estimateFrameFor(text: text).height + 16
         return CGSize(width: view.frame.width, height: height)
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     
     // MARK: - Methods
     /**
@@ -217,6 +225,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
      - one to identify the recipeint : child(toId)
      */
     @objc func handleSend(){
+        
         // this block to save messages
         guard let text = inputTextField.text else {return}
         // get the sender Id
@@ -235,6 +244,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                 print(error as Any)
                 return
             }
+            // reset the textField
+            self.inputTextField.text = nil
             // create a new node fromId user
             let userMessageRef = Database.database().reference().child("user-messages").child(fromId)
             // get the key of the message

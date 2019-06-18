@@ -68,8 +68,7 @@ class UserCell: UITableViewCell {
         } else {
             chatPartnerId = message?.fromId
         }
-        
-        
+ 
         if let idToUse = chatPartnerId {
             let ref = Database.database().reference().child("users").child(idToUse)
             ref.observeSingleEvent(of: .value, with: { (snapShot) in
