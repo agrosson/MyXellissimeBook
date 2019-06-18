@@ -59,8 +59,22 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width)
-        return CGSize(width: width, height: 80)
+        
+        guard let text = messages[indexPath.row].text else {
+            return CGSize(width: 0, height: 0)
+        }
+        let height: CGFloat = estimateFrameFor(text: text).height + 20
+        return CGSize(width: view.frame.width, height: height)
+    }
+    
+    
+    private func estimateFrameFor(text : String) -> CGRect {
+            let width = 3*UIScreen.main.bounds.width/4
+            let size = CGSize(width: width, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        
+        return  NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0)], context: nil)
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
