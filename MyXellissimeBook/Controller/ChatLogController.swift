@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 
-class ChatLogController: UICollectionViewController {
+class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
    
     // As soon as set, the navigationItem.title is updated
     /// User logged in
@@ -39,12 +39,30 @@ class ChatLogController: UICollectionViewController {
         super.viewDidLoad()
         setupScreen()
         setInputComponents()
+        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (view.frame.width)
+        return CGSize(width: width, height: 80)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        cell.backgroundColor = .white
+        return cell
+    }
     /**
      Function that setup layout of container for writing
      */
