@@ -35,17 +35,14 @@ let imageCache = NSCache<AnyObject, AnyObject>()
 extension UIImageView {
     
     func loadingImageUsingCacheWithUrlString(urlString : String){
-        
         // first set nil to image to avoid brightness
         self.image = nil
-        
         // Check cache for image : if image already in cache, use this image
         if let cachedImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
             self.image = cachedImage
             return
         }
- 
-        // If image not in cache, the launch download from Firebase and store image recently downloaded in cache to reuse it later
+        // If image not in cache, launch download from Firebase and store image recently downloaded in cache to reuse it later
         var download:StorageDownloadTask!
         print("let's download")
         let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.profileImage).child("\(urlString).jpg")
@@ -120,8 +117,6 @@ func setupNavBarWithUser(user: User) -> UIView {
     nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
     nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
     
-   
- 
   return titleView
 
 }

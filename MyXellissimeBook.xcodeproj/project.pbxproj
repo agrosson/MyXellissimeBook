@@ -18,6 +18,9 @@
 		C13355C322BA1E290006D9CD /* LoanBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355C222BA1E290006D9CD /* LoanBook.swift */; };
 		C13355C522BA255E0006D9CD /* ScanMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355C422BA255E0006D9CD /* ScanMenuViewController.swift */; };
 		C13355C722BA45F20006D9CD /* ScanRunningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355C622BA45F20006D9CD /* ScanRunningViewController.swift */; };
+		C13355CA22BA68E40006D9CD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C13355C922BA68E40006D9CD /* Default-568h@2x.png */; };
+		C13355CC22BA69490006D9CD /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355CB22BA69490006D9CD /* APIKeys.swift */; };
+		C13355CE22BA6AD50006D9CD /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C13355CD22BA6AD50006D9CD /* APIKeys.plist */; };
 		C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */; };
 		C1596ED822B6807500CBCD08 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1596ED722B6807500CBCD08 /* Message.swift */; };
 		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
@@ -63,6 +66,9 @@
 		C13355C222BA1E290006D9CD /* LoanBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanBook.swift; sourceTree = "<group>"; };
 		C13355C422BA255E0006D9CD /* ScanMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanMenuViewController.swift; sourceTree = "<group>"; };
 		C13355C622BA45F20006D9CD /* ScanRunningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRunningViewController.swift; sourceTree = "<group>"; };
+		C13355C922BA68E40006D9CD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C13355CB22BA69490006D9CD /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		C13355CD22BA6AD50006D9CD /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		C1596ED722B6807500CBCD08 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInitialTabBarController.swift; sourceTree = "<group>"; };
@@ -137,9 +143,21 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		C13355C822BA68940006D9CD /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				C13355CB22BA69490006D9CD /* APIKeys.swift */,
+				C13355CD22BA6AD50006D9CD /* APIKeys.plist */,
+				C19371EB22B1005B0017E696 /* GoogleService-Info.plist */,
+				C19371E222B0FC510017E696 /* Info.plist */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
 		C19371CA22B0FC500017E696 = {
 			isa = PBXGroup;
 			children = (
+				C13355C922BA68E40006D9CD /* Default-568h@2x.png */,
 				C19371D522B0FC500017E696 /* MyXellissimeBook */,
 				C1B42B8322B140EF00982194 /* MyXellissimeBookTests */,
 				C19371D422B0FC500017E696 /* Products */,
@@ -160,6 +178,7 @@
 		C19371D522B0FC500017E696 /* MyXellissimeBook */ = {
 			isa = PBXGroup;
 			children = (
+				C13355C822BA68940006D9CD /* Supporting files */,
 				C12C125522B3A02C006A3F2C /* View */,
 				C1B42B7722B13F8700982194 /* Model */,
 				C19371E822B0FCA70017E696 /* Controller */,
@@ -167,8 +186,6 @@
 				C19371DA22B0FC500017E696 /* Main.storyboard */,
 				C19371DD22B0FC510017E696 /* Assets.xcassets */,
 				C19371DF22B0FC510017E696 /* LaunchScreen.storyboard */,
-				C19371E222B0FC510017E696 /* Info.plist */,
-				C19371EB22B1005B0017E696 /* GoogleService-Info.plist */,
 			);
 			path = MyXellissimeBook;
 			sourceTree = "<group>";
@@ -303,6 +320,8 @@
 				C19371EC22B1005B0017E696 /* GoogleService-Info.plist in Resources */,
 				C19371E122B0FC510017E696 /* LaunchScreen.storyboard in Resources */,
 				C19371DE22B0FC510017E696 /* Assets.xcassets in Resources */,
+				C13355CE22BA6AD50006D9CD /* APIKeys.plist in Resources */,
+				C13355CA22BA68E40006D9CD /* Default-568h@2x.png in Resources */,
 				C19371DC22B0FC500017E696 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,6 +447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C13355CC22BA69490006D9CD /* APIKeys.swift in Sources */,
 				C1A5841022B4FE1000EABEBA /* ChatLogController.swift in Sources */,
 				C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */,
 				C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */,
