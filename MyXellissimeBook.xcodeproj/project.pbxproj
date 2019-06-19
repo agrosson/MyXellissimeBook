@@ -22,6 +22,7 @@
 		C13355CC22BA69490006D9CD /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355CB22BA69490006D9CD /* APIKeys.swift */; };
 		C13355CE22BA6AD50006D9CD /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C13355CD22BA6AD50006D9CD /* APIKeys.plist */; };
 		C13355D022BA6BF40006D9CD /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355CF22BA6BF40006D9CD /* APIManager.swift */; };
+		C13355D222BA724A0006D9CD /* BookResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355D122BA724A0006D9CD /* BookResponse.swift */; };
 		C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */; };
 		C1596ED822B6807500CBCD08 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1596ED722B6807500CBCD08 /* Message.swift */; };
 		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
@@ -71,6 +72,7 @@
 		C13355CB22BA69490006D9CD /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		C13355CD22BA6AD50006D9CD /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		C13355CF22BA6BF40006D9CD /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		C13355D122BA724A0006D9CD /* BookResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookResponse.swift; sourceTree = "<group>"; };
 		C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		C1596ED722B6807500CBCD08 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInitialTabBarController.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				C13355CF22BA6BF40006D9CD /* APIManager.swift */,
+				C13355D122BA724A0006D9CD /* BookResponse.swift */,
 				C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */,
 				C13355C022BA1D270006D9CD /* Book.swift */,
 				C13355C222BA1E290006D9CD /* LoanBook.swift */,
@@ -473,6 +476,7 @@
 				C13355D022BA6BF40006D9CD /* APIManager.swift in Sources */,
 				C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */,
 				C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */,
+				C13355D222BA724A0006D9CD /* BookResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -89,12 +89,12 @@ extension APIManager {
 //                var bookTemp = Book(title: title,
 //                                    author: author,
 //                                    isbn: isbnEmpty)
-                var bookTemp = Book()
+                let bookTemp = Book()
                 bookTemp.title = title
                 bookTemp.author = author
                 bookTemp.isbn = isbnTemp
                 bookTemp.coverURL = coverTemp
-                bookTemp.bookEditor = editor
+                bookTemp.editor = editor
                 callBack(true, bookTemp)
             }
         }
