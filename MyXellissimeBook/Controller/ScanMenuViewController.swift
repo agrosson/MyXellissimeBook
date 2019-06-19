@@ -33,10 +33,55 @@ class ScanMenuViewController: UIViewController {
         return button
     }()
     
+    /// Container View for isbn label and export button
+    let containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        // do not forget
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    /// Scan Button
+    lazy var exportButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor.clear
+        button.setTitle("Export Isbn", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 15
+        button.layer.borderWidth = 2
+        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 30)
+        button.addTarget(self, action: #selector(exportIsbn), for: .touchUpInside)
+        return button
+    }()
+    //Label that wil display the isbn
+    let isbnLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = UIColor.clear
+        // do not forget
+        label.text = "here isbn will be displayed"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.clipsToBounds = true
+        label.font = .systemFont(ofSize: 30)
+        label.textAlignment = .center
+        label.layer.cornerRadius = 15
+        label.layer.borderWidth = 2
+        label.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        return label
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissCurrentView))
         view.addSubview(scanButton)
+        view.addSubview(containerView)
+        containerView.addSubview(exportButton)
+        containerView.addSubview(isbnLabel)
+        containerView.isHidden = false
         setupScreen()
     }
     
@@ -48,6 +93,9 @@ class ScanMenuViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setupScanButton()
+        setupContainerView()
+        setupExportButton()
+        setupIsbnLabel()
     }
     
     /**
@@ -60,10 +108,46 @@ class ScanMenuViewController: UIViewController {
         scanButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
         scanButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
+    /**
+     Function that sets up scanButton
+     */
+    private func setupContainerView(){
+        // need x and y , width height contraints
+        containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        containerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
+    }
+    /**
+     Function that sets up scanButton
+     */
+    private func setupExportButton(){
+        // need x and y , width height contraints
+        exportButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        exportButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        exportButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        exportButton.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+    }
     
+    /**
+     Function that sets up scanButton
+     */
+    private func setupIsbnLabel(){
+        // need x and y , width height contraints
+        isbnLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        isbnLabel.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        isbnLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        isbnLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+    }
     
-    
-    
+    /**
+     Function that launches the scan process
+     */
+    @objc func exportIsbn(){
+        print("isbn is exported !!")
+        self.dismiss(animated: true, completion: nil)
+    }
+
     /**
      Function that launches the scan process
      */

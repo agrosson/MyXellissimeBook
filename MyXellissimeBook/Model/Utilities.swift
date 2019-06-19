@@ -72,6 +72,14 @@ extension UIImageView {
         
     }
 }
+
+// Global properties :
+    /// This string to be used when user scan a new isbn
+    var scannedIsbn = ""
+
+// Global function
+
+
 func setupNavBarWithUser(user: User) -> UIView {
 
     let titleView = UIView()

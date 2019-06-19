@@ -17,7 +17,7 @@ import Firebase
 class SearchViewController: UIViewController {
     
     // MARK: - Outlets and properties
-    /// Container View for inputs for books
+    /// Label to explain what to do
     let searchLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.clear
