@@ -15,7 +15,7 @@ class ScanRunningViewController: UIViewController, AVCaptureMetadataOutputObject
     var codeToDisplay = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissCurrentView))
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
@@ -93,5 +93,11 @@ class ScanRunningViewController: UIViewController, AVCaptureMetadataOutputObject
     }
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
+    }
+    /**
+     Function that dismiss the view
+     */
+    @objc private func dismissCurrentView(){
+        self.dismiss(animated: true, completion: nil)
     }
 }

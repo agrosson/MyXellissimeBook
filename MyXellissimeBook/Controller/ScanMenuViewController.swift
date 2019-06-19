@@ -83,9 +83,30 @@ class ScanMenuViewController: UIViewController {
         containerView.addSubview(isbnLabel)
         containerView.isHidden = false
         setupScreen()
+        switchDisplay()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        switchDisplay()
     }
     
     // MARK: - Methods
+    
+    
+    private func switchDisplay() {
+        if scannedIsbn == "" {
+            containerView.isHidden = true
+            scanButton.isHidden = false
+        } else {
+            containerView.isHidden = false
+            scanButton.isHidden = true
+        }
+        print("scan isbn is in didload : \(scannedIsbn)")
+        isbnLabel.text = "Isbn number: \(scannedIsbn)"
+        scannedIsbn = ""
+    }
+    
     /**
      Function that setup screen
      */
@@ -153,6 +174,9 @@ class ScanMenuViewController: UIViewController {
      */
     @objc func scanIsbn(){
         print("scan will start here !!")
+        let scanRunningViewController = UINavigationController(rootViewController: ScanRunningViewController())
+        present(scanRunningViewController, animated: true, completion: nil)
+        
     } /**
      Function that dismiss the view
      */
