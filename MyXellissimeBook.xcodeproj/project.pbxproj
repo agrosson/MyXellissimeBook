@@ -16,6 +16,7 @@
 		C12C125B22B40934006A3F2C /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125A22B40934006A3F2C /* UserCell.swift */; };
 		C13355C122BA1D270006D9CD /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355C022BA1D270006D9CD /* Book.swift */; };
 		C13355C322BA1E290006D9CD /* LoanBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355C222BA1E290006D9CD /* LoanBook.swift */; };
+		C13355C522BA255E0006D9CD /* ScanMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355C422BA255E0006D9CD /* ScanMenuViewController.swift */; };
 		C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */; };
 		C1596ED822B6807500CBCD08 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1596ED722B6807500CBCD08 /* Message.swift */; };
 		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
@@ -59,6 +60,7 @@
 		C12C125A22B40934006A3F2C /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		C13355C022BA1D270006D9CD /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		C13355C222BA1E290006D9CD /* LoanBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanBook.swift; sourceTree = "<group>"; };
+		C13355C422BA255E0006D9CD /* ScanMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanMenuViewController.swift; sourceTree = "<group>"; };
 		C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		C1596ED722B6807500CBCD08 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInitialTabBarController.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				C19371E922B0FD070017E696 /* LoginController.swift */,
 				C12C125822B3D5FD006A3F2C /* LoginControler+handlers.swift */,
 				C12C124D22B37469006A3F2C /* AddBookViewController.swift */,
+				C13355C422BA255E0006D9CD /* ScanMenuViewController.swift */,
 				C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */,
 			);
 			path = Controller;
@@ -426,6 +429,7 @@
 				C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */,
 				C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */,
 				C12C125B22B40934006A3F2C /* UserCell.swift in Sources */,
+				C13355C522BA255E0006D9CD /* ScanMenuViewController.swift in Sources */,
 				C12C125922B3D5FD006A3F2C /* LoginControler+handlers.swift in Sources */,
 				C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */,
 				C12C125222B3915A006A3F2C /* Utilities.swift in Sources */,

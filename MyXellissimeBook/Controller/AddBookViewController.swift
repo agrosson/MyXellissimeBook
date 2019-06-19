@@ -26,6 +26,7 @@ class AddBookViewController: UIViewController {
         button.layer.borderWidth = 2
         button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 20)
         button.addTarget(self, action: #selector(scanIsbn), for: .touchUpInside)
         return button
     }()
@@ -41,6 +42,7 @@ class AddBookViewController: UIViewController {
         button.layer.borderWidth = 2
         button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 20)
         button.addTarget(self, action: #selector(addManually), for: .touchUpInside)
         return button
     }()
@@ -100,6 +102,8 @@ class AddBookViewController: UIViewController {
     
     @objc private func scanIsbn(){
         print("go to scan")
+        let scanMenuViewController = UINavigationController(rootViewController: ScanMenuViewController())
+        present(scanMenuViewController, animated: true, completion: nil)
     }
     
     /**
