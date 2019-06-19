@@ -17,7 +17,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     var user: User? {
         didSet {
             navigationItem.title = user?.name
-            
             observeMessages()
         }
     }
@@ -113,12 +112,12 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     private func observeMessages() {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
-        let userMessageRef = Database.database().reference().child("user-messages").child(uid)
+        let userMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(uid)
         userMessageRef.observe(.childAdded, with: { (snapshot) in
             print(snapshot as Any)
            // get the key for the message
             let messageId = snapshot.key
-            let messagesRef = Database.database().reference().child("messages").child(messageId)
+            let messagesRef = Database.database().reference().child(FirebaseUtilities.shared.messages).child(messageId)
             messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
                 print(snapshot as Any)
                 guard let dictionary = snapshot.value as? [String : Any] else {return}
@@ -230,33 +229,14 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         guard let text = inputTextField.text else {return}
         // get the sender Id
         guard let fromId = Auth.auth().currentUser?.uid else {return}
-        let ref = Database.database().reference().child("messages")
-        /// unique reference for the message
-        let childRef = ref.childByAutoId()
-        /// get the recipient Id
-        guard let toId = user?.profileId else {return}
-        let timestamp = Int(NSDate().timeIntervalSince1970)
-        // Create a dictionary of values to save
-        let values = ["text" : text, "toId" : toId, "fromId" : fromId, "timestamp" : timestamp] as [String : Any]
-        // this block to save the message and then also make a reference and store the reference of message in antoher node
-        childRef.updateChildValues(values) { (error, ref) in
-            if error != nil {
-                print(error as Any)
-                return
-            }
-            // reset the textField
-            self.inputTextField.text = nil
-            // create a new node fromId user
-            let userMessageRef = Database.database().reference().child("user-messages").child(fromId)
-            // get the key of the message
-            let messageId = childRef.key
-            // store the  message here for the fromId user
-            userMessageRef.updateChildValues([messageId : 1])
-            // create a new node toId user
-            let recipientUserMessageRef = Database.database().reference().child("user-messages").child(toId)
-            // store the key message here for the toId user
-            recipientUserMessageRef.updateChildValues([messageId : 1])
-        }
+        
+        guard let user = user else {return}
+        
+        FirebaseUtilities.saveMessage(text: text, fromId : fromId, toUser: user)
+        
+        // reset the textField
+        self.inputTextField.text = nil
+
     }
     
     /**
