@@ -26,5 +26,7 @@ class Book: NSObject {
     var isbn: String?
     /// Boolean that tracks if book is available for loan or not
     var isAvailable: Bool?
+    /// Url as a string of downloaded cover image from API
+    var coverURL: String?
 }
 
