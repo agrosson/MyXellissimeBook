@@ -9,7 +9,10 @@
 import Foundation
 import Firebase
 
-
+// MARK: - Book class
+/**
+ This class defines the book attributes
+ */
 class Book: NSObject {
     /// Unique Id of the book = give by ChildByAutoId from Firebase
     var uniqueId: String?

@@ -9,7 +9,10 @@
 import Foundation
 import Firebase
 
-
+// MARK: - LoanBook class
+/**
+ This class defines the loan attributes
+ */
 class LoanBook: NSObject {
     /// Reference of the loan
     var uniqueLoanBookId: String?
