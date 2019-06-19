@@ -24,6 +24,7 @@ class FirebaseUtilities {
     let user_messages = "user-messages"
     let user_books = "user-books"
     let books = "books"
+    let coverImage = "coverImage"
     
     
     var name = ""
@@ -106,4 +107,48 @@ class FirebaseUtilities {
             userBookRef.updateChildValues([bookId : 1])
         }
     }
+    
+    /*******************************************************
+     This function saves a cover image in firebase Storage:
+     ********************************************************/
+    static func saveCoverImage(coverImage: UIImage, isbn: String){
+        // test the size in byte of the image
+        let imageDataTest = coverImage.jpegData(compressionQuality: 1)
+        guard let imageSize = imageDataTest?.count else {return}
+        var imageDataToUpload = Data()
+        if imageSize > 1000000 {
+            guard let imageData = coverImage.jpegData(compressionQuality: 0.5) else {return}
+            imageDataToUpload = imageData
+        }
+        if  100000...1000000 ~= imageSize {
+            guard let imageData = coverImage.jpegData(compressionQuality: 0.7) else {return}
+            imageDataToUpload = imageData
+        }
+        if  imageSize < 100000 {
+            guard let imageData = coverImage.jpegData(compressionQuality: 0.7) else {return}
+            imageDataToUpload = imageData
+        }
+        // Create a Storage reference with the coverImage
+        let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.coverImage).child("\(isbn).jpg")
+        // Create a Storage Metadata
+        let uploadMetadata = StorageMetadata()
+        // Describe the type of image stored in FireStorage
+        uploadMetadata.contentType = "image/jpeg"
+        // Create the upload task
+        let uploadTask = storageRef.putData(imageDataToUpload, metadata: uploadMetadata) { (metada, error) in
+            if error != nil {
+                print("i received an error \(error?.localizedDescription ?? "error but no description")")
+            }   else {
+                print("up load complete, here some metadata \(String(describing: metada))")
+            }
+        }
+        uploadTask.observe(.progress) { (snapshot) in
+            guard let progress = snapshot.progress else {
+                print("No progress for the snapshot")
+                return}
+            print("end of progress?? ")
+            print(progress.fractionCompleted)
+        }
+        uploadTask.resume()
+    }    
 }

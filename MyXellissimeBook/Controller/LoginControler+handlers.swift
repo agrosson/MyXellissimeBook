@@ -130,7 +130,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                 print(progress.fractionCompleted)
             }
             uploadTask.resume()
-     //      InitialViewController.titleName = name
         }
         /*************************
          update the title of the initialVC with new name

@@ -6,6 +6,7 @@
 //  Copyright © 2019 GROSSON. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import Firebase
 
@@ -239,7 +240,7 @@ class AddManuallyViewController: UIViewController {
                                                 self.bookTitleTextField.text = book.title
                                                 self.bookAuthorTextField.text = book.author
                                                 self.bookToSave = book
-                                                 self.isSearchIndicator(shown: false)
+                                                self.isSearchIndicator(shown: false)
                                             } else {
                                                 print("Failure : the book has not been found in our databases")
                                                 // Alert.shared.controller = self
@@ -371,7 +372,7 @@ class AddManuallyViewController: UIViewController {
         bookTitleTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: 0).isActive = true
         bookTitleTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         bookTitleTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3).isActive = true
-      
+        
         
         // need x and y , width height contraints for bookTitleSeparatorView
         bookTitleSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
@@ -447,8 +448,24 @@ class AddManuallyViewController: UIViewController {
         print("up load in database")
         isSaveIndicator(shown: true)
         guard let myBookToSave = bookToSave else {return}
+        if bookToSave?.isbn == nil || bookToSave?.isbn == "" {
+            bookToSave?.isbn = UUID().uuidString
+        }
         guard let uid = Auth.auth().currentUser?.uid else {return}
         FirebaseUtilities.saveBook(book: myBookToSave, fromUserId: uid)
+        // if there is no cover image, this will be the image
+        var dataAsImage = UIImage(named: "default") ?? UIImage()
+        if let coverUrl = bookToSave?.coverURL {
+            if let url = URL(string: coverUrl) {
+                if  let data = try? Data(contentsOf: url) {
+                    if let datatest = UIImage(data: data) {
+                        dataAsImage = datatest
+                    }
+                }
+            }
+        }
+        guard let isbnToSave = bookToSave?.isbn else { return }
+        FirebaseUtilities.saveCoverImage(coverImage: dataAsImage, isbn: isbnToSave)
     }
     /**
      Action for tap and Swipe Gesture Recognizer
@@ -461,7 +478,7 @@ class AddManuallyViewController: UIViewController {
 }
 // MARK: - Extensions   UITextFieldDelegate
 extension AddManuallyViewController: UITextFieldDelegate {
-
+    
     /**
      UITextFieldDelegate : defines how textFieldShouldReturn
      */
