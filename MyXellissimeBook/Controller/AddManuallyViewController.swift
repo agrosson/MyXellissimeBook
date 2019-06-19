@@ -119,7 +119,7 @@ class AddManuallyViewController: UIViewController {
         button.layer.borderWidth = 2
         button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.addTarget(self, action: #selector(addBookInFireBase), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addAndSaveBookInFireBase), for: .touchUpInside)
         return button
     }()
     
@@ -443,10 +443,12 @@ class AddManuallyViewController: UIViewController {
         googleBookCall()
         isSearchIndicator(shown: true)
     }
-    @objc private func addBookInFireBase(){
+    @objc private func addAndSaveBookInFireBase(){
         print("up load in database")
         isSaveIndicator(shown: true)
-        
+        guard let myBookToSave = bookToSave else {return}
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        FirebaseUtilities.saveBook(book: myBookToSave, fromUserId: uid)
     }
     /**
      Action for tap and Swipe Gesture Recognizer

@@ -23,6 +23,7 @@ class FirebaseUtilities {
     let messages = "messages"
     let user_messages = "user-messages"
     let user_books = "user-books"
+    let books = "books"
     
     
     var name = ""
@@ -51,7 +52,10 @@ class FirebaseUtilities {
         guard let toId = toUser.profileId else {return}
         let timestamp = Int(NSDate().timeIntervalSince1970)
         // Create a dictionary of values to save
-        let values = ["text" : text, "toId" : toId, "fromId" : fromId, "timestamp" : timestamp] as [String : Any]
+        let values = ["text" : text,
+                      "toId" : toId,
+                      "fromId" : fromId,
+                      "timestamp" : timestamp] as [String : Any]
         // this block to save the message and then also make a reference and store the reference of message in antoher node
         childRef.updateChildValues(values) { (error, ref) in
             if error != nil {
@@ -70,5 +74,36 @@ class FirebaseUtilities {
             recipientUserMessageRef.updateChildValues([messageId : 1])
         }
     }
+    
+    /*******************************************************
+     This function saves a book in firebase:
+     
+     Before saving, gather book atrributes and user Id
+     ********************************************************/
+    static func saveBook(book: Book, fromUserId : String){
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.books)
+        /// unique reference for the book
+        let childRef = ref.childByAutoId()
+        //Create the dictionary of value to save
+        let values = ["uniqueId" : childRef.key,
+                      "title": book.title ?? "no title",
+                      "author": book.author ?? "no author",
+                      "editor": book.editor ?? "unknown",
+                      "isbn": book.isbn ?? "no isbn",
+                      "isAvailable" : false,
+                      "coverURL" : book.coverURL ?? "no url"] as [String : Any]
+        // this block to save the message and then also make a reference and store the reference of message in antoher node
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            // create a new node fromId user
+            let userBookRef = Database.database().reference().child(FirebaseUtilities.shared.user_books).child(fromUserId)
+            // get the key of the message
+            let bookId = childRef.key
+            // store the  message here for the fromId user
+            userBookRef.updateChildValues([bookId : 1])
+        }
+    }
 }
-
