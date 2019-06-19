@@ -15,6 +15,7 @@ class ScanRunningViewController: UIViewController, AVCaptureMetadataOutputObject
     var codeToDisplay = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        scannedIsbn = ""
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissCurrentView))
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()

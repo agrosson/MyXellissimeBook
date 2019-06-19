@@ -57,8 +57,8 @@ class ScanMenuViewController: UIViewController {
         return button
     }()
     //Label that wil display the isbn
-    let isbnLabel: UILabel = {
-        let label = UILabel()
+    let isbnLabel: CustomLabel = {
+        let label = CustomLabel()
         label.backgroundColor = UIColor.clear
         // do not forget
         label.text = "here isbn will be displayed"
@@ -70,6 +70,8 @@ class ScanMenuViewController: UIViewController {
         label.layer.borderWidth = 2
         label.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        label.adjustsFontSizeToFitWidth = true
+        label.contentScaleFactor = 0.5
         return label
     }()
     
@@ -104,7 +106,7 @@ class ScanMenuViewController: UIViewController {
         }
         print("scan isbn is in didload : \(scannedIsbn)")
         isbnLabel.text = "Isbn number: \(scannedIsbn)"
-        scannedIsbn = ""
+      //  scannedIsbn = ""
     }
     
     /**
@@ -166,7 +168,9 @@ class ScanMenuViewController: UIViewController {
      */
     @objc func exportIsbn(){
         print("isbn is exported !!")
-        self.dismiss(animated: true, completion: nil)
+      //  self.dismiss(animated: true, completion: nil)
+        let addManuallyViewController = UINavigationController(rootViewController: AddManuallyViewController())
+        present(addManuallyViewController, animated: true, completion: nil)
     }
 
     /**

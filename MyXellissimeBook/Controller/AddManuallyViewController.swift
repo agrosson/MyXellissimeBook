@@ -125,6 +125,9 @@ class AddManuallyViewController: UIViewController {
         gestureTapCreation()
         gestureswipeCreation()
         manageTextField()
+        if scannedIsbn != "" {
+            bookIsbnTextField.text = scannedIsbn
+        }
     }
     /**
      Function that creates a tap Gesture Recognizer
