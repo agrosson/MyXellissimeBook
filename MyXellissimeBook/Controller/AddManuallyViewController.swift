@@ -17,6 +17,10 @@ import Firebase
 class AddManuallyViewController: UIViewController {
     
     // MARK: - Outlets and properties
+    
+    /// Book to save on FireBase
+    var bookToSave: Book?
+    
     /// Container View for inputs for books
     let inputsContainerView: UIView = {
         let view = UIView()
@@ -135,6 +139,130 @@ class AddManuallyViewController: UIViewController {
         super.viewWillAppear(animated)
         setupScreen()
     }
+    
+    
+    // MARK: Methods API Request
+    /**
+     Function to get book information from GoogleBooks API
+     */
+    private func googleBookCall() {
+        // This to ensure that no data remains in the object
+        bookToSave = Book()
+        // Get the isbn from the user (typed in textfield)
+        guard var isbnFromTextField = bookIsbnTextField.text else {
+            // Todo: Alert to show
+            return
+        }
+        // Remove inaccurate whitespaces
+        isbnFromTextField.removeFirstAndLastAndDoubleWhitespace()
+        let api = GoogleBookAPI(isbn: isbnFromTextField)
+        guard let fullUrl = api.googleBookFullUrl else {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .googleBookAPIProblemWithUrl
+            return
+        }
+        let method = api.httpMethod
+        let googleCall = APIManager.shared
+        googleCall.getBookInfo(fullUrl: fullUrl, method: method, isbn: api.isbn, callBack: { (_, bookresult) in
+            if let book = bookresult {
+                self.bookTitleTextField.text = book.title
+                self.bookAuthorTextField.text = book.author
+                self.bookToSave = book
+                self.isSearchIndicator(shown: false)
+            } else {
+                print("Failure : try openLibrary")
+                self.openLibraryCall()
+            }
+        })
+    }
+    /**
+     Function to get book information from Open Library API
+     */
+    private func openLibraryCall() {
+        // This to ensure that no data remains in the object
+        bookToSave = Book()
+        // Get the isbn from the user (typed in textfield)
+        guard var isbnFromTextField = bookIsbnTextField.text else {
+            //todo: alert to show
+            return
+        }
+        isbnFromTextField.removeFirstAndLastAndDoubleWhitespace()
+        let api = OpenLibraryAPI(isbn: isbnFromTextField)
+        guard let fullUrl = api.openlibraryFullUrl else {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .googleBookAPIProblemWithUrl
+            return
+        }
+        let method = api.httpMethod
+        let openLibraryCall = APIManager.shared
+        openLibraryCall.getBookInfoOpenLibrary(fullUrl: fullUrl,
+                                               method: method,
+                                               isbn: api.isbn,
+                                               callBack: { (_, bookresult) in
+                                                if let book = bookresult {
+                                                    self.bookIsbnTextField.text = book.title
+                                                    self.bookAuthorTextField.text = book.author
+                                                    self.bookToSave = book
+                                                    self.isSearchIndicator(shown: false)
+                                                } else {
+                                                    print("Failure : try GoodREads")
+                                                    self.goodReadsCall()
+                                                }
+        })
+    }
+    /**
+     Function to get book information from GoodReads API
+     */
+    private func goodReadsCall() {
+        // This to ensure that no data remains in the object
+        bookToSave = Book()
+        // Get the isbn from the user (typed in textfield)
+        guard var isbnFromTextField = bookIsbnTextField.text else {
+            //todo: alert to show
+            return
+        }
+        isbnFromTextField.removeFirstAndLastAndDoubleWhitespace()
+        let api = GoodReadsAPI(isbn: isbnFromTextField)
+        guard  let fullUrl = api.goodReadsFullUrl
+            else {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .googleBookAPIProblemWithUrl
+                return
+        }
+        let method = api.httpMethod
+        let goodReadsCall = APIManager.shared
+        goodReadsCall.getBookInfoGoodReads(fullUrl: fullUrl,
+                                           method: method,
+                                           isbn: api.isbn,
+                                           callBack: { (_, bookresult) in
+                                            if let book = bookresult {
+                                                self.bookTitleTextField.text = book.title
+                                                self.bookAuthorTextField.text = book.author
+                                                self.bookToSave = book
+                                                 self.isSearchIndicator(shown: false)
+                                            } else {
+                                                print("Failure : the book has not been found in our databases")
+                                                // Alert.shared.controller = self
+                                                // Alert.shared.alertDisplay = .bookDidNotFindAResult
+                                                let actionSheet = UIAlertController(title: "Sorry",
+                                                                                    message: "No book found in databases",
+                                                                                    preferredStyle: .alert)
+                                                actionSheet.addAction(UIAlertAction(title: "Add Manually",
+                                                                                    style: .default,
+                                                                                    handler: { (_: UIAlertAction) in
+                                                                                        self.dismiss(animated: true)
+                                                }))
+                                                actionSheet.addAction(UIAlertAction(title: "Cancel",
+                                                                                    style: .default,
+                                                                                    handler: { (_: UIAlertAction) in
+                                                                                        self.dismiss(animated: true)
+                                                }))
+                                                self.present(actionSheet, animated: true, completion: nil)
+                                            }
+        })
+    }
+    
+    
     
     // MARK: - Methods
     /**
@@ -278,25 +406,46 @@ class AddManuallyViewController: UIViewController {
         bookAuthorTextField.delegate = self
         bookIsbnTextField.delegate = self
     }
+    /**
+     Function that manages search in API activity indicator
+     */
     
+    private func isSearchIndicator(shown: Bool){
+        if shown {
+            indicatorSearch.startAnimating()
+            searchBookWithApiButton.isEnabled = false
+        } else {
+            indicatorSearch.stopAnimating()
+            searchBookWithApiButton.isEnabled = true
+            scannedIsbn = ""
+        }
+    }
+    /**
+     Function that manages save in Firebase activity indicator
+     */
+    
+    private func isSaveIndicator(shown: Bool){
+        if shown {
+            indicatorSave.startAnimating()
+            addBookInFirebaseButton.isEnabled = false
+        } else {
+            indicatorSave.stopAnimating()
+            addBookInFirebaseButton.isEnabled = true
+        }
+    }
     
     // MARK: - Methods @objc - Actions
     @objc private func dismissCurrentView(){
         self.dismiss(animated: true, completion: nil)
     }
     @objc private func searchBook(){
-        indicatorSearch.startAnimating()
-        searchBookWithApiButton.isEnabled = false
         print("launch search on APIs")
-        indicatorSave.stopAnimating()
-        addBookInFirebaseButton.isEnabled = true
+        googleBookCall()
+        isSearchIndicator(shown: true)
     }
     @objc private func addBookInFireBase(){
         print("up load in database")
-        indicatorSearch.stopAnimating()
-        searchBookWithApiButton.isEnabled = true
-        indicatorSave.startAnimating()
-        addBookInFirebaseButton.isEnabled = false
+        isSaveIndicator(shown: true)
         
     }
     /**

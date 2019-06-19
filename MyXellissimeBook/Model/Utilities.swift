@@ -121,8 +121,32 @@ func setupNavBarWithUser(user: User) -> UIView {
 
 }
 
+/**
+ This class enables to have insets in labels
+ */
 class CustomLabel: UILabel{
     override func drawText(in rect: CGRect) {
         super.drawText(in: rect.inset(by: UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)))
+    }
+}
+
+/**
+ This extension enables to remove inaccurate whitespace
+ */
+extension String {
+    mutating func removeFirstAndLastAndDoubleWhitespace() {
+        var newString = self
+        repeat {
+            if newString.last == " " || newString.last == "\""{
+                newString = String(newString.dropLast())
+            }
+            if newString.first == " " || newString.first == "\""{
+                newString = String(newString.dropFirst())
+            }
+        }
+            while newString.first == " " || newString.last == " " || newString.last == "\"" || newString.first == "\""
+        repeat { newString = newString.replacingOccurrences(of: "  ", with: " ")
+        } while newString.contains("  ")
+        self =  newString
     }
 }
