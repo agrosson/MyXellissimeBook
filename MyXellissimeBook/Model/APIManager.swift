@@ -144,7 +144,7 @@ extension APIManager {
                     }
                 }
                 // create a Book object if all tests satisfied with the data retrieved
-                var bookTemp = Book()
+                let bookTemp = Book()
                 bookTemp.title = title
                 bookTemp.author = author
                 bookTemp.isbn = firstItem

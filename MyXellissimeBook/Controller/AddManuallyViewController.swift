@@ -81,6 +81,29 @@ class AddManuallyViewController: UIViewController {
         button.addTarget(self, action: #selector(searchBook), for: .touchUpInside)
         return button
     }()
+    
+    // create ActivityIndicatorView
+    /// ActivityIndicatorView on searchBookWithApiButton when API research is sent
+    let indicatorSearch: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.color = UIColor.white
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.isHidden = false
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
+    // create ActivityIndicatorView
+    /// ActivityIndicatorView on addBookInFirebaseButton when book is saved in Firebase
+    let indicatorSave: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.color = UIColor.white
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.isHidden = false
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
     // create button
     /// Add book in Firebase database
     lazy var addBookInFirebaseButton : UIButton = {
@@ -102,6 +125,8 @@ class AddManuallyViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissCurrentView))
         view.addSubview(inputsContainerView)
         view.addSubview(searchBookWithApiButton)
+        view.addSubview(indicatorSearch)
+        view.addSubview(indicatorSave)
         view.addSubview(addBookInFirebaseButton)
         setupScreen()
     }
@@ -120,7 +145,7 @@ class AddManuallyViewController: UIViewController {
         navigationItem.title = InitialViewController.titleName
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setupInputsContrainerView()
-        setupssearchBookWithApiButton()
+        setupSearchBookWithApiButton()
         setupaddBookInFirebaseButton()
         gestureTapCreation()
         gestureswipeCreation()
@@ -128,6 +153,8 @@ class AddManuallyViewController: UIViewController {
         if scannedIsbn != "" {
             bookIsbnTextField.text = scannedIsbn
         }
+        setupIndicatorSearch()
+        setupIndicatorSave()
     }
     /**
      Function that creates a tap Gesture Recognizer
@@ -150,13 +177,36 @@ class AddManuallyViewController: UIViewController {
     /**
      Function that sets up addWithScanButton
      */
-    private func setupssearchBookWithApiButton(){
+    private func setupSearchBookWithApiButton(){
         // need x and y , width height contraints
         searchBookWithApiButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         searchBookWithApiButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 30).isActive = true
         searchBookWithApiButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         searchBookWithApiButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
+    
+    /**
+     Function that sets up addWithScanButton
+     */
+    private func setupIndicatorSearch(){
+        // need x and y , width height contraints
+        indicatorSearch.centerXAnchor.constraint(equalTo: searchBookWithApiButton.centerXAnchor).isActive = true
+        indicatorSearch.centerYAnchor.constraint(equalTo: searchBookWithApiButton.centerYAnchor).isActive = true
+        indicatorSearch.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        indicatorSearch.widthAnchor.constraint(equalToConstant: 45).isActive = true
+    }
+    
+    /**
+     Function that sets up addWithScanButton
+     */
+    private func setupIndicatorSave(){
+        // need x and y , width height contraints
+        indicatorSave.centerXAnchor.constraint(equalTo: addBookInFirebaseButton.centerXAnchor).isActive = true
+        indicatorSave.centerYAnchor.constraint(equalTo: addBookInFirebaseButton.centerYAnchor).isActive = true
+        indicatorSave.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        indicatorSave.widthAnchor.constraint(equalToConstant: 45).isActive = true
+    }
+    
     
     /**
      Function that sets up addWithScanButton
@@ -235,10 +285,19 @@ class AddManuallyViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @objc private func searchBook(){
+        indicatorSearch.startAnimating()
+        searchBookWithApiButton.isEnabled = false
         print("launch search on APIs")
+        indicatorSave.stopAnimating()
+        addBookInFirebaseButton.isEnabled = true
     }
     @objc private func addBookInFireBase(){
         print("up load in database")
+        indicatorSearch.stopAnimating()
+        searchBookWithApiButton.isEnabled = true
+        indicatorSave.startAnimating()
+        addBookInFirebaseButton.isEnabled = false
+        
     }
     /**
      Action for tap and Swipe Gesture Recognizer
