@@ -1,0 +1,81 @@
+{
+    "kind": "books#volumes",
+    "totalItems": 1,
+    "items": [
+        {
+            "kind": "books#volume",
+            "id": "6F23jb9BKGYC",
+            "etag": "0lVB8HAN3+4",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/6F23jb9BKGYC",
+            "volumeInfo": {
+                "title": "Wonder",
+                "authors": [
+                    "R. J. Palacio"
+                ],
+                "publisher": "Random House",
+                "publishedDate": "2013",
+                "description": "Soon to be a major film starring Julia Roberts, Owen Wilson and Jacob Tremblay. 'My name is August. I won't describe what I look like. Whatever you're thinking, it's probably worse.' Auggie wants to be an ordinary ten-year-old. He does ordinary things - eating ice cream, playing on his Xbox. He feels ordinary - inside. But ordinary kids don't make other ordinary kids run away screaming in playgrounds. Ordinary kids aren't stared at wherever they go. Born with a terrible facial abnormality, Auggie has been home-schooled by his parents his whole life. Now, for the first time, he's being sent to a real school - and he's dreading it. All he wants is to be accepted - but can he convince his new classmates that he's just like them, underneath it all? WONDER is a funny, frank, astonishingly moving debut to read in one sitting, pass on to others, and remember long after the final page.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9780552565974"
+                    },
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "0552565970"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "pageCount": 315,
+                "printType": "BOOK",
+                "categories": [
+                    "Abnormalities, Human"
+                ],
+                "averageRating": 4.5,
+                "ratingsCount": 2994,
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "0.610.2.0.preview.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=6F23jb9BKGYC&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=6F23jb9BKGYC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+                },
+                "language": "en",
+                "previewLink": "http://books.google.fr/books?id=6F23jb9BKGYC&dq=isbn:9780552565974&hl=&as_pt=BOOKS&cd=1&source=gbs_api",
+                "infoLink": "http://books.google.fr/books?id=6F23jb9BKGYC&dq=isbn:9780552565974&hl=&as_pt=BOOKS&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/Wonder.html?hl=&id=6F23jb9BKGYC"
+            },
+            "saleInfo": {
+                "country": "FR",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "FR",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=6F23jb9BKGYC&hl=&as_pt=BOOKS&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "WONDER is a funny, frank, astonishingly moving debut to read in one sitting, pass on to others, and remember long after the final page."
+            }
+        }
+    ]
+}
