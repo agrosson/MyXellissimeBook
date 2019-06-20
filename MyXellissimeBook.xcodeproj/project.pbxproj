@@ -11,6 +11,7 @@
 		C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */; };
 		C116190122BB8080005BC226 /* GoodReads.xml in Resources */ = {isa = PBXBuildFile; fileRef = C116190022BB8080005BC226 /* GoodReads.xml */; };
 		C116190322BB8646005BC226 /* GoogleBooks.json in Resources */ = {isa = PBXBuildFile; fileRef = C116190222BB8646005BC226 /* GoogleBooks.json */; };
+		C116190522BB986E005BC226 /* OpenLibrary.json in Resources */ = {isa = PBXBuildFile; fileRef = C116190422BB986E005BC226 /* OpenLibrary.json */; };
 		C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124D22B37469006A3F2C /* AddBookViewController.swift */; };
 		C12C125022B3839D006A3F2C /* AddManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */; };
 		C12C125222B3915A006A3F2C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125122B3915A006A3F2C /* Utilities.swift */; };
@@ -68,6 +69,7 @@
 		C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtilities.swift; sourceTree = "<group>"; };
 		C116190022BB8080005BC226 /* GoodReads.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = GoodReads.xml; sourceTree = "<group>"; };
 		C116190222BB8646005BC226 /* GoogleBooks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GoogleBooks.json; sourceTree = "<group>"; };
+		C116190422BB986E005BC226 /* OpenLibrary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenLibrary.json; sourceTree = "<group>"; };
 		C12C124D22B37469006A3F2C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManuallyViewController.swift; sourceTree = "<group>"; };
 		C12C125122B3915A006A3F2C /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				C1B42B8C22B1412000982194 /* UserTest.swift */,
 				C116190022BB8080005BC226 /* GoodReads.xml */,
 				C116190222BB8646005BC226 /* GoogleBooks.json */,
+				C116190422BB986E005BC226 /* OpenLibrary.json */,
 			);
 			path = MyXellissimeBookTests;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C116190122BB8080005BC226 /* GoodReads.xml in Resources */,
+				C116190522BB986E005BC226 /* OpenLibrary.json in Resources */,
 				C116190322BB8646005BC226 /* GoogleBooks.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

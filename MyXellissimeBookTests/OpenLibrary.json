@@ -1,0 +1,57 @@
+{
+    "ISBN:9782070377220": {
+        "publishers": [
+            {
+                "name": "Gallimard"
+            }
+        ],
+        "pagination": "113 p. ;",
+        "identifiers": {
+            "openlibrary": [
+                "OL18172476M"
+            ],
+            "isbn_10": [
+                "2070377229"
+            ],
+            "librarything": [
+                "258182"
+            ],
+            "goodreads": [
+                "399264"
+            ]
+        },
+        "title": "La place",
+        "url": "https://openlibrary.org/books/OL18172476M/La_place",
+        "number_of_pages": 113,
+        "subject_places": [
+            {
+                "url": "https://openlibrary.org/subjects/place:france",
+                "name": "France"
+            }
+        ],
+        "subjects": [
+            {
+                "url": "https://openlibrary.org/subjects/fiction",
+                "name": "Fiction"
+            },
+            {
+                "url": "https://openlibrary.org/subjects/fathers_and_daughters",
+                "name": "Fathers and daughters"
+            }
+        ],
+        "publish_date": "1983",
+        "key": "/books/OL18172476M",
+        "authors": [
+            {
+                "url": "https://openlibrary.org/authors/OL29466A/Annie_Ernaux",
+                "name": "Annie Ernaux"
+            }
+        ],
+        "by_statement": "Annie Ernaux.",
+        "publish_places": [
+            {
+                "name": "[Paris]"
+            }
+        ]
+    }
+}
