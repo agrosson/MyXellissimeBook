@@ -201,7 +201,7 @@ class AddManuallyViewController: UIViewController {
                                                isbn: api.isbn,
                                                callBack: { (_, bookresult) in
                                                 if let book = bookresult {
-                                                    self.bookIsbnTextField.text = book.title
+                                                    self.bookTitleTextField.text = book.title
                                                     self.bookAuthorTextField.text = book.author
                                                     self.bookToSave = book
                                                     self.isSearchIndicator(shown: false)

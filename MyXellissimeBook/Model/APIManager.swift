@@ -128,9 +128,6 @@ extension APIManager {
                 guard let author = openLibraryResponse.authors?.first?.name else {callBack(false, nil);return}
                 // test if there is a book editor
                 guard let editor = openLibraryResponse.publishers?.first?.name else {callBack(false, nil);return}
-                // test if there is a book isbn
-                guard let tempIsbn = openLibraryResponse.identifiers?["isbn_13"] else {callBack(false, nil);return}
-                guard let firstItem = tempIsbn.first else {callBack(false, nil);return}
                 // test there is an url cover as a tring
                 var coverTemp = ""
                 if let coverMedium = openLibraryResponse.cover?.medium {
@@ -148,7 +145,8 @@ extension APIManager {
                 let bookTemp = Book()
                 bookTemp.title = title
                 bookTemp.author = author
-                bookTemp.isbn = firstItem
+                // bookTemp.isbn = firstItem
+                bookTemp.isbn = isbn
                 bookTemp.coverURL = coverTemp
                 bookTemp.editor = editor
                 callBack(true, bookTemp)
