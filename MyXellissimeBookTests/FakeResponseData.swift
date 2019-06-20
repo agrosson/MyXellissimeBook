@@ -39,7 +39,7 @@ class FakeResponseData {
         return try! Data(contentsOf: url)
     }
     // Creation of an incorrect datas
-    static let goodReadsIncorrectData = "It's a goodReads error".data(using: .utf8)!
-    static let googleBooksIncorrectData = "It's a googleBooks error".data(using: .utf8)!
-    static let openLibraryIncorrectData = "It's a openLibrary error".data(using: .utf8)!
+    static let goodReadsIncorrectData = "It's a goodReads error".data(using: .utf8)
+    static let googleBooksIncorrectData = "It's a googleBooks error".data(using: .utf8)
+    static let openLibraryIncorrectData = "It's a openLibrary error".data(using: .utf8)
 }

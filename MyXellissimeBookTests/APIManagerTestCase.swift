@@ -12,7 +12,10 @@ import XCTest
 
 class APIManagerTestCase: XCTestCase {
 
-    // Block for testing GoogleBooks API
+   
+    /*******************************************************
+     Block for testing GoogleBooks API
+     ********************************************************/
     func testGoogleBooksShouldPostFailedCallbackIfError() {
         // Given
         let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error:FakeResponseData.error),
@@ -30,8 +33,8 @@ class APIManagerTestCase: XCTestCase {
     
     func testGoogleBooksShouldPostFailedCallbackIfnoData() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: FakeResponseData.responseOK, error: nil  ),
+        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: FakeResponseData.responseOK, error: nil),
+                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil  ),
                                      getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfo(fullUrl: URL(string: "nil")!, method: "nil", isbn: "nil", callBack:  { (success, book) in
@@ -41,59 +44,75 @@ class APIManagerTestCase: XCTestCase {
         })
         wait(for: [expectation], timeout: 0.01)
     }
-    /*
-    func testTranslateShouldPostFailedCallbackIfResponseKO() {
+ 
+    func testGoogleBooksShouldPostFailedCallbackIfResponseKO() {
         // Given
-        let networkManager = APIManager(changeSession: URLSessionFake(data: nil, response: nil, error: nil),
-                                            translateSession: URLSessionFake(data: FakeNetworkResponseData.translateCorrectData, response: FakeNetworkResponseData.responseKO, error: nil ),
-                                            weatherSession: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: FakeResponseData.googleBooksIncorrectData, response: nil, error: nil),
+                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil  ),
+                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
         
         // When
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
-        networkManager.translate(fullUrl: URL(string: "nil")!, method: "nil", body: "nil", callBack: { (success, text) in
-            // Then
+        let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
+        apiManager.getBookInfo(fullUrl: URL(string: "nil")!, method: "nil", isbn: "nil", callBack:  { (success, book) in
             XCTAssertFalse(success)
-            XCTAssertNil(text)
+            XCTAssertNil(book)
             expectation.fulfill()
         })
         wait(for: [expectation], timeout: 0.01)
     }
     
-    func testTranslateShouldPostFailedCallbackIfResponseOKNoErrorDataIncorrect() {
+    func testGoogleBooksShouldPostFailedCallbackIfResponseOKNoErrorDataIncorrect() {
         // Given
-        let networkManager = APIManager(changeSession: URLSessionFake(data: nil, response: nil, error: nil),
-                                            translateSession: URLSessionFake(data: FakeNetworkResponseData.translateIncorrectData, response: FakeNetworkResponseData.responseOK, error: nil ),
-                                            weatherSession: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: FakeResponseData.googleBooksIncorrectData, response: FakeResponseData.responseOK, error: nil),
+                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil  ),
+                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
         
         // When
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
-        networkManager.translate(fullUrl: URL(string: "nil")!, method: "nil", body: "nil", callBack: { (success, text) in
-            // Then
+        let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
+        apiManager.getBookInfo(fullUrl: URL(string: "nil")!, method: "nil", isbn: "nil", callBack:  { (success, book) in
             XCTAssertFalse(success)
-            XCTAssertNil(text)
+            XCTAssertNil(book)
             expectation.fulfill()
         })
         wait(for: [expectation], timeout: 0.01)
+
     }
-    
+
     func testTranslateShouldPassCallbackIfCorrectDataAndNoError() {
         // Given
-        let networkManager = APIManager(changeSession: URLSessionFake(data: nil, response: nil, error: nil),
-                                            translateSession: URLSessionFake(data: FakeNetworkResponseData.translateCorrectData, response: FakeNetworkResponseData.responseOK, error: nil),
-                                            weatherSession: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: FakeResponseData.googleBooksCorrectData, response: FakeResponseData.responseOK, error: nil),
+                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil  ),
+                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
         
         // When
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
-        networkManager.translate(fullUrl: URL(string: "nil")!, method: "nil", body: "nil", callBack: { (success, text) in
-            // Then
-            let textToCheck = "I believe that victory is near"
+        let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
+        apiManager.getBookInfo(fullUrl: URL(string: "nil")!, method: "nil", isbn: "9780552565974", callBack:  { (success, book) in
             XCTAssertTrue(success)
-            XCTAssertEqual(text!, textToCheck)
+            XCTAssertNotNil(book)
             expectation.fulfill()
         })
         wait(for: [expectation], timeout: 0.01)
+        
+        
+        
+//
+//
+//        let networkManager = APIManager(changeSession: URLSessionFake(data: nil, response: nil, error: nil),
+//                                            translateSession: URLSessionFake(data: FakeNetworkResponseData.translateCorrectData, response: FakeNetworkResponseData.responseOK, error: nil),
+//                                            weatherSession: URLSessionFake(data: nil, response: nil, error: nil))
+//
+//        // When
+//        let expectation = XCTestExpectation(description: "Wait for queue change.")
+//        networkManager.translate(fullUrl: URL(string: "nil")!, method: "nil", body: "nil", callBack: { (success, text) in
+//            // Then
+//            let textToCheck = "I believe that victory is near"
+//            XCTAssertTrue(success)
+//            XCTAssertEqual(text!, textToCheck)
+//            expectation.fulfill()
+//        })
+//        wait(for: [expectation], timeout: 0.01)
     }
-    
+    /*
     // Code for testing Change
     func testChangeShouldPostFailedCallbackIfError() {
         // Given
