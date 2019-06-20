@@ -454,12 +454,17 @@ class AddManuallyViewController: UIViewController {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         FirebaseUtilities.saveBook(book: myBookToSave, fromUserId: uid)
         // if there is no cover image, this will be the image
-        var dataAsImage = UIImage(named: "default") ?? UIImage()
-        if let coverUrl = bookToSave?.coverURL {
-            if let url = URL(string: coverUrl) {
-                if  let data = try? Data(contentsOf: url) {
-                    if let datatest = UIImage(data: data) {
-                        dataAsImage = datatest
+        var dataAsImage = UIImage(named: "profileDefault") ?? UIImage()
+        if bookToSave?.coverURL?.contains("nophoto") ?? true {
+            bookToSave?.coverURL = ""
+        }
+        if bookToSave?.coverURL != "" {
+            if let coverUrl = bookToSave?.coverURL {
+                if let url = URL(string: coverUrl) {
+                    if  let data = try? Data(contentsOf: url) {
+                        if let datatest = UIImage(data: data) {
+                            dataAsImage = datatest
+                        }
                     }
                 }
             }
