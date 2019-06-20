@@ -7,6 +7,8 @@
 //
 
 import XCTest
+@testable import MyXellissimeBook
+@testable import FirebaseCore
 
 class MyXellissimeBookTests: XCTestCase {
 

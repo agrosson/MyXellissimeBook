@@ -21,7 +21,7 @@ class UserTest: XCTestCase {
     }
 
     func testIfUserExists() {
-        let user = User(name: "Nom", email: "email")
+        let user = User()
         XCTAssertNotNil(user)
     }
     

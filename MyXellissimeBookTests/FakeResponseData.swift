@@ -5,8 +5,10 @@
 //  Created by ALEXANDRE GROSSON on 20/06/2019.
 //  Copyright © 2019 GROSSON. All rights reserved.
 //
-
+import XCTest
 import Foundation
+@testable import MyXellissimeBook
+@testable import FirebaseCore
 
 class FakeResponseData {
     
@@ -14,8 +16,8 @@ class FakeResponseData {
     static let responseOK = HTTPURLResponse(url: URL(string: "aURL")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
     // instance of response KO - statusCode not 200
     static let responseKO = HTTPURLResponse(url: URL(string: "aURL")!, statusCode: 500, httpVersion: nil, headerFields: nil)!
-    // Creation of an error
     
+    // Creation of an error - Error is a protocol not an class
     class NetworkError: Error {}
     static let error = NetworkError()
     // Retrieve correct datas to test for each API
