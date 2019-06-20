@@ -164,10 +164,10 @@ extension APIManager {
         print(fullUrl)
         request.httpMethod = method
         task?.cancel()
-        let task = getBookInfoGoodReads.dataTask(with: request) { (datagoodreads, response, error) in
+        let task = getBookInfoGoodReads.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
                 // test there are some datas and there is not error
-                guard let data = datagoodreads, error == nil else {callBack(false, nil);return}
+                guard let data = data, error == nil else {callBack(false, nil);return}
                 // test if response ok is ok (statusCode is 200)
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200
                     else {callBack(false, nil);return}
