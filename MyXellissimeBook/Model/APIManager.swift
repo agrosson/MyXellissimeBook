@@ -41,6 +41,7 @@ class APIManager {
 extension APIManager {
     func getBookInfo(fullUrl: URL, method: String, isbn: String, callBack: @escaping (Bool, Book?) -> Void) {
         var request = URLRequest(url: fullUrl)
+        print(fullUrl)
         request.httpMethod = method
         task?.cancel()
         let task = getBooKInfoFromGoogleBooks.dataTask(with: request) { (data, response, error) in
@@ -162,6 +163,7 @@ extension APIManager {
                               isbn: String,
                               callBack: @escaping (Bool, Book?) -> Void) {
         var request = URLRequest(url: fullUrl)
+        print(fullUrl)
         request.httpMethod = method
         task?.cancel()
         let task = getBookInfoGoodReads.dataTask(with: request) { (datagoodreads, response, error) in

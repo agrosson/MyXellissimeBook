@@ -84,7 +84,9 @@ class FirebaseUtilities {
     static func saveBook(book: Book, fromUserId : String){
         let ref = Database.database().reference().child(FirebaseUtilities.shared.books)
         /// unique reference for the book
-        let childRef = ref.childByAutoId()
+        guard let isbnForUniqueRefBok = book.isbn else {return}
+        let uniqueRefForBook = "\(fromUserId)\(isbnForUniqueRefBok)"
+        let childRef = ref.child(uniqueRefForBook)
         //Create the dictionary of value to save
         let values = ["uniqueId" : childRef.key,
                       "title": book.title ?? "no title",
