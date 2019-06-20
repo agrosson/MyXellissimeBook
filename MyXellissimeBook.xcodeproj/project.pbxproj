@@ -15,6 +15,9 @@
 		C116190722BB9AFE005BC226 /* FakeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116190622BB9AFE005BC226 /* FakeResponseData.swift */; };
 		C116190922BBB21E005BC226 /* URLSessionFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116190822BBB21E005BC226 /* URLSessionFake.swift */; };
 		C116190B22BBB64A005BC226 /* APIManagerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116190A22BBB64A005BC226 /* APIManagerTestCase.swift */; };
+		C116190D22BBDDCD005BC226 /* BookTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116190C22BBDDCD005BC226 /* BookTestCase.swift */; };
+		C116190F22BBE0AD005BC226 /* UtilitiesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116190E22BBE0AD005BC226 /* UtilitiesTestCase.swift */; };
+		C116191122BBE12A005BC226 /* MessageTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116191022BBE12A005BC226 /* MessageTestCase.swift */; };
 		C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124D22B37469006A3F2C /* AddBookViewController.swift */; };
 		C12C125022B3839D006A3F2C /* AddManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */; };
 		C12C125222B3915A006A3F2C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125122B3915A006A3F2C /* Utilities.swift */; };
@@ -76,6 +79,9 @@
 		C116190622BB9AFE005BC226 /* FakeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponseData.swift; sourceTree = "<group>"; };
 		C116190822BBB21E005BC226 /* URLSessionFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionFake.swift; sourceTree = "<group>"; };
 		C116190A22BBB64A005BC226 /* APIManagerTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManagerTestCase.swift; sourceTree = "<group>"; };
+		C116190C22BBDDCD005BC226 /* BookTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTestCase.swift; sourceTree = "<group>"; };
+		C116190E22BBE0AD005BC226 /* UtilitiesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTestCase.swift; sourceTree = "<group>"; };
+		C116191022BBE12A005BC226 /* MessageTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTestCase.swift; sourceTree = "<group>"; };
 		C12C124D22B37469006A3F2C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManuallyViewController.swift; sourceTree = "<group>"; };
 		C12C125122B3915A006A3F2C /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -258,6 +264,8 @@
 		C1B42B8322B140EF00982194 /* MyXellissimeBookTests */ = {
 			isa = PBXGroup;
 			children = (
+				C116191022BBE12A005BC226 /* MessageTestCase.swift */,
+				C116190E22BBE0AD005BC226 /* UtilitiesTestCase.swift */,
 				C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */,
 				C1B42B8622B140EF00982194 /* Info.plist */,
 				C1B42B8C22B1412000982194 /* UserTest.swift */,
@@ -267,6 +275,7 @@
 				C116190622BB9AFE005BC226 /* FakeResponseData.swift */,
 				C116190822BBB21E005BC226 /* URLSessionFake.swift */,
 				C116190A22BBB64A005BC226 /* APIManagerTestCase.swift */,
+				C116190C22BBDDCD005BC226 /* BookTestCase.swift */,
 			);
 			path = MyXellissimeBookTests;
 			sourceTree = "<group>";
@@ -525,6 +534,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C116190F22BBE0AD005BC226 /* UtilitiesTestCase.swift in Sources */,
+				C116191122BBE12A005BC226 /* MessageTestCase.swift in Sources */,
+				C116190D22BBDDCD005BC226 /* BookTestCase.swift in Sources */,
 				C1B42B8D22B1412000982194 /* UserTest.swift in Sources */,
 				C116190922BBB21E005BC226 /* URLSessionFake.swift in Sources */,
 				C1B42B8522B140EF00982194 /* MyXellissimeBookTests.swift in Sources */,

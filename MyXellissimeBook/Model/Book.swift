@@ -28,5 +28,7 @@ class Book: NSObject {
     var isAvailable: Bool?
     /// Url as a string of downloaded cover image from API
     var coverURL: String?
+    
+    override init(){}
 }
 

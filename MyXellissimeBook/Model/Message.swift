@@ -16,6 +16,8 @@ class Message: NSObject {
     var toId: String?
     var timestamp: Int?
     
+    
+    override init(){}
     // MARK: - Methods
     /**
      Function that defines the partner id of the current user
