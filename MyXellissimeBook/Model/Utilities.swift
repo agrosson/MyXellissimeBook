@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 import Firebase
 
+/*
+<div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"                 title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"                 title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+*/
 
 extension UIViewController {
     
@@ -24,11 +27,11 @@ extension UIViewController {
 }
 
 
-let imageCache = NSCache<AnyObject, AnyObject>()
+
 
 // MARK: - extension UIImageView
 
-
+let imageCache = NSCache<AnyObject, AnyObject>()
 /*******************************************************
  This extension manages cache when loading profile images
  ********************************************************/
@@ -69,6 +72,51 @@ extension UIImageView {
         
     }
 }
+
+let coverCache = NSCache<AnyObject, AnyObject>()
+/*******************************************************
+ This extension manages cache when loading book cover images
+ ********************************************************/
+extension UIImageView {
+    
+    func loadingCoverImageUsingCacheWithisbnString(isbnString : String){
+        // first set nil to image to avoid brightness
+        self.image = nil
+        // Check cache for image : if image already in cache, use this image
+        if let cachedImage = coverCache.object(forKey: isbnString as AnyObject) as? UIImage {
+            self.image = cachedImage
+            return
+        }
+        // If image not in cache, launch download from Firebase and store image recently downloaded in cache to reuse it later
+        var download:StorageDownloadTask!
+        print("let's download")
+        let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.coverImage).child("\(isbnString).jpg")
+        DispatchQueue.main.async {
+            print("let's be inside")
+            download = storageRef.getData(maxSize: 1024*1024*5, completion:  { (data, error) in
+                print("let's be inside download")
+                guard let data = data else {
+                    print("no data here")
+                    return
+                }
+                if error != nil {
+                    print("error here : \(error.debugDescription)")
+                }
+                print("download succeeded !")
+                if let downloadedImage = UIImage(data: data) {
+                    coverCache.setObject(downloadedImage, forKey: isbnString as AnyObject)
+                    self.image = downloadedImage
+                }
+                
+                download.resume()
+            })
+        }
+        
+    }
+}
+
+
+
 
 // Global properties :
     /// This string to be used when user scan a new isbn

@@ -15,9 +15,57 @@ import Firebase
 /**
  This class defines the InitialViewController
  */
-class InitialViewController: UITableViewController {
+class InitialViewController: UIViewController {
    
     static var titleName = ""
+   
+    // MARK: - Properties
+    // create button
+    /// Button to show list of user's books
+    lazy var showUserBooksButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor.clear
+        button.setTitle("My list of books", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 15
+        button.layer.borderWidth = 2
+        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 25)
+        button.addTarget(self, action: #selector(showUserBooks), for: .touchUpInside)
+        return button
+    }()
+    
+    // create button
+    /// Button to show list of user's books that are lent
+    lazy var showUserBooksLentButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor.clear
+        button.setTitle("Show my books lent", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 15
+        button.layer.borderWidth = 2
+        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 25)
+        button.addTarget(self, action: #selector(showUserBooksLent), for: .touchUpInside)
+        return button
+    }()
+    // create button
+    /// Button to show list of user's books that are lent
+    lazy var showUserBooksBorrowedButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor.clear
+        button.setTitle("Show books I've borrowed", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 15
+        button.layer.borderWidth = 2
+        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 25)
+        button.addTarget(self, action: #selector(showBooksUserBorrowed), for: .touchUpInside)
+        return button
+    }()
     
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
@@ -49,6 +97,45 @@ class InitialViewController: UITableViewController {
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         fetchUserAndSetupNavBarTitle()
+        view.addSubview(showUserBooksLentButton)
+        view.addSubview(showUserBooksButton)
+        view.addSubview(showUserBooksBorrowedButton)
+        setupShowUserBooksLentButton()
+        setupShowUserBooksButton()
+        setupShowUserBooksBorrowedButton()
+       
+
+    }
+    /**
+     Function that sets up showUserBooksLentButton
+     */
+    private func setupShowUserBooksLentButton(){
+        // need x and y , width height contraints
+        showUserBooksLentButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        showUserBooksLentButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        showUserBooksLentButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        showUserBooksLentButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
+    }
+    /**
+     Function that sets up showUserBooksButton
+     */
+    private func setupShowUserBooksButton(){
+        // need x and y , width height contraints
+        showUserBooksButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        showUserBooksButton.bottomAnchor.constraint(equalTo: showUserBooksLentButton.topAnchor, constant: -25).isActive = true
+        showUserBooksButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        showUserBooksButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
+    }
+    
+    /**
+     Function that sets up showUserBooksBorrowedButton
+     */
+    private func setupShowUserBooksBorrowedButton(){
+        // need x and y , width height contraints
+        showUserBooksBorrowedButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        showUserBooksBorrowedButton.topAnchor.constraint(equalTo: showUserBooksLentButton.bottomAnchor, constant: 25).isActive = true
+        showUserBooksBorrowedButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        showUserBooksBorrowedButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
     /**
      Function that sets title for NavBar
@@ -83,11 +170,7 @@ class InitialViewController: UITableViewController {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        
-        
         titleView.addSubview(containerView)
-        
-      
         
         let profileImageView = UIImageView()
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -154,6 +237,28 @@ class InitialViewController: UITableViewController {
         let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
         present(addBookViewController, animated: true, completion: nil)
     }
-    
-    
+    /**
+     Action that shows the list of user's books when showUserBooksButton is clicked
+     */
+    @objc func showUserBooks() {
+        print("You will see the list of user's books")
+        // present listOfUserBooksViewController
+    }
+
+    /**
+     Action that shows the list of user's books which are lent when showUserBooksLentButton is clicked
+     */
+    @objc func showUserBooksLent() {
+        print("You will see the list of user's books that are lent")
+        // present listOfUserBooksLentViewController
+        
+    }
+    /**
+     Action that shows the list of books that user has borrowed when showUserBooksBorrowedButton is clicked
+     */
+    @objc func showBooksUserBorrowed() {
+        print("You will see the list of books that user has borrowed")
+        // present listOfUserBooksBorrowedViewController
+        
+    }
 }
