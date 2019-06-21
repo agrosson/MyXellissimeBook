@@ -172,5 +172,34 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         }
         uploadTask.resume()
     }
+    /**
+     Function that handles Login
+     */
+    func handleLoginWithProfileUpdate(update: Bool){
+        // Get info from textField
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            //Todo an alert to be done
+            print("Should create an alert because loggin items not completed")
+            return
+        }
+        // Connect to Firebase Auth
+        Auth.auth().signIn(withEmail: email, password: password) { (resultSignIn, errorSignIn) in
+            if errorSignIn != nil {
+                print("Should create an alert because loggin items are false")
+                return
+            }
+            /*************************
+             update the title of the initialVC with new name
+             **************************/
+            if update == true {
+                if let uid = Auth.auth().currentUser?.uid {
+                    self.saveProfileImageForUser(uid:uid )
+                }
+            }
+            self.initialViewController?.fetchUserAndSetupNavBarTitle()
+            self.dismiss(animated: true, completion: nil)
+            print("\(email) has been  successfully logged in !")
+        }
+    }
 }
 

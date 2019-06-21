@@ -13,6 +13,10 @@ class DetailAvailableBookViewController: UIViewController {
     var bookToDisplay: Book?
     let screenHeight = UIScreen.main.bounds.height
     
+    
+    /*******************************************************
+                        UI variables: Start
+     ********************************************************/
     /// Cover of the book
     let bookCoverImageView: UIImageView = {
         let imageView = UIImageView()
@@ -53,8 +57,9 @@ class DetailAvailableBookViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    
+    /*******************************************************
+                        UI variables: End
+     ********************************************************/
     
     override func viewDidLoad() {
         super.viewDidLoad()

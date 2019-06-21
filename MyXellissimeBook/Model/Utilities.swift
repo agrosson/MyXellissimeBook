@@ -198,3 +198,12 @@ extension String {
         self =  newString
     }
 }
+// MARK: - Extensions
+/**
+ Initializer for UIColor
+ */
+extension UIColor {
+    convenience init(myRed: CGFloat, myGreen: CGFloat, myBlue: CGFloat){
+        self.init(red: myRed/255, green: myGreen, blue: myBlue, alpha : 1)
+    }
+}

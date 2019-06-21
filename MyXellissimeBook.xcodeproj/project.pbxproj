@@ -42,6 +42,7 @@
 		C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */; };
 		C1596ED822B6807500CBCD08 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1596ED722B6807500CBCD08 /* Message.swift */; };
 		C15D2B2022BD256300B621E8 /* DetailAvailableBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */; };
+		C15D2B2222BD495B00B621E8 /* LoginController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15D2B2122BD495B00B621E8 /* LoginController+setupScreen.swift */; };
 		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
 		C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5522B292C500BF01B5 /* SearchViewController.swift */; };
 		C17EEF5822B2934100BF01B5 /* ChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */; };
@@ -109,6 +110,7 @@
 		C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		C1596ED722B6807500CBCD08 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAvailableBookViewController.swift; sourceTree = "<group>"; };
+		C15D2B2122BD495B00B621E8 /* LoginController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+setupScreen.swift"; sourceTree = "<group>"; };
 		C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInitialTabBarController.swift; sourceTree = "<group>"; };
 		C17EEF5522B292C500BF01B5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				C19371E922B0FD070017E696 /* LoginController.swift */,
+				C15D2B2122BD495B00B621E8 /* LoginController+setupScreen.swift */,
 				C12C125822B3D5FD006A3F2C /* LoginControler+handlers.swift */,
 			);
 			path = LogIn;
@@ -565,6 +568,7 @@
 				C13355C122BA1D270006D9CD /* Book.swift in Sources */,
 				C1596ED822B6807500CBCD08 /* Message.swift in Sources */,
 				C13355C322BA1E290006D9CD /* LoanBook.swift in Sources */,
+				C15D2B2222BD495B00B621E8 /* LoginController+setupScreen.swift in Sources */,
 				C13355D022BA6BF40006D9CD /* APIManager.swift in Sources */,
 				C13355D422BA787D0006D9CD /* BookOpenLibraryResponse.swift in Sources */,
 				C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */,
