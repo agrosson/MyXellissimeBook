@@ -20,10 +20,48 @@ class DetailAvailableBookViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
+    /// Title label for the book
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 30)
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.center
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    /// Author label for the book
+    let authorLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 25)
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    /// Editor label for the book
+    let editorLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 25)
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.center
+        label.numberOfLines = 2
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(bookCoverImageView)
+        view.addSubview(titleLabel)
+        view.addSubview(authorLabel)
+        view.addSubview(editorLabel)
         setupScreen()
     }
     
@@ -33,6 +71,9 @@ class DetailAvailableBookViewController: UIViewController {
              bookCoverImageView.loadingCoverImageUsingCacheWithisbnString(isbnString: isbn)
         }
         setupBookCoverImageView()
+        setupTitleLabel()
+        setupAuthorLabel()
+        setupEditorLabel()
     }
     
     /**
@@ -47,6 +88,37 @@ class DetailAvailableBookViewController: UIViewController {
         bookCoverImageView.heightAnchor.constraint(equalToConstant: height).isActive = true
         bookCoverImageView.widthAnchor.constraint(equalToConstant :width).isActive = true
     }
-    
-
+    /**
+     Function that sets up titleLabel
+     */
+    private func setupTitleLabel(){
+        titleLabel.text = bookToDisplay?.title
+        // need x and y , width height contraints
+        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: bookCoverImageView.bottomAnchor, constant: 50).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
+    }
+    /**
+     Function that sets up authorLabel
+     */
+    private func setupAuthorLabel(){
+        authorLabel.text = bookToDisplay?.author
+        // need x and y , width height contraints
+        authorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
+        authorLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        authorLabel.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
+    }
+    /**
+     Function that sets up editorLabel
+     */
+    private func setupEditorLabel(){
+        editorLabel.text = bookToDisplay?.editor
+        // need x and y , width height contraints
+        editorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        editorLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 20).isActive = true
+        editorLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        editorLabel.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
+    }
 }
