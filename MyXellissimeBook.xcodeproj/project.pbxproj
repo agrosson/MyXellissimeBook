@@ -41,6 +41,7 @@
 		C13355DC22BA88E90006D9CD /* GoodReadsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355DB22BA88E90006D9CD /* GoodReadsAPI.swift */; };
 		C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */; };
 		C1596ED822B6807500CBCD08 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1596ED722B6807500CBCD08 /* Message.swift */; };
+		C15D2B2022BD256300B621E8 /* DetailAvailableBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */; };
 		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
 		C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5522B292C500BF01B5 /* SearchViewController.swift */; };
 		C17EEF5822B2934100BF01B5 /* ChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */; };
@@ -107,6 +108,7 @@
 		C13355DB22BA88E90006D9CD /* GoodReadsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodReadsAPI.swift; sourceTree = "<group>"; };
 		C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		C1596ED722B6807500CBCD08 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAvailableBookViewController.swift; sourceTree = "<group>"; };
 		C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInitialTabBarController.swift; sourceTree = "<group>"; };
 		C17EEF5522B292C500BF01B5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				C100899522BCCB6100D3497E /* UserBooksTableViewController.swift */,
+				C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */,
 				C12C124D22B37469006A3F2C /* AddBookViewController.swift */,
 				C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */,
 				C13355C422BA255E0006D9CD /* ScanMenuViewController.swift */,
@@ -535,6 +538,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C15D2B2022BD256300B621E8 /* DetailAvailableBookViewController.swift in Sources */,
 				C13355DA22BA87C30006D9CD /* OpenLibraryAPI.swift in Sources */,
 				C100899422BCAEB700D3497E /* UserBookCell.swift in Sources */,
 				C13355CC22BA69490006D9CD /* APIKeys.swift in Sources */,

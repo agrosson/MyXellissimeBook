@@ -105,6 +105,16 @@ class UserBooksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+            let book = books[indexPath.row]
+        showDetailAvailableBookViewControllerForBook(book: book)
+        
+    }
+    
+    func showDetailAvailableBookViewControllerForBook(book: Book){
+        let detailAvailableBookViewController = DetailAvailableBookViewController()
+        detailAvailableBookViewController.bookToDisplay = book
+        navigationController?.pushViewController(detailAvailableBookViewController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

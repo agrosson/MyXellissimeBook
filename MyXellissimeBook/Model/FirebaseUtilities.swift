@@ -122,12 +122,16 @@ class FirebaseUtilities {
             guard let imageData = coverImage.jpegData(compressionQuality: 0.5) else {return}
             imageDataToUpload = imageData
         }
-        if  100000...1000000 ~= imageSize {
-            guard let imageData = coverImage.jpegData(compressionQuality: 0.7) else {return}
+        if  500000...1000000 ~= imageSize {
+            guard let imageData = coverImage.jpegData(compressionQuality: 0.70) else {return}
+            imageDataToUpload = imageData
+        }
+        if  100000...500001 ~= imageSize {
+            guard let imageData = coverImage.jpegData(compressionQuality: 0.8) else {return}
             imageDataToUpload = imageData
         }
         if  imageSize < 100000 {
-            guard let imageData = coverImage.jpegData(compressionQuality: 0.7) else {return}
+            guard let imageData = coverImage.jpegData(compressionQuality: 1) else {return}
             imageDataToUpload = imageData
         }
         // Create a Storage reference with the coverImage
