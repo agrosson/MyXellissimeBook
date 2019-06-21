@@ -30,7 +30,6 @@
 		C13355C322BA1E290006D9CD /* LoanBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355C222BA1E290006D9CD /* LoanBook.swift */; };
 		C13355C522BA255E0006D9CD /* ScanMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355C422BA255E0006D9CD /* ScanMenuViewController.swift */; };
 		C13355C722BA45F20006D9CD /* ScanRunningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355C622BA45F20006D9CD /* ScanRunningViewController.swift */; };
-		C13355CA22BA68E40006D9CD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C13355C922BA68E40006D9CD /* Default-568h@2x.png */; };
 		C13355CC22BA69490006D9CD /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355CB22BA69490006D9CD /* APIKeys.swift */; };
 		C13355CE22BA6AD50006D9CD /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C13355CD22BA6AD50006D9CD /* APIKeys.plist */; };
 		C13355D022BA6BF40006D9CD /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355CF22BA6BF40006D9CD /* APIManager.swift */; };
@@ -97,7 +96,6 @@
 		C13355C222BA1E290006D9CD /* LoanBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanBook.swift; sourceTree = "<group>"; };
 		C13355C422BA255E0006D9CD /* ScanMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanMenuViewController.swift; sourceTree = "<group>"; };
 		C13355C622BA45F20006D9CD /* ScanRunningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRunningViewController.swift; sourceTree = "<group>"; };
-		C13355C922BA68E40006D9CD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C13355CB22BA69490006D9CD /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		C13355CD22BA6AD50006D9CD /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		C13355CF22BA6BF40006D9CD /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 		C19371CA22B0FC500017E696 = {
 			isa = PBXGroup;
 			children = (
-				C13355C922BA68E40006D9CD /* Default-568h@2x.png */,
 				C19371D522B0FC500017E696 /* MyXellissimeBook */,
 				C1B42B8322B140EF00982194 /* MyXellissimeBookTests */,
 				C19371D422B0FC500017E696 /* Products */,
@@ -410,7 +407,6 @@
 				C19371E122B0FC510017E696 /* LaunchScreen.storyboard in Resources */,
 				C19371DE22B0FC510017E696 /* Assets.xcassets in Resources */,
 				C13355CE22BA6AD50006D9CD /* APIKeys.plist in Resources */,
-				C13355CA22BA68E40006D9CD /* Default-568h@2x.png in Resources */,
 				C19371DC22B0FC500017E696 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
