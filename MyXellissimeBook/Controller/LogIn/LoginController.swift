@@ -280,9 +280,12 @@ class LoginController: UIViewController {
             /*************************
              update the title of the initialVC with new name
              **************************/
+            if let uid = Auth.auth().currentUser?.uid {
+                self.saveProfileImageForUser(uid:uid )
+            }
             self.initialViewController?.fetchUserAndSetupNavBarTitle()
             self.dismiss(animated: true, completion: nil)
-            print("\(email) has been saved successfully signed in !")
+            print("\(email) has been  successfully logged in !")
         }
     }
     // MARK: - Method  - Actions with objc functions

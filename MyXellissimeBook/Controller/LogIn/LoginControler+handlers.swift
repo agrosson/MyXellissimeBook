@@ -88,48 +88,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             /*************************
              Store the image in Storage
              **************************/
-            
-            // get the profile image
-            guard let image = self.profileImageView.image else {return}
-            
-            // test the size in byte of the image
-            let imageDataTest = image.jpegData(compressionQuality: 1)
-            guard let imageSize = imageDataTest?.count else {return}
-            var imageDataToUpload = Data()
-            if imageSize > 1000000 {
-                 guard let imageData = image.jpegData(compressionQuality: 0.5) else {return}
-                imageDataToUpload = imageData
-            }
-            if  100000...1000000 ~= imageSize {
-                guard let imageData = image.jpegData(compressionQuality: 0.7) else {return}
-                imageDataToUpload = imageData
-            }
-            if  imageSize < 100000 {
-                guard let imageData = image.jpegData(compressionQuality: 0.7) else {return}
-                imageDataToUpload = imageData
-            }
-            // Create a Storage reference with the bookId
-            let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.profileImage).child("\(uid).jpg")
-            // Create a Storage Metadata
-            let uploadMetadata = StorageMetadata()
-            // Describe the type of image stored in FireStorage
-            uploadMetadata.contentType = "image/jpeg"
-            // Create the upload task
-            let uploadTask = storageRef.putData(imageDataToUpload, metadata: uploadMetadata) { (metada, error) in
-                if error != nil {
-                    print("i received an error \(error?.localizedDescription ?? "error but no description")")
-                }   else {
-                    print("up load complete, here some metadata \(String(describing: metada))")
-                }
-            }
-            uploadTask.observe(.progress) { (snapshot) in
-                guard let progress = snapshot.progress else {
-                    print("No progress for the snapshot")
-                    return}
-                print("end of progress?? ")
-                print(progress.fractionCompleted)
-            }
-            uploadTask.resume()
+            self.saveProfileImageForUser(uid: uid)
         }
         /*************************
          update the title of the initialVC with new name
@@ -163,6 +122,55 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             self.initialViewController?.fetchUserAndSetupNavBarTitle()
             print("\(String(describing: values["name"])) has been saved successfully in FireBase database")
         })
+    }
+    
+    /**
+     Function that update and upload of profile image of the user
+     - Parameter uid: the unique identifier (String) of the user
+     */
+    func saveProfileImageForUser(uid : String){
+        // get the profile image
+        guard let image = self.profileImageView.image else {return}
+        // update the cache
+        imageCache.setObject(image, forKey: uid as AnyObject)
+        // test the size in byte of the image
+        let imageDataTest = image.jpegData(compressionQuality: 1)
+        guard let imageSize = imageDataTest?.count else {return}
+        var imageDataToUpload = Data()
+        if imageSize > 1000000 {
+            guard let imageData = image.jpegData(compressionQuality: 0.5) else {return}
+            imageDataToUpload = imageData
+        }
+        if  100000...1000000 ~= imageSize {
+            guard let imageData = image.jpegData(compressionQuality: 0.7) else {return}
+            imageDataToUpload = imageData
+        }
+        if  imageSize < 100000 {
+            guard let imageData = image.jpegData(compressionQuality: 0.7) else {return}
+            imageDataToUpload = imageData
+        }
+        // Create a Storage reference with the bookId
+        let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.profileImage).child("\(uid).jpg")
+        // Create a Storage Metadata
+        let uploadMetadata = StorageMetadata()
+        // Describe the type of image stored in FireStorage
+        uploadMetadata.contentType = "image/jpeg"
+        // Create the upload task
+        let uploadTask = storageRef.putData(imageDataToUpload, metadata: uploadMetadata) { (metada, error) in
+            if error != nil {
+                print("i received an error \(error?.localizedDescription ?? "error but no description")")
+            }   else {
+                print("up load complete, here some metadata \(String(describing: metada))")
+            }
+        }
+        uploadTask.observe(.progress) { (snapshot) in
+            guard let progress = snapshot.progress else {
+                print("No progress for the snapshot")
+                return}
+            print("end of progress?? ")
+            print(progress.fractionCompleted)
+        }
+        uploadTask.resume()
     }
 }
 
