@@ -264,7 +264,7 @@ class LoginController: UIViewController {
     /**
      Function that handles Login
      */
-    private func handleLogin(){
+    private func handleLoginWithProfileUpdate(update: Bool){
         // Get info from textField
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             //Todo an alert to be done
@@ -279,9 +279,11 @@ class LoginController: UIViewController {
             }
             /*************************
              update the title of the initialVC with new name
-             **************************/
-            if let uid = Auth.auth().currentUser?.uid {
-                self.saveProfileImageForUser(uid:uid )
+            **************************/
+            if update == true {
+                if let uid = Auth.auth().currentUser?.uid {
+                    self.saveProfileImageForUser(uid:uid )
+                }
             }
             self.initialViewController?.fetchUserAndSetupNavBarTitle()
             self.dismiss(animated: true, completion: nil)
@@ -333,12 +335,27 @@ class LoginController: UIViewController {
             passwordTextField.textContentType = .oneTimeCode
         }
         if loginRegisteredSegmentedControl.selectedSegmentIndex == 0 {
-            
-            handleLogin()
+            let name = 
+            checkIfProfileImageShouldBeUpdated()
         } else {
             handleRegister()
         }
     }
+    
+    private func checkIfProfileImageShouldBeUpdated(name: String) {
+        let actionSheet = UIAlertController(title: "Dear \(name)", message: "Should we update profile image with current picture?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction) in
+            print("update the picture")
+            self.handleLoginWithProfileUpdate(update: true)
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "No", style: .default, handler: { (action: UIAlertAction) in
+            self.handleLoginWithProfileUpdate(update: false)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion : nil)
+    }
+    
 }
 // MARK: - Extensions
 /**

@@ -23,7 +23,7 @@ class DetailAvailableBookViewController: UIViewController {
     /// Title label for the book
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 30)
+        label.font = UIFont.systemFont(ofSize: 40)
         label.textColor = UIColor.white
         label.textAlignment = NSTextAlignment.center
         label.numberOfLines = 1
