@@ -9,14 +9,20 @@
 import UIKit
 import Firebase
 
+// MARK: - Class UserBooksTableViewController
+/**
+ This class defines the UserBooksTableViewController
+ */
 class UserBooksTableViewController: UITableViewController {
     
+    // MARK: - Properties
     /// Id of cell of the tableView
     let cellId = "cellId"
     
     /// Array of user's books
     var books = [Book]()
     
+    // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handelCancel))
