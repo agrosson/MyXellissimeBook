@@ -447,19 +447,44 @@ class AddManuallyViewController: UIViewController {
     @objc private func addAndSaveBookInFireBase(){
         print("up load in database")
         isSaveIndicator(shown: true)
-        guard let myBookToSave = bookToSave else {return}
-        if bookToSave?.isbn == nil || bookToSave?.isbn == "" {
-            bookToSave?.isbn = UUID().uuidString
+        var myBookToSave = Book()
+        // Test if bookToSave not nil
+        if bookToSave != nil {
+            myBookToSave = bookToSave!
+        } else {
+            myBookToSave.title = bookTitleTextField.text
+            if bookAuthorTextField.text != "" {
+                myBookToSave.author = bookAuthorTextField.text
+            } else {
+                myBookToSave.author = "Author unknown"
+            }
+            myBookToSave.isbn = bookIsbnTextField.text ?? ""
+            myBookToSave.coverURL = ""
+            myBookToSave.editor = "Editor unknown"
+            myBookToSave.isAvailable = true
+            myBookToSave.uniqueId = ""
+            
         }
-        guard let uid = Auth.auth().currentUser?.uid else {return}
+
+        if myBookToSave.isbn == nil || myBookToSave.isbn == "" {
+            myBookToSave.isbn = UUID().uuidString
+        }
+        guard let uid = Auth.auth().currentUser?.uid else {
+            isSaveIndicator(shown: false)
+            return}
+
+        myBookToSave.uniqueId = "\(uid)\(String(describing: myBookToSave.isbn))"
+        print("l'isbn fictif est le suivant \(String(describing: myBookToSave.isbn))")
+        print("le unique id fictif est le suivant \(String(describing: myBookToSave.uniqueId))")
+
         FirebaseUtilities.saveBook(book: myBookToSave, fromUserId: uid)
         // if there is no cover image, this will be the image
         var dataAsImage = UIImage(named: "profileDefault") ?? UIImage()
-        if bookToSave?.coverURL?.contains("nophoto") ?? true {
-            bookToSave?.coverURL = ""
+        if myBookToSave.coverURL?.contains("nophoto") ?? true {
+            myBookToSave.coverURL = ""
         }
-        if bookToSave?.coverURL != "" {
-            if let coverUrl = bookToSave?.coverURL {
+        if myBookToSave.coverURL != "" {
+            if let coverUrl = myBookToSave.coverURL {
                 if let url = URL(string: coverUrl) {
                     if  let data = try? Data(contentsOf: url) {
                         if let datatest = UIImage(data: data) {
@@ -469,8 +494,11 @@ class AddManuallyViewController: UIViewController {
                 }
             }
         }
-        guard let isbnToSave = bookToSave?.isbn else { return }
+        guard let isbnToSave = myBookToSave.isbn else {
+            isSaveIndicator(shown: false)
+            return }
         FirebaseUtilities.saveCoverImage(coverImage: dataAsImage, isbn: isbnToSave)
+        isSaveIndicator(shown: false)
     }
     /**
      Action for tap and Swipe Gesture Recognizer

@@ -33,7 +33,7 @@ class UserBookCell: UITableViewCell {
     let availabilityImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "greenButton")
+      //  imageView.image = UIImage(named: "greenButton")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 25
         imageView.layer.masksToBounds = true
@@ -70,6 +70,11 @@ class UserBookCell: UITableViewCell {
             backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
             textLabel?.textColor = .white
             detailTextLabel?.textColor = .white
+        if  book?.isAvailable == true {
+            availabilityImageView.image = UIImage(named: "greenButton")
+        } else {
+            availabilityImageView.image = UIImage(named: "redButton")
+        }
     }
     
     // rearrange the layout of the cell to push labels on the right (x = 76)

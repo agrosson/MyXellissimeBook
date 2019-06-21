@@ -115,7 +115,7 @@ class ChatInitialViewController : UITableViewController {
     
     /**
      function that observes all messages
-     */
+
     private func  observeMessages() {
        let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
         ref.observe(.childAdded, with: { snapshot in
@@ -146,7 +146,7 @@ class ChatInitialViewController : UITableViewController {
     // Maybe necessary
     //  rootRef.removeAllObservers()
     }
-    
+    */
     
     /**
      Function that setup screen
