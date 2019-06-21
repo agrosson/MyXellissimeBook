@@ -72,7 +72,7 @@ class InitialViewController: UIViewController {
         super.viewDidLoad()
         // Create the left button
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addBook))
+      
         setupScreen()
         checkIfUserIsAlreadyLoggedIn()
     }
@@ -228,21 +228,14 @@ class InitialViewController: UIViewController {
         loginController.initialViewController = self
         present(loginController, animated: true, completion: nil)
     }
-    /**
-     Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed
-     */
-    @objc func addBook() {
-        print("You will add a book")
-        // present addBookViewController
-        let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
-        present(addBookViewController, animated: true, completion: nil)
-    }
+
     /**
      Action that shows the list of user's books when showUserBooksButton is clicked
      */
     @objc func showUserBooks() {
         print("You will see the list of user's books")
-        // present listOfUserBooksViewController
+        let userBooksTableViewController = UINavigationController(rootViewController: UserBooksTableViewController())
+        present(userBooksTableViewController, animated: true, completion: nil)
     }
 
     /**

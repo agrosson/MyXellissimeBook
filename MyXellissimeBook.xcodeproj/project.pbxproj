@@ -172,6 +172,45 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C100899722BCD01D00D3497E /* Book Management */ = {
+			isa = PBXGroup;
+			children = (
+				C100899522BCCB6100D3497E /* UserBooksTableViewController.swift */,
+				C12C124D22B37469006A3F2C /* AddBookViewController.swift */,
+				C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */,
+				C13355C422BA255E0006D9CD /* ScanMenuViewController.swift */,
+				C13355C622BA45F20006D9CD /* ScanRunningViewController.swift */,
+			);
+			path = "Book Management";
+			sourceTree = "<group>";
+		};
+		C100899822BCD04500D3497E /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */,
+				C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */,
+				C1A5840F22B4FE1000EABEBA /* ChatLogController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		C100899922BCD0A000D3497E /* Search Management */ = {
+			isa = PBXGroup;
+			children = (
+				C17EEF5522B292C500BF01B5 /* SearchViewController.swift */,
+			);
+			path = "Search Management";
+			sourceTree = "<group>";
+		};
+		C100899A22BCD0CA00D3497E /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				C19371E922B0FD070017E696 /* LoginController.swift */,
+				C12C125822B3D5FD006A3F2C /* LoginControler+handlers.swift */,
+			);
+			path = LogIn;
+			sourceTree = "<group>";
+		};
 		C12C125522B3A02C006A3F2C /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,17 +273,10 @@
 			children = (
 				C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */,
 				C19371D822B0FC500017E696 /* InitialViewController.swift */,
-				C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */,
-				C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */,
-				C100899522BCCB6100D3497E /* UserBooksTableViewController.swift */,
-				C1A5840F22B4FE1000EABEBA /* ChatLogController.swift */,
-				C17EEF5522B292C500BF01B5 /* SearchViewController.swift */,
-				C19371E922B0FD070017E696 /* LoginController.swift */,
-				C12C125822B3D5FD006A3F2C /* LoginControler+handlers.swift */,
-				C12C124D22B37469006A3F2C /* AddBookViewController.swift */,
-				C13355C422BA255E0006D9CD /* ScanMenuViewController.swift */,
-				C13355C622BA45F20006D9CD /* ScanRunningViewController.swift */,
-				C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */,
+				C100899A22BCD0CA00D3497E /* LogIn */,
+				C100899722BCD01D00D3497E /* Book Management */,
+				C100899922BCD0A000D3497E /* Search Management */,
+				C100899822BCD04500D3497E /* Chat */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

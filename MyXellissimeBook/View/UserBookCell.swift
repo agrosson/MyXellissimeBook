@@ -24,9 +24,8 @@ class UserBookCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "profileDefault")
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 3
-        imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFit
+       // imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -51,13 +50,13 @@ class UserBookCell: UITableViewCell {
         coverImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
         coverImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         coverImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        coverImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        coverImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         
         // Contraints X Y Width height
         availabilityImageView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
         availabilityImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
-        availabilityImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        availabilityImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        availabilityImageView.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        availabilityImageView.heightAnchor.constraint(equalToConstant: 35).isActive = true
         
         
     }
@@ -71,6 +70,14 @@ class UserBookCell: UITableViewCell {
             backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
             textLabel?.textColor = .white
             detailTextLabel?.textColor = .white
+    }
+    
+    // rearrange the layout of the cell to push labels on the right (x = 76)
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        textLabel?.frame = CGRect(x: 76, y: (textLabel?.frame.origin.y)!, width: (textLabel?.frame.width)!, height: (textLabel?.frame.height)!)
+        detailTextLabel?.frame = CGRect(x: 76, y: (detailTextLabel?.frame.origin.y)!, width: (detailTextLabel?.frame.width)!, height: (detailTextLabel?.frame.height)!)
     }
     
     override func awakeFromNib() {
