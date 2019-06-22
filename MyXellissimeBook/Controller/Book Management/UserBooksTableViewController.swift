@@ -25,12 +25,12 @@ class UserBooksTableViewController: UITableViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handelCancel))
-          navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addBook))
-          tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handelCancel))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addBook))
+        tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
         // MARK: - Table view data source
     }
-     // MARK: - Method viewWillAppear
+    // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
@@ -81,7 +81,7 @@ class UserBooksTableViewController: UITableViewController {
                 book.editor = editor
                 
                 self.books.append(book)
-         
+                
                 DispatchQueue.main.async { self.tableView.reloadData() }
             }, withCancel: nil)
         }, withCancel: nil)
@@ -112,7 +112,7 @@ class UserBooksTableViewController: UITableViewController {
         detailAvailableBookViewController.bookToDisplay = book
         navigationController?.pushViewController(detailAvailableBookViewController, animated: true)
     }
-        
+    
     
     // MARK: - Methods - override func tableView
     /*******************************************************
@@ -124,7 +124,7 @@ class UserBooksTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-            let book = books[indexPath.row]
+        let book = books[indexPath.row]
         showDetailAvailableBookViewControllerForBook(book: book)
         
     }
@@ -139,10 +139,38 @@ class UserBooksTableViewController: UITableViewController {
         // Create a cell of type UserCell
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserBookCell
         // Get the message from the Array
-       // let message = messages[indexPath.row]
+        // let message = messages[indexPath.row]
         let book = books[indexPath.row]
-
+        
         cell.book  = book
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        print(self.books.count)
+        if editingStyle == .delete {
+            let book = self.books[indexPath.row]
+            guard let bookIdToRemove = book.uniqueId else {return}
+            let refToRemove = Database.database().reference().child(FirebaseUtilities.shared.books).child(bookIdToRemove)
+            refToRemove.removeValue { (error, dataref) in
+                if error != nil {
+                    print("fail to delete book", error as Any)
+                    return
+                }
+                self.books.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+               print("Book removed from books in firebase ")
+               // self.setupScreen()
+            }
+            guard let uid = Auth.auth().currentUser?.uid else {return}
+            let refBookToRemoveForUser = Database.database().reference().child(FirebaseUtilities.shared.user_books).child(uid).child(bookIdToRemove)
+            refBookToRemoveForUser.removeValue { (error, dataRef) in
+                if error != nil {
+                    print("fail to delete book", error as Any)
+                    return
+                }
+                print("Book removed from user-books in firebase")
+            }
+        }
     }
 }
