@@ -146,6 +146,9 @@ class UserBooksTableViewController: UITableViewController {
         return cell
     }
     
+    /**
+     Function that presents detailAvailableBookViewController
+     */
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         print(self.books.count)
         if editingStyle == .delete {

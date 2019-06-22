@@ -12,8 +12,7 @@ class DetailLentBookViewController: UIViewController {
 
     var bookToDisplay: Book?
     let screenHeight = UIScreen.main.bounds.height
-    
-    
+
     /*******************************************************
      UI variables: Start
      ********************************************************/
@@ -57,6 +56,14 @@ class DetailLentBookViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    /// Container View for Loan details
+    let containerView : UIView = {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     /*******************************************************
      UI variables: End
      ********************************************************/
@@ -67,6 +74,7 @@ class DetailLentBookViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(authorLabel)
         view.addSubview(editorLabel)
+        view.addSubview(containerView)
         setupScreen()
     }
     private func setupScreen(){
@@ -78,51 +86,8 @@ class DetailLentBookViewController: UIViewController {
         setupTitleLabel()
         setupAuthorLabel()
         setupEditorLabel()
+        setupContainerView()
     }
     
-    /**
-     Function that sets up bookCoverImageView
-     */
-    private func setupBookCoverImageView(){
-        // need x and y , width height contraints
-        let height = (screenHeight/4)-50
-        let width = 3*height/4
-        bookCoverImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        bookCoverImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30+topbarHeight).isActive = true
-        bookCoverImageView.heightAnchor.constraint(equalToConstant: height).isActive = true
-        bookCoverImageView.widthAnchor.constraint(equalToConstant :width).isActive = true
-    }
-    /**
-     Function that sets up titleLabel
-     */
-    private func setupTitleLabel(){
-        titleLabel.text = bookToDisplay?.title
-        // need x and y , width height contraints
-        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: bookCoverImageView.bottomAnchor, constant: 20).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
-    }
-    /**
-     Function that sets up authorLabel
-     */
-    private func setupAuthorLabel(){
-        authorLabel.text = bookToDisplay?.author
-        // need x and y , width height contraints
-        authorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
-        authorLabel.heightAnchor.constraint(equalToConstant: 18).isActive = true
-        authorLabel.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
-    }
-    /**
-     Function that sets up editorLabel
-     */
-    private func setupEditorLabel(){
-        editorLabel.text = bookToDisplay?.editor
-        // need x and y , width height contraints
-        editorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        editorLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 8).isActive = true
-        editorLabel.heightAnchor.constraint(equalToConstant: 18).isActive = true
-        editorLabel.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
-    }
+   
 }
