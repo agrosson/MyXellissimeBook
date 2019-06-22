@@ -87,6 +87,14 @@ class UserLentBooksTableViewController: UITableViewController {
             }, withCancel: nil)
         }, withCancel: nil)
     }
+    /**
+     Function that presents detailAvailableBookViewController
+     */
+    func showDetailLentBookViewControllerForBook(book: Book){
+        let detailLentBookViewController = DetailLentBookViewController()
+        detailLentBookViewController.bookToDisplay = book
+        navigationController?.pushViewController(detailLentBookViewController, animated: true)
+    }
     
     // MARK: - Methods  - Actions with objc functions
     /**
@@ -108,7 +116,11 @@ class UserLentBooksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    /**
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let book = lentBooks[indexPath.row]
+        showDetailLentBookViewControllerForBook(book: book)
+    }/**
      Function that returns the cell for the row
      */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

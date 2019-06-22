@@ -60,7 +60,7 @@ class DetailAvailableBookViewController: UIViewController {
     /*******************************************************
                         UI variables: End
      ********************************************************/
-    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(bookCoverImageView)
