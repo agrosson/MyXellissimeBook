@@ -68,8 +68,37 @@ extension DetailLentBookViewController {
     func   setupContainerView(){
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: (screenHeight/2)-20).isActive = true
+        containerView.topAnchor.constraint(equalTo: editorLabel.bottomAnchor, constant: 8).isActive = true
         containerView.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -16).isActive = true
     }
-    
+    /**
+     Function that sets up borrowerLabel
+     */
+    func setupBorrowerLabel(){
+        borrowerLabel.text = "Here the borrower"
+        borrowerLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        borrowerLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -8).isActive = true
+        borrowerLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8).isActive = true
+        borrowerLabel.widthAnchor.constraint(equalToConstant: loanDetailsLabelHeight).isActive = true
+    }
+    /**
+     Function that sets up startingDateOfLoanLabel
+     */
+    func setupStartingDateOfLoanLabel(){
+        startingDateOfLoanLabel.text = "Here the staring date of the loan"
+        startingDateOfLoanLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        startingDateOfLoanLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -8).isActive = true
+        startingDateOfLoanLabel.topAnchor.constraint(equalTo: borrowerLabel.bottomAnchor, constant: 8).isActive = true
+        startingDateOfLoanLabel.widthAnchor.constraint(equalToConstant: loanDetailsLabelHeight).isActive = true
+    }
+    /**
+     Function that sets up expectedEndDateOfLoanLabel
+     */
+    func setupExpectedEndDateOfLoanLabel(){
+        expectedEndDateOfLoanLabel.text = "Here the expected end date of the loan"
+        expectedEndDateOfLoanLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        expectedEndDateOfLoanLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -8).isActive = true
+        expectedEndDateOfLoanLabel.topAnchor.constraint(equalTo: startingDateOfLoanLabel.bottomAnchor, constant: 8).isActive = true
+        expectedEndDateOfLoanLabel.widthAnchor.constraint(equalToConstant: loanDetailsLabelHeight).isActive = true
+    }
 }

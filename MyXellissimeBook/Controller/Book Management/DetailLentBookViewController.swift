@@ -12,6 +12,7 @@ class DetailLentBookViewController: UIViewController {
 
     var bookToDisplay: Book?
     let screenHeight = UIScreen.main.bounds.height
+    let loanDetailsLabelHeight:CGFloat = 40
 
     /*******************************************************
      UI variables: Start
@@ -64,6 +65,43 @@ class DetailLentBookViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    /// Borrower label for the lent book
+    let borrowerLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.left
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    /// Starting date for the lent
+    let startingDateOfLoanLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.left
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    /// Expected end date for the lent
+    let expectedEndDateOfLoanLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.left
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     /*******************************************************
      UI variables: End
      ********************************************************/
@@ -75,6 +113,9 @@ class DetailLentBookViewController: UIViewController {
         view.addSubview(authorLabel)
         view.addSubview(editorLabel)
         view.addSubview(containerView)
+        containerView.addSubview(borrowerLabel)
+        containerView.addSubview(startingDateOfLoanLabel)
+        containerView.addSubview(expectedEndDateOfLoanLabel)
         setupScreen()
     }
     private func setupScreen(){
@@ -87,6 +128,9 @@ class DetailLentBookViewController: UIViewController {
         setupAuthorLabel()
         setupEditorLabel()
         setupContainerView()
+        setupBorrowerLabel()
+        setupStartingDateOfLoanLabel()
+        setupExpectedEndDateOfLoanLabel()
     }
     
    

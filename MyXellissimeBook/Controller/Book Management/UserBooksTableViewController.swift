@@ -112,7 +112,14 @@ class UserBooksTableViewController: UITableViewController {
         detailAvailableBookViewController.bookToDisplay = book
         navigationController?.pushViewController(detailAvailableBookViewController, animated: true)
     }
-    
+    /**
+     Function that presents detailAvailableBookViewController
+     */
+    func showDetailLentBookViewControllerForBook(book: Book){
+        let detailLentBookViewController = DetailLentBookViewController()
+        detailLentBookViewController.bookToDisplay = book
+        navigationController?.pushViewController(detailLentBookViewController, animated: true)
+    }
     
     // MARK: - Methods - override func tableView
     /*******************************************************
@@ -125,7 +132,12 @@ class UserBooksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let book = books[indexPath.row]
-        showDetailAvailableBookViewControllerForBook(book: book)
+        if book.isAvailable == true {
+            showDetailAvailableBookViewControllerForBook(book: book)
+        } else {
+            showDetailLentBookViewControllerForBook(book: book)
+        }
+    
         
     }
     /**
