@@ -12,6 +12,7 @@ import Firebase
 class FirebaseUtilities {
     
     static var shared = FirebaseUtilities()
+    // MARK: - Initializer
     private init(){}
     
     /*******************************************************

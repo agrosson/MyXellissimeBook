@@ -39,7 +39,7 @@ class Alert {
         bookDidNotFindAResult,
         needAllFieldsCompleted
     }
-    // MARK: -
+    // MARK: - Initializer
     init() {}
     // MARK: - Methods
     /**

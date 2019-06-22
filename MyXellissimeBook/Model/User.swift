@@ -21,6 +21,6 @@ class User : NSObject {
     var email: String?
     /// Var user UID which is also imageProfileName
     var profileId: String?
-    
+    // MARK: - Initializer
     override init(){}
 }

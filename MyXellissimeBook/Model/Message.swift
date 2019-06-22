@@ -16,7 +16,7 @@ class Message: NSObject {
     var toId: String?
     var timestamp: Int?
     
-    
+    // MARK: - Initializer
     override init(){}
     // MARK: - Methods
     /**

@@ -27,7 +27,7 @@ class GoodReadsAPI {
     var goodReadsFullUrl: URL? {
         return createFullUrl()
     }
-    // MARK: -
+    // MARK: - Initializer
     init(isbn: String) {
         self.isbn = isbn
     }

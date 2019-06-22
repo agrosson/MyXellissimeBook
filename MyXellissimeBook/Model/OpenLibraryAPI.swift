@@ -25,7 +25,7 @@ class OpenLibraryAPI {
     var openlibraryFullUrl: URL? {
         return createFullUrl()
     }
-    // MARK: -
+    // MARK: - Initializer
     init(isbn: String) {
         self.isbn = isbn
     }
