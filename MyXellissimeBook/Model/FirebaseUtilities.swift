@@ -30,10 +30,13 @@ class FirebaseUtilities {
     
     var name = ""
     
+    /*******************************************************
+     This function returns the user name
+     ********************************************************/
     static func getUserName() -> String? {
         guard let uid = Auth.auth().currentUser?.uid else {return "no name"}
-        self.shared.name = "33"
-        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) {  (snapshot) in
+        self.shared.name = ""
+        Database.database().reference().child(FirebaseUtilities.shared.users).child(uid).observeSingleEvent(of: .value) {  (snapshot) in
             self.shared.name = ""
             if let dictionary = snapshot.value as? [String : Any] {
                 self.shared.name = (dictionary["name"] as? String)!
@@ -42,6 +45,34 @@ class FirebaseUtilities {
         }
       return self.shared.name
     }
+    /*******************************************************
+     This function returns a user from a email
+     ********************************************************/
+    
+    static func getUserFromEmail(email: String) -> User {
+            let rootRef = Database.database().reference()
+            let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "email")
+            let userBorrower = User()
+            query.observe(.value) { (snapshot) in
+                // this to avoid duplicated row when reloaded
+                print(snapshot)
+                for child in snapshot.children.allObjects as! [DataSnapshot] {
+                    if let value = child.value as? NSDictionary {
+                        if email == value["email"] as? String {
+                            let name = value["name"] as? String ?? "Name not found"
+                            let email = value["email"] as? String ?? "Email not found"
+                            let profileId = value["profileId"] as? String ?? "profileId not found"
+                            print("name : \(name)")
+                            userBorrower.name = name
+                            userBorrower.email = email
+                            userBorrower.profileId = profileId
+                        }
+                    }
+                }
+            }
+        return userBorrower
+    }
+    
     
     /*******************************************************
      This function saves a text as a message in firebase
@@ -157,5 +188,5 @@ class FirebaseUtilities {
             print(progress.fractionCompleted)
         }
         uploadTask.resume()
-    }    
+    }
 }

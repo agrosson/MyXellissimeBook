@@ -25,6 +25,7 @@
 		C11B304C22BE18910023CF0E /* UserLentBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B304B22BE18910023CF0E /* UserLentBooksTableViewController.swift */; };
 		C11B304E22BE20330023CF0E /* DetailLentBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B304D22BE20330023CF0E /* DetailLentBookViewController.swift */; };
 		C11B305022BE61310023CF0E /* DetailLentBookViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B304F22BE61310023CF0E /* DetailLentBookViewController+setupScreen.swift */; };
+		C11B305222BE7E530023CF0E /* ManageLoanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B305122BE7E530023CF0E /* ManageLoanViewController.swift */; };
 		C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124D22B37469006A3F2C /* AddBookViewController.swift */; };
 		C12C125022B3839D006A3F2C /* AddManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */; };
 		C12C125222B3915A006A3F2C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125122B3915A006A3F2C /* Utilities.swift */; };
@@ -97,6 +98,7 @@
 		C11B304B22BE18910023CF0E /* UserLentBooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLentBooksTableViewController.swift; sourceTree = "<group>"; };
 		C11B304D22BE20330023CF0E /* DetailLentBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailLentBookViewController.swift; sourceTree = "<group>"; };
 		C11B304F22BE61310023CF0E /* DetailLentBookViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailLentBookViewController+setupScreen.swift"; sourceTree = "<group>"; };
+		C11B305122BE7E530023CF0E /* ManageLoanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLoanViewController.swift; sourceTree = "<group>"; };
 		C12C124D22B37469006A3F2C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManuallyViewController.swift; sourceTree = "<group>"; };
 		C12C125122B3915A006A3F2C /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				C100899522BCCB6100D3497E /* UserBooksTableViewController.swift */,
 				C11B304B22BE18910023CF0E /* UserLentBooksTableViewController.swift */,
 				C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */,
+				C11B305122BE7E530023CF0E /* ManageLoanViewController.swift */,
 				C11B304D22BE20330023CF0E /* DetailLentBookViewController.swift */,
 				C11B304F22BE61310023CF0E /* DetailLentBookViewController+setupScreen.swift */,
 				C12C124D22B37469006A3F2C /* AddBookViewController.swift */,
@@ -584,6 +587,7 @@
 				C13355C122BA1D270006D9CD /* Book.swift in Sources */,
 				C1596ED822B6807500CBCD08 /* Message.swift in Sources */,
 				C13355C322BA1E290006D9CD /* LoanBook.swift in Sources */,
+				C11B305222BE7E530023CF0E /* ManageLoanViewController.swift in Sources */,
 				C15D2B2222BD495B00B621E8 /* LoginController+setupScreen.swift in Sources */,
 				C13355D022BA6BF40006D9CD /* APIManager.swift in Sources */,
 				C13355D422BA787D0006D9CD /* BookOpenLibraryResponse.swift in Sources */,
