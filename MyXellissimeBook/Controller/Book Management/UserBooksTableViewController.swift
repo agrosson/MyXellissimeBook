@@ -35,7 +35,9 @@ class UserBooksTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         setupScreen()
     }
-    
+    /**
+     Function that sets up the screen
+     */
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         books.removeAll()
@@ -44,7 +46,7 @@ class UserBooksTableViewController: UITableViewController {
         
     }
     /**
-     function that observes all messages send by a single user
+     function that observes all the user's books
      */
     private func observeUserBooks(){
         // get the Id of the user
@@ -88,7 +90,7 @@ class UserBooksTableViewController: UITableViewController {
     
     // MARK: - Method  - Actions with objc functions
     /**
-     Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed
+     Action that shows the AddBookViewController when navigationItem.leftBarButtonItem pressed
      */
     @objc func addBook() {
         print("You will add a book")
@@ -96,10 +98,26 @@ class UserBooksTableViewController: UITableViewController {
         let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
         present(addBookViewController, animated: true, completion: nil)
     }
+    /**
+     Action that dismisses VC when "back" button clicked
+     */
     @objc private func handelCancel(){
         self.dismiss(animated: true, completion: nil)
     }
+    /**
+     Function that presents detailAvailableBookViewController
+     */
+    func showDetailAvailableBookViewControllerForBook(book: Book){
+        let detailAvailableBookViewController = DetailAvailableBookViewController()
+        detailAvailableBookViewController.bookToDisplay = book
+        navigationController?.pushViewController(detailAvailableBookViewController, animated: true)
+    }
+        
     
+    // MARK: - Methods - override func tableView
+    /*******************************************************
+     override func tableView
+     ********************************************************/
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return books.count
     }
@@ -110,13 +128,9 @@ class UserBooksTableViewController: UITableViewController {
         showDetailAvailableBookViewControllerForBook(book: book)
         
     }
-    
-    func showDetailAvailableBookViewControllerForBook(book: Book){
-        let detailAvailableBookViewController = DetailAvailableBookViewController()
-        detailAvailableBookViewController.bookToDisplay = book
-        navigationController?.pushViewController(detailAvailableBookViewController, animated: true)
-    }
-    
+    /**
+     Function that sets height for the row
+     */
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }

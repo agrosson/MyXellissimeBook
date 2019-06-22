@@ -48,7 +48,7 @@ class InitialViewController: UIViewController {
         button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 25)
-        button.addTarget(self, action: #selector(showUserBooksLent), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showUserLentBooks), for: .touchUpInside)
         return button
     }()
     // create button
@@ -241,9 +241,11 @@ class InitialViewController: UIViewController {
     /**
      Action that shows the list of user's books which are lent when showUserBooksLentButton is clicked
      */
-    @objc func showUserBooksLent() {
+    @objc func showUserLentBooks() {
         print("You will see the list of user's books that are lent")
         // present listOfUserBooksLentViewController
+        let userLentBooksTableViewController = UINavigationController(rootViewController: UserLentBooksTableViewController())
+        present(userLentBooksTableViewController, animated: true, completion: nil)
         
     }
     /**

@@ -172,7 +172,10 @@ class ChatInitialViewController : UITableViewController {
         chatLogController.user = user
         navigationController?.pushViewController(chatLogController, animated: true)
     }
-    
+    // MARK: - Methods - override func tableView
+    /*******************************************************
+     override func tableView
+     ********************************************************/
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }

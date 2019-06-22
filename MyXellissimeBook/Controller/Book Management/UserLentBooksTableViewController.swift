@@ -15,81 +15,109 @@ import Firebase
  */
 class UserLentBooksTableViewController: UITableViewController {
 
+    // MARK: - Properties
+    /// Id of cell of the tableView
+    let cellId = "cellId"
+    
+    /// Array of user's lent books
+    var lentBooks = [Book]()
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handelCancel))
+        tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    // MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupScreen()
     }
+    
+    // MARK: - Methods
+    /**
+     Function that sets up the screen
+     */
+    private func setupScreen(){
+        view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+        lentBooks.removeAll()
+        tableView.reloadData()
+        observeUserLentBooks()
+        
+    }
+    /**
+     function that observes all the user's lent books
+     */
+    private func observeUserLentBooks(){
+        // get the Id of the user
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        // get the ref of list of message for this uid
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.user_books).child(uid)
+        // observe the node
+        ref.observe(.childAdded, with: { (snapshot) in
+            // get the key for the message
+            let bookId = snapshot.key
+            // get the reference of the message
+            let booksReference = Database.database().reference().child(FirebaseUtilities.shared.books).child(bookId)
+            print("référence en cours de visualisation \(bookId)")
+            // observe the messages for this user
+            booksReference.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let dictionary = snapshot.value as? [String : Any] else {return}
+                let book = Book()
+                guard let uniqueId = dictionary["uniqueId"] as? String else {return}
+                guard let title =  dictionary["title"] as? String else {return}
+                guard let author =  dictionary["author"] as? String else {return}
+                guard let isbn =  dictionary["isbn"] as? String else {return}
+                guard let isAvailable =  dictionary["isAvailable"] as? Bool else {return}
+                guard let coverURL =  dictionary["coverURL"] as? String else {return}
+                guard let editor =  dictionary["editor"] as? String else {return}
+                
+                book.uniqueId = uniqueId
+                book.title = title
+                book.author = author
+                book.isbn = isbn
+                book.isAvailable = isAvailable
+                book.coverURL = coverURL
+                book.editor = editor
+                
+                if book.isAvailable == false {
+                     self.lentBooks.append(book)
+                }
 
+                DispatchQueue.main.async { self.tableView.reloadData() }
+            }, withCancel: nil)
+        }, withCancel: nil)
+    }
+    
+    // MARK: - Methods  - Actions with objc functions
+    /**
+     Action that dismisses VC when "back" button clicked
+     */
+    @objc private func handelCancel(){
+        self.dismiss(animated: true, completion: nil)
+    }
+    // MARK: - Methods - override func tableView
+    /*******************************************************
+     override func tableView
+     ********************************************************/
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return lentBooks.count
     }
-
-    /*
+    /**
+     Function that sets height for the row
+     */
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    /**
+     Function that returns the cell for the row
+     */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        // Create a cell of type UserCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserBookCell
+        // Get the message from the Array
+        // let message = messages[indexPath.row]
+        let book = lentBooks[indexPath.row]
+        cell.book  = book
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

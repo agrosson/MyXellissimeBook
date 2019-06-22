@@ -92,7 +92,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         return  NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0)], context: nil)
         
     }
-    
+    // MARK: - Methods - override func collectionView
+    /*******************************************************
+     override func collectionView
+     ********************************************************/
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
