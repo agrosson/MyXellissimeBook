@@ -9,8 +9,18 @@
 import UIKit
 import Firebase
 
+
+// MARK: - class ChatMessageCell
+/**
+ This class defines ChatMessage customized cell
+ */
+
 class ChatMessageCell: UICollectionViewCell {
-    
+    /*******************************************************
+                        UI variables: Start
+     ********************************************************/
+    // MARK: - Properties
+    /// TextView that will display the message text, embeded in the bubbleView
     let textView: UITextView = {
         let tv = UITextView()
         tv.font = UIFont.systemFont(ofSize: 16) //  tv.font = UIFont.systemFont(ofSize: 18)
@@ -20,8 +30,7 @@ class ChatMessageCell: UICollectionViewCell {
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
-    
-    
+    /// UIView that embeds the text
     let bubbleView: UIView = {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
@@ -30,16 +39,29 @@ class ChatMessageCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    
+    /*******************************************************
+                        UI variables: End
+     ********************************************************/
+    /// NSLayoutConstraint that enables to adapt size of bubbleView
     var bubbleWidthAnchor : NSLayoutConstraint?
     
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
         addSubview(bubbleView)
         addSubview(textView)
-        
+        setupConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    // MARK: - Methods
+    /**
+     Function that sets up views setupConstraints
+     */
+    private func setupConstraints(){
         let width = 3*UIScreen.main.bounds.width/4
         // Contraints X Y Width height
         bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
@@ -47,17 +69,11 @@ class ChatMessageCell: UICollectionViewCell {
         bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: width)
         bubbleWidthAnchor?.isActive = true
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        
         // Contraints X Y Width height : textview is embeded in bubble with left and right anchor
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 5).isActive = true
         textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
         textView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
 }
