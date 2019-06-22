@@ -11,9 +11,15 @@ import UIKit
 import Firebase
 
 
+// MARK: - Extension LoginController
+/**
+ This LoginController extension gathers functions for screen setup
+ */
 extension LoginController {
     
-    
+    /*******************************************************
+                        Screen Setup
+     ********************************************************/
     /**
      Function that sets up setuploginRegisteredSegmentedControl
      */
@@ -94,6 +100,4 @@ extension LoginController {
         loginRegisterButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
-
-    
 }

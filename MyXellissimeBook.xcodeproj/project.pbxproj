@@ -21,6 +21,7 @@
 		C116190F22BBE0AD005BC226 /* UtilitiesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116190E22BBE0AD005BC226 /* UtilitiesTestCase.swift */; };
 		C116191122BBE12A005BC226 /* MessageTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116191022BBE12A005BC226 /* MessageTestCase.swift */; };
 		C116191322BBE51F005BC226 /* LoanBookTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116191222BBE51F005BC226 /* LoanBookTestCase.swift */; };
+		C11B304A22BE034C0023CF0E /* SearchViewController+SetupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B304922BE034C0023CF0E /* SearchViewController+SetupScreen.swift */; };
 		C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124D22B37469006A3F2C /* AddBookViewController.swift */; };
 		C12C125022B3839D006A3F2C /* AddManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */; };
 		C12C125222B3915A006A3F2C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125122B3915A006A3F2C /* Utilities.swift */; };
@@ -89,6 +90,7 @@
 		C116190E22BBE0AD005BC226 /* UtilitiesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTestCase.swift; sourceTree = "<group>"; };
 		C116191022BBE12A005BC226 /* MessageTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTestCase.swift; sourceTree = "<group>"; };
 		C116191222BBE51F005BC226 /* LoanBookTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanBookTestCase.swift; sourceTree = "<group>"; };
+		C11B304922BE034C0023CF0E /* SearchViewController+SetupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+SetupScreen.swift"; sourceTree = "<group>"; };
 		C12C124D22B37469006A3F2C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManuallyViewController.swift; sourceTree = "<group>"; };
 		C12C125122B3915A006A3F2C /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				C17EEF5522B292C500BF01B5 /* SearchViewController.swift */,
+				C11B304922BE034C0023CF0E /* SearchViewController+SetupScreen.swift */,
 			);
 			path = "Search Management";
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				C13355DA22BA87C30006D9CD /* OpenLibraryAPI.swift in Sources */,
 				C100899422BCAEB700D3497E /* UserBookCell.swift in Sources */,
 				C13355CC22BA69490006D9CD /* APIKeys.swift in Sources */,
+				C11B304A22BE034C0023CF0E /* SearchViewController+SetupScreen.swift in Sources */,
 				C1A5841022B4FE1000EABEBA /* ChatLogController.swift in Sources */,
 				C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */,
 				C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */,
