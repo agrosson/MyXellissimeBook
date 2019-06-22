@@ -16,9 +16,7 @@ import Firebase
  This class defines UserCell customized cell
  */
 class UserCell: UITableViewCell {
-    /****************************************************************************************
-     When this variable is set, it executes the block to fill the cell with accurate data
-     *****************************************************************************************/
+
     // MARK: - Properties
     /** Message object:
      when this variable is set, it executes the block to fill the cell with accurate data
@@ -30,7 +28,7 @@ class UserCell: UITableViewCell {
     }
     
     /*******************************************************
-     UI variables: Start
+                   UI variables: Start
      ********************************************************/
     // MARK: - Properties UIViews
     /// ImageView that is used to display profile image
@@ -52,7 +50,7 @@ class UserCell: UITableViewCell {
         return label
     }()
     /*******************************************************
-     UI variables: End
+                    UI variables: End
      ********************************************************/
     
     // MARK: - Initializer
@@ -70,7 +68,7 @@ class UserCell: UITableViewCell {
     
     // MARK: - Methods
     /**
-     Function that sets up views' setupConstraints
+     Function that sets up views' constraints
      */
     private func setupConstraints(){
         // Contraints X Y Width height
