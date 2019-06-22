@@ -9,17 +9,31 @@
 import UIKit
 import Firebase
 
+
+
+// MARK: - class class UserCell
+/**
+ This class defines UserCell customized cell
+ */
 class UserCell: UITableViewCell {
     /****************************************************************************************
      When this variable is set, it executes the block to fill the cell with accurate data
      *****************************************************************************************/
+    // MARK: - Properties
+    /** Message object:
+     when this variable is set, it executes the block to fill the cell with accurate data
+    */
     var message: Message? {
         didSet{
             setupNameAndImageProfile()
         }
     }
-
-    // ImageView that is added to the .title cell
+    
+    /*******************************************************
+     UI variables: Start
+     ********************************************************/
+    // MARK: - Properties UIViews
+    /// ImageView that is used to display profile image
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +43,7 @@ class UserCell: UITableViewCell {
         imageView.layer.masksToBounds = true
         return imageView
     }()
-     // timestamp that is added to the .title cell
+    /// Timestamp that is displayed in the cell
     let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
@@ -37,13 +51,28 @@ class UserCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    /*******************************************************
+     UI variables: End
+     ********************************************************/
     
+    // MARK: - Initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         // add the profile image
         addSubview(profileImageView)
         addSubview(timeLabel)
-        
+        setupConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Methods
+    /**
+     Function that sets up views' setupConstraints
+     */
+    private func setupConstraints(){
         // Contraints X Y Width height
         profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
         profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
@@ -55,25 +84,30 @@ class UserCell: UITableViewCell {
         timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 24).isActive = true
         timeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         timeLabel.heightAnchor.constraint(equalTo: textLabel!.heightAnchor).isActive = true
-        
-        
     }
+    /**
+     Function that sets up the name and the image profile
     
+     When message is displayed, the profile image shown is the partner profile and not the user.
+     1. Get the partner id
+     2. Get profile of partner
+     3. Display profile
+     */
     private func setupNameAndImageProfile() {
-        
+        // 1. Get the partner id of the chat
         let chatPartnerId: String?
-        
         if message?.fromId == Auth.auth().currentUser?.uid {
             chatPartnerId = message?.toId
         } else {
             chatPartnerId = message?.fromId
         }
- 
+        // 2. Get profile of partner
         if let idToUse = chatPartnerId {
             let ref = Database.database().reference().child("users").child(idToUse)
             ref.observeSingleEvent(of: .value, with: { (snapShot) in
                 print(snapShot)
                 if let dictionary = snapShot.value as? [String : Any] {
+                    // 3. Display profile
                     self.textLabel?.text = dictionary["name"] as? String
                     if let profileId = dictionary["profileId"] as? String {
                         self.profileImageView.loadingImageUsingCacheWithUrlString(urlString: profileId)
@@ -93,15 +127,13 @@ class UserCell: UITableViewCell {
             timeLabel.text = dateFormatter.string(from: time)
         }
     }
-        // rearrange the layout of the cell to push labels on the right (x = 76)
+    
+    /**
+     Function that rearranges the layout of the cell to push labels on the right (x = 76)
+     */
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         textLabel?.frame = CGRect(x: 76, y: (textLabel?.frame.origin.y)!, width: (textLabel?.frame.width)!, height: (textLabel?.frame.height)!)
         detailTextLabel?.frame = CGRect(x: 76, y: (detailTextLabel?.frame.origin.y)!, width: (detailTextLabel?.frame.width)!, height: (detailTextLabel?.frame.height)!)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

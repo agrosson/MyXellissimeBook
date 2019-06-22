@@ -19,7 +19,7 @@ class ChatMessageCell: UICollectionViewCell {
     /*******************************************************
                         UI variables: Start
      ********************************************************/
-    // MARK: - Properties
+    // MARK: - Properties UIViews
     /// TextView that will display the message text, embeded in the bubbleView
     let textView: UITextView = {
         let tv = UITextView()
@@ -42,6 +42,7 @@ class ChatMessageCell: UICollectionViewCell {
     /*******************************************************
                         UI variables: End
      ********************************************************/
+    // MARK: - Properties
     /// NSLayoutConstraint that enables to adapt size of bubbleView
     var bubbleWidthAnchor : NSLayoutConstraint?
     
@@ -59,7 +60,7 @@ class ChatMessageCell: UICollectionViewCell {
     }
     // MARK: - Methods
     /**
-     Function that sets up views setupConstraints
+     Function that sets up views' setupConstraints
      */
     private func setupConstraints(){
         let width = 3*UIScreen.main.bounds.width/4
