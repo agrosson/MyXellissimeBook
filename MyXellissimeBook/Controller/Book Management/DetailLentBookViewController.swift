@@ -143,7 +143,6 @@ class DetailLentBookViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(screenHeight)
         view.addSubview(bookCoverImageView)
         view.addSubview(titleLabel)
         view.addSubview(authorLabel)
