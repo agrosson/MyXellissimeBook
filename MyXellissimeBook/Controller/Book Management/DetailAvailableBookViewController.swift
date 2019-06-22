@@ -57,6 +57,21 @@ class DetailAvailableBookViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    // create button
+    /// Propose loan Button
+    lazy var createALoanButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor.clear
+        button.setTitle("Lend this book", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 20
+        button.layer.borderWidth = 2
+        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        button.addTarget(self, action: #selector(handleCreateALoan), for: .touchUpInside)
+        return button
+    }()
     /*******************************************************
                         UI variables: End
      ********************************************************/
@@ -67,6 +82,7 @@ class DetailAvailableBookViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(authorLabel)
         view.addSubview(editorLabel)
+        view.addSubview(createALoanButton)
         setupScreen()
     }
     
@@ -79,6 +95,7 @@ class DetailAvailableBookViewController: UIViewController {
         setupTitleLabel()
         setupAuthorLabel()
         setupEditorLabel()
+        setupCreateALoanButton()
     }
     
     /**
@@ -125,5 +142,19 @@ class DetailAvailableBookViewController: UIViewController {
         editorLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 20).isActive = true
         editorLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         editorLabel.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
+    }
+    /**
+     Function that sets up createALoanButton
+     */
+    private func setupCreateALoanButton(){
+        // need x and y , width height contraints
+        createALoanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        createALoanButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
+        createALoanButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        createALoanButton.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
+    }
+    
+    @objc func handleCreateALoan(){
+        print("go to screen for create a loan")
     }
 }
