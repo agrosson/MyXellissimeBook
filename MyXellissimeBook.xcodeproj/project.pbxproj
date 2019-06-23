@@ -26,6 +26,7 @@
 		C11B304E22BE20330023CF0E /* DetailLentBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B304D22BE20330023CF0E /* DetailLentBookViewController.swift */; };
 		C11B305022BE61310023CF0E /* DetailLentBookViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B304F22BE61310023CF0E /* DetailLentBookViewController+setupScreen.swift */; };
 		C11B305222BE7E530023CF0E /* ManageLoanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B305122BE7E530023CF0E /* ManageLoanViewController.swift */; };
+		C1226F0B22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1226F0A22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift */; };
 		C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124D22B37469006A3F2C /* AddBookViewController.swift */; };
 		C12C125022B3839D006A3F2C /* AddManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */; };
 		C12C125222B3915A006A3F2C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C125122B3915A006A3F2C /* Utilities.swift */; };
@@ -99,6 +100,7 @@
 		C11B304D22BE20330023CF0E /* DetailLentBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailLentBookViewController.swift; sourceTree = "<group>"; };
 		C11B304F22BE61310023CF0E /* DetailLentBookViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailLentBookViewController+setupScreen.swift"; sourceTree = "<group>"; };
 		C11B305122BE7E530023CF0E /* ManageLoanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLoanViewController.swift; sourceTree = "<group>"; };
+		C1226F0A22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManageLoanViewController+setupScreen.swift"; sourceTree = "<group>"; };
 		C12C124D22B37469006A3F2C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		C12C124F22B3839D006A3F2C /* AddManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManuallyViewController.swift; sourceTree = "<group>"; };
 		C12C125122B3915A006A3F2C /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				C11B304B22BE18910023CF0E /* UserLentBooksTableViewController.swift */,
 				C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */,
 				C11B305122BE7E530023CF0E /* ManageLoanViewController.swift */,
+				C1226F0A22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift */,
 				C11B304D22BE20330023CF0E /* DetailLentBookViewController.swift */,
 				C11B304F22BE61310023CF0E /* DetailLentBookViewController+setupScreen.swift */,
 				C12C124D22B37469006A3F2C /* AddBookViewController.swift */,
@@ -565,6 +568,7 @@
 				C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */,
 				C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */,
 				C12C125B22B40934006A3F2C /* UserCell.swift in Sources */,
+				C1226F0B22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift in Sources */,
 				C13355C722BA45F20006D9CD /* ScanRunningViewController.swift in Sources */,
 				C13355C522BA255E0006D9CD /* ScanMenuViewController.swift in Sources */,
 				C12C125922B3D5FD006A3F2C /* LoginControler+handlers.swift in Sources */,

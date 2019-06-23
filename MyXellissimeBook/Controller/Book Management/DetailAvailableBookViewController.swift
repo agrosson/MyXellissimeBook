@@ -154,7 +154,21 @@ class DetailAvailableBookViewController: UIViewController {
         createALoanButton.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
     }
     
+    /**
+     Function that manages presentation of ManageLoanViewController
+     */
+    func showManageLoanViewControllerForBook(book: Book){
+        let manageLoanViewController = ManageLoanViewController()
+        manageLoanViewController.bookToLend = bookToDisplay
+        navigationController?.pushViewController(manageLoanViewController, animated: true)
+    }
+    /**
+     Function that presents ManageLoanViewController when createALoanButton is pressed
+     */
     @objc func handleCreateALoan(){
         print("go to screen for create a loan")
+        if let book = bookToDisplay {
+            showManageLoanViewControllerForBook(book: book)
+        }
     }
 }

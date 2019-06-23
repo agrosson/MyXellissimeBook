@@ -63,6 +63,8 @@ class InitialViewController: UIViewController {
         button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 25)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.minimumScaleFactor = 0.5
         button.addTarget(self, action: #selector(showBooksUserBorrowed), for: .touchUpInside)
         return button
     }()

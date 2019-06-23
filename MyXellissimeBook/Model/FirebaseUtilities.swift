@@ -125,7 +125,7 @@ class FirebaseUtilities {
                       "author": book.author ?? "no author",
                       "editor": book.editor ?? "unknown",
                       "isbn": book.isbn ?? "no isbn",
-                      "isAvailable" : book.isAvailable ?? false,
+                      "isAvailable" : book.isAvailable ?? true,
                       "coverURL" : book.coverURL ?? "no url"] as [String : Any]
         // this block to save the message and then also make a reference and store the reference of message in antoher node
         childRef.updateChildValues(values) { (error, ref) in

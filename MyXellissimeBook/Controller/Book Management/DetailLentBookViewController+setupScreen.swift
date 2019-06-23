@@ -67,7 +67,11 @@ extension DetailLentBookViewController {
      */
     func   setupContainerView(){
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        if screenHeight > 600 {
+             containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        } else {
+          containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+        }
         containerView.topAnchor.constraint(equalTo: editorLabel.bottomAnchor, constant: 8).isActive = true
         containerView.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -16).isActive = true
     }

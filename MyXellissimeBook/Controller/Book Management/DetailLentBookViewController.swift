@@ -11,16 +11,19 @@ import UIKit
 class DetailLentBookViewController: UIViewController {
 
     var bookToDisplay: Book?
-    let screenHeight = UIScreen.main.bounds.height
-    let screenWidth = UIScreen.main.bounds.width
     let loanDetailsLabelHeight:CGFloat = {
-        if UIScreen.main.bounds.height > 700 {
+        if screenHeight > 700 {
             return 60
-        }
-        return 40}()
+        } else if screenHeight > 600 {
+            return 40}
+        return 35 }()
     
     let loanTextSize: CGFloat = 22
-    let insetBetweenLabels: CGFloat = 20
+    let insetBetweenLabels: CGFloat = {
+        if screenHeight > 700 {
+            return 20
+        }
+        return 10 }()
 
     /*******************************************************
      UI variables: Start
