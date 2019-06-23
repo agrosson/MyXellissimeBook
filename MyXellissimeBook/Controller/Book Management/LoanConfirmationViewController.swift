@@ -17,6 +17,21 @@ class LoanConfirmationViewController: UIViewController {
 
     var bookToLend = Book()
     var userBorrower = User()
+    var fromDate: String {
+        let dateFormate = DateFormatter()
+        dateFormate.dateFormat = "dd.MM.yyyy"
+        let date = Date()
+        let stringOfDate = dateFormate.string(from: date)
+        return stringOfDate
+    }
+    var toDate: String {
+        let dateFormate = DateFormatter()
+        dateFormate.dateFormat = "dd.MM.yyyy"
+        let today = Date()
+        let toDate = Calendar.current.date(byAdding: .day, value: 21, to: today)!
+        let stringOfDate = dateFormate.string(from: toDate)
+        return stringOfDate
+    }
     
     /*******************************************************
      UI variables: Start
@@ -54,7 +69,7 @@ class LoanConfirmationViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    /// Container View for Loan details
+    /// Container View for the book details
     let containerView : UIView = {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
@@ -68,7 +83,65 @@ class LoanConfirmationViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+    /// Container data Loan details
+    let containerDataView : UIView = {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    /// Reminder label
+    let reminderLabel: UILabel = {
+        let label = UILabel()
+        label.text = "You want to lend this book to"
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.left
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    /// Reminder label
+    let borrowerLabel: UILabel = {
+        let label = UILabel()
+        label.text = "name and email"
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.left
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    /// Reminder label
+    let fromDateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "From date: " // calculate now
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.left
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    /// Reminder label
+    let toDateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "To date: " // calculate now
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.left
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +150,11 @@ class LoanConfirmationViewController: UIViewController {
         containerView.addSubview(titleLabel)
         containerView.addSubview(authorLabel)
         containerView.addSubview(separateView)
+        view.addSubview(containerDataView)
+        containerDataView.addSubview(reminderLabel)
+        containerDataView.addSubview(borrowerLabel)
+        containerDataView.addSubview(fromDateLabel)
+        containerDataView.addSubview(toDateLabel)
         setupScreen()
     }
     
@@ -90,6 +168,11 @@ class LoanConfirmationViewController: UIViewController {
         setupAuthorLabel()
         setupContainerView()
         setupSeparateView()
+        setupContainerDataView()
+        setupReminderLabel()
+        setupBorrowerLabel()
+        setupFromDateLabel()
+        setupToDateLabel()
     }
 
     /**
@@ -147,4 +230,65 @@ class LoanConfirmationViewController: UIViewController {
         separateView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         separateView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
     }
+    /**
+     Function that sets up containerDataView
+     */
+    func setupContainerDataView(){
+        // need x and y , width height contraints
+        containerDataView.backgroundColor = .red
+        containerDataView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        containerDataView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 10).isActive = true
+        containerDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
+        containerDataView.widthAnchor.constraint(equalTo : view.widthAnchor, constant: -16).isActive = true
+    }
+    
+    /**
+     Function that sets up reminderLabel
+     */
+    func setupReminderLabel(){
+        // need x and y , width height contraints
+        reminderLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
+        reminderLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
+        reminderLabel.topAnchor.constraint(equalTo: containerDataView.topAnchor, constant: 10).isActive = true
+        reminderLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+       
+    }
+    /**
+     Function that sets up borrower Label
+     */
+    func setupBorrowerLabel() {
+        // need x and y , width height contraints
+        
+        guard let name = userBorrower.name else {return}
+        guard let email = userBorrower.email else {return}
+        borrowerLabel.text = "\(name), with \(email)"
+        borrowerLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
+        borrowerLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
+        borrowerLabel.topAnchor.constraint(equalTo: reminderLabel.bottomAnchor, constant: 10).isActive = true
+        borrowerLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    /**
+     Function that sets up fromDateLabel
+     */
+    func setupFromDateLabel() {
+        // need x and y , width height contraints
+        fromDateLabel.text = "From: \(fromDate)"
+        fromDateLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
+        fromDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
+        fromDateLabel.topAnchor.constraint(equalTo: borrowerLabel.bottomAnchor, constant: 10).isActive = true
+        fromDateLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    /**
+     Function that sets up toDateLabel
+     */
+    func setupToDateLabel() {
+        // need x and y , width height contraints
+        toDateLabel.text = "To: \(toDate)"
+        toDateLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
+        toDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
+        toDateLabel.topAnchor.constraint(equalTo: fromDateLabel.bottomAnchor, constant: 10).isActive = true
+        toDateLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+ 
 }
