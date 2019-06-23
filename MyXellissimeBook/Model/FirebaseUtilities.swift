@@ -29,7 +29,6 @@ class FirebaseUtilities {
     
     
     var name = ""
-    
     /*******************************************************
      This function returns the user name
      ********************************************************/
@@ -49,30 +48,31 @@ class FirebaseUtilities {
      This function returns a user from a email
      ********************************************************/
     
-    static func getUserFromEmail(email: String) -> User {
+    static func getUserFromEmail(email: String, callBack: @escaping (User) -> Void){
             let rootRef = Database.database().reference()
             let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "email")
-            let userBorrower = User()
             query.observe(.value) { (snapshot) in
                 // this to avoid duplicated row when reloaded
-                print(snapshot)
+                // print(snapshot)
                 for child in snapshot.children.allObjects as! [DataSnapshot] {
                     if let value = child.value as? NSDictionary {
                         if email == value["email"] as? String {
+                            let userTemp = User()
                             let name = value["name"] as? String ?? "Name not found"
                             let email = value["email"] as? String ?? "Email not found"
                             let profileId = value["profileId"] as? String ?? "profileId not found"
+                            print("on est bon là normalement ")
                             print("name : \(name)")
-                            userBorrower.name = name
-                            userBorrower.email = email
-                            userBorrower.profileId = profileId
+                            userTemp.name = name
+                            print("name : \(String(describing: borrower.name))")
+                            userTemp.email = email
+                            userTemp.profileId = profileId
+                            callBack(userTemp)
                         }
                     }
                 }
             }
-        return userBorrower
     }
-    
     
     /*******************************************************
      This function saves a text as a message in firebase

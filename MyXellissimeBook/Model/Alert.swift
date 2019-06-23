@@ -37,7 +37,8 @@ class Alert {
         googleBookDidNotFindAResult,
         googleBookAPIProblemWithUrl,
         bookDidNotFindAResult,
-        needAllFieldsCompleted
+        needAllFieldsCompleted,
+        noUserFound
     }
     // MARK: - Initializer
     init() {}
@@ -88,6 +89,12 @@ class Alert {
             title: "Sorry",
             message: TextAndString.shared.needAllFieldsCompleted,
             titleButton: "Back")
+        case .noUserFound: controller?.presentAlertDetails(
+            title: "Sorry",
+            message: TextAndString.shared.noUserFound,
+            titleButton: "Back")
+            
+            
         }
     }
 }
@@ -119,6 +126,7 @@ struct TextAndString {
     let googleBookAPIProblemWithUrl = "URL problem with Google Books API."
     let bookDidNotFindAResult = "No book found in database. Please type down data"
     let needAllFieldsCompleted = "Fill in all fields please."
+    let noUserFound = "No user found with this email"
     
     // Segue
     let segueFromLogInToHome = "logInToWelcome"

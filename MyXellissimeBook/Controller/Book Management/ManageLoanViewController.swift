@@ -22,7 +22,6 @@ class ManageLoanViewController: UIViewController {
     var userUid: String? = {
        return Auth.auth().currentUser?.uid
     }()
-    var userBorrower: User?
     
     let screenHeight = UIScreen.main.bounds.height
     
@@ -151,14 +150,29 @@ class ManageLoanViewController: UIViewController {
     }
     
     private func showConfirmationLoanViewControllerWith(book : Book, and user: User){
-        
+        print("gooooooooooooood")
+        print(user.name as Any)
     }
     
     @objc func validLoan(){
         print("valid loan and display confim screen")
-        guard let email = emailTextField.text else {return}
-        let user = FirebaseUtilities.getUserFromEmail(email: email)
-        guard let book = bookToLend else {return}
-        showConfirmationLoanViewControllerWith(book: book, and: user)
+        
+        print("voyons notre userBorrower")
+       // var userFrom = User()
+        guard let emailString = emailTextField.text else {return}
+        FirebaseUtilities.getUserFromEmail(email: emailString) { (user) in
+            print("on est dans la closure \(String(describing: user.name)) \( String(describing: user.email))")
+        }
+
+//        if FirebaseUtilities.getUserFromEmail(email: email).email == nil {
+//            Alert.shared.controller = self
+//            Alert.shared.alertDisplay = .noUserFound
+//            return
+//        }
+//        else  {
+//            guard let book = bookToLend else {return}
+//            showConfirmationLoanViewControllerWith(book: book, and: FirebaseUtilities.getUserFromEmail(email: email))
+//        }
+        
     }
 }
