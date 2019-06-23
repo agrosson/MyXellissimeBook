@@ -105,13 +105,10 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
      - Parameter values: the user's data to be saved in Firebase db as a dictionary
      */
     private func registerUserIntoDatabaseWithUid(uid: String, values : [String: Any]) {
-        print("do we are here? ")
         print(values)
         let ref = Database.database().reference()
         let userReference = ref.child(FirebaseUtilities.shared.users).child(uid)
-        print("do we are here? and here")
         userReference.updateChildValues(values, withCompletionBlock: { (errorUpdate, dataRefUpdate) in
-            print("do we are here? an again ")
             if errorUpdate != nil {
                 print(errorUpdate?.localizedDescription as Any)
                 return

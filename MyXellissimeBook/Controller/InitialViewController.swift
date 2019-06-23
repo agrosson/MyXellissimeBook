@@ -215,7 +215,6 @@ class InitialViewController: UIViewController {
      Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed
      */
     @objc func handleLogout() {
-         print("You are here")
         // Try to log out
         do {
             try Auth.auth().signOut()
@@ -235,7 +234,6 @@ class InitialViewController: UIViewController {
      Action that shows the list of user's books when showUserBooksButton is clicked
      */
     @objc func showUserBooks() {
-        print("You will see the list of user's books")
         let userBooksTableViewController = UINavigationController(rootViewController: UserBooksTableViewController())
         present(userBooksTableViewController, animated: true, completion: nil)
     }
@@ -244,7 +242,6 @@ class InitialViewController: UIViewController {
      Action that shows the list of user's books which are lent when showUserBooksLentButton is clicked
      */
     @objc func showUserLentBooks() {
-        print("You will see the list of user's books that are lent")
         // present listOfUserBooksLentViewController
         let userLentBooksTableViewController = UINavigationController(rootViewController: UserLentBooksTableViewController())
         present(userLentBooksTableViewController, animated: true, completion: nil)

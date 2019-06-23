@@ -103,7 +103,6 @@ class UserCell: UITableViewCell {
         if let idToUse = chatPartnerId {
             let ref = Database.database().reference().child("users").child(idToUse)
             ref.observeSingleEvent(of: .value, with: { (snapShot) in
-                print(snapShot)
                 if let dictionary = snapShot.value as? [String : Any] {
                     // 3. Display profile
                     self.textLabel?.text = dictionary["name"] as? String

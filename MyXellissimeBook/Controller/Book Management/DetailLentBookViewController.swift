@@ -25,7 +25,12 @@ class DetailLentBookViewController: UIViewController {
             return 20
         }
         return 10 }()
-
+    
+    var  currentUid: String  {
+        guard let uid = Auth.auth().currentUser?.uid else {return ""}
+        return uid
+    }
+    
 
     /*******************************************************
      UI variables: Start
@@ -220,6 +225,10 @@ class DetailLentBookViewController: UIViewController {
         print("will lead to screen to modify the loan")
     }
     @objc func handleCloseLoan(){
-        print("will lead to the loan")
+        bookToDisplay?.isAvailable = true
+        guard let book = bookToDisplay else {return}
+        FirebaseUtilities.saveBook(book: book, fromUserId: currentUid)
+        dismiss(animated: true, completion: nil)
+        // Todo: set the date for closed loan
     }
 }

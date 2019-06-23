@@ -41,7 +41,6 @@ class FirebaseUtilities {
             self.shared.name = ""
             if let dictionary = snapshot.value as? [String : Any] {
                 self.shared.name = (dictionary["name"] as? String)!
-                print("ici avec \(self.shared.name)")
             }
         }
       return self.shared.name
@@ -82,8 +81,6 @@ class FirebaseUtilities {
                             let name = value["name"] as? String ?? "Name not found"
                             let email = value["email"] as? String ?? "Email not found"
                             let profileId = value["profileId"] as? String ?? "profileId not found"
-                            print("on est bon là normalement ")
-                            print("name : \(name)")
                             userTemp.name = name
                             userTemp.email = email
                             userTemp.profileId = profileId
