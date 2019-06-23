@@ -26,6 +26,8 @@ class FirebaseUtilities {
     let user_books = "user-books"
     let books = "books"
     let coverImage = "coverImage"
+    let loan = "loan"
+    let user_loans = "user-loans"
     
     
     var name = ""
@@ -117,7 +119,6 @@ class FirebaseUtilities {
     
     /*******************************************************
      This function saves a book in firebase:
-     
      Before saving, gather book atrributes and user Id
      ********************************************************/
     static func saveBook(book: Book, fromUserId : String){
@@ -195,5 +196,43 @@ class FirebaseUtilities {
             print(progress.fractionCompleted)
         }
         uploadTask.resume()
+    }
+
+/*******************************************************
+ This function create a loan  in firebase
+ ********************************************************/
+    static func saveLoan(bookToLend: Book, fromId : String, toUser: User, loanStartDate: String,expectedEndDateOfLoan: String) {
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.loan)
+        /// unique reference for the message
+        let childRef = ref.childByAutoId()
+        /// get the recipient Id
+        let loanId = childRef.key
+        guard let bookId = bookToLend.uniqueId else {return}
+        guard let toUserId = toUser.profileId else {return}
+        // Create a dictionary of values to save as a loan 
+        let values = ["uniqueLoanBookId" : loanId,
+                      "bookId" : bookId,
+                      "fromUser" : fromId,
+                      "toUser" : toUserId,
+                      "loanStartDate" : loanStartDate,
+                      "expectedEndDateOfLoan" : expectedEndDateOfLoan] as [String : Any]
+        // this block to save the loan and then also make a reference and store the reference of message in antoher node
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            // create a new node fromId user
+            let lenderRef = Database.database().reference().child(FirebaseUtilities.shared.user_loans).child(fromId)
+            // store the  message here for the fromId user
+            lenderRef.updateChildValues([loanId : 1])
+            // create a new node toId user
+            let borrowerRef = Database.database().reference().child(FirebaseUtilities.shared.user_loans).child(toUserId)
+            // store the key message here for the toId user
+            borrowerRef.updateChildValues([loanId : 1])
+            // update availability of the book
+            bookToLend.isAvailable = false
+            FirebaseUtilities.saveBook(book: bookToLend, fromUserId: fromId)
+        }
     }
 }

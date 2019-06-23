@@ -35,6 +35,7 @@ class LoanConfirmationViewController: UIViewController {
         let stringOfDate = dateFormate.string(from: toDate)
         return stringOfDate
     }
+    
     /// height of text in container data view
     let heightOfText: CGFloat = 20
     
@@ -205,6 +206,8 @@ class LoanConfirmationViewController: UIViewController {
      */
     @objc func confirmLoan() {
         print("We will register loan here")
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        FirebaseUtilities.saveLoan(bookToLend: bookToLend, fromId: uid, toUser: userBorrower, loanStartDate: fromDate, expectedEndDateOfLoan: toDate)
         
     }
     
