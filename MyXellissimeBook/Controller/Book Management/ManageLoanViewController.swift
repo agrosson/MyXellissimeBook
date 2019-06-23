@@ -68,7 +68,7 @@ class ManageLoanViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    /// Container View for Loan details
+    /// Separate view
     let separateView : UIView = {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
