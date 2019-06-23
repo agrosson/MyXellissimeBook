@@ -186,13 +186,16 @@ class DetailLentBookViewController: UIViewController {
                 guard let loanStartDate = dictionary["loanStartDate"] as? String else {return}
                 guard let expectedEndDateOfLoan = dictionary["expectedEndDateOfLoan"] as? String else {return}
                 guard let bookId = dictionary["bookId"] as? String else {return}
-                if bookId == self.bookToDisplay?.uniqueId {
-                    self.borrowerLabel.text = toUser
-                    self.startingDateOfLoanLabel.text = "Loan from \(loanStartDate)"
-                    self.expectedEndDateOfLoanLabel.text = "To \(expectedEndDateOfLoan)"
-                } else {
-                    print("on a une exception ")
-                }
+                FirebaseUtilities.getUserNameFromUserId(userId: toUser, callBack: { (name) in
+                    if bookId == self.bookToDisplay?.uniqueId {
+                        self.borrowerLabel.text = name
+                        self.startingDateOfLoanLabel.text = "Loan from \(loanStartDate)"
+                        self.expectedEndDateOfLoanLabel.text = "To \(expectedEndDateOfLoan)"
+                    } else {
+                        print("on a une exception ")
+                    }
+                })
+               
             }, withCancel: nil)
         }, withCancel: nil)
         

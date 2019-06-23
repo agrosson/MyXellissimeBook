@@ -47,6 +47,20 @@ class FirebaseUtilities {
       return self.shared.name
     }
     /*******************************************************
+     This function returns a user name from a id
+     ********************************************************/
+    static func getUserNameFromUserId(userId: String, callBack: @escaping (String?) -> Void) {
+        Database.database().reference().child(FirebaseUtilities.shared.users).child(userId).observeSingleEvent(of: .value) {  (snapshot) in
+            self.shared.name = ""
+            if let dictionary = snapshot.value as? [String : Any] {
+                let name = (dictionary["name"] as? String)!
+               callBack(name)
+            }
+        }
+    }
+    
+    
+    /*******************************************************
      This function returns a user from a email
      ********************************************************/
     
