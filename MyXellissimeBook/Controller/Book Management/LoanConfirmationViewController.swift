@@ -143,6 +143,21 @@ class LoanConfirmationViewController: UIViewController {
         return label
     }()
     
+    // create button
+    /// Confirmation button for loan
+    lazy var confirmLoanButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor.clear
+        button.setTitle("Confirm", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 25)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 15
+        button.layer.borderWidth = 2
+        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.addTarget(self, action: #selector(confirmLoan), for: .touchUpInside)
+        return button
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(containerView)
@@ -155,6 +170,7 @@ class LoanConfirmationViewController: UIViewController {
         containerDataView.addSubview(borrowerLabel)
         containerDataView.addSubview(fromDateLabel)
         containerDataView.addSubview(toDateLabel)
+        containerDataView.addSubview(confirmLoanButton)
         setupScreen()
     }
     
@@ -173,8 +189,15 @@ class LoanConfirmationViewController: UIViewController {
         setupBorrowerLabel()
         setupFromDateLabel()
         setupToDateLabel()
+        setupConfirmLoanButton()
     }
 
+    @objc func confirmLoan() {
+        print("We will register loan here")
+        
+    }
+    
+    
     /**
      Function that sets up containerView()
      */
@@ -235,7 +258,6 @@ class LoanConfirmationViewController: UIViewController {
      */
     func setupContainerDataView(){
         // need x and y , width height contraints
-        containerDataView.backgroundColor = .red
         containerDataView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         containerDataView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 10).isActive = true
         containerDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
@@ -289,6 +311,17 @@ class LoanConfirmationViewController: UIViewController {
         toDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
         toDateLabel.topAnchor.constraint(equalTo: fromDateLabel.bottomAnchor, constant: 10).isActive = true
         toDateLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    /**
+     Function that sets up confirmLoanButton
+     */
+    func setupConfirmLoanButton() {
+        // need x and y , width height contraints
+        confirmLoanButton.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
+        confirmLoanButton.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
+        confirmLoanButton.bottomAnchor.constraint(equalTo: containerDataView.bottomAnchor, constant: -8).isActive = true
+        confirmLoanButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
  
 }
