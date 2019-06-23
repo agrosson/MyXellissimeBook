@@ -150,10 +150,16 @@ class ManageLoanViewController: UIViewController {
         setupValidLoanButton()
     }
     
+    /**
+     Function that presents LoanConfirmationViewController
+     */
     private func showConfirmationLoanViewControllerWith(book : Book, and user: User){
-        print("gooooooooooooood")
-        print(user.name as Any)
+       let loanConfirmationVC = LoanConfirmationViewController()
+        loanConfirmationVC.bookToLend = book
+        loanConfirmationVC.userBorrower = user
+        navigationController?.pushViewController(loanConfirmationVC, animated: true)
     }
+    
     
     @objc func validLoan(){
         print("valid loan and display confim screen")
