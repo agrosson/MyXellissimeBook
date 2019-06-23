@@ -14,9 +14,11 @@ import  Firebase
  This class enables to confirm and save a book loan
  */
 class LoanConfirmationViewController: UIViewController {
-
+    /// The book to lend
     var bookToLend = Book()
+    /// The borrower as user
     var userBorrower = User()
+    /// Starting Date of the Loan
     var fromDate: String {
         let dateFormate = DateFormatter()
         dateFormate.dateFormat = "dd.MM.yyyy"
@@ -24,6 +26,7 @@ class LoanConfirmationViewController: UIViewController {
         let stringOfDate = dateFormate.string(from: date)
         return stringOfDate
     }
+    /// Expected date for date of loan
     var toDate: String {
         let dateFormate = DateFormatter()
         dateFormate.dateFormat = "dd.MM.yyyy"
@@ -32,6 +35,7 @@ class LoanConfirmationViewController: UIViewController {
         let stringOfDate = dateFormate.string(from: toDate)
         return stringOfDate
     }
+    /// height of text in container data view
     let heightOfText: CGFloat = 20
     
     /*******************************************************
@@ -104,7 +108,7 @@ class LoanConfirmationViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    /// Reminder label
+    /// borrower label
     let borrowerLabel: UILabel = {
         let label = UILabel()
         label.text = "name and email"
@@ -117,7 +121,7 @@ class LoanConfirmationViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    /// Reminder label
+    /// fromDate label
     let fromDateLabel: UILabel = {
         let label = UILabel()
         label.text = "From date: " // calculate now
@@ -130,7 +134,7 @@ class LoanConfirmationViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    /// Reminder label
+    /// toDate label
     let toDateLabel: UILabel = {
         let label = UILabel()
         label.text = "To date: " // calculate now
@@ -143,8 +147,6 @@ class LoanConfirmationViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    // create button
     /// Confirmation button for loan
     lazy var confirmLoanButton : UIButton = {
         let button = UIButton(type: .system)
@@ -159,6 +161,10 @@ class LoanConfirmationViewController: UIViewController {
         button.addTarget(self, action: #selector(confirmLoan), for: .touchUpInside)
         return button
     }()
+    
+    /*******************************************************
+                    UI variables: end
+     ********************************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(containerView)
@@ -174,7 +180,9 @@ class LoanConfirmationViewController: UIViewController {
         containerDataView.addSubview(confirmLoanButton)
         setupScreen()
     }
-    
+    /**
+     Function that sets up the screen
+     */
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         if let isbn = bookToLend.isbn {
@@ -192,7 +200,9 @@ class LoanConfirmationViewController: UIViewController {
         setupToDateLabel()
         setupConfirmLoanButton()
     }
-
+    /**
+     Function that launch registration of the loan
+     */
     @objc func confirmLoan() {
         print("We will register loan here")
         
