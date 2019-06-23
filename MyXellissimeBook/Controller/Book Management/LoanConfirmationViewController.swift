@@ -32,6 +32,7 @@ class LoanConfirmationViewController: UIViewController {
         let stringOfDate = dateFormate.string(from: toDate)
         return stringOfDate
     }
+    let heightOfText: CGFloat = 20
     
     /*******************************************************
      UI variables: Start
@@ -94,7 +95,7 @@ class LoanConfirmationViewController: UIViewController {
     let reminderLabel: UILabel = {
         let label = UILabel()
         label.text = "You want to lend this book to"
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 20)
         label.textColor = UIColor.white
         label.textAlignment = NSTextAlignment.left
         label.numberOfLines = 1
@@ -107,7 +108,7 @@ class LoanConfirmationViewController: UIViewController {
     let borrowerLabel: UILabel = {
         let label = UILabel()
         label.text = "name and email"
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 20)
         label.textColor = UIColor.white
         label.textAlignment = NSTextAlignment.left
         label.numberOfLines = 1
@@ -120,7 +121,7 @@ class LoanConfirmationViewController: UIViewController {
     let fromDateLabel: UILabel = {
         let label = UILabel()
         label.text = "From date: " // calculate now
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 20)
         label.textColor = UIColor.white
         label.textAlignment = NSTextAlignment.left
         label.numberOfLines = 1
@@ -133,7 +134,7 @@ class LoanConfirmationViewController: UIViewController {
     let toDateLabel: UILabel = {
         let label = UILabel()
         label.text = "To date: " // calculate now
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 20)
         label.textColor = UIColor.white
         label.textAlignment = NSTextAlignment.left
         label.numberOfLines = 1
@@ -269,6 +270,7 @@ class LoanConfirmationViewController: UIViewController {
      */
     func setupReminderLabel(){
         // need x and y , width height contraints
+        reminderLabel.font = UIFont.systemFont(ofSize: heightOfText)
         reminderLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         reminderLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
         reminderLabel.topAnchor.constraint(equalTo: containerDataView.topAnchor, constant: 10).isActive = true
@@ -280,7 +282,7 @@ class LoanConfirmationViewController: UIViewController {
      */
     func setupBorrowerLabel() {
         // need x and y , width height contraints
-        
+        borrowerLabel.font = UIFont.systemFont(ofSize: heightOfText)
         guard let name = userBorrower.name else {return}
         guard let email = userBorrower.email else {return}
         borrowerLabel.text = "\(name), with \(email)"
@@ -294,6 +296,7 @@ class LoanConfirmationViewController: UIViewController {
      */
     func setupFromDateLabel() {
         // need x and y , width height contraints
+        fromDateLabel.font = UIFont.systemFont(ofSize: heightOfText)
         fromDateLabel.text = "From: \(fromDate)"
         fromDateLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         fromDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
@@ -306,6 +309,7 @@ class LoanConfirmationViewController: UIViewController {
      */
     func setupToDateLabel() {
         // need x and y , width height contraints
+        toDateLabel.font = UIFont.systemFont(ofSize: heightOfText)
         toDateLabel.text = "To: \(toDate)"
         toDateLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         toDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
@@ -320,8 +324,8 @@ class LoanConfirmationViewController: UIViewController {
         // need x and y , width height contraints
         confirmLoanButton.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         confirmLoanButton.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
-        confirmLoanButton.bottomAnchor.constraint(equalTo: containerDataView.bottomAnchor, constant: -8).isActive = true
-        confirmLoanButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        confirmLoanButton.bottomAnchor.constraint(equalTo: containerDataView.bottomAnchor, constant: -12).isActive = true
+        confirmLoanButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
  
 }
