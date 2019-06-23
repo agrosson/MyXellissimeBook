@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class DetailLentBookViewController: UIViewController {
 
@@ -24,6 +25,7 @@ class DetailLentBookViewController: UIViewController {
             return 20
         }
         return 10 }()
+
 
     /*******************************************************
      UI variables: Start
@@ -157,6 +159,44 @@ class DetailLentBookViewController: UIViewController {
         containerView.addSubview(modifyLoanButton)
         containerView.addSubview(closeLoanButton)
         setupScreen()
+        getLoans()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupScreen()
+        getLoans()
+    }
+    
+    private func getLoans() {
+        // get the Id of the user
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        // get the ref of list of message for this uid
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.user_loans).child(uid)
+        // observe the node
+        ref.observe(.childAdded, with: { (snapshot) in
+            // get the key for the message
+            let loanId = snapshot.key
+            // get the reference of the message
+            let loanReference = Database.database().reference().child(FirebaseUtilities.shared.loan).child(loanId)
+            // observe the messages for this user
+            loanReference.observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let dictionary = snapshot.value as? [String : Any] else {return}
+                guard let toUser = dictionary["toUser"] as? String else {return}
+                guard let loanStartDate = dictionary["loanStartDate"] as? String else {return}
+                guard let expectedEndDateOfLoan = dictionary["expectedEndDateOfLoan"] as? String else {return}
+                guard let bookId = dictionary["bookId"] as? String else {return}
+                if bookId == self.bookToDisplay?.uniqueId {
+                    self.borrowerLabel.text = toUser
+                    self.startingDateOfLoanLabel.text = "Loan from \(loanStartDate)"
+                    self.expectedEndDateOfLoanLabel.text = "To \(expectedEndDateOfLoan)"
+                } else {
+                    print("on a une exception ")
+                }
+            }, withCancel: nil)
+        }, withCancel: nil)
+        
+        
     }
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)

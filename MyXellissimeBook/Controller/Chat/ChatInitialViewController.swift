@@ -114,41 +114,6 @@ class ChatInitialViewController : UITableViewController {
     }
     
     /**
-     function that observes all messages
-
-    private func  observeMessages() {
-       let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
-        ref.observe(.childAdded, with: { snapshot in
-            print(snapshot)
-            guard let dictionary = snapshot.value as? [String : Any] else {return}
-            let message = Message()
-             guard let fromId = dictionary["fromId"] as? String else {return}
-             guard let toId =  dictionary["toId"] as? String else {return}
-             guard let text =  dictionary["text"] as? String else {return}
-             guard let timestamp =  dictionary["timestamp"] as? Int else {return}
-             message.fromId = fromId
-             message.timestamp = timestamp
-             message.toId = toId
-             message.text = text
-            // get the last message for toId
-            self.messagesDictionary[toId] = message
-            // and contruct an array with the values of the dictionary
-            self.messages = Array(self.messagesDictionary.values)
-            // sort the array of message
-            self.messages.sort(by: { (message1, message2) -> Bool in
-                guard let time1 = message1.timestamp else {return false}
-                guard let time2 = message2.timestamp else {return false}
-                return time1 > time2
-            })
-            DispatchQueue.main.async { self.tableView.reloadData() }
-        }, withCancel: nil)
-       
-    // Maybe necessary
-    //  rootRef.removeAllObservers()
-    }
-    */
-    
-    /**
      Function that setup screen
      */
      func setupScreen(user: User){
