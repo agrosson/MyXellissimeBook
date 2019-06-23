@@ -98,8 +98,8 @@ extension ManageLoanViewController {
     func setupEmailTextField(){
         emailTextField.leftAnchor.constraint(equalTo: containerInputView.leftAnchor, constant:  8).isActive = true
         emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 30).isActive = true
-        emailTextField.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        emailTextField.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
+        emailTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        emailTextField.widthAnchor.constraint(equalTo: containerInputView.widthAnchor, constant: -16).isActive = true
     }
     /**
      Function that sets up validLoanButton

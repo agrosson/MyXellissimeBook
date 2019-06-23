@@ -150,7 +150,15 @@ class ManageLoanViewController: UIViewController {
         setupValidLoanButton()
     }
     
+    private func showConfirmationLoanViewControllerWith(book : Book, and user: User){
+        
+    }
+    
     @objc func validLoan(){
         print("valid loan and display confim screen")
+        guard let email = emailTextField.text else {return}
+        let user = FirebaseUtilities.getUserFromEmail(email: email)
+        guard let book = bookToLend else {return}
+        showConfirmationLoanViewControllerWith(book: book, and: user)
     }
 }
