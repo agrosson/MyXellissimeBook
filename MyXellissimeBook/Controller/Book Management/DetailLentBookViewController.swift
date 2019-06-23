@@ -191,9 +191,7 @@ class DetailLentBookViewController: UIViewController {
                         self.borrowerLabel.text = name
                         self.startingDateOfLoanLabel.text = "Loan from \(loanStartDate)"
                         self.expectedEndDateOfLoanLabel.text = "To \(expectedEndDateOfLoan)"
-                    } else {
-                        print("on a une exception ")
-                    }
+                    } 
                 })
                
             }, withCancel: nil)
