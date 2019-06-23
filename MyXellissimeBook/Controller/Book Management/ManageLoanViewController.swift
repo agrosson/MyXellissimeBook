@@ -100,6 +100,7 @@ class ManageLoanViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "Email address"
         textField.keyboardType = UIKeyboardType.default
+        textField.textColor = UIColor.white
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -161,7 +162,14 @@ class ManageLoanViewController: UIViewController {
        // var userFrom = User()
         guard let emailString = emailTextField.text else {return}
         FirebaseUtilities.getUserFromEmail(email: emailString) { (user) in
-            print("on est dans la closure \(String(describing: user.name)) \( String(describing: user.email))")
+            print("test \(String(describing: user.name))")
+            if user.name == nil {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .noUserFound
+            } else {
+                guard let book = self.bookToLend else {return}
+                self.showConfirmationLoanViewControllerWith(book: book, and: user)
+            }
         }
 
 //        if FirebaseUtilities.getUserFromEmail(email: email).email == nil {

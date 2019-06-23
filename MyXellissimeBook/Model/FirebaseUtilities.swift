@@ -49,14 +49,19 @@ class FirebaseUtilities {
      ********************************************************/
     
     static func getUserFromEmail(email: String, callBack: @escaping (User) -> Void){
+
             let rootRef = Database.database().reference()
             let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "email")
+            var counter = 0
+            var counterTrue = 0
             query.observe(.value) { (snapshot) in
                 // this to avoid duplicated row when reloaded
                 // print(snapshot)
                 for child in snapshot.children.allObjects as! [DataSnapshot] {
+                    counter += 1
                     if let value = child.value as? NSDictionary {
                         if email == value["email"] as? String {
+                            counterTrue = +1
                             let userTemp = User()
                             let name = value["name"] as? String ?? "Name not found"
                             let email = value["email"] as? String ?? "Email not found"
@@ -64,12 +69,14 @@ class FirebaseUtilities {
                             print("on est bon là normalement ")
                             print("name : \(name)")
                             userTemp.name = name
-                            print("name : \(String(describing: borrower.name))")
                             userTemp.email = email
                             userTemp.profileId = profileId
                             callBack(userTemp)
                         }
                     }
+                }
+                if counterTrue == 0 {
+                    callBack(User())
                 }
             }
     }
