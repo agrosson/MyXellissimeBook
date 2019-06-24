@@ -18,60 +18,16 @@ class DetailAvailableBookViewController: UIViewController {
                         UI variables: Start
      ********************************************************/
     /// Cover of the book
-    let bookCoverImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    let bookCoverImageView = CustomUI().imageView
     /// Title label for the book
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 40)
-        label.textColor = UIColor.white
-        label.textAlignment = NSTextAlignment.center
-        label.numberOfLines = 1
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let titleLabel = CustomUI().label
     /// Author label for the book
-    let authorLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25)
-        label.textColor = UIColor.white
-        label.textAlignment = NSTextAlignment.center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let authorLabel = CustomUI().label
     /// Editor label for the book
-    let editorLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25)
-        label.textColor = UIColor.white
-        label.textAlignment = NSTextAlignment.center
-        label.numberOfLines = 2
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    // create button
+    let editorLabel = CustomUI().label
     /// Propose loan Button
-    lazy var createALoanButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.clear
-        button.setTitle("Lend this book", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 20
-        button.layer.borderWidth = 2
-        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-        button.addTarget(self, action: #selector(handleCreateALoan), for: .touchUpInside)
-        return button
-    }()
+    lazy var createALoanButton = CustomUI().button
+
     /*******************************************************
                         UI variables: End
      ********************************************************/
@@ -83,7 +39,19 @@ class DetailAvailableBookViewController: UIViewController {
         view.addSubview(authorLabel)
         view.addSubview(editorLabel)
         view.addSubview(createALoanButton)
+        setupUIObjects()
         setupScreen()
+    }
+    
+    private func setupUIObjects(){
+        titleLabel.font = UIFont.systemFont(ofSize: 40)
+        titleLabel.textAlignment = NSTextAlignment.center
+        authorLabel.textAlignment = NSTextAlignment.center
+        editorLabel.textAlignment = NSTextAlignment.center
+        editorLabel.numberOfLines = 2
+        createALoanButton.setTitle("Lend this book", for: .normal)
+        createALoanButton.titleLabel?.font = UIFont.systemFont(ofSize: 25)
+        createALoanButton.addTarget(self, action: #selector(handleCreateALoan), for: .touchUpInside)
     }
     
     private func setupScreen(){

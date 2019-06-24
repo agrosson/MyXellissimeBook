@@ -38,17 +38,20 @@ class ManageLoanViewController: UIViewController {
         return imageView
     }()
     /// Title label for the book
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25)
-        label.textColor = UIColor.white
-        label.textAlignment = NSTextAlignment.left
-        label.numberOfLines = 1
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+//    let titleLabel: UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont.systemFont(ofSize: 25)
+//        label.textColor = UIColor.white
+//        label.textAlignment = NSTextAlignment.left
+//        label.numberOfLines = 1
+//        label.adjustsFontSizeToFitWidth = true
+//        label.minimumScaleFactor = 0.5
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
+    
+    let titleLabel = CustomUI().label
+    
     /// Author label for the book
     let authorLabel: UILabel = {
         let label = UILabel()
@@ -119,6 +122,7 @@ class ManageLoanViewController: UIViewController {
         button.addTarget(self, action: #selector(validLoan), for: .touchUpInside)
         return button
     }()
+    
     
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
