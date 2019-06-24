@@ -28,6 +28,7 @@
 		C11B305222BE7E530023CF0E /* ManageLoanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B305122BE7E530023CF0E /* ManageLoanViewController.swift */; };
 		C120D34B22C09AD700E749BC /* CustomUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D34A22C09AD700E749BC /* CustomUI.swift */; };
 		C120D34D22C0AE0F00E749BC /* LoanConfirmationViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D34C22C0AE0F00E749BC /* LoanConfirmationViewController+setupScreen.swift */; };
+		C120D34F22C0C1C500E749BC /* UserBorrowedBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D34E22C0C1C500E749BC /* UserBorrowedBooksTableViewController.swift */; };
 		C1226F0B22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1226F0A22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift */; };
 		C1226F0D22BFAE5500A35A51 /* LoanConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1226F0C22BFAE5500A35A51 /* LoanConfirmationViewController.swift */; };
 		C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124D22B37469006A3F2C /* AddBookViewController.swift */; };
@@ -105,6 +106,7 @@
 		C11B305122BE7E530023CF0E /* ManageLoanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLoanViewController.swift; sourceTree = "<group>"; };
 		C120D34A22C09AD700E749BC /* CustomUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUI.swift; sourceTree = "<group>"; };
 		C120D34C22C0AE0F00E749BC /* LoanConfirmationViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoanConfirmationViewController+setupScreen.swift"; sourceTree = "<group>"; };
+		C120D34E22C0C1C500E749BC /* UserBorrowedBooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBorrowedBooksTableViewController.swift; sourceTree = "<group>"; };
 		C1226F0A22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManageLoanViewController+setupScreen.swift"; sourceTree = "<group>"; };
 		C1226F0C22BFAE5500A35A51 /* LoanConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanConfirmationViewController.swift; sourceTree = "<group>"; };
 		C12C124D22B37469006A3F2C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 			children = (
 				C100899522BCCB6100D3497E /* UserBooksTableViewController.swift */,
 				C11B304B22BE18910023CF0E /* UserLentBooksTableViewController.swift */,
+				C120D34E22C0C1C500E749BC /* UserBorrowedBooksTableViewController.swift */,
 				C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */,
 				C11B305122BE7E530023CF0E /* ManageLoanViewController.swift */,
 				C1226F0A22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift */,
@@ -593,6 +596,7 @@
 				C12C125022B3839D006A3F2C /* AddManuallyViewController.swift in Sources */,
 				C19371D922B0FC500017E696 /* InitialViewController.swift in Sources */,
 				C11B304C22BE18910023CF0E /* UserLentBooksTableViewController.swift in Sources */,
+				C120D34F22C0C1C500E749BC /* UserBorrowedBooksTableViewController.swift in Sources */,
 				C120D34B22C09AD700E749BC /* CustomUI.swift in Sources */,
 				C11B304E22BE20330023CF0E /* DetailLentBookViewController.swift in Sources */,
 				C19371EA22B0FD070017E696 /* LoginController.swift in Sources */,
