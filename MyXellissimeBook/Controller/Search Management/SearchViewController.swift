@@ -46,21 +46,11 @@ class SearchViewController: UIViewController {
     /// TextField to get book title
     let bookTitleTextField = CustomUI().textField
     /// View as a separator between textField
-    let bookTitleSeparatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    let bookTitleSeparatorView = CustomUI().view
     /// TextField to get book Author
     let bookAuthorTextField = CustomUI().textField
     /// View as a separator between textField
-    let bookAuthorSeparatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    let bookAuthorSeparatorView = CustomUI().view
     /// TextField to get book Isbn
     let bookIsbnTextField = CustomUI().textField
     
@@ -161,9 +151,25 @@ class SearchViewController: UIViewController {
     @objc private func searchBook(){
         print("launch search in database")
        
-        let title = bookTitleTextField.text
-        let author = bookAuthorTextField.text
-        let isbn = bookIsbnTextField.text
+        guard var title = bookTitleTextField.text, var author = bookAuthorTextField.text, var isbn = bookIsbnTextField.text else {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .needAtLeastOneField
+            return
+        }
+        title.removeFirstAndLastAndDoubleWhitespace()
+        author.removeFirstAndLastAndDoubleWhitespace()
+        isbn.removeFirstAndLastAndDoubleWhitespace()
+        
+        if title.isEmpty && author.isEmpty && isbn.isEmpty {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .needAtLeastOneField
+            return
+        }
+        
+        
+        
+        
+        
         
         let searchBookResultTableViewController = SearchBookResultTableViewController()
         searchBookResultTableViewController.titleSearch = title

@@ -40,7 +40,8 @@ class Alert {
         needAllFieldsCompleted,
         noUserFound,
         unableToCreateUser,
-        noTitleForBook
+        noTitleForBook,
+        needAtLeastOneField
     }
     // MARK: - Initializer
     init() {}
@@ -103,6 +104,10 @@ class Alert {
             title: "Sorry",
             message: TextAndString.shared.noTitleForBook,
             titleButton: "Back")
+        case .needAtLeastOneField : controller?.presentAlertDetails(
+            title: "Sorry",
+            message: TextAndString.shared.needAtLeastOneField,
+            titleButton: "Back")
         }
     }
 }
@@ -137,6 +142,7 @@ struct TextAndString {
     let noUserFound = "No user found with this email/password"
     let unableToCreateUser = "User has not been created.\nTry Again"
     let noTitleForBook = "Please indicate book title"
+    let needAtLeastOneField = "Please enter at least one element"
     
     // Segue
     let segueFromLogInToHome = "logInToWelcome"

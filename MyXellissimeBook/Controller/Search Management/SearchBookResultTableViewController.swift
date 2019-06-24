@@ -98,10 +98,11 @@ class SearchBookResultTableViewController: UITableViewController {
                 if isbn.localizedCaseInsensitiveContains(isbnTemp) || title.localizedCaseInsensitiveContains(titleTemp) || author.localizedCaseInsensitiveContains(authorTemp) {
                          self.books.append(book)
                 }
-               
                 DispatchQueue.main.async { self.tableView.reloadData() }
             }, withCancel: nil)
+
         }, withCancel: nil)
+
     }
 
     /**
@@ -140,6 +141,7 @@ class SearchBookResultTableViewController: UITableViewController {
         let book = books[indexPath.row]
         
         cell.book  = book
+
         return cell
     }
     
