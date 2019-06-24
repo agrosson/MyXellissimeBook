@@ -104,7 +104,6 @@ class ScanMenuViewController: UIViewController {
             containerView.isHidden = false
             scanButton.isHidden = true
         }
-        print("scan isbn is in didload : \(scannedIsbn)")
         isbnLabel.text = "Isbn number: \(scannedIsbn)"
       //  scannedIsbn = ""
     }
@@ -168,7 +167,6 @@ class ScanMenuViewController: UIViewController {
      */
     @objc func exportIsbn(){
         print("isbn is exported !!")
-      //  self.dismiss(animated: true, completion: nil)
         let addManuallyViewController = UINavigationController(rootViewController: AddManuallyViewController())
         present(addManuallyViewController, animated: true, completion: nil)
     }

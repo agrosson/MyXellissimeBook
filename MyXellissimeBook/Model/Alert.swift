@@ -38,7 +38,9 @@ class Alert {
         googleBookAPIProblemWithUrl,
         bookDidNotFindAResult,
         needAllFieldsCompleted,
-        noUserFound
+        noUserFound,
+        unableToCreateUser,
+        noTitleForBook
     }
     // MARK: - Initializer
     init() {}
@@ -93,8 +95,14 @@ class Alert {
             title: "Sorry",
             message: TextAndString.shared.noUserFound,
             titleButton: "Back")
-            
-            
+        case .unableToCreateUser: controller?.presentAlertDetails(
+            title: "Sorry",
+            message: TextAndString.shared.unableToCreateUser,
+            titleButton: "Back")
+        case .noTitleForBook : controller?.presentAlertDetails(
+            title: "Sorry",
+            message: TextAndString.shared.noTitleForBook,
+            titleButton: "Back")
         }
     }
 }
@@ -126,7 +134,9 @@ struct TextAndString {
     let googleBookAPIProblemWithUrl = "URL problem with Google Books API."
     let bookDidNotFindAResult = "No book found in database. Please type down data"
     let needAllFieldsCompleted = "Fill in all fields please."
-    let noUserFound = "No user found with this email"
+    let noUserFound = "No user found with this email/password"
+    let unableToCreateUser = "User has not been created.\nTry Again"
+    let noTitleForBook = "Please indicate book title"
     
     // Segue
     let segueFromLogInToHome = "logInToWelcome"

@@ -251,11 +251,13 @@ class AddManuallyViewController: UIViewController {
                                                 actionSheet.addAction(UIAlertAction(title: "Add Manually",
                                                                                     style: .default,
                                                                                     handler: { (_: UIAlertAction) in
-                                                                                        self.dismiss(animated: true)
+                                                                                   //     self.dismiss(animated: true)
+                                                                                        self.isSearchIndicator(shown: false)
                                                 }))
                                                 actionSheet.addAction(UIAlertAction(title: "Cancel",
                                                                                     style: .default,
                                                                                     handler: { (_: UIAlertAction) in
+                                                                                        scannedIsbn = ""
                                                                                         self.dismiss(animated: true)
                                                 }))
                                                 self.present(actionSheet, animated: true, completion: nil)
@@ -447,12 +449,29 @@ class AddManuallyViewController: UIViewController {
     @objc private func addAndSaveBookInFireBase(){
         print("up load in database")
         isSaveIndicator(shown: true)
+        print("on passe là?")
+        guard var title = bookTitleTextField.text else {
+            print("on passe ici?")
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .noTitleForBook
+            isSaveIndicator(shown: false)
+            return
+        }
+        title.removeFirstAndLastAndDoubleWhitespace()
+        if title.isEmpty {
+            print("on passe ou là ?")
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .noTitleForBook
+            isSaveIndicator(shown: false)
+            return
+        }
         var myBookToSave = Book()
         // Test if bookToSave not nil
         if bookToSave != nil {
             myBookToSave = bookToSave!
         } else {
-            myBookToSave.title = bookTitleTextField.text
+            print("passe t on par là un moment ")
+            myBookToSave.title = title
             if bookAuthorTextField.text != "" {
                 myBookToSave.author = bookAuthorTextField.text
             } else {
@@ -463,7 +482,12 @@ class AddManuallyViewController: UIViewController {
             myBookToSave.editor = "Editor unknown"
             myBookToSave.isAvailable = true
             myBookToSave.uniqueId = ""
-            
+        }
+        myBookToSave.title = title
+        if bookAuthorTextField.text != "" {
+            myBookToSave.author = bookAuthorTextField.text
+        } else {
+            myBookToSave.author = "Author unknown"
         }
 
         if myBookToSave.isbn == nil || myBookToSave.isbn == "" {
@@ -474,9 +498,6 @@ class AddManuallyViewController: UIViewController {
             return}
 
         myBookToSave.uniqueId = "\(uid)\(String(describing: myBookToSave.isbn))"
-        print("l'isbn fictif est le suivant \(String(describing: myBookToSave.isbn))")
-        print("le unique id fictif est le suivant \(String(describing: myBookToSave.uniqueId))")
-
         FirebaseUtilities.saveBook(book: myBookToSave, fromUserId: uid)
         // if there is no cover image, this will be the image
         var dataAsImage = UIImage(named: "profileDefault") ?? UIImage()
@@ -499,6 +520,8 @@ class AddManuallyViewController: UIViewController {
             return }
         FirebaseUtilities.saveCoverImage(coverImage: dataAsImage, isbn: isbnToSave)
         isSaveIndicator(shown: false)
+        scannedIsbn = ""
+        dismiss(animated: true, completion: nil)
     }
     /**
      Action for tap and Swipe Gesture Recognizer

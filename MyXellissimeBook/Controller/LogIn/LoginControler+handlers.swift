@@ -47,6 +47,15 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
     internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
+
     /**
      Function that handles Registration
     
@@ -57,10 +66,30 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
      */
     func handleRegister(){
         //get info from textFields
-        guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
+        guard var email = emailTextField.text, var password = passwordTextField.text, var name = nameTextField.text else {
             //Todo an alert to be done
-            print("Should create an alert")
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .needAllFieldsCompleted
             return
+        }
+        email.removeFirstAndLastAndDoubleWhitespace()
+        password.removeFirstAndLastAndDoubleWhitespace()
+        name.removeFirstAndLastAndDoubleWhitespace()
+        
+        if email.isEmpty || name.isEmpty || password.isEmpty {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .needAllFieldsCompleted
+            return
+        }
+        if !isValidEmail(testStr: email) {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .emailBadlyFormatted
+             return
+        }
+        if password.count < 6 {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .passwordIsTooShort
+             return
         }
         /*************************
                  Create a user
@@ -69,7 +98,8 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             // identification creation failed
             if error != nil {
                 print(error.debugDescription)
-                print("identification creation failed")
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .unableToCreateUser
                 return
             }
             // Create a unique UID for the user
@@ -174,15 +204,35 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
      */
     func handleLoginWithProfileUpdate(update: Bool){
         // Get info from textField
-        guard let email = emailTextField.text, let password = passwordTextField.text else {
+        guard var email = emailTextField.text, var password = passwordTextField.text else {
             //Todo an alert to be done
-            print("Should create an alert because loggin items not completed")
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .needAllFieldsCompleted
+            return
+        }
+        email.removeFirstAndLastAndDoubleWhitespace()
+        password.removeFirstAndLastAndDoubleWhitespace()
+        
+        if email.isEmpty || password.isEmpty {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .needAllFieldsCompleted
+            return
+        }
+        if !isValidEmail(testStr: email) {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .emailBadlyFormatted
+            return
+        }
+        if password.count < 6 {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .passwordIsTooShort
             return
         }
         // Connect to Firebase Auth
         Auth.auth().signIn(withEmail: email, password: password) { (resultSignIn, errorSignIn) in
             if errorSignIn != nil {
-                print("Should create an alert because loggin items are false")
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .noUserFound
                 return
             }
             /*************************

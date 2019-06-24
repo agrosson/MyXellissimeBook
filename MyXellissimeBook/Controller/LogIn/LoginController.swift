@@ -227,6 +227,30 @@ class LoginController: UIViewController {
             passwordTextField.textContentType = .oneTimeCode
         }
         if loginRegisteredSegmentedControl.selectedSegmentIndex == 0 {
+            guard var email = emailTextField.text, var password = passwordTextField.text else {
+                //Todo an alert to be done
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .needAllFieldsCompleted
+                return
+            }
+            email.removeFirstAndLastAndDoubleWhitespace()
+            password.removeFirstAndLastAndDoubleWhitespace()
+            
+            if email.isEmpty || password.isEmpty {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .needAllFieldsCompleted
+                return
+            }
+            if !isValidEmail(testStr: email) {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .emailBadlyFormatted
+                return
+            }
+            if password.count < 6 {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .passwordIsTooShort
+                return
+            }
             checkIfProfileImageShouldBeUpdated()
         } else {
             handleRegister()

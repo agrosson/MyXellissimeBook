@@ -140,8 +140,8 @@ class FirebaseUtilities {
         let childRef = ref.child(uniqueRefForBook)
         //Create the dictionary of value to save
         let values = ["uniqueId" : childRef.key,
-                      "title": book.title ?? "no title",
-                      "author": book.author ?? "no author",
+                      "title": book.title ?? "",
+                      "author": book.author ?? "unknown",
                       "editor": book.editor ?? "unknown",
                       "isbn": book.isbn ?? "no isbn",
                       "isAvailable" : book.isAvailable ?? true,
