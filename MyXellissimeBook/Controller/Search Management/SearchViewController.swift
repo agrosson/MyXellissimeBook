@@ -165,10 +165,7 @@ class SearchViewController: UIViewController {
         mySwipeGestureRecognizer.direction = .down
         self.view.addGestureRecognizer(mySwipeGestureRecognizer)
     }
-    
-    
-    
-    
+ 
     /**
      Function that manages TextField
      */
@@ -182,7 +179,16 @@ class SearchViewController: UIViewController {
     // MARK: - Methods @objc - Actions
     @objc private func searchBook(){
         print("launch search in database")
-        // todo: present a tableVC if found otherwise alert not found : search another one or buy on amazon
+       
+        let title = bookTitleTextField.text
+        let author = bookAuthorTextField.text
+        let isbn = bookIsbnTextField.text
+        
+        let searchBookResultTableViewController = SearchBookResultTableViewController()
+        searchBookResultTableViewController.titleSearch = title
+        searchBookResultTableViewController.authorSearch = author
+        searchBookResultTableViewController.isbnSearch = isbn
+        navigationController?.pushViewController(searchBookResultTableViewController, animated: true)
     }
     /**
      Action for tap and Swipe Gesture Recognizer

@@ -161,7 +161,6 @@ class UserBooksTableViewController: UITableViewController {
      Function that presents detailAvailableBookViewController
      */
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print(self.books.count)
         if editingStyle == .delete {
             let book = self.books[indexPath.row]
             guard let bookIdToRemove = book.uniqueId else {return}
