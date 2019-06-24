@@ -29,6 +29,8 @@
 		C120D34B22C09AD700E749BC /* CustomUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D34A22C09AD700E749BC /* CustomUI.swift */; };
 		C120D34D22C0AE0F00E749BC /* LoanConfirmationViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D34C22C0AE0F00E749BC /* LoanConfirmationViewController+setupScreen.swift */; };
 		C120D34F22C0C1C500E749BC /* UserBorrowedBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D34E22C0C1C500E749BC /* UserBorrowedBooksTableViewController.swift */; };
+		C120D35122C0E44500E749BC /* DetailBorrowedBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D35022C0E44500E749BC /* DetailBorrowedBookViewController.swift */; };
+		C120D35322C0E6E800E749BC /* DetailBorrowerBookViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D35222C0E6E800E749BC /* DetailBorrowerBookViewController+setupScreen.swift */; };
 		C1226F0B22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1226F0A22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift */; };
 		C1226F0D22BFAE5500A35A51 /* LoanConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1226F0C22BFAE5500A35A51 /* LoanConfirmationViewController.swift */; };
 		C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124D22B37469006A3F2C /* AddBookViewController.swift */; };
@@ -107,6 +109,8 @@
 		C120D34A22C09AD700E749BC /* CustomUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUI.swift; sourceTree = "<group>"; };
 		C120D34C22C0AE0F00E749BC /* LoanConfirmationViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoanConfirmationViewController+setupScreen.swift"; sourceTree = "<group>"; };
 		C120D34E22C0C1C500E749BC /* UserBorrowedBooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBorrowedBooksTableViewController.swift; sourceTree = "<group>"; };
+		C120D35022C0E44500E749BC /* DetailBorrowedBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBorrowedBookViewController.swift; sourceTree = "<group>"; };
+		C120D35222C0E6E800E749BC /* DetailBorrowerBookViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailBorrowerBookViewController+setupScreen.swift"; sourceTree = "<group>"; };
 		C1226F0A22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManageLoanViewController+setupScreen.swift"; sourceTree = "<group>"; };
 		C1226F0C22BFAE5500A35A51 /* LoanConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanConfirmationViewController.swift; sourceTree = "<group>"; };
 		C12C124D22B37469006A3F2C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +205,8 @@
 				C11B304B22BE18910023CF0E /* UserLentBooksTableViewController.swift */,
 				C120D34E22C0C1C500E749BC /* UserBorrowedBooksTableViewController.swift */,
 				C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */,
+				C120D35022C0E44500E749BC /* DetailBorrowedBookViewController.swift */,
+				C120D35222C0E6E800E749BC /* DetailBorrowerBookViewController+setupScreen.swift */,
 				C11B305122BE7E530023CF0E /* ManageLoanViewController.swift */,
 				C1226F0A22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift */,
 				C1226F0C22BFAE5500A35A51 /* LoanConfirmationViewController.swift */,
@@ -609,11 +615,13 @@
 				C13355C322BA1E290006D9CD /* LoanBook.swift in Sources */,
 				C11B305222BE7E530023CF0E /* ManageLoanViewController.swift in Sources */,
 				C15D2B2222BD495B00B621E8 /* LoginController+setupScreen.swift in Sources */,
+				C120D35122C0E44500E749BC /* DetailBorrowedBookViewController.swift in Sources */,
 				C13355D022BA6BF40006D9CD /* APIManager.swift in Sources */,
 				C13355D422BA787D0006D9CD /* BookOpenLibraryResponse.swift in Sources */,
 				C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */,
 				C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */,
 				C13355D222BA724A0006D9CD /* BookResponse.swift in Sources */,
+				C120D35322C0E6E800E749BC /* DetailBorrowerBookViewController+setupScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -120,12 +120,13 @@ class UserBorrowedBooksTableViewController: UITableViewController {
     }
     
     /**
-     Function that presents detailAvailableBookViewController
+     Function that presents DetailBorrowedBookViewController
      */
-    func showDetailBorrowedBookViewControllerForBook(book: Book){
-//        let detailLentBookViewController = DetailLentBookViewController()
-//        detailLentBookViewController.bookToDisplay = book
-//        navigationController?.pushViewController(detailLentBookViewController, animated: true)
+    func showDetailBorrowedBookViewControllerForBook(book: Book, loan: LoanBook){
+        let detailBorrowedBookViewController = DetailBorrowedBookViewController()
+        detailBorrowedBookViewController.bookToDisplay = book
+        detailBorrowedBookViewController.currentLoan = loan
+        navigationController?.pushViewController(detailBorrowedBookViewController, animated: true)
     }
     
     // MARK: - Methods - override func tableView
@@ -143,7 +144,8 @@ class UserBorrowedBooksTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let book = borrowedBooks[indexPath.row]
-        showDetailBorrowedBookViewControllerForBook(book: book)
+        let loan = loansList[indexPath.row]
+        showDetailBorrowedBookViewControllerForBook(book: book, loan: loan)
     }/**
      Function that returns the cell for the row
      */

@@ -157,19 +157,30 @@ class DetailLentBookViewController: UIViewController {
         print(currentLoanId as Any)
         print("will lead to screen to modify the loan")
     }
+    
+    private func secondConfirmation() {
+        let actionSheet = UIAlertController(title: "Dear user", message: "Are you sure to close this loan?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction) in
+            // change availability
+            self.bookToDisplay?.isAvailable = true
+            guard let book = self.bookToDisplay else {return}
+            // update availability in Firebase
+            FirebaseUtilities.saveBook(book: book, fromUserId: self.currentUid)
+            // Todo: set the date for closed loan
+            guard let loanIdToClose = self.currentLoanId else {return}
+            FirebaseUtilities.closeLoan(for: loanIdToClose)
+            self.dismiss(animated: true, completion: nil)
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion : nil)
+    }
+    
+    
     /**
      Function that closes a loan
      */
     @objc func handleCloseLoan(){
-        // change availability
-        bookToDisplay?.isAvailable = true
-        guard let book = bookToDisplay else {return}
-        // update availability in Firebase
-        FirebaseUtilities.saveBook(book: book, fromUserId: currentUid)
-        // Todo: set the date for closed loan
-        guard let loanIdToClose = currentLoanId else {return}
-        FirebaseUtilities.closeLoan(for: loanIdToClose)
-        dismiss(animated: true, completion: nil)
-        // Todo: set the date for closed loan
+      secondConfirmation()
     }
 }
