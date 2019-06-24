@@ -63,6 +63,9 @@ class ManageLoanViewController: UIViewController {
         setupUIObjects()
         setupScreen()
     }
+    /**
+     Function that sets up customUI objects
+     */
     private func setupUIObjects(){
         bookCoverImageView.contentMode = .scaleAspectFit
         authorLabel.font = UIFont.systemFont(ofSize: 16)
@@ -75,6 +78,9 @@ class ManageLoanViewController: UIViewController {
         validLoanButton.layer.cornerRadius = 15
         validLoanButton.addTarget(self, action: #selector(validLoan), for: .touchUpInside)
     }
+    /**
+     Function that sets up the screen
+     */
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         if let isbn = bookToLend?.isbn {
@@ -90,6 +96,9 @@ class ManageLoanViewController: UIViewController {
         setupEmailTextField()
         setupValidLoanButton()
     }
+    /**
+     Function that creates a tap Gesture Recognizer
+     */
     private func gestureTapCreation() {
         let mytapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(myTap
             ))
@@ -129,9 +138,7 @@ class ManageLoanViewController: UIViewController {
     
     
     @objc func validLoan(){
-        print("valid loan and display confim screen")
-        
-        print("voyons notre userBorrower")
+
        // var userFrom = User()
         guard let emailString = emailTextField.text else {return}
         FirebaseUtilities.getUserFromEmail(email: emailString) { (user) in
@@ -152,6 +159,7 @@ extension ManageLoanViewController : UITextFieldDelegate {
      UITextFieldDelegate : defines how textFieldShouldReturn
      */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        validLoan()
         textField.resignFirstResponder()
         return true
     }
