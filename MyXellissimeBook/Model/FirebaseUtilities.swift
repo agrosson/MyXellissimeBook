@@ -246,4 +246,23 @@ class FirebaseUtilities {
             FirebaseUtilities.saveBook(book: bookToLend, fromUserId: fromId)
         }
     }
+    /*******************************************************
+     This function close a loan  in firebase
+     ********************************************************/
+    static func closeLoan(for uniqueLoanBookId: String){
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.loan).child(uniqueLoanBookId)
+        //Create the dictionary of value to save
+        let dateFormate = DateFormatter()
+        dateFormate.dateFormat = "dd.MM.yyyy"
+        let closeDate = dateFormate.string(from: Date())
+        let values = ["effectiveEndDateOfLoan" : closeDate] as [String : Any]
+        // this block to save the message and then also make a reference and store the reference of message in antoher node
+        ref.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            print("loan closed")
+        }
+    }
 }

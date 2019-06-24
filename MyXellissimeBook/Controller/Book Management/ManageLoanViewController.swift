@@ -60,6 +60,9 @@ class ManageLoanViewController: UIViewController {
         containerInputView.addSubview(emailTextField)
         containerInputView.addSubview(validLoanButton)
         view.addSubview(containerInputView)
+        gestureTapCreation()
+        gestureswipeCreation()
+        manageTextField()
         setupUIObjects()
         setupScreen()
     }

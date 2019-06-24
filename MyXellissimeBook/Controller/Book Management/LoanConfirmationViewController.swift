@@ -35,20 +35,15 @@ class LoanConfirmationViewController: UIViewController {
         let stringOfDate = dateFormate.string(from: toDate)
         return stringOfDate
     }
-    
     /// height of text in container data view
     let heightOfText: CGFloat = 20
-    
     /*******************************************************
      UI variables: Start
      ********************************************************/
     /// Cover of the book
     let bookCoverImageView = CustomUI().imageView
-    
-   
     /// Title label for the book
     let titleLabel = CustomUI().label
- 
     /// Author label for the book
     let authorLabel = CustomUI().label
     /// Container View for the book details
@@ -67,7 +62,6 @@ class LoanConfirmationViewController: UIViewController {
     let toDateLabel = CustomUI().label
     /// Confirmation button for loan
     lazy var confirmLoanButton = CustomUI().button
- 
     /*******************************************************
                     UI variables: end
      ********************************************************/
@@ -133,9 +127,6 @@ class LoanConfirmationViewController: UIViewController {
         print("We will register loan here")
         guard let uid = Auth.auth().currentUser?.uid else {return}
         FirebaseUtilities.saveLoan(bookToLend: bookToLend, fromId: uid, toUser: userBorrower, loanStartDate: fromDate, expectedEndDateOfLoan: toDate)
-        
+        dismiss(animated: true, completion: nil)
     }
-
-   
- 
 }
