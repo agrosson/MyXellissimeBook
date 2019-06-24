@@ -1,5 +1,5 @@
 //
-//  DetailBorrowedBookViewController.swift
+//  SearchBookDetailViewController.swift
 //  MyXellissimeBook
 //
 //  Created by ALEXANDRE GROSSON on 24/06/2019.
@@ -10,16 +10,14 @@ import UIKit
 import Firebase
 
 
-// MARK: - Class DetailBorrowedBookViewController
+// MARK: - Class SearchBookDetailViewController
 /**
- This class defines the DetailBorrowedBookViewController
+ This class defines the SearchBookDetailViewController
  */
-class DetailBorrowedBookViewController: UIViewController {
-    
-    /// Book borrowed
+class SearchBookDetailViewController: UIViewController {
+
+    /// Book from researche
     var bookToDisplay = Book()
-    /// Loan of current book displayed
-    var currentLoan = LoanBook()
     /// Height for text
     let heightOfText: CGFloat = 20
     /// Current user Uid
@@ -44,14 +42,7 @@ class DetailBorrowedBookViewController: UIViewController {
     /// Container data Loan details
     let containerDataView = CustomUI().view
     /// Reminder label
-    let reminderLabel = CustomUI().label
-    /// lender label
-    let lenderLabel = CustomUI().label
-    /// fromDate label
-    let fromDateLabel = CustomUI().label
-    /// toDate label
-    let toDateLabel = CustomUI().label
-    
+    var reminderLabel = CustomUI().label
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,12 +53,8 @@ class DetailBorrowedBookViewController: UIViewController {
         containerView.addSubview(separateView)
         view.addSubview(containerDataView)
         containerDataView.addSubview(reminderLabel)
-        containerDataView.addSubview(lenderLabel)
-        containerDataView.addSubview(fromDateLabel)
-        containerDataView.addSubview(toDateLabel)
         setupUIObjects()
         setupScreen()
-        
     }
     
     /**
@@ -76,14 +63,14 @@ class DetailBorrowedBookViewController: UIViewController {
     private func setupUIObjects(){
         authorLabel.font = UIFont.systemFont(ofSize: 16)
         separateView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        reminderLabel.text = "You have borrowed this book from"
-        reminderLabel.font = UIFont.systemFont(ofSize: 20)
-        lenderLabel.text = "name and email"
-        lenderLabel.font = UIFont.systemFont(ofSize: 20)
-        fromDateLabel.text = "From date: " // calculate now
-        fromDateLabel.font = UIFont.systemFont(ofSize: 20)
-        toDateLabel.text = "To date: " // calculate now
-        toDateLabel.font = UIFont.systemFont(ofSize: 20)
+        guard let uniqueId = bookToDisplay.uniqueId else {return}
+        guard let isbn = bookToDisplay.isbn else {return}
+        let ownerId = uniqueId.deletingSuffix(isbn)
+        reminderLabel.numberOfLines = 0
+        FirebaseUtilities.getUserNameFromUserId(userId: ownerId, callBack: { (name) in
+            guard let name = name else {return}
+            self.reminderLabel.text = "This book belongs to \(name). You can send a message to borrow the book"
+        })
     }
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
@@ -97,9 +84,7 @@ class DetailBorrowedBookViewController: UIViewController {
         setupSeparateView()
         setupContainerDataView()
         setupReminderLabel()
-        setupBorrowerLabel()
-        setupFromDateLabel()
-        setupToDateLabel()
+
     }
-   
+
 }

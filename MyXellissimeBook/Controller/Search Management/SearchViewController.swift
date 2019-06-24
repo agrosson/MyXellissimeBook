@@ -44,13 +44,7 @@ class SearchViewController: UIViewController {
     }()
     
     /// TextField to get book title
-    let bookTitleTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Book title"
-        textField.keyboardType = UIKeyboardType.default
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+    let bookTitleTextField = CustomUI().textField
     /// View as a separator between textField
     let bookTitleSeparatorView: UIView = {
         let view = UIView()
@@ -59,14 +53,7 @@ class SearchViewController: UIViewController {
         return view
     }()
     /// TextField to get book Author
-    let bookAuthorTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Book author"
-        textField.keyboardType = UIKeyboardType.default
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        
-        return textField
-    }()
+    let bookAuthorTextField = CustomUI().textField
     /// View as a separator between textField
     let bookAuthorSeparatorView: UIView = {
         let view = UIView()
@@ -75,13 +62,7 @@ class SearchViewController: UIViewController {
         return view
     }()
     /// TextField to get book Isbn
-    let bookIsbnTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Book Isbn"
-        textField.keyboardType = UIKeyboardType.default
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+    let bookIsbnTextField = CustomUI().textField
     
     // create button
     /// Launch search in APIs

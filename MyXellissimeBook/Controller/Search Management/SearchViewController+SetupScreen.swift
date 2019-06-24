@@ -46,6 +46,7 @@ extension SearchViewController {
         inputsContainerView.addSubview(bookAuthorSeparatorView)
         inputsContainerView.addSubview(bookIsbnTextField)
         // need x and y , width height contraints for bookTitleTextField
+        bookTitleTextField.placeholder = "Book title"
         bookTitleTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookTitleTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: 0).isActive = true
         bookTitleTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
@@ -56,6 +57,7 @@ extension SearchViewController {
         bookTitleSeparatorView.widthAnchor.constraint(equalTo: bookTitleTextField.widthAnchor).isActive = true
         bookTitleSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         // need x and y , width height contraints for bookAuthorTextField
+        bookAuthorTextField.placeholder = "Book author"
         bookAuthorTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookAuthorTextField.topAnchor.constraint(equalTo: bookTitleTextField.bottomAnchor, constant: 0).isActive = true
         bookAuthorTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
@@ -66,6 +68,7 @@ extension SearchViewController {
         bookAuthorSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         bookAuthorSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         // need x and y , width height contraints for bookIsbnTextField
+        bookIsbnTextField.placeholder = "Book Isbn"
         bookIsbnTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookIsbnTextField.topAnchor.constraint(equalTo: bookAuthorTextField.bottomAnchor, constant: 0).isActive = true
         bookIsbnTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true

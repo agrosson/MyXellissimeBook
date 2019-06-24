@@ -32,6 +32,8 @@
 		C120D35122C0E44500E749BC /* DetailBorrowedBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D35022C0E44500E749BC /* DetailBorrowedBookViewController.swift */; };
 		C120D35322C0E6E800E749BC /* DetailBorrowerBookViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D35222C0E6E800E749BC /* DetailBorrowerBookViewController+setupScreen.swift */; };
 		C120D35522C1350600E749BC /* SearchBookResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D35422C1350600E749BC /* SearchBookResultTableViewController.swift */; };
+		C120D35722C1602C00E749BC /* SearchBookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D35622C1602C00E749BC /* SearchBookDetailViewController.swift */; };
+		C120D35922C1618500E749BC /* SearchBookDetailViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C120D35822C1618500E749BC /* SearchBookDetailViewController+setupScreen.swift */; };
 		C1226F0B22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1226F0A22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift */; };
 		C1226F0D22BFAE5500A35A51 /* LoanConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1226F0C22BFAE5500A35A51 /* LoanConfirmationViewController.swift */; };
 		C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12C124D22B37469006A3F2C /* AddBookViewController.swift */; };
@@ -113,6 +115,8 @@
 		C120D35022C0E44500E749BC /* DetailBorrowedBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBorrowedBookViewController.swift; sourceTree = "<group>"; };
 		C120D35222C0E6E800E749BC /* DetailBorrowerBookViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailBorrowerBookViewController+setupScreen.swift"; sourceTree = "<group>"; };
 		C120D35422C1350600E749BC /* SearchBookResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBookResultTableViewController.swift; sourceTree = "<group>"; };
+		C120D35622C1602C00E749BC /* SearchBookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBookDetailViewController.swift; sourceTree = "<group>"; };
+		C120D35822C1618500E749BC /* SearchBookDetailViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchBookDetailViewController+setupScreen.swift"; sourceTree = "<group>"; };
 		C1226F0A22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManageLoanViewController+setupScreen.swift"; sourceTree = "<group>"; };
 		C1226F0C22BFAE5500A35A51 /* LoanConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanConfirmationViewController.swift; sourceTree = "<group>"; };
 		C12C124D22B37469006A3F2C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
@@ -236,6 +240,8 @@
 		C100899922BCD0A000D3497E /* Search Management */ = {
 			isa = PBXGroup;
 			children = (
+				C120D35622C1602C00E749BC /* SearchBookDetailViewController.swift */,
+				C120D35822C1618500E749BC /* SearchBookDetailViewController+setupScreen.swift */,
 				C120D35422C1350600E749BC /* SearchBookResultTableViewController.swift */,
 				C17EEF5522B292C500BF01B5 /* SearchViewController.swift */,
 				C11B304922BE034C0023CF0E /* SearchViewController+SetupScreen.swift */,
@@ -606,6 +612,7 @@
 				C19371D922B0FC500017E696 /* InitialViewController.swift in Sources */,
 				C11B304C22BE18910023CF0E /* UserLentBooksTableViewController.swift in Sources */,
 				C120D34F22C0C1C500E749BC /* UserBorrowedBooksTableViewController.swift in Sources */,
+				C120D35922C1618500E749BC /* SearchBookDetailViewController+setupScreen.swift in Sources */,
 				C120D34B22C09AD700E749BC /* CustomUI.swift in Sources */,
 				C11B304E22BE20330023CF0E /* DetailLentBookViewController.swift in Sources */,
 				C19371EA22B0FD070017E696 /* LoginController.swift in Sources */,
@@ -613,6 +620,7 @@
 				C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */,
 				C17EEF5822B2934100BF01B5 /* ChatTableViewController.swift in Sources */,
 				C13355DC22BA88E90006D9CD /* GoodReadsAPI.swift in Sources */,
+				C120D35722C1602C00E749BC /* SearchBookDetailViewController.swift in Sources */,
 				C100899622BCCB6100D3497E /* UserBooksTableViewController.swift in Sources */,
 				C13355C122BA1D270006D9CD /* Book.swift in Sources */,
 				C1596ED822B6807500CBCD08 /* Message.swift in Sources */,

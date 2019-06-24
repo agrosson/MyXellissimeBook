@@ -98,11 +98,20 @@ class SearchBookResultTableViewController: UITableViewController {
                 if isbn.localizedCaseInsensitiveContains(isbnTemp) || title.localizedCaseInsensitiveContains(titleTemp) || author.localizedCaseInsensitiveContains(authorTemp) {
                          self.books.append(book)
                 }
+               
                 DispatchQueue.main.async { self.tableView.reloadData() }
             }, withCancel: nil)
         }, withCancel: nil)
     }
 
+    /**
+     Function that presents SearchBookDetailViewController
+     */
+    func showSearchBookDetailViewControllerForBook(book: Book){
+        let searchBookDetailViewController = SearchBookDetailViewController()
+        searchBookDetailViewController.bookToDisplay = book
+        navigationController?.pushViewController(searchBookDetailViewController, animated: true)
+    }
     // MARK: - Methods - override func tableView
     /*******************************************************
      override func tableView
@@ -114,7 +123,7 @@ class SearchBookResultTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let book = books[indexPath.row]
-        print(book)
+        showSearchBookDetailViewControllerForBook(book: book)
     }
     /**
      Function that sets height for the row

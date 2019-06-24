@@ -57,6 +57,8 @@ class CustomUI {
     
     var textField: UITextField = {
         let textField = UITextField()
+        textField.clearButtonMode = UITextField.ViewMode.whileEditing
+        textField.returnKeyType = UIReturnKeyType.done
         textField.keyboardType = UIKeyboardType.default
         textField.textColor = UIColor.white
         textField.translatesAutoresizingMaskIntoConstraints = false
