@@ -48,6 +48,19 @@ class CustomUI {
         return button
     }()
     
+    var view : UIView = {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
+    var textField: UITextField = {
+        let textField = UITextField()
+        textField.keyboardType = UIKeyboardType.default
+        textField.textColor = UIColor.white
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
     
 }
