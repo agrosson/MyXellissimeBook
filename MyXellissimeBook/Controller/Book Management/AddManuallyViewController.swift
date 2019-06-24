@@ -485,7 +485,10 @@ class AddManuallyViewController: UIViewController {
         }
         myBookToSave.title = title
         if bookAuthorTextField.text != "" {
-            myBookToSave.author = bookAuthorTextField.text
+            var text = bookAuthorTextField.text
+            text?.removeFirstAndLastAndDoubleWhitespace()
+            myBookToSave.author = text
+            
         } else {
             myBookToSave.author = "Author unknown"
         }

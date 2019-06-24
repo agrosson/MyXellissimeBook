@@ -143,7 +143,8 @@ class ManageLoanViewController: UIViewController {
     @objc func validLoan(){
 
        // var userFrom = User()
-        guard let emailString = emailTextField.text else {return}
+        guard var emailString = emailTextField.text else {return}
+        emailString.removeFirstAndLastAndDoubleWhitespace()
         FirebaseUtilities.getUserFromEmail(email: emailString) { (user) in
             print("test \(String(describing: user.name))")
             if user.name == nil {
