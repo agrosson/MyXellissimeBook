@@ -103,11 +103,42 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
         cell.backgroundColor = .clear
-        
-        guard let text = messages[indexPath.row].text else {return UICollectionViewCell()}
+        let message = messages[indexPath.row]
+        guard let text = message.text else {return UICollectionViewCell()}
         cell.textView.text = text
+        
+        
+        setupCell(cell: cell, message: message)
+
+        
         cell.bubbleWidthAnchor?.constant = estimateFrameFor(text: text).width + 25
         return cell
+    }
+    
+    private func setupCell(cell: ChatMessageCell, message: Message) {
+        if let profileImageUrl = self.user?.profileId {
+            cell.profileImageView.loadingImageUsingCacheWithUrlString(urlString: profileImageUrl)
+        }
+     
+        if message.fromId == Auth.auth().currentUser?.uid {
+            // display message in gray bubble
+            cell.bubbleView.backgroundColor = .white
+            cell.textView.textColor = #colorLiteral(red: 0.3469632864, green: 0.3805449009, blue: 0.4321892262, alpha: 1)
+            // Switch bubble from right to left
+            cell.bubbleViewRightAnchor?.isActive = true
+            cell.bubbleViewLeftAnchor?.isActive = false
+            // hide profile image view
+            cell.profileImageView.isHidden = true
+            
+        } else {
+            cell.bubbleView.backgroundColor = #colorLiteral(red: 0.3469632864, green: 0.3805449009, blue: 0.4321892262, alpha: 1)
+            cell.textView.textColor = .white
+            
+            cell.bubbleViewRightAnchor?.isActive = false
+            cell.bubbleViewLeftAnchor?.isActive = true
+             // show profile image view
+            cell.profileImageView.isHidden = false
+        }
     }
     /**
      Function that fetches message for the user
@@ -117,12 +148,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         
         let userMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(uid)
         userMessageRef.observe(.childAdded, with: { (snapshot) in
-            print(snapshot as Any)
            // get the key for the message
             let messageId = snapshot.key
             let messagesRef = Database.database().reference().child(FirebaseUtilities.shared.messages).child(messageId)
             messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
-                print(snapshot as Any)
                 guard let dictionary = snapshot.value as? [String : Any] else {return}
                 let message = Message()
                 guard let fromId = dictionary["fromId"] as? String else {return}
@@ -133,11 +162,9 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                 message.timestamp = timestamp
                 message.toId = toId
                 message.text = text
-                print(text)
                 // we only show the message concerning the user
                 if message.chatPartnerId() ==  self.user?.profileId {
                     self.messages.append(message)
-                    print(self.messages.count)
                     // do not forget to reload data here
                     DispatchQueue.main.async {self.collectionView.reloadData()}
                 }

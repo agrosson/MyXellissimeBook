@@ -39,18 +39,23 @@ class ChatMessageCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    let profileImageView = CustomUI().imageView
     /*******************************************************
                         UI variables: End
      ********************************************************/
     // MARK: - Properties
     /// NSLayoutConstraint that enables to adapt size of bubbleView
     var bubbleWidthAnchor : NSLayoutConstraint?
+    var bubbleViewRightAnchor: NSLayoutConstraint?
+    var bubbleViewLeftAnchor: NSLayoutConstraint?
     
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
         addSubview(bubbleView)
+        addSubview(profileImageView)
         addSubview(textView)
         setupConstraints()
     }
@@ -64,17 +69,37 @@ class ChatMessageCell: UICollectionViewCell {
      */
     private func setupConstraints(){
         let width = 3*UIScreen.main.bounds.width/4
+        
+        
         // Contraints X Y Width height
-        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
+        profileImageView.layer.cornerRadius = 20
+        profileImageView.layer.masksToBounds = true
+        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        
+        // Contraints X Y Width height
+        bubbleViewRightAnchor = bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
+        bubbleViewRightAnchor?.isActive = true
+        
+        bubbleViewLeftAnchor = bubbleView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
+        // as property is false by default, not need to specify that
+        // bubbleViewLeftAnchor?.isActive = false
+
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: width)
         bubbleWidthAnchor?.isActive = true
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        
+
         // Contraints X Y Width height : textview is embeded in bubble with left and right anchor
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 5).isActive = true
         textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
         textView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        
     }
     
 }

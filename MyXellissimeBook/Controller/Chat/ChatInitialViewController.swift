@@ -25,6 +25,9 @@ class ChatInitialViewController : UITableViewController {
     var messagesDictionary = [String: Message]()
     /// Id of cell of the tableView
     let cellId = "cellId"
+    /// A timer to fix reload table to many times
+    var timerChat: Timer?
+    
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,9 +90,21 @@ class ChatInitialViewController : UITableViewController {
                     guard let time2 = message2.timestamp else {return false}
                     return time1 > time2
                 })
-                DispatchQueue.main.async { self.tableView.reloadData() }
+                // To avoid reload data too many times when messages have not be updated
+                self.timerChat?.invalidate()
+                print("invalide timer ")
+                self.timerChat = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handlerReloadTable), userInfo: nil, repeats: false)
+                 print(" timer  sould reload in 0,1")
             }, withCancel: nil)
         }, withCancel: nil)
+    }
+    
+    
+    
+    @objc func handlerReloadTable(){
+        DispatchQueue.main.async {
+            print("reload table")
+            self.tableView.reloadData() }
     }
     
 
