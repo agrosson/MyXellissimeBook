@@ -76,9 +76,10 @@ extension DetailLentBookViewController {
         containerView.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -16).isActive = true
     }
     /**
-     Function that sets up borrowerLabel
+     Function that sets up borrowerLab  el
      */
     func setupBorrowerLabel(){
+        borrowerLabel.textAlignment = NSTextAlignment.center
         borrowerLabel.font = UIFont.systemFont(ofSize: loanTextSize)
         borrowerLabel.text = "Here the borrower"
         borrowerLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
@@ -90,6 +91,7 @@ extension DetailLentBookViewController {
      Function that sets up startingDateOfLoanLabel
      */
     func setupStartingDateOfLoanLabel(){
+         startingDateOfLoanLabel.textAlignment = NSTextAlignment.center
         startingDateOfLoanLabel.font = UIFont.systemFont(ofSize: loanTextSize)
         startingDateOfLoanLabel.text = "Here the staring date of the loan"
         startingDateOfLoanLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
@@ -101,29 +103,22 @@ extension DetailLentBookViewController {
      Function that sets up expectedEndDateOfLoanLabel
      */
     func setupExpectedEndDateOfLoanLabel(){
+        expectedEndDateOfLoanLabel.textAlignment = NSTextAlignment.center
         expectedEndDateOfLoanLabel.font = UIFont.systemFont(ofSize: loanTextSize)
         expectedEndDateOfLoanLabel.text = "Here the expected end date of the loan"
         expectedEndDateOfLoanLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
         expectedEndDateOfLoanLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -8).isActive = true
-        expectedEndDateOfLoanLabel.bottomAnchor.constraint(equalTo: modifyLoanButton.topAnchor, constant: -50).isActive = true
+        expectedEndDateOfLoanLabel.bottomAnchor.constraint(equalTo: closeLoanButton.topAnchor, constant: -50).isActive = true
         expectedEndDateOfLoanLabel.heightAnchor.constraint(equalToConstant: loanDetailsLabelHeight).isActive = true
     }
-    /**
-     Function that sets up modifyLoanButton
-     */
-    func setupModifyLoanButton(){
-        modifyLoanButton.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
-        modifyLoanButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8).isActive = true
-        modifyLoanButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        modifyLoanButton.widthAnchor.constraint(equalToConstant: (screenWidth/2)-20).isActive = true
-    }
+    
     /**
      Function that sets up closeLoanButton
      */
     func setupCloseLoanButton(){
-        closeLoanButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -8).isActive = true
+        closeLoanButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         closeLoanButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8).isActive = true
         closeLoanButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        closeLoanButton.widthAnchor.constraint(equalToConstant: (screenWidth/2)-20).isActive = true
+        closeLoanButton.widthAnchor.constraint(equalToConstant: (screenWidth)-20).isActive = true
     }
 }

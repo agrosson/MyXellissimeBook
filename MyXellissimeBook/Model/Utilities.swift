@@ -92,7 +92,6 @@ extension UIImageView {
         let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.coverImage).child("\(isbnString).jpg")
         DispatchQueue.main.async {
             download = storageRef.getData(maxSize: 1024*1024*5, completion:  { (data, error) in
-                print("let's be inside download")
                 guard let data = data else {
                     print("no data here")
                     return

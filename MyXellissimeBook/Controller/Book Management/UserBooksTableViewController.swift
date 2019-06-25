@@ -92,7 +92,6 @@ class UserBooksTableViewController: UITableViewController {
      Action that shows the AddBookViewController when navigationItem.leftBarButtonItem pressed
      */
     @objc func addBook() {
-        print("You will add a book")
         // present addBookViewController
         let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
         present(addBookViewController, animated: true, completion: nil)
@@ -172,8 +171,6 @@ class UserBooksTableViewController: UITableViewController {
                 }
                 self.books.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
-               print("Book removed from books in firebase ")
-               // self.setupScreen()
             }
             guard let uid = Auth.auth().currentUser?.uid else {return}
             let refBookToRemoveForUser = Database.database().reference().child(FirebaseUtilities.shared.user_books).child(uid).child(bookIdToRemove)
@@ -182,7 +179,6 @@ class UserBooksTableViewController: UITableViewController {
                     print("fail to delete book", error as Any)
                     return
                 }
-                print("Book removed from user-books in firebase")
             }
         }
     }

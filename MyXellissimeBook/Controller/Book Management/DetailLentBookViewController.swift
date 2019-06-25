@@ -54,8 +54,6 @@ class DetailLentBookViewController: UIViewController {
     let startingDateOfLoanLabel = CustomUI().label
     /// Expected end date for the lent
     let expectedEndDateOfLoanLabel = CustomUI().label
-    /// Modify loan Button
-    lazy var modifyLoanButton = CustomUI().button
     /// Close loan Button
     lazy var closeLoanButton = CustomUI().button
  
@@ -74,7 +72,6 @@ class DetailLentBookViewController: UIViewController {
         containerView.addSubview(borrowerLabel)
         containerView.addSubview(startingDateOfLoanLabel)
         containerView.addSubview(expectedEndDateOfLoanLabel)
-        containerView.addSubview(modifyLoanButton)
         containerView.addSubview(closeLoanButton)
         setupUIObjects()
         setupScreen()
@@ -95,8 +92,6 @@ class DetailLentBookViewController: UIViewController {
         editorLabel.font = UIFont.systemFont(ofSize: 16)
         editorLabel.textAlignment = NSTextAlignment.center
         editorLabel.numberOfLines = 2
-        modifyLoanButton.setTitle("Modify", for: .normal)
-        modifyLoanButton.addTarget(self, action: #selector(handleModifyLoan), for: .touchUpInside)
         closeLoanButton.setTitle("Close", for: .normal)
         closeLoanButton.addTarget(self, action: #selector(handleCloseLoan), for: .touchUpInside)
     }
@@ -124,7 +119,8 @@ class DetailLentBookViewController: UIViewController {
                 guard let uniqueLoanBookId = dictionary["uniqueLoanBookId"] as? String else {return}
                 FirebaseUtilities.getUserNameFromUserId(userId: toUser, callBack: { (name) in
                     if bookId == self.bookToDisplay?.uniqueId {
-                        self.borrowerLabel.text = name
+                        guard let name = name else {return}
+                        self.borrowerLabel.text = "This book is lent to \(name)"
                         self.startingDateOfLoanLabel.text = "Loan from \(loanStartDate)"
                         self.expectedEndDateOfLoanLabel.text = "To \(expectedEndDateOfLoan)"
                         self.currentLoanId = uniqueLoanBookId
@@ -149,7 +145,6 @@ class DetailLentBookViewController: UIViewController {
         setupBorrowerLabel()
         setupStartingDateOfLoanLabel()
         setupExpectedEndDateOfLoanLabel()
-        setupModifyLoanButton()
         setupCloseLoanButton()
     }
     

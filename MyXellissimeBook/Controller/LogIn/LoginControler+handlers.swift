@@ -135,7 +135,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
      - Parameter values: the user's data to be saved in Firebase db as a dictionary
      */
     private func registerUserIntoDatabaseWithUid(uid: String, values : [String: Any]) {
-        print(values)
         let ref = Database.database().reference()
         let userReference = ref.child(FirebaseUtilities.shared.users).child(uid)
         userReference.updateChildValues(values, withCompletionBlock: { (errorUpdate, dataRefUpdate) in
@@ -147,7 +146,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
              update the title of the initialVC with new name
              **************************/
             self.initialViewController?.fetchUserAndSetupNavBarTitle()
-            print("\(String(describing: values["name"])) has been saved successfully in FireBase database")
         })
     }
     

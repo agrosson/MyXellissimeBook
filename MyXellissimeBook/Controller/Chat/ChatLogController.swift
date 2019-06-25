@@ -303,14 +303,15 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     @objc func handleSend(){
         
         // this block to save messages
-        guard let text = inputTextField.text else {return}
+        guard var text = inputTextField.text else {return}
+        text.removeFirstAndLastAndDoubleWhitespace()
         // get the sender Id
         guard let fromId = Auth.auth().currentUser?.uid else {return}
         
         guard let user = user else {return}
-        
-        FirebaseUtilities.saveMessage(text: text, fromId : fromId, toUser: user)
-        
+        if !text.isEmpty {
+              FirebaseUtilities.saveMessage(text: text, fromId : fromId, toUser: user)
+        }
         // reset the textField
         self.inputTextField.text = nil
         

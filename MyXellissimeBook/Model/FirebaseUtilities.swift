@@ -69,8 +69,6 @@ class FirebaseUtilities {
             var counter = 0
             var counterTrue = 0
             query.observe(.value) { (snapshot) in
-                // this to avoid duplicated row when reloaded
-                // print(snapshot)
                 for child in snapshot.children.allObjects as! [DataSnapshot] {
                     counter += 1
                     if let value = child.value as? NSDictionary {
@@ -261,7 +259,6 @@ class FirebaseUtilities {
                 print(error as Any)
                 return
             }
-            print("loan closed")
         }
     }
 }

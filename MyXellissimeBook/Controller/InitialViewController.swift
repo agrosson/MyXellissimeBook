@@ -251,7 +251,6 @@ class InitialViewController: UIViewController {
      Action that shows the list of books that user has borrowed when showUserBooksBorrowedButton is clicked
      */
     @objc func showBooksUserBorrowed() {
-        print("You will see the list of books that user has borrowed")
         // present listOfUserBooksLentViewController
         let userBorrowedBooksTableViewController = UINavigationController(rootViewController: UserBorrowedBooksTableViewController())
         present(userBorrowedBooksTableViewController, animated: true, completion: nil)
