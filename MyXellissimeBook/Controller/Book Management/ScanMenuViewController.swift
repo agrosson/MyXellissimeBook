@@ -166,7 +166,6 @@ class ScanMenuViewController: UIViewController {
      Function that launches the scan process
      */
     @objc func exportIsbn(){
-        print("isbn is exported !!")
         let addManuallyViewController = UINavigationController(rootViewController: AddManuallyViewController())
         present(addManuallyViewController, animated: true, completion: nil)
     }
@@ -175,7 +174,6 @@ class ScanMenuViewController: UIViewController {
      Function that launches the scan process
      */
     @objc func scanIsbn(){
-        print("scan will start here !!")
         let scanRunningViewController = UINavigationController(rootViewController: ScanRunningViewController())
         present(scanRunningViewController, animated: true, completion: nil)
         

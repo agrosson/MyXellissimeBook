@@ -134,7 +134,6 @@ class DetailAvailableBookViewController: UIViewController {
      Function that presents ManageLoanViewController when createALoanButton is pressed
      */
     @objc func handleCreateALoan(){
-        print("go to screen for create a loan")
         if let book = bookToDisplay {
             showManageLoanViewControllerForBook(book: book)
         }

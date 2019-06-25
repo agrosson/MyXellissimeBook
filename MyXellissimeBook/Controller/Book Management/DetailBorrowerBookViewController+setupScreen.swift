@@ -93,6 +93,7 @@ extension DetailBorrowedBookViewController {
     func setupBorrowerLabel() {
         // need x and y , width height contraints
         lenderLabel.font = UIFont.systemFont(ofSize: heightOfText)
+        lenderLabel.textAlignment = NSTextAlignment.center
         guard let lenderId = currentLoan.fromUser else {return}
         FirebaseUtilities.getUserNameFromUserId(userId: lenderId) { (name) in
             guard let nameBorrower = name else {return}
@@ -109,8 +110,9 @@ extension DetailBorrowedBookViewController {
     func setupFromDateLabel() {
         // need x and y , width height contraints
         fromDateLabel.font = UIFont.systemFont(ofSize: heightOfText)
+        fromDateLabel.textAlignment = NSTextAlignment.center
         guard let date = currentLoan.loanStartDate else {return}
-        fromDateLabel.text = "From: \(date))"
+        fromDateLabel.text = "From: \(date)"
         fromDateLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         fromDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
         fromDateLabel.topAnchor.constraint(equalTo: lenderLabel.bottomAnchor, constant: 10).isActive = true
@@ -122,6 +124,7 @@ extension DetailBorrowedBookViewController {
      */
     func setupToDateLabel() {
         // need x and y , width height contraints
+        toDateLabel.textAlignment = NSTextAlignment.center
         toDateLabel.font = UIFont.systemFont(ofSize: heightOfText)
         guard let date = currentLoan.expectedEndDateOfLoan else {return}
         toDateLabel.text = "To: \(date)"

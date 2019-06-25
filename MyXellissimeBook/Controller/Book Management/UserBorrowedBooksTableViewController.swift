@@ -58,14 +58,12 @@ class UserBorrowedBooksTableViewController: UITableViewController {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.user_loans).child(uid)
         // observe the node
         ref.observe(.childAdded, with: { (snapshot) in
-            print(snapshot)
             // get the key for the loan
             let loan = snapshot.key
             // get the reference of the loan
             let booksReference = Database.database().reference().child(FirebaseUtilities.shared.loan).child(loan)
             // observe the loans for this user
             booksReference.observeSingleEvent(of: .value, with: { (snapshot) in
-                print(snapshot)
                 guard let dictionary = snapshot.value as? [String : Any] else {return}
                 let loanToAdd = LoanBook()
                 guard let bookId = dictionary["bookId"] as? String else {return}

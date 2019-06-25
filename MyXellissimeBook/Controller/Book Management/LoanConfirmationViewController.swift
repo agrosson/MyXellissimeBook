@@ -124,7 +124,6 @@ class LoanConfirmationViewController: UIViewController {
      Function that launch registration of the loan
      */
     @objc func confirmLoan() {
-        print("We will register loan here")
         guard let uid = Auth.auth().currentUser?.uid else {return}
         FirebaseUtilities.saveLoan(bookToLend: bookToLend, fromId: uid, toUser: userBorrower, loanStartDate: fromDate, expectedEndDateOfLoan: toDate)
         dismiss(animated: true, completion: nil)

@@ -87,6 +87,7 @@ extension ManageLoanViewController {
      Function that sets up emailLabel
      */
     func setupEmailLabel(){
+        emailLabel.textAlignment = NSTextAlignment.center
         emailLabel.leftAnchor.constraint(equalTo: containerInputView.leftAnchor, constant: 8).isActive = true
         emailLabel.topAnchor.constraint(equalTo: containerInputView.topAnchor, constant: 40).isActive = true
         emailLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -96,6 +97,10 @@ extension ManageLoanViewController {
      Function that sets up emailTextField
      */
     func setupEmailTextField(){
+        emailTextField.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        emailTextField.layer.borderWidth = 2
+        emailTextField.layer.cornerRadius = 5
+        emailTextField.textAlignment = NSTextAlignment.center
         emailTextField.leftAnchor.constraint(equalTo: containerInputView.leftAnchor, constant:  8).isActive = true
         emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 30).isActive = true
         emailTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true

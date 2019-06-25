@@ -58,7 +58,6 @@ class UserLentBooksTableViewController: UITableViewController {
             let bookId = snapshot.key
             // get the reference of the message
             let booksReference = Database.database().reference().child(FirebaseUtilities.shared.books).child(bookId)
-            print("référence en cours de visualisation \(bookId)")
             // observe the messages for this user
             booksReference.observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let dictionary = snapshot.value as? [String : Any] else {return}

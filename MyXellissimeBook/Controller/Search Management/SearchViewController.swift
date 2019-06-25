@@ -149,8 +149,6 @@ class SearchViewController: UIViewController {
     
     // MARK: - Methods @objc - Actions
     @objc private func searchBook(){
-        print("launch search in database")
-       
         guard var title = bookTitleTextField.text, var author = bookAuthorTextField.text, var isbn = bookIsbnTextField.text else {
             Alert.shared.controller = self
             Alert.shared.alertDisplay = .needAtLeastOneField

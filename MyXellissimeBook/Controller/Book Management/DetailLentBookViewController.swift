@@ -148,11 +148,6 @@ class DetailLentBookViewController: UIViewController {
         setupCloseLoanButton()
     }
     
-    @objc func handleModifyLoan(){
-        print(currentLoanId as Any)
-        print("will lead to screen to modify the loan")
-    }
-    
     private func secondConfirmation() {
         let actionSheet = UIAlertController(title: "Dear user", message: "Are you sure to close this loan?", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction) in

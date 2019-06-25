@@ -43,6 +43,7 @@ class CustomInitialTabBarController: UITabBarController {
         searchViewController.tabBarItem.title = "Search"
         searchViewController.tabBarItem.image = UIImage(named: "search")
         chatInitialTableViewController.tabBarItem.title = "Chat"
+        chatInitialTableViewController.tabBarItem.image = UIImage(named: "message")
         // TODO : add an image
         // chatTableViewController.tabBarItem.image = UIImage(named: "search")
     }

@@ -56,7 +56,6 @@ class ChatTableViewController: UITableViewController {
                     user.name = name
                     user.email = email
                     user.profileId = profileId
-                    print(user.name as Any, user.email as Any, user.profileId as Any)
                     self.users.append(user)
                     DispatchQueue.main.async { self.tableView.reloadData() }
                 }
@@ -118,9 +117,7 @@ class ChatTableViewController: UITableViewController {
     var chatInitial: ChatInitialViewController?
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("first step")
         dismiss(animated: true) {
-             print("second step")
             let user = self.users[indexPath.row]
             self.chatInitial?.showChatControllerForUser(user: user)
         }

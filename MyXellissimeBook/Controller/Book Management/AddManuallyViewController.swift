@@ -447,11 +447,8 @@ class AddManuallyViewController: UIViewController {
         isSearchIndicator(shown: true)
     }
     @objc private func addAndSaveBookInFireBase(){
-        print("up load in database")
         isSaveIndicator(shown: true)
-        print("on passe là?")
         guard var title = bookTitleTextField.text else {
-            print("on passe ici?")
             Alert.shared.controller = self
             Alert.shared.alertDisplay = .noTitleForBook
             isSaveIndicator(shown: false)
@@ -459,7 +456,6 @@ class AddManuallyViewController: UIViewController {
         }
         title.removeFirstAndLastAndDoubleWhitespace()
         if title.isEmpty {
-            print("on passe ou là ?")
             Alert.shared.controller = self
             Alert.shared.alertDisplay = .noTitleForBook
             isSaveIndicator(shown: false)
@@ -470,7 +466,6 @@ class AddManuallyViewController: UIViewController {
         if bookToSave != nil {
             myBookToSave = bookToSave!
         } else {
-            print("passe t on par là un moment ")
             myBookToSave.title = title
             if bookAuthorTextField.text != "" {
                 myBookToSave.author = bookAuthorTextField.text

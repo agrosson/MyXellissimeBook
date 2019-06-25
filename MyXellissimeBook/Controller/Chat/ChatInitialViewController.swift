@@ -76,7 +76,6 @@ class ChatInitialViewController : UITableViewController {
                     chatPartnerId = message.fromId
                 
                 }
-                print("here is the chatpertner \(String(describing: chatPartnerId))")
                 guard let idToUse = chatPartnerId else {return}
                
                 // get the last message for toId
@@ -92,9 +91,7 @@ class ChatInitialViewController : UITableViewController {
                 })
                 // To avoid reload data too many times when messages have not be updated
                 self.timerChat?.invalidate()
-                print("invalide timer ")
                 self.timerChat = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handlerReloadTable), userInfo: nil, repeats: false)
-                 print(" timer  sould reload in 0,1")
             }, withCancel: nil)
         }, withCancel: nil)
     }
@@ -103,7 +100,6 @@ class ChatInitialViewController : UITableViewController {
     
     @objc func handlerReloadTable(){
         DispatchQueue.main.async {
-            print("reload table")
             self.tableView.reloadData() }
     }
     
@@ -165,7 +161,6 @@ class ChatInitialViewController : UITableViewController {
         // first get the identifier of the parner user clicked
         let ref = Database.database().reference().child("users").child(chatPartnerId)
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            print(snapshot)
              guard let dictionary = snapshot.value as? [String : Any] else {return}
             // a user is created and in chatlogController a function is called because a user is set
             let user = User()
