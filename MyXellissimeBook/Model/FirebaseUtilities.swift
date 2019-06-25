@@ -64,7 +64,6 @@ class FirebaseUtilities {
      ********************************************************/
     
     static func getUserFromEmail(email: String, callBack: @escaping (User) -> Void){
-
             let rootRef = Database.database().reference()
             let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "email")
             var counter = 0

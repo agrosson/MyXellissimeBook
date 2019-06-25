@@ -18,9 +18,10 @@ class APIManagerTestCase: XCTestCase {
      ********************************************************/
     func testGoogleBooksShouldPostFailedCallbackIfError() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error:FakeResponseData.error),
-                              getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil  ),
-                              getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBooKInfoFromGoogleBooks = URLSessionFake(data: nil, response: nil, error:FakeResponseData.error)
+        apiManager.getBooKInfoFromGoogleBooks = URLSessionFake(data: nil, response: nil, error: nil  )
+        apiManager.getBookInfoGoodReads = URLSessionFake(data: nil, response: nil, error: nil)
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfo(fullUrl: URL(string: "nil")!, method: "nil", isbn: "9780552565974", callBack:  { (success, book) in
@@ -33,9 +34,10 @@ class APIManagerTestCase: XCTestCase {
     
     func testGoogleBooksShouldPostFailedCallbackIfnoData() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: FakeResponseData.responseOK, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil  ),
-                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBooKInfoFromGoogleBooks = URLSessionFake(data: nil, response: FakeResponseData.responseOK, error: nil)
+        apiManager.getBooKInfoFromGoogleBooks = URLSessionFake(data: nil, response: nil, error: nil  )
+        apiManager.getBookInfoGoodReads = URLSessionFake(data: nil, response: nil, error: nil)
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfo(fullUrl: URL(string: "nil")!, method: "nil", isbn: "9780552565974", callBack:  { (success, book) in
             XCTAssertFalse(success)
@@ -47,9 +49,10 @@ class APIManagerTestCase: XCTestCase {
  
     func testGoogleBooksShouldPostFailedCallbackIfResponseKO() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: FakeResponseData.googleBooksIncorrectData, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil  ),
-                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBooKInfoFromGoogleBooks = URLSessionFake(data: FakeResponseData.googleBooksIncorrectData, response: nil, error: nil)
+        apiManager.getBooKInfoFromGoogleBooks = URLSessionFake(data: nil, response: nil, error: nil  )
+        apiManager.getBookInfoGoodReads = URLSessionFake(data: nil, response: nil, error: nil)
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
@@ -63,9 +66,10 @@ class APIManagerTestCase: XCTestCase {
     
     func testGoogleBooksShouldPostFailedCallbackIfResponseOKNoErrorDataIncorrect() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: FakeResponseData.googleBooksIncorrectData, response: FakeResponseData.responseOK, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil  ),
-                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBooKInfoFromGoogleBooks = URLSessionFake(data: FakeResponseData.googleBooksIncorrectData, response: FakeResponseData.responseOK, error: nil)
+        apiManager.getBooKInfoFromGoogleBooks = URLSessionFake(data: nil, response: nil, error: nil  )
+        apiManager.getBookInfoGoodReads = URLSessionFake(data: nil, response: nil, error: nil)
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
@@ -80,9 +84,8 @@ class APIManagerTestCase: XCTestCase {
 
     func testGoogleBooksShouldPassCallbackIfCorrectDataAndNoError() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: FakeResponseData.googleBooksCorrectData, response: FakeResponseData.responseOK, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil  ),
-                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBooKInfoFromGoogleBooks = URLSessionFake(data: FakeResponseData.googleBooksCorrectData, response: FakeResponseData.responseOK, error: nil)
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
@@ -100,9 +103,10 @@ class APIManagerTestCase: XCTestCase {
     
     func testOpenLibraryShouldPostFailedCallbackIfError() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: FakeResponseData.error  ),
-                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBooKInfoFromGoogleBooks = URLSessionFake(data: nil, response: nil, error: nil)
+        apiManager.getBookInfoOpenLibrary = URLSessionFake(data: nil, response: nil, error: FakeResponseData.error  )
+        apiManager.getBookInfoGoodReads = URLSessionFake(data: nil, response: nil, error: nil)
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfoOpenLibrary(fullUrl: URL(string: "nil")!, method: "nil", isbn: "9782070377220", callBack: { (success, book) in
@@ -118,9 +122,8 @@ class APIManagerTestCase: XCTestCase {
     
     func testOpenLibraryShouldPostFailedCallbackIfNoData() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: FakeResponseData.responseOK, error: nil),
-                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBookInfoOpenLibrary = URLSessionFake(data: nil, response: FakeResponseData.responseOK, error: nil)
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfoOpenLibrary(fullUrl: URL(string: "nil")!, method: "nil", isbn: "9782070377220", callBack: { (success, book) in
@@ -134,9 +137,8 @@ class APIManagerTestCase: XCTestCase {
     
     func testOpenLibraryShouldPostFailedCallbackIfResponseKO() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: FakeResponseData.openLibraryCorrectData, response: FakeResponseData.responseKO, error: nil),
-                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBookInfoOpenLibrary = URLSessionFake(data: FakeResponseData.openLibraryCorrectData, response: FakeResponseData.responseKO, error: nil)
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfoOpenLibrary(fullUrl: URL(string: "nil")!, method: "nil", isbn: "9782070377220", callBack: { (success, book) in
@@ -150,9 +152,8 @@ class APIManagerTestCase: XCTestCase {
     
     func testOpenLibraryShouldPostFailedCallbackIfResponseOKButIncorrectData() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: FakeResponseData.openLibraryIncorrectData, response: FakeResponseData.responseOK, error: nil),
-                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBookInfoOpenLibrary = URLSessionFake(data: FakeResponseData.openLibraryIncorrectData, response: FakeResponseData.responseOK, error: nil)
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfoOpenLibrary(fullUrl: URL(string: "nil")!, method: "nil", isbn: "9782070377220", callBack: { (success, book) in
@@ -166,9 +167,8 @@ class APIManagerTestCase: XCTestCase {
    
     func testOpenLibraryShouldPostPassCallbackIfResponseOKNoErrorAndCorrectData() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: FakeResponseData.openLibraryCorrectData, response: FakeResponseData.responseOK, error: nil),
-                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBookInfoOpenLibrary = URLSessionFake(data: FakeResponseData.openLibraryCorrectData, response: FakeResponseData.responseOK, error: nil)
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfoOpenLibrary(fullUrl: URL(string: "nil")!, method: "nil", isbn: "9782070377220", callBack: { (success, book) in
@@ -187,9 +187,8 @@ class APIManagerTestCase: XCTestCase {
 
     func testGoodReadsShouldPostFailedCallbackIfError() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: nil, error: FakeResponseData.error))
+         let apiManager  = APIManager()
+        apiManager.getBookInfoGoodReads = URLSessionFake(data: nil, response: nil, error: FakeResponseData.error)
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfoGoodReads(fullUrl: URL(string: "nil")!, method:"nil", isbn: "9782746518834", callBack: { (success, book) in
@@ -202,9 +201,8 @@ class APIManagerTestCase: XCTestCase {
     
     func testGoodReadsShouldPostFailedCallbackIfNodata() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoGoodReads: URLSessionFake(data: nil, response: FakeResponseData.responseOK, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBookInfoGoodReads = URLSessionFake(data: nil, response: FakeResponseData.responseOK, error: nil)
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfoGoodReads(fullUrl: URL(string: "nil")!, method:"nil", isbn: "9782746518834", callBack: { (success, book) in
@@ -218,9 +216,8 @@ class APIManagerTestCase: XCTestCase {
    
     func testGoodReadsShouldPostFailedCallbackIfResponseKO() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoGoodReads: URLSessionFake(data: FakeResponseData.goodReadsCorrectData, response: FakeResponseData.responseKO, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBookInfoGoodReads = URLSessionFake(data: FakeResponseData.goodReadsCorrectData, response: FakeResponseData.responseKO, error: nil)
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfoGoodReads(fullUrl: URL(string: "nil")!, method:"nil", isbn: "9782746518834", callBack: { (success, book) in
@@ -233,9 +230,8 @@ class APIManagerTestCase: XCTestCase {
 
     func testGoodReadsShouldPostFailedCallbackIfResponseOKbutIncorrectData() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoGoodReads: URLSessionFake(data: FakeResponseData.goodReadsIncorrectData, response: FakeResponseData.responseOK, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBookInfoGoodReads = URLSessionFake(data: FakeResponseData.goodReadsIncorrectData, response: FakeResponseData.responseOK, error: nil)
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfoGoodReads(fullUrl: URL(string: "nil")!, method:"nil", isbn: "9782746518834", callBack: { (success, book) in
@@ -247,9 +243,8 @@ class APIManagerTestCase: XCTestCase {
     }
     func testGoodReadsShouldPostPassCallbackIfResponseOKNoErrorAndCorrectData() {
         // Given
-        let apiManager  = APIManager(getBooKInfoFromGoogleBooks: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoOpenLibrary: URLSessionFake(data: nil, response: nil, error: nil),
-                                     getBookInfoGoodReads: URLSessionFake(data: FakeResponseData.goodReadsCorrectData, response: FakeResponseData.responseOK, error: nil))
+        let apiManager  = APIManager()
+        apiManager.getBookInfoGoodReads = URLSessionFake(data: FakeResponseData.goodReadsCorrectData, response: FakeResponseData.responseOK, error: nil)
         // When
         let expectation = XCTestExpectation(description: "Wait for queue GoogleBooks.")
         apiManager.getBookInfoGoodReads(fullUrl: URL(string: "nil")!, method:"nil", isbn: "9782746518834", callBack: { (success, book) in

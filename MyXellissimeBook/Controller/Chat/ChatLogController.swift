@@ -11,7 +11,7 @@ import UIKit
 import Firebase
 
 class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-   
+    
     // As soon as set, the navigationItem.title is updated
     /// User logged in
     var user: User? {
@@ -40,6 +40,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         return textField
     }()
     
+    var containerViewBottomAnchor: NSLayoutConstraint?
+    
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,12 +59,55 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.delegate = self
         collectionView.dataSource = self
-       
+        
+        setupKeyboardObserver()
+        
+        //These notification to observe behavior of keyboard
+        // Show keyboard
+        NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        // hide keyboard
+        NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    // MARK: - Methods
+    /**
+     Function that modifies containerViewBottomAnchor to lift the textField with keyboard
+     */
+    @objc func handldeKeyboardWillShow(notification : NSNotification){
+        let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+        let keyboardDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+        let safeLayoutGuideBot = self.view.safeAreaInsets.bottom
+        let height =  (keyboardFrame?.height)! - safeLayoutGuideBot
+        guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
+        containerViewBottomAnchor?.constant = -height - tabbarHeight
+        
+        UIView.animate(withDuration: keyboardDuration!) {
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+    /**
+     Function that modifes containerViewBottomAnchor to set down the textField with keyboard
+     */
+    @objc func handldeKeyboardWillHide(notification : NSNotification){
+
+        guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
+        containerViewBottomAnchor?.constant = -tabbarHeight
+    }
+    
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+    
+    func setupKeyboardObserver(){
+        
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -85,9 +130,9 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
      - Returns: the CGRect that embeds the string
      */
     private func estimateFrameFor(text : String) -> CGRect {
-            let width = 3*UIScreen.main.bounds.width/4
-            let size = CGSize(width: width, height: 1000)
-            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        let width = 3*UIScreen.main.bounds.width/4
+        let size = CGSize(width: width, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         // this attribute (NSAttributedString.Key.font)  is necessary
         return  NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0)], context: nil)
         
@@ -109,7 +154,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         
         
         setupCell(cell: cell, message: message)
-
+        
         
         cell.bubbleWidthAnchor?.constant = estimateFrameFor(text: text).width + 25
         return cell
@@ -119,7 +164,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         if let profileImageUrl = self.user?.profileId {
             cell.profileImageView.loadingImageUsingCacheWithUrlString(urlString: profileImageUrl)
         }
-     
+        
         if message.fromId == Auth.auth().currentUser?.uid {
             // display message in gray bubble
             cell.bubbleView.backgroundColor = .white
@@ -136,7 +181,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             
             cell.bubbleViewRightAnchor?.isActive = false
             cell.bubbleViewLeftAnchor?.isActive = true
-             // show profile image view
+            // show profile image view
             cell.profileImageView.isHidden = false
         }
     }
@@ -148,7 +193,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         
         let userMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(uid)
         userMessageRef.observe(.childAdded, with: { (snapshot) in
-           // get the key for the message
+            // get the key for the message
             let messageId = snapshot.key
             let messagesRef = Database.database().reference().child(FirebaseUtilities.shared.messages).child(messageId)
             messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -173,7 +218,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             
             
         }, withCancel: nil)
-    
+        
     }
     /**
      Function that setup layout of container for writing
@@ -183,14 +228,16 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         // create the container
         let containerView = UIView()
         containerView.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-            // do not forget
+        // do not forget
         containerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(containerView)
         // need x and y , width height contraints
         guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight).isActive = true
+        
+        containerViewBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight)
+        containerViewBottomAnchor?.isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         // create the send button
@@ -266,7 +313,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         
         // reset the textField
         self.inputTextField.text = nil
-
+        
     }
     
     /**
@@ -313,5 +360,5 @@ extension ChatLogController : UITextFieldDelegate {
         // Question : is it accurate to dismiss the VC after sending message ?
         return true
     }
-
+    
 }

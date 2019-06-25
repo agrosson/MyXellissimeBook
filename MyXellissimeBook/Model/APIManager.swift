@@ -18,22 +18,29 @@ import UIKit
 class APIManager {
     // MARK: Singleton
     static var shared = APIManager()
-    private init() {}
     // Task creation
     // MARK: - Networking properties
     /// URLSessionTask
-    private var task: URLSessionDataTask?
+     var task: URLSessionDataTask?
+    
+     let urlSessionConfiguration : URLSessionConfiguration = {
+        var urlSession = URLSessionConfiguration.default
+        urlSession.timeoutIntervalForRequest = 10
+        return urlSession
+    }()
+    
     /// URLSession for GoogleBooks
-    private var getBooKInfoFromGoogleBooks = URLSession(configuration: .default)
+     var getBooKInfoFromGoogleBooks : URLSession
     /// URLSession for OpenLibrary
-    private var getBookInfoOpenLibrary = URLSession(configuration: .default)
+     var getBookInfoOpenLibrary : URLSession
     /// URLSession for GoodReads
-    private var getBookInfoGoodReads = URLSession(configuration: .default)
+     var getBookInfoGoodReads : URLSession
+    
     // MARK: - Initializer
-    init(getBooKInfoFromGoogleBooks: URLSession, getBookInfoOpenLibrary: URLSession, getBookInfoGoodReads: URLSession) {
-        self.getBooKInfoFromGoogleBooks = getBooKInfoFromGoogleBooks
-        self.getBookInfoOpenLibrary = getBookInfoOpenLibrary
-        self.getBookInfoGoodReads = getBookInfoGoodReads
+    init() {
+        self.getBooKInfoFromGoogleBooks = URLSession(configuration: urlSessionConfiguration)
+        self.getBookInfoOpenLibrary = URLSession(configuration: urlSessionConfiguration)
+        self.getBookInfoGoodReads = URLSession(configuration: urlSessionConfiguration)
     }
 }
 
