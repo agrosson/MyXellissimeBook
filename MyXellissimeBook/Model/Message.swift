@@ -9,7 +9,10 @@
 import Foundation
 import Firebase
 
-
+// MARK: - Message class
+/**
+ This class defines the message attributes
+ */
 class Message: NSObject {
     var fromId: String?
     var text: String?

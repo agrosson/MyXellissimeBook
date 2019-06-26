@@ -210,9 +210,9 @@ class FirebaseUtilities {
         uploadTask.resume()
     }
 
-/*******************************************************
- This function creates a loan  in firebase
- ********************************************************/
+    /*******************************************************
+     This function creates a loan  in firebase
+     ********************************************************/
     static func saveLoan(bookToLend: Book, fromId : String, toUser: User, loanStartDate: String,expectedEndDateOfLoan: String) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.loan)
         /// unique reference for the message
