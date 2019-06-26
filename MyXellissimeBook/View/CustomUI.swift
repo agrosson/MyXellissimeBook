@@ -7,15 +7,15 @@
 //
 
 
-// MARK: - class ChatMessageCell
-/**
- This class defines ChatMessage customized cell
- */
+
 import UIKit
 
-
+// MARK: - class CustomUI
+/**
+ This class defines Customized UI object used to build User interface
+ */
 class CustomUI {
-    
+    /// Customized label
     var label: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 25)
@@ -27,7 +27,6 @@ class CustomUI {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     /// Customized UIImageView
     var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -35,7 +34,7 @@ class CustomUI {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
+    /// Customized button
     var button : UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor.clear
@@ -47,14 +46,14 @@ class CustomUI {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         return button
     }()
-    
+    /// Customized view
     var view : UIView = {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+    /// Customized textField
     var textField: UITextField = {
         let textField = UITextField()
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
@@ -64,5 +63,4 @@ class CustomUI {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
-    
 }
