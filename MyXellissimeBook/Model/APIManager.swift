@@ -22,7 +22,7 @@ class APIManager {
     // MARK: - Networking properties
     /// URLSessionTask
      var task: URLSessionDataTask?
-    
+    /// URLSessionConfiguration to set 10 sec timeout interval
      let urlSessionConfiguration : URLSessionConfiguration = {
         var urlSession = URLSessionConfiguration.default
         urlSession.timeoutIntervalForRequest = 10
@@ -46,7 +46,10 @@ class APIManager {
 
 // MARK: - Request for Get book info
 extension APIManager {
-    func getBookInfo(fullUrl: URL, method: String, isbn: String, callBack: @escaping (Bool, Book?) -> Void) {
+    func getBookInfo(fullUrl: URL,
+                     method: String,
+                     isbn: String,
+                     callBack: @escaping (Bool, Book?) -> Void) {
         var request = URLRequest(url: fullUrl)
         print(fullUrl)
         request.httpMethod = method
@@ -94,9 +97,6 @@ extension APIManager {
                     coverTemp = cover
                 }
                 // create a Book object if all tests satisfied with the data retrieved
-//                var bookTemp = Book(title: title,
-//                                    author: author,
-//                                    isbn: isbnEmpty)
                 let bookTemp = Book()
                 bookTemp.title = title
                 bookTemp.author = author
@@ -111,7 +111,10 @@ extension APIManager {
 }
 
 extension APIManager {
-    func getBookInfoOpenLibrary(fullUrl: URL, method: String, isbn: String, callBack: @escaping (Bool, Book?) -> Void) {
+    func getBookInfoOpenLibrary(fullUrl: URL,
+                                method: String,
+                                isbn: String,
+                                callBack: @escaping (Bool, Book?) -> Void) {
         var request = URLRequest(url: fullUrl)
         print(fullUrl)
         request.httpMethod = method
@@ -152,7 +155,6 @@ extension APIManager {
                 let bookTemp = Book()
                 bookTemp.title = title
                 bookTemp.author = author
-                // bookTemp.isbn = firstItem
                 bookTemp.isbn = isbn
                 bookTemp.coverURL = coverTemp
                 bookTemp.editor = editor
