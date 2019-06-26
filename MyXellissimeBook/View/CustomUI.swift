@@ -63,4 +63,14 @@ class CustomUI {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    /// Customized textView
+    let textView: UITextView = {
+        let tv = UITextView()
+        // White by default : careful to make it clear
+        tv.backgroundColor = UIColor.clear
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        return tv
+    }()
+    
+    
 }

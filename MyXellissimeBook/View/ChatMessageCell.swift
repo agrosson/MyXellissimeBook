@@ -14,32 +14,16 @@ import Firebase
 /**
  This class defines ChatMessage customized cell
  */
-
 class ChatMessageCell: UICollectionViewCell {
     /*******************************************************
                         UI variables: Start
      ********************************************************/
     // MARK: - Properties UIViews
     /// TextView that will display the message text, embeded in the bubbleView
-    let textView: UITextView = {
-        let tv = UITextView()
-        tv.font = UIFont.systemFont(ofSize: 16) //  tv.font = UIFont.systemFont(ofSize: 18)
-        tv.textColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-        // White by default : careful to make it clear
-        tv.backgroundColor = UIColor.clear
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        return tv
-    }()
+    let textView = CustomUI().textView
     /// UIView that embeds the text
-    let bubbleView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
-        view.layer.cornerRadius = 16
-        view.layer.masksToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+    let bubbleView = CustomUI().view
+    /// UIImageView that display partner chat profile image
     let profileImageView = CustomUI().imageView
     /*******************************************************
                         UI variables: End
@@ -69,8 +53,6 @@ class ChatMessageCell: UICollectionViewCell {
      */
     private func setupConstraints(){
         let width = 3*UIScreen.main.bounds.width/4
-        
-        
         // Contraints X Y Width height
         profileImageView.layer.cornerRadius = 20
         profileImageView.layer.masksToBounds = true
@@ -78,8 +60,6 @@ class ChatMessageCell: UICollectionViewCell {
         profileImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        
         // Contraints X Y Width height
         bubbleViewRightAnchor = bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
         bubbleViewRightAnchor?.isActive = true
@@ -87,19 +67,19 @@ class ChatMessageCell: UICollectionViewCell {
         bubbleViewLeftAnchor = bubbleView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
         // as property is false by default, not need to specify that
         // bubbleViewLeftAnchor?.isActive = false
-
+        bubbleView.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
+        bubbleView.layer.cornerRadius = 16
+        bubbleView.layer.masksToBounds = true
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: width)
         bubbleWidthAnchor?.isActive = true
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        
-
         // Contraints X Y Width height : textview is embeded in bubble with left and right anchor
+        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.textColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 5).isActive = true
         textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
         textView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        
     }
-    
 }
