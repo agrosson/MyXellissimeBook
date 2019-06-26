@@ -29,23 +29,9 @@ class UserBookCell: UITableViewCell {
      ********************************************************/
     // MARK: - Properties UIViews
     /// ImageView that is used to display book cover image
-    let coverImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "profileDefault")
-        imageView.contentMode = .scaleAspectFit
-        // imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    let coverImageView = CustomUI().imageView
     /// ImageView that is used to display if book is available or not
-    let availabilityImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 25
-        imageView.layer.masksToBounds = true
-        return imageView
-    }()
+    let availabilityImageView = CustomUI().imageView
     /*******************************************************
                        UI variables: End
      ********************************************************/
@@ -66,12 +52,16 @@ class UserBookCell: UITableViewCell {
      */
     private func setupConstraints(){
         // Contraints X Y Width height
+        coverImageView.image = UIImage(named: "profileDefault")
+        coverImageView.contentMode = .scaleAspectFit
         coverImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
         coverImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         coverImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
         coverImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         
         // Contraints X Y Width height
+        availabilityImageView.layer.cornerRadius = 25
+        availabilityImageView.layer.masksToBounds = true
         availabilityImageView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
         availabilityImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
         availabilityImageView.widthAnchor.constraint(equalToConstant: 35).isActive = true
