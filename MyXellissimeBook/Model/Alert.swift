@@ -11,7 +11,7 @@ import UIKit
 
 // MARK: - Class Alert
 /**
- This class enables presentation of an alert what ever the viewController
+ This class enables presentation of an alert whatever the viewController
  */
 class Alert {
     // MARK: - Properties
@@ -143,12 +143,4 @@ struct TextAndString {
     let unableToCreateUser = "User has not been created.\nTry Again"
     let noTitleForBook = "Please indicate book title"
     let needAtLeastOneField = "Please enter at least one element"
-    
-    // Segue
-    let segueFromLogInToHome = "logInToWelcome"
-    let segueToLogIn = "goToLogInScreen"
-    let segueFromInitialToWelcome = "goToWelcomeScreen"
-    let goToMyListOfBooksSegue = "goToMyListOfBooksSegue"
-    // Cell identifier
-    let myListOfBookCell = "myListOfBookCell"
 }

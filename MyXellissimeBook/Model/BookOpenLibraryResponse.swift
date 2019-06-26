@@ -8,6 +8,11 @@
 
 import Foundation
 
+
+// MARK: - Struct BookOpenLibraryResponse
+/**
+ This struct enables to get and manage information from BookOpenLibrary API Response
+ */
 struct BookOpenLibraryResponse: Codable {
     let publishers: [Publish]?
     let pagination: String?
