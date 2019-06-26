@@ -32,23 +32,9 @@ class UserCell: UITableViewCell {
      ********************************************************/
     // MARK: - Properties UIViews
     /// ImageView that is used to display profile image
-    let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "profileDefault")
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 30
-        imageView.layer.masksToBounds = true
-        return imageView
-    }()
+    let profileImageView = CustomUI().imageView
     /// Timestamp that is displayed in the cell
-    let timeLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor.darkGray
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let timeLabel = CustomUI().label
     /*******************************************************
                     UI variables: End
      ********************************************************/
@@ -72,12 +58,17 @@ class UserCell: UITableViewCell {
      */
     private func setupConstraints(){
         // Contraints X Y Width height
+        profileImageView.image = UIImage(named: "profileDefault")
+        profileImageView.layer.cornerRadius = 30
+        profileImageView.layer.masksToBounds = true
         profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
         profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         // Contraints X Y Width height
+        timeLabel.font = UIFont.systemFont(ofSize: 12)
+        timeLabel.textColor = UIColor.darkGray
         timeLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 24).isActive = true
         timeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
