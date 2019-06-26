@@ -8,7 +8,10 @@
 
 import Foundation
 
-
+// MARK: - Struct BookResponse
+/**
+ This struct enables to get and manage information from GoogleBooks API Response
+ */
 struct BookResponse: Codable {
     let kind: String?
     let totalItems: Int?

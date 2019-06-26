@@ -9,6 +9,11 @@
 import Foundation
 import Firebase
 
+
+// MARK: - class FirebaseUtilities
+/**
+ This struct enables to manage relationships with Firebase (database and storage)
+ */
 class FirebaseUtilities {
     
     static var shared = FirebaseUtilities()
@@ -46,7 +51,7 @@ class FirebaseUtilities {
       return self.shared.name
     }
     /*******************************************************
-     This function returns a user name from a id
+     This function returns a user name from a user id
      ********************************************************/
     static func getUserNameFromUserId(userId: String, callBack: @escaping (String?) -> Void) {
         Database.database().reference().child(FirebaseUtilities.shared.users).child(userId).observeSingleEvent(of: .value) {  (snapshot) in
@@ -62,7 +67,6 @@ class FirebaseUtilities {
     /*******************************************************
      This function returns a user from a email
      ********************************************************/
-    
     static func getUserFromEmail(email: String, callBack: @escaping (User) -> Void){
             let rootRef = Database.database().reference()
             let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "email")
@@ -127,7 +131,7 @@ class FirebaseUtilities {
     
     /*******************************************************
      This function saves a book in firebase:
-     Before saving, gather book atrributes and user Id
+     Before saving, gather book atributes and user Id
      ********************************************************/
     static func saveBook(book: Book, fromUserId : String){
         let ref = Database.database().reference().child(FirebaseUtilities.shared.books)
@@ -159,7 +163,7 @@ class FirebaseUtilities {
     }
     
     /*******************************************************
-     This function saves a cover image in firebase Storage:
+     This function saves a cover image for a book with isbn in firebase Storage:
      ********************************************************/
     static func saveCoverImage(coverImage: UIImage, isbn: String){
         // test the size in byte of the image
@@ -207,7 +211,7 @@ class FirebaseUtilities {
     }
 
 /*******************************************************
- This function create a loan  in firebase
+ This function creates a loan  in firebase
  ********************************************************/
     static func saveLoan(bookToLend: Book, fromId : String, toUser: User, loanStartDate: String,expectedEndDateOfLoan: String) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.loan)
@@ -244,7 +248,7 @@ class FirebaseUtilities {
         }
     }
     /*******************************************************
-     This function close a loan  in firebase
+     This function closes a loan  in firebase
      ********************************************************/
     static func closeLoan(for uniqueLoanBookId: String){
         let ref = Database.database().reference().child(FirebaseUtilities.shared.loan).child(uniqueLoanBookId)
