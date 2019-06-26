@@ -173,6 +173,7 @@ extension UIImageView {
         
     }
 }
+// MARK: - extension String
 /**
  This extension enables to remove inaccurate whitespace
  */
@@ -206,6 +207,7 @@ extension String {
     }
     
 }
+// MARK: - extension UIColor
 /**
  Initializer for UIColor
  */

@@ -23,18 +23,14 @@ class CustomInitialTabBarController: UITabBarController {
     /// instance of ChatTableViewController
     let chatInitialTableViewController = UINavigationController(rootViewController: ChatInitialViewController())
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //setup custom VC
         setupTabBar()
         viewControllers = [initialViewController, searchViewController, chatInitialTableViewController ]
-        
-        
     }
     /**
-     Function that setup tabBar
+     Function that sets up tabBar
      */
     private func setupTabBar(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
@@ -44,8 +40,5 @@ class CustomInitialTabBarController: UITabBarController {
         searchViewController.tabBarItem.image = UIImage(named: "search")
         chatInitialTableViewController.tabBarItem.title = "Chat"
         chatInitialTableViewController.tabBarItem.image = UIImage(named: "message")
-        // TODO : add an image
-        // chatTableViewController.tabBarItem.image = UIImage(named: "search")
     }
-    
 }

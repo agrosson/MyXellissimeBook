@@ -88,7 +88,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         UIView.animate(withDuration: keyboardDuration!) {
             self.view.layoutIfNeeded()
         }
-        
     }
     /**
      Function that modifes containerViewBottomAnchor to set down the textField with keyboard
