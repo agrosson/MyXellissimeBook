@@ -96,14 +96,17 @@ class ChatInitialViewController : UITableViewController {
         }, withCancel: nil)
     }
     
-    
-    
+    /**
+     function that reload data
+     */
     @objc func handlerReloadTable(){
         DispatchQueue.main.async {
             self.tableView.reloadData() }
     }
     
-
+    /**
+     function that sets us the navBar
+     */
     func fetchUserAndSetupNavBarTitle(){
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -125,7 +128,7 @@ class ChatInitialViewController : UITableViewController {
     }
     
     /**
-     Function that setup screen
+     Function that sets up screen
      */
      func setupScreen(user: User){
         messages.removeAll()
@@ -137,6 +140,10 @@ class ChatInitialViewController : UITableViewController {
         self.navigationItem.titleView = setupNavBarWithUser(user: user)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
+    
+    /**
+     Function that setup screen
+     */
     @objc func handelCompose(){
         let chatTableViewController = ChatTableViewController()
         chatTableViewController.chatInitial = self
