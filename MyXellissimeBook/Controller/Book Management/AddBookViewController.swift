@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import MobileCoreServices
 
 // MARK: - Class AddBookViewController
 /**
@@ -36,6 +37,8 @@ class AddBookViewController: UIViewController {
     
     lazy var addWithPhotoButton = CustomUI().button
     
+    var activityIndicator = CustomUI().activityIndicatorView
+    
     /// Add manually Button
     lazy var addManuallyButton : UIButton = {
         let button = UIButton(type: .system)
@@ -56,6 +59,7 @@ class AddBookViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissCurrentView))
         view.addSubview(addWithScanButton)
         view.addSubview(addWithPhotoButton)
+        view.addSubview(activityIndicator)
         view.addSubview(addManuallyButton)
         setupScreen()
         
@@ -77,6 +81,7 @@ class AddBookViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setupaddWithScanButton()
         setupaddWithPhotoButton()
+        setupactivityIndicator()
         setupaddManuallyButton()
     }
     
@@ -92,7 +97,7 @@ class AddBookViewController: UIViewController {
     }
     
     /**
-     Function that sets up addWithScanButton
+     Function that sets up addWithPhotoButton
      */
     private func setupaddWithPhotoButton(){
         addWithPhotoButton.layer.cornerRadius = 15
@@ -104,6 +109,14 @@ class AddBookViewController: UIViewController {
         addWithPhotoButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         addWithPhotoButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
+    
+    private func setupactivityIndicator(){
+        activityIndicator.centerXAnchor.constraint(equalTo: addWithPhotoButton.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: addWithPhotoButton.centerYAnchor).isActive = true
+        activityIndicator.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        activityIndicator.widthAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
     /**
      Function that sets up addManuallyButton
      */
@@ -127,7 +140,7 @@ class AddBookViewController: UIViewController {
     }
     
     @objc private func takePhoto(){
-        
+        presentPhotoAlert()
     }
     
     /**
@@ -137,5 +150,72 @@ class AddBookViewController: UIViewController {
         print("go to add manually")
         let addManuallyViewController = UINavigationController(rootViewController: AddManuallyViewController())
         present(addManuallyViewController, animated: true, completion: nil)
+    }
+    
+    
+    private func presentPhotoAlert(){
+        self.activityIndicator.isHidden = false
+        print("will take a picture of the book to extract data ")
+        // 1
+        let imagePickerActionSheet =
+            UIAlertController(title: "Snap/Upload Image",
+                              message: nil,
+                              preferredStyle: .actionSheet)
+        
+        // 2
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let cameraButton = UIAlertAction(
+                title: "Take Photo",
+                style: .default) { (alert) -> Void in
+                    self.activityIndicator.isHidden = false
+                    // 1
+                    self.activityIndicator.startAnimating()
+                    // 2
+                    let imagePicker = UIImagePickerController()
+                    // 3
+                    imagePicker.delegate = self
+                    // 4
+                    imagePicker.sourceType = .camera
+                    // 5
+                    imagePicker.mediaTypes = [kUTTypeImage as String]
+                    // 6
+                    self.present(imagePicker, animated: true, completion: {
+                        // 7
+                        self.activityIndicator.stopAnimating()
+                        self.activityIndicator.isHidden = true
+                    })
+            }
+            imagePickerActionSheet.addAction(cameraButton)
+        }
+        
+        // 3
+        let libraryButton = UIAlertAction(
+            title: "Choose Existing",
+            style: .default) { (alert) -> Void in
+                
+                // TODO: Add more code here...
+        }
+        imagePickerActionSheet.addAction(libraryButton)
+        
+        // 4
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { (alert) -> Void in
+            self.activityIndicator.isHidden = true
+        }
+        imagePickerActionSheet.addAction(cancelButton)
+        
+        // 5
+        present(imagePickerActionSheet, animated: true)
+    }
+    
+}
+// MARK: - UINavigationControllerDelegate
+extension AddBookViewController: UINavigationControllerDelegate {
+}
+
+// MARK: - UIImagePickerControllerDelegate
+extension AddBookViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        // TODO: Add more code here...
     }
 }

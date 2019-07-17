@@ -64,7 +64,7 @@ class CustomUI {
         return textField
     }()
     /// Customized textView
-    let textView: UITextView = {
+    var textView: UITextView = {
         let tv = UITextView()
         // White by default : careful to make it clear
         tv.backgroundColor = UIColor.clear
@@ -72,5 +72,13 @@ class CustomUI {
         return tv
     }()
     
-    
+    /// ActivityIndicatorView
+    var activityIndicatorView: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.color = UIColor.white
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.isHidden = true
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
 }
