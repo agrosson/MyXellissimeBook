@@ -142,7 +142,7 @@ class ChatInitialViewController : UITableViewController {
     }
     
     /**
-     Function that setup screen
+     Function that presents chatTableViewController
      */
     @objc func handelCompose(){
         let chatTableViewController = ChatTableViewController()
@@ -150,6 +150,9 @@ class ChatInitialViewController : UITableViewController {
         let navController = UINavigationController(rootViewController: chatTableViewController)
         present(navController, animated: true, completion: nil)
     }
+    /**
+     Function that presents chatLogController
+     */
     func showChatControllerForUser(user: User){
         let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
         chatLogController.user = user

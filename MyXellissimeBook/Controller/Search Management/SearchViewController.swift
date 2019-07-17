@@ -163,12 +163,7 @@ class SearchViewController: UIViewController {
             Alert.shared.alertDisplay = .needAtLeastOneField
             return
         }
-        
-        
-        
-        
-        
-        
+
         let searchBookResultTableViewController = SearchBookResultTableViewController()
         searchBookResultTableViewController.titleSearch = title
         searchBookResultTableViewController.authorSearch = author

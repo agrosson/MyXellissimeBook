@@ -73,6 +73,7 @@
 		C1B42B7922B13FAF00982194 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B7822B13FAF00982194 /* User.swift */; };
 		C1B42B8522B140EF00982194 /* MyXellissimeBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */; };
 		C1B42B8D22B1412000982194 /* UserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8C22B1412000982194 /* UserTest.swift */; };
+		C1E22C7F22DF1CF000789846 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = C1E22C7E22DF1CF000789846 /* tessdata */; };
 		F9FD6C546E60F13112A3A05B /* Pods_MyXellissimeBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4CB8B24C6201E44EC28B02 /* Pods_MyXellissimeBookTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -160,6 +161,7 @@
 		C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyXellissimeBookTests.swift; sourceTree = "<group>"; };
 		C1B42B8622B140EF00982194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1B42B8C22B1412000982194 /* UserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTest.swift; sourceTree = "<group>"; };
+		C1E22C7E22DF1CF000789846 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		D150990AA3C5194A0169970A /* Pods-MyXellissimeBookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBookTests/Pods-MyXellissimeBookTests.release.xcconfig"; sourceTree = "<group>"; };
 		DF6572B50869E9097F08E23E /* Pods-MyXellissimeBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBookTests/Pods-MyXellissimeBookTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -303,6 +305,7 @@
 		C19371D522B0FC500017E696 /* MyXellissimeBook */ = {
 			isa = PBXGroup;
 			children = (
+				C1E22C7E22DF1CF000789846 /* tessdata */,
 				C19371E222B0FC510017E696 /* Info.plist */,
 				C13355C822BA68940006D9CD /* Supporting files */,
 				C12C125522B3A02C006A3F2C /* View */,
@@ -459,6 +462,7 @@
 				C19371DE22B0FC510017E696 /* Assets.xcassets in Resources */,
 				C13355CE22BA6AD50006D9CD /* APIKeys.plist in Resources */,
 				C19371DC22B0FC500017E696 /* Main.storyboard in Resources */,
+				C1E22C7F22DF1CF000789846 /* tessdata in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

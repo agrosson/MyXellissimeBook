@@ -32,6 +32,10 @@ class AddBookViewController: UIViewController {
     }()
     
     // create button
+     /// Add With a photo Button
+    
+    lazy var addWithPhotoButton = CustomUI().button
+    
     /// Add manually Button
     lazy var addManuallyButton : UIButton = {
         let button = UIButton(type: .system)
@@ -51,6 +55,7 @@ class AddBookViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissCurrentView))
         view.addSubview(addWithScanButton)
+        view.addSubview(addWithPhotoButton)
         view.addSubview(addManuallyButton)
         setupScreen()
         
@@ -71,6 +76,7 @@ class AddBookViewController: UIViewController {
         navigationItem.title = InitialViewController.titleName
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setupaddWithScanButton()
+        setupaddWithPhotoButton()
         setupaddManuallyButton()
     }
     
@@ -84,13 +90,27 @@ class AddBookViewController: UIViewController {
         addWithScanButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         addWithScanButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
+    
+    /**
+     Function that sets up addWithScanButton
+     */
+    private func setupaddWithPhotoButton(){
+        addWithPhotoButton.layer.cornerRadius = 15
+        addWithPhotoButton.setTitle("Take a picture of the book", for: .normal)
+        addWithPhotoButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
+        // need x and y , width height contraints
+        addWithPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        addWithPhotoButton.topAnchor.constraint(equalTo: addWithScanButton.bottomAnchor, constant: 30).isActive = true
+        addWithPhotoButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        addWithPhotoButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
+    }
     /**
      Function that sets up addManuallyButton
      */
     private func setupaddManuallyButton(){
         // need x and y , width height contraints
         addManuallyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        addManuallyButton.topAnchor.constraint(equalTo: addWithScanButton.bottomAnchor, constant: 30).isActive = true
+        addManuallyButton.topAnchor.constraint(equalTo: addWithPhotoButton.bottomAnchor, constant: 30).isActive = true
         addManuallyButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         addManuallyButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
@@ -104,6 +124,10 @@ class AddBookViewController: UIViewController {
         print("go to scan")
         let scanMenuViewController = UINavigationController(rootViewController: ScanMenuViewController())
         present(scanMenuViewController, animated: true, completion: nil)
+    }
+    
+    @objc private func takePhoto(){
+        
     }
     
     /**

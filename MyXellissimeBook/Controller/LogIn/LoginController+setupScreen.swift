@@ -94,6 +94,10 @@ extension LoginController {
      Function that sets up loginRegisterButton
      */
      func setupLoginRegisterButton(){
+        
+        loginRegisterButton.setTitle("Register", for: .normal)
+        loginRegisterButton.layer.borderWidth = 1
+        loginRegisterButton.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
         // need x and y , width height contraints
         loginRegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         loginRegisterButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 12).isActive = true

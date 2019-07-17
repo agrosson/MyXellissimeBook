@@ -29,18 +29,8 @@ class LoginController: UIViewController {
     }()
     // create button
     /// Register Button
-    lazy var loginRegisterButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.clear
-        button.setTitle("Register", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 20
-        button.layer.borderWidth = 1
-        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
-        return button
-    }()
+    lazy var loginRegisterButton = CustomUI().button
+    
     /// TextField to get user name
     let nameTextField: UITextField = {
         let textField = UITextField()
@@ -175,6 +165,7 @@ class LoginController: UIViewController {
     /**
      Function that manages TextField
      */
+    
     private func manageTextField() {
         nameTextField.delegate = self
         emailTextField.delegate = self
@@ -222,7 +213,7 @@ class LoginController: UIViewController {
      Function that handles Registration/Login
      Switch on function depending on segmented item selected
      */
-    @objc private func handleLoginRegister() {
+    @objc func handleLoginRegister() {
         if #available(iOS 12.0, *) {
             passwordTextField.textContentType = .oneTimeCode
         }
