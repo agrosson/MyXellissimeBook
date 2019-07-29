@@ -10,9 +10,10 @@ import UIKit
 import Firebase
 import MobileCoreServices
 
+
 // MARK: - Class AddBookViewController
 /**
- This class defines the AddBookViewController 
+ This class defines the AddBookViewController
  */
 class AddBookViewController: UIViewController {
     // MARK: - Outlets and properties
@@ -33,7 +34,7 @@ class AddBookViewController: UIViewController {
     }()
     
     // create button
-     /// Add With a photo Button
+    /// Add With a photo Button
     
     lazy var addWithPhotoButton = CustomUI().button
     
@@ -53,6 +54,14 @@ class AddBookViewController: UIViewController {
         button.addTarget(self, action: #selector(addManually), for: .touchUpInside)
         return button
     }()
+    
+    
+    /// Declaration of VisionTextRecognizer
+    
+    var textRecognizer: VisionTextRecognizer!
+    var imageToTest = UIImage(named: "test1")
+    
+    
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,16 +71,31 @@ class AddBookViewController: UIViewController {
         view.addSubview(activityIndicator)
         view.addSubview(addManuallyButton)
         setupScreen()
+        textRecognizerFunction()
         
     }
+    
+    
     // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super .viewWillAppear(animated)
-    
+        
         setupScreen()
     }
     // MARK: - Methods
+    
+    /**
+     Function that initializes all steps in viewDidLoad
+     */
+    
+    private func textRecognizerFunction(){
+        let vision = Vision.vision()
+        textRecognizer = vision.onDeviceTextRecognizer()
+        runTextRecognition(with: imageToTest!)
+        
+    }
+    
     /**
      Function that setup screen
      */
@@ -109,7 +133,9 @@ class AddBookViewController: UIViewController {
         addWithPhotoButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         addWithPhotoButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
-    
+    /**
+     Function that sets up activityIndicator
+     */
     private func setupactivityIndicator(){
         activityIndicator.centerXAnchor.constraint(equalTo: addWithPhotoButton.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: addWithPhotoButton.centerYAnchor).isActive = true
@@ -127,7 +153,7 @@ class AddBookViewController: UIViewController {
         addManuallyButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         addManuallyButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
-
+    
     // MARK: - Methods @objc - Actions
     @objc private func dismissCurrentView(){
         self.dismiss(animated: true, completion: nil)
@@ -152,7 +178,9 @@ class AddBookViewController: UIViewController {
         present(addManuallyViewController, animated: true, completion: nil)
     }
     
-    
+    /**
+     Function that presents addManually ViewController
+     */
     private func presentPhotoAlert(){
         self.activityIndicator.isHidden = false
         print("will take a picture of the book to extract data ")
@@ -206,6 +234,36 @@ class AddBookViewController: UIViewController {
         // 5
         present(imagePickerActionSheet, animated: true)
     }
+    
+    
+    // MARK: Text recognition
+    private func runTextRecognition(with image: UIImage) {
+        let imageVision = VisionImage(image: image)
+        textRecognizer.process(imageVision) { (features, error) in
+            self.processResult(from: features, error: error)
+        }
+        
+    }
+    // MARK: Text drawing
+    private func processResult(from text : VisionText?, error: Error?) {
+        guard let features = text else {
+            return
+        }
+        for block in features.blocks {
+            let blockText = block.text
+            print("Mon premier essai \(blockText)")
+            for line in block.lines {
+                let lineText = line.text
+                print("Mon deuxième essai \(lineText)")
+                for element in line.elements {
+                    let elementText = element.text
+                    print("Mon troisième essai \(elementText)")
+                }
+            }
+        }
+    }
+    
+    
     
 }
 // MARK: - UINavigationControllerDelegate
