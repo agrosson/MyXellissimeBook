@@ -44,6 +44,10 @@ class DetailAvailableBookViewController: UIViewController {
     }
     
     private func setupUIObjects(){
+        // add a tapGesture on coverView to modifiy image
+        bookCoverImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleModifyCoverImage)))
+        // do not forget to enable interaction
+        bookCoverImageView.isUserInteractionEnabled = true
         titleLabel.font = UIFont.systemFont(ofSize: 40)
         titleLabel.textAlignment = NSTextAlignment.center
         authorLabel.textAlignment = NSTextAlignment.center
@@ -137,5 +141,71 @@ class DetailAvailableBookViewController: UIViewController {
         if let book = bookToDisplay {
             showManageLoanViewControllerForBook(book: book)
         }
+    }
+    /**
+     Function that modifies book cover image
+     */
+    @objc func handleModifyCoverImage(){
+        print("test the tap on cover")
+        addPicker()
+    }
+}
+
+
+extension DetailAvailableBookViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    /**
+     Function that creates a imagePicker and UIAlertController
+     */
+    func addPicker() {
+        // Create a UIImagePickerController
+        let imagePickerController = UIImagePickerController()
+        // Delegate to the viewController
+        imagePickerController.delegate = self
+        // Create a UIAlertController
+        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        //  Action for Camera
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                // Create picker with source . Camera
+                imagePickerController.sourceType = .camera
+                self.present(imagePickerController, animated: true,completion: nil)
+            }
+            else {
+                let actionSheet = UIAlertController(title: "Camera not available", message: "Click on Cancel", preferredStyle: .alert)
+                actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(actionSheet, animated: true, completion : nil)
+            }
+        }))
+        //  Action for Photo Library
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+            imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController, animated: true,completion: nil)
+        }))
+        // Action for Cancel
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion : nil)
+    }
+    /**
+     Function that tells the delegate that the user picked a still image or movie and set the image picked as the photo to display on image view choosen.
+     */
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        // What to do when operation is done
+        picker.dismiss(animated: true) {
+          print("do something with the image")
+            // Save the image as yhe new cover for the book
+            guard let isbn = self.bookToDisplay?.isbn else {return}
+            self.bookCoverImageView.image = image
+            FirebaseUtilities.saveCoverImage(coverImage: image, isbn: isbn)
+            coverCache.setObject(image, forKey: isbn as AnyObject)
+            
+        }
+    }
+    /**
+     Function that tells the delegate that the user cancelled the pick operation.
+     */
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // What to do when operation is done
+        picker.dismiss(animated: true, completion: nil)
     }
 }
