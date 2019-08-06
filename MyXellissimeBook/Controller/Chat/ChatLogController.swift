@@ -71,6 +71,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        // Avoid memory leek with this line of code
         NotificationCenter.default.removeObserver(self)
     }
     // MARK: - Methods
