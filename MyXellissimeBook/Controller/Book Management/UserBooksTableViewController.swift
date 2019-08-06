@@ -182,4 +182,13 @@ class UserBooksTableViewController: UITableViewController {
             }
         }
     }
+    /**
+     Function that modifies book attributes : To do
+     */
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let modifyBook = UIContextualAction(style: .normal, title: "Modify Cover") { (action, view, nil) in
+            print("here we are modifying the book attributes")
+        }
+        return UISwipeActionsConfiguration(actions: [modifyBook])
+    }
 }

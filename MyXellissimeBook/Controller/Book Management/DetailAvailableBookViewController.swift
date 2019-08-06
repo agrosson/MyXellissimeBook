@@ -42,7 +42,9 @@ class DetailAvailableBookViewController: UIViewController {
         setupUIObjects()
         setupScreen()
     }
-    
+    /**
+     Function that sets up UI objects
+     */
     private func setupUIObjects(){
         // add a tapGesture on coverView to modifiy image
         bookCoverImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleModifyCoverImage)))
@@ -57,7 +59,9 @@ class DetailAvailableBookViewController: UIViewController {
         createALoanButton.titleLabel?.font = UIFont.systemFont(ofSize: 25)
         createALoanButton.addTarget(self, action: #selector(handleCreateALoan), for: .touchUpInside)
     }
-    
+    /**
+     Function that sets up screen
+     */
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         if let isbn = bookToDisplay?.isbn {
@@ -146,7 +150,6 @@ class DetailAvailableBookViewController: UIViewController {
      Function that modifies book cover image
      */
     @objc func handleModifyCoverImage(){
-        print("test the tap on cover")
         addPicker()
     }
 }
@@ -195,8 +198,11 @@ extension DetailAvailableBookViewController: UIImagePickerControllerDelegate, UI
           print("do something with the image")
             // Save the image as yhe new cover for the book
             guard let isbn = self.bookToDisplay?.isbn else {return}
+            // update book cover on screen
             self.bookCoverImageView.image = image
+            // update book cover in Storage
             FirebaseUtilities.saveCoverImage(coverImage: image, isbn: isbn)
+            // update book cover in cache
             coverCache.setObject(image, forKey: isbn as AnyObject)
             
         }
