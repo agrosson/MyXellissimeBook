@@ -56,40 +56,50 @@ class ChatInitialViewController : UITableViewController {
             Database.database().reference().child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
             // get the key for the message
                 let messageId = snapshot.key
-                //get the reference of the message
-                let messagesReference = Database.database().reference().child("messages").child(messageId)
-                // observe the messages for this user
-                messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
-                    guard let dictionary = snapshot.value as? [String : Any] else {return}
-                    let message = Message()
-                    guard let fromId = dictionary["fromId"] as? String else {return}
-                    guard let toId =  dictionary["toId"] as? String else {return}
-                    guard let text =  dictionary["text"] as? String else {return}
-                    guard let timestamp =  dictionary["timestamp"] as? Int else {return}
-                    
-                    message.fromId = fromId
-                    message.timestamp = timestamp
-                    message.toId = toId
-                    message.text = text
-                    let chatPartnerId: String?
-                    
-                    if message.fromId == Auth.auth().currentUser?.uid {
-                        chatPartnerId = message.toId
-                    } else {
-                        chatPartnerId = message.fromId
-                        
-                    }
-                    guard let idToUse = chatPartnerId else {return}
-                    
-                    // get the last message for toId
-                    self.messagesDictionary[idToUse] = message
-                    // To avoid reload data too many times when messages have not be updated
-                    self.attemptReloadData()
-                }, withCancel: nil)
+                self.fetchMessageWithMessageId(messageId: messageId)
+
             }, withCancel: nil)
         //    return
         }, withCancel: nil)
     }
+    
+    /**
+     function that fetches message
+     - Parameter messageId: the unique identifier (String) of the message in Firebase
+     */
+    private func fetchMessageWithMessageId(messageId: String) {
+        //get the reference of the message
+        let messagesReference = Database.database().reference().child("messages").child(messageId)
+        // observe the messages for this user
+        messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let dictionary = snapshot.value as? [String : Any] else {return}
+            let message = Message()
+            guard let fromId = dictionary["fromId"] as? String else {return}
+            guard let toId =  dictionary["toId"] as? String else {return}
+            guard let text =  dictionary["text"] as? String else {return}
+            guard let timestamp =  dictionary["timestamp"] as? Int else {return}
+            
+            message.fromId = fromId
+            message.timestamp = timestamp
+            message.toId = toId
+            message.text = text
+            let chatPartnerId: String?
+            
+            if message.fromId == Auth.auth().currentUser?.uid {
+                chatPartnerId = message.toId
+            } else {
+                chatPartnerId = message.fromId
+                
+            }
+            guard let idToUse = chatPartnerId else {return}
+            
+            // get the last message for toId
+            self.messagesDictionary[idToUse] = message
+            // To avoid reload data too many times when messages have not be updated
+            self.attemptReloadData()
+        }, withCancel: nil)
+    }
+    
     
     /**
      function that attempts to reload data
