@@ -93,16 +93,23 @@ class ChatInitialViewController : UITableViewController {
                         return time1 > time2
                     })
                     // To avoid reload data too many times when messages have not be updated
-                    self.timerChat?.invalidate()
-                    self.timerChat = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handlerReloadTable), userInfo: nil, repeats: false)
+                    self.attemptReloadData()
                 }, withCancel: nil)
             }, withCancel: nil)
-            return
+        //    return
         }, withCancel: nil)
     }
     
     /**
-     function that reload data
+     function that attempts to reload data
+     */
+    private func attemptReloadData(){
+        self.timerChat?.invalidate()
+        self.timerChat = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handlerReloadTable), userInfo: nil, repeats: false)
+    }
+    
+    /**
+     function that reloads data
      */
     @objc func handlerReloadTable(){
         DispatchQueue.main.async {
