@@ -83,15 +83,6 @@ class ChatInitialViewController : UITableViewController {
                     
                     // get the last message for toId
                     self.messagesDictionary[idToUse] = message
-                    // and contruct an array with the values of the dictionary
-                    self.messages = Array(self.messagesDictionary.values)
-                    // sort the array of messages by date
-                    self.messages.sort(by: { (message1, message2) -> Bool in
-                        
-                        guard let time1 = message1.timestamp else {return false}
-                        guard let time2 = message2.timestamp else {return false}
-                        return time1 > time2
-                    })
                     // To avoid reload data too many times when messages have not be updated
                     self.attemptReloadData()
                 }, withCancel: nil)
@@ -112,6 +103,15 @@ class ChatInitialViewController : UITableViewController {
      function that reloads data
      */
     @objc func handlerReloadTable(){
+        // contruct an array with the values of the dictionary
+        self.messages = Array(self.messagesDictionary.values)
+        // sort the array of messages by date
+        self.messages.sort(by: { (message1, message2) -> Bool in
+            
+            guard let time1 = message1.timestamp else {return false}
+            guard let time2 = message2.timestamp else {return false}
+            return time1 > time2
+        })
         DispatchQueue.main.async {
             self.tableView.reloadData() }
     }
