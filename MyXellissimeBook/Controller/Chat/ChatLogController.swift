@@ -207,12 +207,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                 message.timestamp = timestamp
                 message.toId = toId
                 message.text = text
-                // we only show the message concerning the user
-                if message.chatPartnerId() ==  self.user?.profileId {
-                    self.messages.append(message)
-                    // do not forget to reload data here
-                    DispatchQueue.main.async {self.collectionView.reloadData()}
-                }
+                self.messages.append(message)
+                // do not forget to reload data here
+                DispatchQueue.main.async {self.collectionView.reloadData()}
+                
                 
             }, withCancel: nil)
             
