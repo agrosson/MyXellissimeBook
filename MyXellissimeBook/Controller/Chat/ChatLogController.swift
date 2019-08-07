@@ -110,7 +110,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         guard let text = messages[indexPath.row].text else {
             return CGSize(width: 0, height: 0)
         }
@@ -190,8 +189,9 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
      */
     private func observeMessages() {
         guard let uid = Auth.auth().currentUser?.uid else {return}
+        guard let userProfileId = user?.profileId else {return}
         
-        let userMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(uid)
+        let userMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(uid).child(userProfileId)
         userMessageRef.observe(.childAdded, with: { (snapshot) in
             // get the key for the message
             let messageId = snapshot.key

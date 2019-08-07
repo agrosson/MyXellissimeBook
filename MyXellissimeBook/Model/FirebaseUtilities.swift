@@ -116,14 +116,14 @@ class FirebaseUtilities {
                 print(error as Any)
                 return
             }
-            // create a new node fromId user
-            let userMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(fromId)
+            // create a new node fromId user and toId user
+            let userMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(fromId).child(toId)
             // get the key of the message
             let messageId = childRef.key
             // store the  message here for the fromId user
             userMessageRef.updateChildValues([messageId : 1])
-            // create a new node toId user
-            let recipientUserMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(toId)
+            // create a new node toId user and fromId user
+            let recipientUserMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(toId).child(fromId)
             // store the key message here for the toId user
             recipientUserMessageRef.updateChildValues([messageId : 1])
         }
