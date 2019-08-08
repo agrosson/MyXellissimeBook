@@ -25,6 +25,9 @@ class ChatMessageCell: UICollectionViewCell {
     let bubbleView = CustomUI().view
     /// UIImageView that display partner chat profile image
     let profileImageView = CustomUI().imageView
+    /// UIImageView that display a image if any
+    let messageImageView = CustomUI().imageView
+    
     /*******************************************************
                         UI variables: End
      ********************************************************/
@@ -41,6 +44,7 @@ class ChatMessageCell: UICollectionViewCell {
         addSubview(bubbleView)
         addSubview(profileImageView)
         addSubview(textView)
+        bubbleView.addSubview(messageImageView)
         setupConstraints()
     }
     
@@ -74,6 +78,15 @@ class ChatMessageCell: UICollectionViewCell {
         bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: width)
         bubbleWidthAnchor?.isActive = true
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        
+        // Constraints of messageImageView
+        messageImageView.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
+        messageImageView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor).isActive = true
+        messageImageView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
+        messageImageView.widthAnchor.constraint(equalTo: bubbleView.widthAnchor).isActive = true
+        messageImageView.heightAnchor.constraint(equalTo: bubbleView.heightAnchor).isActive = true
+ 
+        
         // Contraints X Y Width height : textview is embeded in bubble with left and right anchor
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.textColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)

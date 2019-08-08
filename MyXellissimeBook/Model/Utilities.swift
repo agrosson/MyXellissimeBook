@@ -17,6 +17,8 @@ import Firebase
 
 /* Credits photo and icons
  <div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"                 title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"                 title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+ 
+ <div>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/"                 title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"                 title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
  */
 
 
@@ -121,7 +123,7 @@ extension UIImageView {
         DispatchQueue.main.async {
             download = storageRef.getData(maxSize: 1024*1024*5, completion:  { (data, error) in
                 guard let data = data else {
-                    print("no data here")
+                    print("no data here 1")
                     return
                 }
                 if error != nil {
@@ -155,7 +157,7 @@ extension UIImageView {
         DispatchQueue.main.async {
             download = storageRef.getData(maxSize: 1024*1024*5, completion:  { (data, error) in
                 guard let data = data else {
-                    print("no data here")
+                    print("no data here 2")
                     return
                 }
                 if error != nil {
@@ -172,6 +174,41 @@ extension UIImageView {
         }
         
     }
+    /**
+     Function that manages uploading images via cache or download storage for book cover image
+     */
+    func loadingMessageImageUsingCacheWithisbnString(urlString : String){
+        // first set nil to image to avoid brightness
+        self.image = nil
+        // Check cache for image : if image already in cache, use this image
+        if let cachedImage = coverCache.object(forKey: urlString as AnyObject) as? UIImage {
+            self.image = cachedImage
+            return
+        }
+        // If image not in cache, launch download from Firebase and store image recently downloaded in cache to reuse it later
+        var download:StorageDownloadTask!
+        let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.messageImage).child("\(urlString).jpg")
+        DispatchQueue.main.async {
+            download = storageRef.getData(maxSize: 1024*1024*5, completion:  { (data, error) in
+                guard let data = data else {
+                    print("no data here 3")
+                    return
+                }
+                if error != nil {
+                    print("error here : \(error.debugDescription)")
+                }
+                print("download succeeded !")
+                if let downloadedImage = UIImage(data: data) {
+                    coverCache.setObject(downloadedImage, forKey: urlString as AnyObject)
+                    self.image = downloadedImage
+                }
+                
+                download.resume()
+            })
+        }
+        
+    }
+    
 }
 // MARK: - extension String
 /**

@@ -18,6 +18,7 @@ class Message: NSObject {
     var text: String?
     var toId: String?
     var timestamp: Int?
+    var messageImageUrl: String?
     
     // MARK: - Initializer
     override init(){}

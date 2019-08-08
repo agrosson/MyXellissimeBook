@@ -40,6 +40,9 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         return textField
     }()
     
+    var uploadImageView = CustomUI().button
+    var timerChat: Timer?
+    
     var containerViewBottomAnchor: NSLayoutConstraint?
     
     // MARK: - Method - viewDidLoad
@@ -94,7 +97,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
      Function that modifes containerViewBottomAnchor to set down the textField with keyboard
      */
     @objc func handldeKeyboardWillHide(notification : NSNotification){
-
+        
         guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
         containerViewBottomAnchor?.constant = -tabbarHeight
     }
@@ -149,13 +152,22 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         cell.backgroundColor = .clear
         let message = messages[indexPath.row]
         guard let text = message.text else {return UICollectionViewCell()}
-        cell.textView.text = text
+        
+        if estimateFrameFor(text: text).width > 2 {
+            cell.bubbleWidthAnchor?.constant = estimateFrameFor(text: text).width + 25
+        } else  {
+            cell.bubbleWidthAnchor?.constant = 120
+        }
+        if message.text != "messageImageUrl" {
+           cell.textView.text = text
+        } else {
+            if let url = message.messageImageUrl {
+               cell.messageImageView.loadingMessageImageUsingCacheWithisbnString(urlString: url)
+            }
+        }
         
         
         setupCell(cell: cell, message: message)
-        
-        
-        cell.bubbleWidthAnchor?.constant = estimateFrameFor(text: text).width + 25
         return cell
     }
     
@@ -183,6 +195,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             // show profile image view
             cell.profileImageView.isHidden = false
         }
+        
+        if let messageImageUrl = message.messageImageUrl {
+            cell.messageImageView.loadingMessageImageUsingCacheWithisbnString(urlString: messageImageUrl)
+        }
     }
     /**
      Function that fetches message for the user
@@ -203,10 +219,12 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                 guard let toId =  dictionary["toId"] as? String else {return}
                 guard let text =  dictionary["text"] as? String else {return}
                 guard let timestamp =  dictionary["timestamp"] as? Int else {return}
+                guard let messageImage = dictionary["messageImageUrl"] as? String else {return}
                 message.fromId = fromId
                 message.timestamp = timestamp
                 message.toId = toId
                 message.text = text
+                message.messageImageUrl = messageImage
                 self.messages.append(message)
                 // do not forget to reload data here
                 DispatchQueue.main.async {self.collectionView.reloadData()}
@@ -238,6 +256,19 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         containerViewBottomAnchor?.isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
+        let origImage = UIImage(named: "uploadPhoto")
+        let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+        uploadImageView.setImage(tintedImage, for: .normal)
+        uploadImageView.tintColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
+        uploadImageView.layer.cornerRadius = 0
+        uploadImageView.layer.borderWidth = 0
+        uploadImageView.addTarget(self, action: #selector(handleUploadTap), for: .touchUpInside)
+        containerView.addSubview(uploadImageView)
+        // need x and y , width height contraints
+        uploadImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        uploadImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        uploadImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         // create the send button
         /// Send Button
         let sendButton = UIButton(type: .system)
@@ -256,7 +287,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         /// textField
         containerView.addSubview(inputTextField)
         // need x and y , width height contraints
-        inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        inputTextField.leftAnchor.constraint(equalTo: uploadImageView.rightAnchor, constant: 8).isActive = true
         inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
         inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
@@ -286,6 +317,31 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     /**
      Function that handle cancel
      */
+    @objc private func handleUploadTap(){
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        // Enable to edit the photo (zoom, resize etc)
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
+    /**
+     function that attempts to reload data
+     */
+    private func attemptReloadData(){
+        self.timerChat?.invalidate()
+        self.timerChat = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handlerReloadTable), userInfo: nil, repeats: false)
+    }
+    /**
+     function that reloads data
+     */
+    @objc func handlerReloadTable(){
+        DispatchQueue.main.async {self.collectionView.reloadData()}
+    }
+    
+    /**
+     Function that handle cancel
+     */
     @objc private func handelCancel(){
         self.dismiss(animated: true, completion: nil)
     }
@@ -308,10 +364,11 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         
         guard let user = user else {return}
         if !text.isEmpty {
-              FirebaseUtilities.saveMessage(text: text, fromId : fromId, toUser: user)
+            FirebaseUtilities.saveMessage(text: text, fromId : fromId, toUser: user)
         }
         // reset the textField
         self.inputTextField.text = nil
+        inputTextField.resignFirstResponder()
         
     }
     
@@ -358,6 +415,42 @@ extension ChatLogController : UITextFieldDelegate {
         inputTextField.resignFirstResponder()
         // Question : is it accurate to dismiss the VC after sending message ?
         return true
+    }
+    
+}
+
+extension ChatLogController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    /**
+     Delegate function get info from picker, get photo
+     */
+    func  imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("we pick a image")
+        var selectedImageFromPicker = UIImage()
+        // Get edited or originl image from picker
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else {
+            guard let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {return}
+            selectedImageFromPicker = originalImage
+        }
+        let imageAsMessageName = UUID().uuidString
+        FirebaseUtilities.saveImageAsMessage(imageAsMessage: selectedImageFromPicker, imageAsMessageName: imageAsMessageName)
+        // get the sender Id
+        guard let fromId = Auth.auth().currentUser?.uid else {return}
+        guard let user = user else {return}
+        FirebaseUtilities.saveMessageImage(messageImageUrl: imageAsMessageName, fromId: fromId, toUser: user)
+      
+        self.dismiss(animated: true) {
+            self.attemptReloadData()
+        }
+        
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        DispatchQueue.main.async {self.collectionView.reloadData()}
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

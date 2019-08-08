@@ -33,6 +33,7 @@ class FirebaseUtilities {
     let coverImage = "coverImage"
     let loan = "loan"
     let user_loans = "user-loans"
+    let messageImage = "messageImage"
     
     
     var name = ""
@@ -48,7 +49,7 @@ class FirebaseUtilities {
                 self.shared.name = (dictionary["name"] as? String)!
             }
         }
-      return self.shared.name
+        return self.shared.name
     }
     /*******************************************************
      This function returns a user name from a user id
@@ -58,7 +59,7 @@ class FirebaseUtilities {
             self.shared.name = ""
             if let dictionary = snapshot.value as? [String : Any] {
                 let name = (dictionary["name"] as? String)!
-               callBack(name)
+                callBack(name)
             }
         }
     }
@@ -68,31 +69,31 @@ class FirebaseUtilities {
      This function returns a user from a email
      ********************************************************/
     static func getUserFromEmail(email: String, callBack: @escaping (User) -> Void){
-            let rootRef = Database.database().reference()
-            let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "email")
-            var counter = 0
-            var counterTrue = 0
-            query.observe(.value) { (snapshot) in
-                for child in snapshot.children.allObjects as! [DataSnapshot] {
-                    counter += 1
-                    if let value = child.value as? NSDictionary {
-                        if email == value["email"] as? String {
-                            counterTrue = +1
-                            let userTemp = User()
-                            let name = value["name"] as? String ?? "Name not found"
-                            let email = value["email"] as? String ?? "Email not found"
-                            let profileId = value["profileId"] as? String ?? "profileId not found"
-                            userTemp.name = name
-                            userTemp.email = email
-                            userTemp.profileId = profileId
-                            callBack(userTemp)
-                        }
+        let rootRef = Database.database().reference()
+        let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "email")
+        var counter = 0
+        var counterTrue = 0
+        query.observe(.value) { (snapshot) in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                counter += 1
+                if let value = child.value as? NSDictionary {
+                    if email == value["email"] as? String {
+                        counterTrue = +1
+                        let userTemp = User()
+                        let name = value["name"] as? String ?? "Name not found"
+                        let email = value["email"] as? String ?? "Email not found"
+                        let profileId = value["profileId"] as? String ?? "profileId not found"
+                        userTemp.name = name
+                        userTemp.email = email
+                        userTemp.profileId = profileId
+                        callBack(userTemp)
                     }
                 }
-                if counterTrue == 0 {
-                    callBack(User())
-                }
             }
+            if counterTrue == 0 {
+                callBack(User())
+            }
+        }
     }
     
     /*******************************************************
@@ -106,7 +107,43 @@ class FirebaseUtilities {
         guard let toId = toUser.profileId else {return}
         let timestamp = Int(NSDate().timeIntervalSince1970)
         // Create a dictionary of values to save
-        let values = ["text" : text,
+        let values = ["messageImageUrl" : "messageImageUrl",
+                      "text" : text,
+                      "toId" : toId,
+                      "fromId" : fromId,
+                      "timestamp" : timestamp] as [String : Any]
+        // this block to save the message and then also make a reference and store the reference of message in antoher node
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            // create a new node fromId user and toId user
+            let userMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(fromId).child(toId)
+            // get the key of the message
+            let messageId = childRef.key
+            // store the  message here for the fromId user
+            userMessageRef.updateChildValues([messageId : 1])
+            // create a new node toId user and fromId user
+            let recipientUserMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(toId).child(fromId)
+            // store the key message here for the toId user
+            recipientUserMessageRef.updateChildValues([messageId : 1])
+        }
+    }
+    
+    /*******************************************************
+     This function saves a text as a message in firebase
+     ********************************************************/
+    static func saveMessageImage(messageImageUrl: String, fromId : String, toUser: User) {
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
+        /// unique reference for the message
+        let childRef = ref.childByAutoId()
+        /// get the recipient Id
+        guard let toId = toUser.profileId else {return}
+        let timestamp = Int(NSDate().timeIntervalSince1970)
+        // Create a dictionary of values to save
+        let values = ["messageImageUrl" : messageImageUrl,
+                      "text" : "",
                       "toId" : toId,
                       "fromId" : fromId,
                       "timestamp" : timestamp] as [String : Any]
@@ -209,7 +246,57 @@ class FirebaseUtilities {
         }
         uploadTask.resume()
     }
-
+    
+    /*******************************************************
+     This function saves an image as a message in firebase Storage:
+     ********************************************************/
+    static func saveImageAsMessage(imageAsMessage: UIImage, imageAsMessageName : String){
+        // test the size in byte of the image
+        let imageDataTest = imageAsMessage.jpegData(compressionQuality: 1)
+        guard let imageSize = imageDataTest?.count else {return}
+        var imageDataToUpload = Data()
+        if imageSize > 1000000 {
+            guard let imageData = imageAsMessage.jpegData(compressionQuality: 0.5) else {return}
+            imageDataToUpload = imageData
+        }
+        if  500000...1000000 ~= imageSize {
+            guard let imageData = imageAsMessage.jpegData(compressionQuality: 0.70) else {return}
+            imageDataToUpload = imageData
+        }
+        if  100000...500001 ~= imageSize {
+            guard let imageData = imageAsMessage.jpegData(compressionQuality: 0.8) else {return}
+            imageDataToUpload = imageData
+        }
+        if  imageSize < 100000 {
+            guard let imageData = imageAsMessage.jpegData(compressionQuality: 1) else {return}
+            imageDataToUpload = imageData
+        }
+        
+        // Create a Storage reference with the imageAsMessage
+        let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.messageImage).child("\(imageAsMessageName).jpg")
+        // Create a Storage Metadata
+        let uploadMetadata = StorageMetadata()
+        // Describe the type of image stored in FireStorage
+        uploadMetadata.contentType = "image/jpeg"
+        // Create the upload task
+        let uploadTask = storageRef.putData(imageDataToUpload, metadata: uploadMetadata) { (metada, error) in
+            if error != nil {
+                print("i received an error \(error?.localizedDescription ?? "error but no description")")
+            }   else {
+                print("up load complete, here some metadata \(String(describing: metada))")
+            }
+        }
+        uploadTask.observe(.progress) { (snapshot) in
+            guard let progress = snapshot.progress else {
+                print("No progress for the snapshot")
+                return}
+            print("end of progress?? ")
+            print(progress.fractionCompleted)
+        }
+        uploadTask.resume()
+    }
+    
+    
     /*******************************************************
      This function creates a loan  in firebase
      ********************************************************/
