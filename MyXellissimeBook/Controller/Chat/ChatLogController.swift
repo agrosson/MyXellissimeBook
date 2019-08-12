@@ -116,19 +116,15 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
-         print("on est dans dequeueCell")
         cell.backgroundColor = .clear
         let message = messages[indexPath.row]
         guard let text = message.text else {return UICollectionViewCell()}
         if  text != "" {
             cell.textView.isHidden = false
             cell.textView.text = text
-            print("le text existe")
             cell.bubbleWidthAnchor?.constant = estimateFrameFor(text: text).width + 25
             
         } else  {
-            print("le text n'existe pas")
-          
             if let url = message.messageImageUrl {
             cell.messageImageView.loadingMessageImageUsingCacheWithisString(urlString: url)
             cell.textView.isHidden = true
@@ -140,7 +136,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-         print("on est dans le collection view size for item ")
         var height: CGFloat = 50
         let width = UIScreen.main.bounds.width
         
@@ -151,12 +146,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         guard let imageHeight = message.imageHeight else {return CGSize(width: 0, height: 0)}
         
         if text != "" {
-            print("un texte est présent ")
             guard let textToDisplay = text else {return CGSize(width: 0, height: 0)}
             height = estimateFrameFor(text: textToDisplay).height + 16
             }
          else {
-           print("un texte est absent ")
             height = CGFloat(imageHeight/imageWidth * 200)
         }
         return CGSize(width: width, height: height)

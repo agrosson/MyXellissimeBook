@@ -123,13 +123,11 @@ extension UIImageView {
         DispatchQueue.main.async {
             download = storageRef.getData(maxSize: 1024*1024*5, completion:  { (data, error) in
                 guard let data = data else {
-                    print("no data here 1")
                     return
                 }
                 if error != nil {
                     print("error here : \(error.debugDescription)")
                 }
-                print("download succeeded !")
                 if let downloadedImage = UIImage(data: data) {
                     imageCache.setObject(downloadedImage, forKey: urlString as AnyObject)
                     self.image = downloadedImage
@@ -157,13 +155,10 @@ extension UIImageView {
         DispatchQueue.main.async {
             download = storageRef.getData(maxSize: 1024*1024*5, completion:  { (data, error) in
                 guard let data = data else {
-                    print("no data here 2")
                     return
                 }
                 if error != nil {
-                    print("error here : \(error.debugDescription)")
                 }
-                print("download succeeded !")
                 if let downloadedImage = UIImage(data: data) {
                     coverCache.setObject(downloadedImage, forKey: isbnString as AnyObject)
                     self.image = downloadedImage
@@ -182,7 +177,6 @@ extension UIImageView {
         self.image = nil
         // Check cache for image : if image already in cache, use this image
         if let cachedImage = coverCache.object(forKey: urlString as AnyObject) as? UIImage {
-            print("on est dans le cache ici")
             self.image = cachedImage
             return
         }
@@ -192,13 +186,11 @@ extension UIImageView {
         DispatchQueue.main.async {
             download = storageRef.getData(maxSize: 1024*1024*5, completion:  { (data, error) in
                 guard let data = data else {
-                    print("no data here 3")
                     return
                 }
                 if error != nil {
                     print("error here : \(error.debugDescription)")
                 }
-                print("download succeeded !")
                 if let downloadedImage = UIImage(data: data) {
                     coverCache.setObject(downloadedImage, forKey: urlString as AnyObject)
                     self.image = downloadedImage

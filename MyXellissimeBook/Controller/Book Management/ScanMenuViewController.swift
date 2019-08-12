@@ -136,7 +136,7 @@ class ScanMenuViewController: UIViewController {
     private func setupContainerView(){
         // need x and y , width height contraints
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 120).isActive = true
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
