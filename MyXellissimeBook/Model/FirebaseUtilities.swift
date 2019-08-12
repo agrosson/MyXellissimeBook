@@ -100,43 +100,30 @@ class FirebaseUtilities {
      This function saves a text as a message in firebase
      ********************************************************/
     static func saveMessage(text: String, fromId : String, toUser: User) {
-        let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
-        /// unique reference for the message
-        let childRef = ref.childByAutoId()
-        /// get the recipient Id
-        guard let toId = toUser.profileId else {return}
-        let timestamp = Int(NSDate().timeIntervalSince1970)
-        // Create a dictionary of values to save
-        let values = ["messageImageUrl" : "messageImageUrl",
-                      "imageHeight" : 0,
-                      "imageWidth" : 0,
-                      "text" : text,
-                      "toId" : toId,
-                      "fromId" : fromId,
-                      "timestamp" : timestamp] as [String : Any]
-        // this block to save the message and then also make a reference and store the reference of message in antoher node
-        childRef.updateChildValues(values) { (error, ref) in
-            if error != nil {
-                print(error as Any)
-                return
-            }
-            // create a new node fromId user and toId user
-            let userMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(fromId).child(toId)
-            // get the key of the message
-            let messageId = childRef.key
-            // store the  message here for the fromId user
-            userMessageRef.updateChildValues([messageId : 1])
-            // create a new node toId user and fromId user
-            let recipientUserMessageRef = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(toId).child(fromId)
-            // store the key message here for the toId user
-            recipientUserMessageRef.updateChildValues([messageId : 1])
+        let properties = ["messageImageUrl" : "messageImageUrl",
+                          "imageHeight" : 0,
+                          "imageWidth" : 0,
+                          "text" : text,] as [String : Any]
+        FirebaseUtilities.saveMessageOrImage(properties: properties, fromId: fromId, toUser: toUser)
         }
-    }
+    
     
     /*******************************************************
      This function saves a text as a message in firebase
      ********************************************************/
     static func saveMessageImage(messageImageUrl: String, fromId : String, toUser: User, imageWidth: CGFloat, imageHeight: CGFloat) {
+
+        let properties = ["messageImageUrl" : messageImageUrl,
+                      "imageWidth" : imageWidth,
+                      "imageHeight" : imageHeight,
+                      "text" : ""] as [String : Any]
+        FirebaseUtilities.saveMessageOrImage(properties: properties, fromId: fromId, toUser: toUser)
+    }
+    
+    /*******************************************************
+     This function saves a text or Image as a message in firebase
+     ********************************************************/
+    static func saveMessageOrImage(properties : [String : Any], fromId : String, toUser: User) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
         /// unique reference for the message
         let childRef = ref.childByAutoId()
@@ -144,13 +131,11 @@ class FirebaseUtilities {
         guard let toId = toUser.profileId else {return}
         let timestamp = Int(NSDate().timeIntervalSince1970)
         // Create a dictionary of values to save
-        let values = ["messageImageUrl" : messageImageUrl,
-                      "imageWidth" : imageWidth,
-                      "imageHeight" : imageHeight,
-                      "text" : "",
-                      "toId" : toId,
+        var values = ["toId" : toId,
                       "fromId" : fromId,
                       "timestamp" : timestamp] as [String : Any]
+        properties.forEach({values[$0] = $1})
+        
         // this block to save the message and then also make a reference and store the reference of message in antoher node
         childRef.updateChildValues(values) { (error, ref) in
             if error != nil {

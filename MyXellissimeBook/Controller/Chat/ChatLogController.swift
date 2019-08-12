@@ -110,7 +110,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             if let url = message.messageImageUrl {
             cell.messageImageView.loadingMessageImageUsingCacheWithisString(urlString: url)
             cell.textView.isHidden = true
-            cell.bubbleWidthAnchor?.constant = 120
+            cell.bubbleWidthAnchor?.constant = 200
         }
 //        if message.text != "" {
 //
@@ -141,7 +141,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             }
          else {
            print("un texte est absent ")
-            height = CGFloat(imageHeight/imageWidth * 120)
+            height = CGFloat(imageHeight/imageWidth * 200)
         }
         return CGSize(width: width, height: height)
     }
