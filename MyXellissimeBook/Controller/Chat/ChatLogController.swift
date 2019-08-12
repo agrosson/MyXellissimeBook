@@ -27,22 +27,13 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     var messages = [Message]()
     /// Dictionary of last messages by users
     var messagesDictionary = [String: Message]()
-    
     /// TextField to write message
-    lazy var inputTextField : UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Enter your message"
-        textField.textColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
-        textField.clearButtonMode = UITextField.ViewMode.whileEditing
-        textField.returnKeyType = UIReturnKeyType.done
-        textField.delegate = self
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
-    
+    lazy var inputTextField = CustomUI().textField
+    /// Button to upload photo from device
     var uploadImageView = CustomUI().button
+    /// Timer to delay update data in chatlog
     var timerChat: Timer?
-    
+    /// Container view anchor
     var containerViewBottomAnchor: NSLayoutConstraint?
     
     // MARK: - Method - viewDidLoad
@@ -63,20 +54,23 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        setupKeyboardObserver()
-        
         //These notification to observe behavior of keyboard
         // Show keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         // hide keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+    // MARK: - Method - viewDidDisappear
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         // Avoid memory leek with this line of code
         NotificationCenter.default.removeObserver(self)
     }
+    // MARK: - Method - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     // MARK: - Methods
     /**
      Function that modifies containerViewBottomAnchor to lift the textField with keyboard
@@ -88,7 +82,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let height =  (keyboardFrame?.height)! - safeLayoutGuideBot
         guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
         containerViewBottomAnchor?.constant = -height - tabbarHeight
-        
         UIView.animate(withDuration: keyboardDuration!) {
             self.view.layoutIfNeeded()
         }
@@ -97,20 +90,11 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
      Function that modifes containerViewBottomAnchor to set down the textField with keyboard
      */
     @objc func handldeKeyboardWillHide(notification : NSNotification){
-        
         guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
         containerViewBottomAnchor?.constant = -tabbarHeight
     }
     
-    // MARK: - Method - viewWillAppear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    func setupKeyboardObserver(){
-        
-    }
-    
+
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let text = messages[indexPath.row].text else {
@@ -240,6 +224,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
      Function that setup layout of container for writing
      */
     private func setInputComponents(){
+        inputTextField.placeholder = "Enter your message"
+        inputTextField.delegate = self
         
         // create the container
         let containerView = UIView()
