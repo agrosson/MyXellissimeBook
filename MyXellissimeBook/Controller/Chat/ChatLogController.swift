@@ -99,12 +99,14 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let message = messages[indexPath.row]
         guard let text = message.text else {return UICollectionViewCell()}
         if  text != "" {
+            cell.textView.isHidden = false
             cell.textView.text = text
             print("le text existe")
             cell.bubbleWidthAnchor?.constant = estimateFrameFor(text: text).width + 25
             
         } else  {
             print("le text n'existe pas")
+          
             if let url = message.messageImageUrl {
             cell.messageImageView.loadingMessageImageUsingCacheWithisString(urlString: url)
             cell.textView.isHidden = true
@@ -122,7 +124,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+         print("on est dans le collection view size for item ")
         var height: CGFloat = 50
         let width = UIScreen.main.bounds.width
         
