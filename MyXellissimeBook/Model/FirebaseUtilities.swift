@@ -108,6 +108,8 @@ class FirebaseUtilities {
         let timestamp = Int(NSDate().timeIntervalSince1970)
         // Create a dictionary of values to save
         let values = ["messageImageUrl" : "messageImageUrl",
+                      "imageHeight" : 0,
+                      "imageWidth" : 0,
                       "text" : text,
                       "toId" : toId,
                       "fromId" : fromId,

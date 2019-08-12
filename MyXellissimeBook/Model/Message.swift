@@ -23,7 +23,19 @@ class Message: NSObject {
     var imageWidth: CGFloat?
     
     // MARK: - Initializer
-    override init(){}
+    init(dictionary: [String : Any]){
+        super.init()
+        fromId = dictionary["fromId"] as? String
+        text = dictionary["text"] as?  String
+        toId = dictionary["toId"] as? String
+        timestamp = dictionary["timestamp"] as? Int
+        messageImageUrl = dictionary["messageImageUrl"] as?  String
+        imageHeight = dictionary["imageHeight"] as?  CGFloat
+        imageWidth = dictionary["imageWidth"] as?  CGFloat
+        
+        
+        
+    }
     // MARK: - Methods
     /**
      Function that defines the partner id of the current user

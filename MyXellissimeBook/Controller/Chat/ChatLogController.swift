@@ -94,33 +94,54 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
+         print("on est dans dequeueCell")
         cell.backgroundColor = .clear
         let message = messages[indexPath.row]
         guard let text = message.text else {return UICollectionViewCell()}
-        
-        if estimateFrameFor(text: text).width > 2 {
+        if  text != "" {
+            cell.textView.text = text
+            print("le text existe")
             cell.bubbleWidthAnchor?.constant = estimateFrameFor(text: text).width + 25
+            
         } else  {
+            print("le text n'existe pas")
+            if let url = message.messageImageUrl {
+            cell.messageImageView.loadingMessageImageUsingCacheWithisString(urlString: url)
+            cell.textView.isHidden = true
             cell.bubbleWidthAnchor?.constant = 120
         }
-        if message.text != "messageImageUrl" {
-            cell.textView.text = text
-        } else {
-            if let url = message.messageImageUrl {
-                cell.messageImageView.loadingMessageImageUsingCacheWithisbnString(urlString: url)
-            }
+//        if message.text != "" {
+//
+//        } else {
+//
+//                 print("on est où tttttt ?")
+//            }
         }
-        
         
         setupCell(cell: cell, message: message)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let text = messages[indexPath.row].text else {
-            return CGSize(width: 0, height: 0)
+        
+        var height: CGFloat = 50
+        let width = UIScreen.main.bounds.width
+        
+        let message = messages[indexPath.row]
+       // let url = message.messageImageUrl
+        let text = message.text
+        guard let imageWidth = message.imageWidth else {return CGSize(width: 0, height: 0)}
+        guard let imageHeight = message.imageHeight else {return CGSize(width: 0, height: 0)}
+        
+        if text != "" {
+            print("un texte est présent ")
+            guard let textToDisplay = text else {return CGSize(width: 0, height: 0)}
+            height = estimateFrameFor(text: textToDisplay).height + 16
+            }
+         else {
+           print("un texte est absent ")
+            height = CGFloat(imageHeight/imageWidth * 120)
         }
-        let height: CGFloat = estimateFrameFor(text: text).height + 16
-        return CGSize(width: view.frame.width, height: height)
+        return CGSize(width: width, height: height)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -174,7 +195,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         }
         // upload messageImage if any
         if let messageImageUrl = message.messageImageUrl {
-            cell.messageImageView.loadingMessageImageUsingCacheWithisbnString(urlString: messageImageUrl)
+            cell.messageImageView.loadingMessageImageUsingCacheWithisString(urlString: messageImageUrl)
         }
     }
     /**
@@ -191,17 +212,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             let messagesRef = Database.database().reference().child(FirebaseUtilities.shared.messages).child(messageId)
             messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let dictionary = snapshot.value as? [String : Any] else {return}
-                let message = Message()
-                guard let fromId = dictionary["fromId"] as? String else {return}
-                guard let toId =  dictionary["toId"] as? String else {return}
-                guard let text =  dictionary["text"] as? String else {return}
-                guard let timestamp =  dictionary["timestamp"] as? Int else {return}
-                guard let messageImage = dictionary["messageImageUrl"] as? String else {return}
-                message.fromId = fromId
-                message.timestamp = timestamp
-                message.toId = toId
-                message.text = text
-                message.messageImageUrl = messageImage
+                let message = Message(dictionary: dictionary)
                 self.messages.append(message)
                 // do not forget to reload data here
                 DispatchQueue.main.async {self.collectionView.reloadData()}
@@ -338,8 +349,9 @@ extension ChatLogController : UIImagePickerControllerDelegate, UINavigationContr
         // get the sender Id
         guard let fromId = Auth.auth().currentUser?.uid else {return}
         guard let user = user else {return}
-        FirebaseUtilities.saveMessageImage(messageImageUrl: imageAsMessageName, fromId: fromId, toUser: user, imageWidth: selectedImageFromPicker.size.width, imageHeight: selectedImageFromPicker.size.height)
-        
+        let height = selectedImageFromPicker.size.height
+        let width = selectedImageFromPicker.size.width
+        FirebaseUtilities.saveMessageImage(messageImageUrl: imageAsMessageName, fromId: fromId, toUser: user, imageWidth: width, imageHeight: height)
         self.dismiss(animated: true) {
             self.attemptReloadData()
         }
@@ -348,7 +360,8 @@ extension ChatLogController : UIImagePickerControllerDelegate, UINavigationContr
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        DispatchQueue.main.async {self.collectionView.reloadData()}
+        //DispatchQueue.main.async {self.collectionView.reloadData()}
+        self.attemptReloadData()
         self.dismiss(animated: true, completion: nil)
     }
     

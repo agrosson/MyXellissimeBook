@@ -177,11 +177,12 @@ extension UIImageView {
     /**
      Function that manages uploading images via cache or download storage for book cover image
      */
-    func loadingMessageImageUsingCacheWithisbnString(urlString : String){
+    func loadingMessageImageUsingCacheWithisString(urlString : String){
         // first set nil to image to avoid brightness
         self.image = nil
         // Check cache for image : if image already in cache, use this image
         if let cachedImage = coverCache.object(forKey: urlString as AnyObject) as? UIImage {
+            print("on est dans le cache ici")
             self.image = cachedImage
             return
         }

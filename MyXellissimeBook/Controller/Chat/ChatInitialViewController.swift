@@ -73,16 +73,16 @@ class ChatInitialViewController : UITableViewController {
         // observe the messages for this user
         messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let dictionary = snapshot.value as? [String : Any] else {return}
-            let message = Message()
-            guard let fromId = dictionary["fromId"] as? String else {return}
-            guard let toId =  dictionary["toId"] as? String else {return}
-            guard let text =  dictionary["text"] as? String else {return}
-            guard let timestamp =  dictionary["timestamp"] as? Int else {return}
-            
-            message.fromId = fromId
-            message.timestamp = timestamp
-            message.toId = toId
-            message.text = text
+            let message = Message(dictionary: dictionary)
+//            guard let fromId = dictionary["fromId"] as? String else {return}
+//            guard let toId =  dictionary["toId"] as? String else {return}
+//            guard let text =  dictionary["text"] as? String else {return}
+//            guard let timestamp =  dictionary["timestamp"] as? Int else {return}
+//            
+//            message.fromId = fromId
+//            message.timestamp = timestamp
+//            message.toId = toId
+//            message.text = text
             let chatPartnerId: String?
             
             if message.fromId == Auth.auth().currentUser?.uid {
