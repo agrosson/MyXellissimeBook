@@ -41,20 +41,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         super.viewDidLoad()
         setupScreen()
         setInputComponents()
-        // Inset from top (first bubble)
-        collectionView.contentInset.top = 8
-        collectionView.contentInset.bottom = 60
-        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
-        
-        // Scroll activated
-        collectionView.alwaysBounceVertical = true
-        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
-        // register the cell as a ChatMessageCell
-        collectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        //These notification to observe behavior of keyboard
+        collectionViewSetup()
+        //These notifications to observe behavior of keyboard
         // Show keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         // hide keyboard
@@ -70,8 +58,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
-    // MARK: - Methods
+    // MARK: - Methods: Objc functions
     /**
      Function that modifies containerViewBottomAnchor to lift the textField with keyboard
      */
@@ -93,9 +80,33 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
         containerViewBottomAnchor?.constant = -tabbarHeight
     }
-    
-
-    
+    // MARK: - Methods - override func collectionView
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return messages.count
+    }
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
+        cell.backgroundColor = .clear
+        let message = messages[indexPath.row]
+        guard let text = message.text else {return UICollectionViewCell()}
+        
+        if estimateFrameFor(text: text).width > 2 {
+            cell.bubbleWidthAnchor?.constant = estimateFrameFor(text: text).width + 25
+        } else  {
+            cell.bubbleWidthAnchor?.constant = 120
+        }
+        if message.text != "messageImageUrl" {
+            cell.textView.text = text
+        } else {
+            if let url = message.messageImageUrl {
+                cell.messageImageView.loadingMessageImageUsingCacheWithisbnString(urlString: url)
+            }
+        }
+        
+        
+        setupCell(cell: cell, message: message)
+        return cell
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let text = messages[indexPath.row].text else {
             return CGSize(width: 0, height: 0)
@@ -111,6 +122,23 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     // MARK: - Methods
     /**
+     Function that sets up all attributes of collectionView
+     */
+    private func collectionViewSetup(){
+        // Inset from top (first bubble)
+        collectionView.contentInset.top = 8
+        collectionView.contentInset.bottom = 60
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
+        // Scroll activated
+        collectionView.alwaysBounceVertical = true
+        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        // register the cell as a ChatMessageCell
+        collectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    /**
      Function that returns a estimated CGRect given a String
      - Parameter text: String embeded
      - Returns: the CGRect that embeds the string
@@ -123,37 +151,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         return  NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0)], context: nil)
         
     }
-    // MARK: - Methods - override func collectionView
-    /*******************************************************
-     override func collectionView
-     ********************************************************/
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return messages.count
-    }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
-        cell.backgroundColor = .clear
-        let message = messages[indexPath.row]
-        guard let text = message.text else {return UICollectionViewCell()}
-        
-        if estimateFrameFor(text: text).width > 2 {
-            cell.bubbleWidthAnchor?.constant = estimateFrameFor(text: text).width + 25
-        } else  {
-            cell.bubbleWidthAnchor?.constant = 120
-        }
-        if message.text != "messageImageUrl" {
-           cell.textView.text = text
-        } else {
-            if let url = message.messageImageUrl {
-               cell.messageImageView.loadingMessageImageUsingCacheWithisbnString(urlString: url)
-            }
-        }
-        
-        
-        setupCell(cell: cell, message: message)
-        return cell
-    }
     
     private func setupCell(cell: ChatMessageCell, message: Message) {
         if let profileImageUrl = self.user?.profileId {
@@ -426,7 +424,7 @@ extension ChatLogController : UIImagePickerControllerDelegate, UINavigationContr
         guard let fromId = Auth.auth().currentUser?.uid else {return}
         guard let user = user else {return}
         FirebaseUtilities.saveMessageImage(messageImageUrl: imageAsMessageName, fromId: fromId, toUser: user)
-      
+        
         self.dismiss(animated: true) {
             self.attemptReloadData()
         }
