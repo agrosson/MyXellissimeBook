@@ -134,7 +134,7 @@ class FirebaseUtilities {
     /*******************************************************
      This function saves a text as a message in firebase
      ********************************************************/
-    static func saveMessageImage(messageImageUrl: String, fromId : String, toUser: User) {
+    static func saveMessageImage(messageImageUrl: String, fromId : String, toUser: User, imageWidth: CGFloat, imageHeight: CGFloat) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
         /// unique reference for the message
         let childRef = ref.childByAutoId()
@@ -143,6 +143,8 @@ class FirebaseUtilities {
         let timestamp = Int(NSDate().timeIntervalSince1970)
         // Create a dictionary of values to save
         let values = ["messageImageUrl" : messageImageUrl,
+                      "imageWidth" : imageWidth,
+                      "imageHeight" : imageHeight,
                       "text" : "",
                       "toId" : toId,
                       "fromId" : fromId,

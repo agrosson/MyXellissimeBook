@@ -19,6 +19,8 @@ class Message: NSObject {
     var toId: String?
     var timestamp: Int?
     var messageImageUrl: String?
+    var imageHeight: CGFloat?
+    var imageWidth: CGFloat?
     
     // MARK: - Initializer
     override init(){}

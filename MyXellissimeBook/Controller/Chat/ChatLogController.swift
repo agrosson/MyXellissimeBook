@@ -27,10 +27,18 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     var messages = [Message]()
     /// Dictionary of last messages by users
     var messagesDictionary = [String: Message]()
+    /// ContainerView
+    let containerView = CustomUI().view
+    /// Image for uploadPhoto
+    let origImage = UIImage(named: "uploadPhoto")
     /// TextField to write message
     lazy var inputTextField = CustomUI().textField
     /// Button to upload photo from device
     var uploadImageView = CustomUI().button
+    /// Button to send message
+    let sendButton = UIButton(type: .system)
+    /// Separator
+    let separatorView = CustomUI().view
     /// Timer to delay update data in chatlog
     var timerChat: Timer?
     /// Container view anchor
@@ -121,22 +129,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     
     // MARK: - Methods
-    /**
-     Function that sets up all attributes of collectionView
-     */
-    private func collectionViewSetup(){
-        // Inset from top (first bubble)
-        collectionView.contentInset.top = 8
-        collectionView.contentInset.bottom = 60
-        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
-        // Scroll activated
-        collectionView.alwaysBounceVertical = true
-        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
-        // register the cell as a ChatMessageCell
-        collectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-    }
+
     
     /**
      Function that returns a estimated CGRect given a String
@@ -154,10 +147,11 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     
     private func setupCell(cell: ChatMessageCell, message: Message) {
+        // upload profileImage
         if let profileImageUrl = self.user?.profileId {
             cell.profileImageView.loadingImageUsingCacheWithUrlString(urlString: profileImageUrl)
         }
-        
+        // Set the bubble to right if message from current user and hide profileImage
         if message.fromId == Auth.auth().currentUser?.uid {
             // display message in gray bubble
             cell.bubbleView.backgroundColor = .white
@@ -168,16 +162,17 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             // hide profile image view
             cell.profileImageView.isHidden = true
             
-        } else {
+        }
+        // Set the bubble to lfet if message not from current user and show profileImage from sender
+        else {
             cell.bubbleView.backgroundColor = #colorLiteral(red: 0.3469632864, green: 0.3805449009, blue: 0.4321892262, alpha: 1)
             cell.textView.textColor = .white
-            
             cell.bubbleViewRightAnchor?.isActive = false
             cell.bubbleViewLeftAnchor?.isActive = true
             // show profile image view
             cell.profileImageView.isHidden = false
         }
-        
+        // upload messageImage if any
         if let messageImageUrl = message.messageImageUrl {
             cell.messageImageView.loadingMessageImageUsingCacheWithisbnString(urlString: messageImageUrl)
         }
@@ -210,105 +205,19 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                 self.messages.append(message)
                 // do not forget to reload data here
                 DispatchQueue.main.async {self.collectionView.reloadData()}
-                
-                
             }, withCancel: nil)
-            
-            
         }, withCancel: nil)
-        
-    }
-    /**
-     Function that setup layout of container for writing
-     */
-    private func setInputComponents(){
-        inputTextField.placeholder = "Enter your message"
-        inputTextField.delegate = self
-        
-        // create the container
-        let containerView = UIView()
-        containerView.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-        // do not forget
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(containerView)
-        // need x and y , width height contraints
-        guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
-        containerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
-        containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        containerViewBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight)
-        containerViewBottomAnchor?.isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        let origImage = UIImage(named: "uploadPhoto")
-        let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
-        uploadImageView.setImage(tintedImage, for: .normal)
-        uploadImageView.tintColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
-        uploadImageView.layer.cornerRadius = 0
-        uploadImageView.layer.borderWidth = 0
-        uploadImageView.addTarget(self, action: #selector(handleUploadTap), for: .touchUpInside)
-        containerView.addSubview(uploadImageView)
-        // need x and y , width height contraints
-        uploadImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
-        uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        uploadImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        uploadImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        // create the send button
-        /// Send Button
-        let sendButton = UIButton(type: .system)
-        sendButton.tintColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
-        sendButton.setTitle("Send", for: .normal)
-        sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
-        sendButton.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(sendButton)
-        // need x and y , width height contraints
-        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-        
-        // create the textField
-        /// textField
-        containerView.addSubview(inputTextField)
-        // need x and y , width height contraints
-        inputTextField.leftAnchor.constraint(equalTo: uploadImageView.rightAnchor, constant: 8).isActive = true
-        inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-        // create the separator
-        /// separator
-        let separatorView = UIView()
-        separatorView.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
-        separatorView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(separatorView)
-        // need x and y , width height contraints
-        separatorView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-        separatorView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        separatorView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
-        separatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        
-    }
-    
-    /**
-     Function that setup screen
-     */
-    private func setupScreen(){
-        collectionView.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        gestureTapCreation()
-        gestureswipeCreation()
     }
     /**
      Function that handle cancel
      */
-    @objc private func handleUploadTap(){
+    @objc func handleUploadTap(){
         let picker = UIImagePickerController()
         picker.delegate = self
         // Enable to edit the photo (zoom, resize etc)
         picker.allowsEditing = true
         present(picker, animated: true, completion: nil)
     }
-    
     /**
      function that attempts to reload data
      */
@@ -339,7 +248,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
      - one to identify the recipeint : child(toId)
      */
     @objc func handleSend(){
-        
         // this block to save messages
         guard var text = inputTextField.text else {return}
         text.removeFirstAndLastAndDoubleWhitespace()
@@ -353,9 +261,16 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         // reset the textField
         self.inputTextField.text = nil
         inputTextField.resignFirstResponder()
-        
     }
-    
+    /**
+     Function that setup screen
+     */
+    private func setupScreen(){
+        collectionView.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        gestureTapCreation()
+        gestureswipeCreation()
+    }
     /**
      Function that creates a tap Gesture Recognizer
      */
@@ -423,7 +338,7 @@ extension ChatLogController : UIImagePickerControllerDelegate, UINavigationContr
         // get the sender Id
         guard let fromId = Auth.auth().currentUser?.uid else {return}
         guard let user = user else {return}
-        FirebaseUtilities.saveMessageImage(messageImageUrl: imageAsMessageName, fromId: fromId, toUser: user)
+        FirebaseUtilities.saveMessageImage(messageImageUrl: imageAsMessageName, fromId: fromId, toUser: user, imageWidth: selectedImageFromPicker.size.width, imageHeight: selectedImageFromPicker.size.height)
         
         self.dismiss(animated: true) {
             self.attemptReloadData()
