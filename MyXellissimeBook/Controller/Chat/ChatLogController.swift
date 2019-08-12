@@ -50,11 +50,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         setupScreen()
         setInputComponents()
         collectionViewSetup()
+        manageObservers()
         //These notifications to observe behavior of keyboard
         // Show keyboard
-        NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        // hide keyboard
-        NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
     }
     // MARK: - Method - viewDidDisappear
     override func viewDidDisappear(_ animated: Bool) {
@@ -64,13 +63,36 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
+        manageObservers()
         super.viewWillAppear(animated)
+    }
+    
+    private func manageObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        // hide keyboard
+        NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
     // MARK: - Methods: Objc functions
     /**
      Function that modifies containerViewBottomAnchor to lift the textField with keyboard
      */
+    @objc func handldeKeyboardDidShow(){
+        if messages.count > 0 {
+            let indexpath = IndexPath(item: messages.count-1, section: 0)
+            collectionView.scrollToItem(at: indexpath, at: .top, animated: true)
+        }
+        NotificationCenter.default.removeObserver(self)
+        manageObservers()
+    }
+    
+    
+    /**
+     Function that modifies containerViewBottomAnchor to lift the textField with keyboard
+     */
     @objc func handldeKeyboardWillShow(notification : NSNotification){
+        print("move up?")
         let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
         let keyboardDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
         let safeLayoutGuideBot = self.view.safeAreaInsets.bottom
@@ -112,12 +134,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             cell.textView.isHidden = true
             cell.bubbleWidthAnchor?.constant = 200
         }
-//        if message.text != "" {
-//
-//        } else {
-//
-//                 print("on est où tttttt ?")
-//            }
         }
         
         setupCell(cell: cell, message: message)
@@ -216,8 +232,11 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                 guard let dictionary = snapshot.value as? [String : Any] else {return}
                 let message = Message(dictionary: dictionary)
                 self.messages.append(message)
-                // do not forget to reload data here
-                DispatchQueue.main.async {self.collectionView.reloadData()}
+                DispatchQueue.main.async {self.collectionView.reloadData()
+                // scroll to last message
+                let indexPath = IndexPath(item: self.messages.count-1, section: 0)
+                self.collectionView?.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            }
             }, withCancel: nil)
         }, withCancel: nil)
     }
@@ -266,7 +285,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         text.removeFirstAndLastAndDoubleWhitespace()
         // get the sender Id
         guard let fromId = Auth.auth().currentUser?.uid else {return}
-        
         guard let user = user else {return}
         if !text.isEmpty {
             FirebaseUtilities.saveMessage(text: text, fromId : fromId, toUser: user)

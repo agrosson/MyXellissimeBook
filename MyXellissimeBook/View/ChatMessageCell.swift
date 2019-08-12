@@ -26,7 +26,7 @@ class ChatMessageCell: UICollectionViewCell {
     /// UIImageView that display partner chat profile image
     let profileImageView = CustomUI().imageView
     /// UIImageView that display a image if any
-    let messageImageView = CustomUI().imageView
+    lazy var messageImageView = CustomUI().imageView
     
     /*******************************************************
                         UI variables: End
@@ -81,6 +81,8 @@ class ChatMessageCell: UICollectionViewCell {
         
         // Constraints of messageImageView
         messageImageView.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
+        messageImageView.isUserInteractionEnabled = true
+        messageImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomTap)))
         messageImageView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor).isActive = true
         messageImageView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
         messageImageView.widthAnchor.constraint(equalTo: bubbleView.widthAnchor).isActive = true
@@ -89,10 +91,15 @@ class ChatMessageCell: UICollectionViewCell {
         
         // Contraints X Y Width height : textview is embeded in bubble with left and right anchor
         textView.font = UIFont.systemFont(ofSize: 16)
+        textView.isEditable = false
         textView.textColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 5).isActive = true
         textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
         textView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+    }
+    
+    @objc func handleZoomTap(tapGesture: UITapGestureRecognizer) {
+        print("we tap on image")
     }
 }
