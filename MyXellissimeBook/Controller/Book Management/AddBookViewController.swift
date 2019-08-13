@@ -28,7 +28,7 @@ class AddBookViewController: UIViewController {
     lazy var addManuallyButton = CustomUI().button
     
     /// Declaration of VisionTextRecognizer
-    var textRecognizer: VisionTextRecognizer!
+    var textRecognizer = MyTextRecognizer.shared.textRecognizer
     
     
     // MARK: - Method viewDidLoad
@@ -115,14 +115,14 @@ class AddBookViewController: UIViewController {
         addManuallyButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         addManuallyButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
-    /**
-     Function that initializes all steps in viewDidLoad
-     */
-    private func textRecognizerFunction(image: UIImage){
-        let vision = Vision.vision()
-        textRecognizer = vision.onDeviceTextRecognizer()
-        runTextRecognition(with: image)
-    }
+//    /**
+//     Function that initializes all steps in viewDidLoad
+//     */
+//    private func textRecognizerFunction(image: UIImage){
+//        let vision = Vision.vision()
+//        textRecognizer = vision.onDeviceTextRecognizer()
+//        runTextRecognition(with: image)
+//    }
     /**
      Function that presents imagePicker
      The image picked will be used in the text recognizer function.
@@ -183,33 +183,33 @@ class AddBookViewController: UIViewController {
     }
     
     
-    // MARK: Text recognition
-    private func runTextRecognition(with image: UIImage) {
-        let imageVision = VisionImage(image: image)
-        textRecognizer.process(imageVision) { (features, error) in
-            self.processResult(from: features, error: error)
-        }
-        
-    }
-    // MARK: Text drawing
-    private func processResult(from text : VisionText?, error: Error?) {
-        guard let features = text else {
-            return
-        }
-        print("le texte en entier = \(features)")
-        for block in features.blocks {
-            let blockText = block.text
-            print("Mon premier essai \(blockText)")
-            for line in block.lines {
-                let lineText = line.text
-                print("Mon deuxième essai \(lineText)")
-                for element in line.elements {
-                    let elementText = element.text
-                    print("Mon troisième essai \(elementText)")
-                }
-            }
-        }
-    }
+//    // MARK: Text recognition
+//    private func runTextRecognition(with image: UIImage) {
+//        let imageVision = VisionImage(image: image)
+//        textRecognizer.process(imageVision) { (features, error) in
+//            self.processResult(from: features, error: error)
+//        }
+//
+//    }
+//    // MARK: Text drawing
+//    private func processResult(from text : VisionText?, error: Error?) {
+//        guard let features = text else {
+//            return
+//        }
+//        print("le texte en entier = \(features)")
+//        for block in features.blocks {
+//            let blockText = block.text
+//            print("Mon premier essai \(blockText)")
+//            for line in block.lines {
+//                let lineText = line.text
+//                print("Mon deuxième essai \(lineText)")
+//                for element in line.elements {
+//                    let elementText = element.text
+//                    print("Mon troisième essai \(elementText)")
+//                }
+//            }
+//        }
+//    }
     // MARK: - Methods @objc - Actions
     @objc private func dismissCurrentView(){
         self.dismiss(animated: true, completion: nil)
@@ -255,16 +255,9 @@ extension AddBookViewController: UIImagePickerControllerDelegate {
         // What to do when operation is done
         picker.dismiss(animated: true) {
             print("do something with the image: send the recognizer")
-            self.textRecognizerFunction(image: image)
+            MyTextRecognizer.textRecognizerFunction(image: image)
             
-//            // Save the image as yhe new cover for the book
-//            guard let isbn = self.bookToDisplay?.isbn else {return}
-//            // update book cover on screen
-//            self.bookCoverImageView.image = image
-//            // update book cover in Storage
-//            FirebaseUtilities.saveCoverImage(coverImage: image, isbn: isbn)
-//            // update book cover in cache
-//            coverCache.setObject(image, forKey: isbn as AnyObject)
+    //        self.textRecognizerFunction(image: image)
             
         }
     }

@@ -120,9 +120,6 @@ class UserBooksTableViewController: UITableViewController {
     }
     
     // MARK: - Methods - override func tableView
-    /*******************************************************
-     override func tableView
-     ********************************************************/
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return books.count
     }

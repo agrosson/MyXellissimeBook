@@ -54,7 +54,6 @@ class SearchViewController: UIViewController {
     /// TextField to get book Isbn
     let bookIsbnTextField = CustomUI().textField
     
-    // create button
     /// Launch search in APIs
     lazy var searchBookInDatabaseButton : UIButton = {
         let button = UIButton(type: .system)
