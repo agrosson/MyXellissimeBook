@@ -76,6 +76,9 @@
 		C1B42B8D22B1412000982194 /* UserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8C22B1412000982194 /* UserTest.swift */; };
 		C1E5D7A32302B97000D23E80 /* MyTextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E5D7A22302B97000D23E80 /* MyTextRecognizer.swift */; };
 		C1E5D7A62302ED1200D23E80 /* ExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E5D7A52302ED1200D23E80 /* ExtensionViewController.swift */; };
+		C1E5D7A82302F6A900D23E80 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E5D7A72302F6A900D23E80 /* ExtensionString.swift */; };
+		C1E5D7AA2302F70F00D23E80 /* ExtensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E5D7A92302F70F00D23E80 /* ExtensionUIColor.swift */; };
+		C1E5D7AC2302F78100D23E80 /* ExtensionUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E5D7AB2302F78100D23E80 /* ExtensionUIImageView.swift */; };
 		F9FD6C546E60F13112A3A05B /* Pods_MyXellissimeBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4CB8B24C6201E44EC28B02 /* Pods_MyXellissimeBookTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -166,6 +169,9 @@
 		C1B42B8C22B1412000982194 /* UserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTest.swift; sourceTree = "<group>"; };
 		C1E5D7A22302B97000D23E80 /* MyTextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextRecognizer.swift; sourceTree = "<group>"; };
 		C1E5D7A52302ED1200D23E80 /* ExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionViewController.swift; sourceTree = "<group>"; };
+		C1E5D7A72302F6A900D23E80 /* ExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
+		C1E5D7A92302F70F00D23E80 /* ExtensionUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIColor.swift; sourceTree = "<group>"; };
+		C1E5D7AB2302F78100D23E80 /* ExtensionUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIImageView.swift; sourceTree = "<group>"; };
 		D150990AA3C5194A0169970A /* Pods-MyXellissimeBookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBookTests/Pods-MyXellissimeBookTests.release.xcconfig"; sourceTree = "<group>"; };
 		DF6572B50869E9097F08E23E /* Pods-MyXellissimeBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBookTests/Pods-MyXellissimeBookTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -381,7 +387,10 @@
 		C1E5D7A42302ECA000D23E80 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C1E5D7AB2302F78100D23E80 /* ExtensionUIImageView.swift */,
+				C1E5D7A92302F70F00D23E80 /* ExtensionUIColor.swift */,
 				C1E5D7A52302ED1200D23E80 /* ExtensionViewController.swift */,
+				C1E5D7A72302F6A900D23E80 /* ExtensionString.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -642,6 +651,7 @@
 				C1A5841022B4FE1000EABEBA /* ChatLogController.swift in Sources */,
 				C1E5D7A62302ED1200D23E80 /* ExtensionViewController.swift in Sources */,
 				C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */,
+				C1E5D7AC2302F78100D23E80 /* ExtensionUIImageView.swift in Sources */,
 				C1A86AE422EF134900AB78EC /* APIKeys.swift in Sources */,
 				C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */,
 				C12C125B22B40934006A3F2C /* UserCell.swift in Sources */,
@@ -667,6 +677,7 @@
 				C19371EA22B0FD070017E696 /* LoginController.swift in Sources */,
 				C120D35522C1350600E749BC /* SearchBookResultTableViewController.swift in Sources */,
 				C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */,
+				C1E5D7AA2302F70F00D23E80 /* ExtensionUIColor.swift in Sources */,
 				C17EEF5822B2934100BF01B5 /* ChatTableViewController.swift in Sources */,
 				C13355DC22BA88E90006D9CD /* GoodReadsAPI.swift in Sources */,
 				C120D35722C1602C00E749BC /* SearchBookDetailViewController.swift in Sources */,
@@ -676,6 +687,7 @@
 				C13355C322BA1E290006D9CD /* LoanBook.swift in Sources */,
 				C11B305222BE7E530023CF0E /* ManageLoanViewController.swift in Sources */,
 				C15D2B2222BD495B00B621E8 /* LoginController+setupScreen.swift in Sources */,
+				C1E5D7A82302F6A900D23E80 /* ExtensionString.swift in Sources */,
 				C120D35122C0E44500E749BC /* DetailBorrowedBookViewController.swift in Sources */,
 				C13355D022BA6BF40006D9CD /* APIManager.swift in Sources */,
 				C13355D422BA787D0006D9CD /* BookOpenLibraryResponse.swift in Sources */,
