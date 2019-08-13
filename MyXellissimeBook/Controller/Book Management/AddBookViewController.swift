@@ -29,8 +29,6 @@ class AddBookViewController: UIViewController {
     
     /// Declaration of VisionTextRecognizer
     var textRecognizer: VisionTextRecognizer!
-    /// This image is to test recognizer: will be replace by photo take from picker
-    var imageToTest = UIImage(named: "test1")
     
     
     // MARK: - Method viewDidLoad
@@ -42,7 +40,7 @@ class AddBookViewController: UIViewController {
         view.addSubview(activityIndicator)
         view.addSubview(addManuallyButton)
         setupScreen()
-        textRecognizerFunction()
+        
     }
     
     
@@ -53,14 +51,7 @@ class AddBookViewController: UIViewController {
         setupScreen()
     }
     // MARK: - Methods
-    /**
-     Function that initializes all steps in viewDidLoad
-     */
-    private func textRecognizerFunction(){
-        let vision = Vision.vision()
-        textRecognizer = vision.onDeviceTextRecognizer()
-        runTextRecognition(with: imageToTest!)
-    }
+
     /**
      Function that setup screen
      */
@@ -123,6 +114,14 @@ class AddBookViewController: UIViewController {
         addManuallyButton.topAnchor.constraint(equalTo: addWithPhotoButton.bottomAnchor, constant: 30).isActive = true
         addManuallyButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         addManuallyButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
+    }
+    /**
+     Function that initializes all steps in viewDidLoad
+     */
+    private func textRecognizerFunction(image: UIImage){
+        let vision = Vision.vision()
+        textRecognizer = vision.onDeviceTextRecognizer()
+        runTextRecognition(with: image)
     }
     /**
      Function that presents imagePicker
@@ -197,6 +196,7 @@ class AddBookViewController: UIViewController {
         guard let features = text else {
             return
         }
+        print("le texte en entier = \(features)")
         for block in features.blocks {
             let blockText = block.text
             print("Mon premier essai \(blockText)")
@@ -246,8 +246,27 @@ extension AddBookViewController: UINavigationControllerDelegate {
 
 // MARK: - UIImagePickerControllerDelegate
 extension AddBookViewController: UIImagePickerControllerDelegate {
+    /**
+     Function that tells the delegate that the user picked a still image or movie and set the image picked as the photo to display on image view choosen.
+     */
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // TODO: Add more code here...
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        // What to do when operation is done
+        picker.dismiss(animated: true) {
+            print("do something with the image: send the recognizer")
+            self.textRecognizerFunction(image: image)
+            
+//            // Save the image as yhe new cover for the book
+//            guard let isbn = self.bookToDisplay?.isbn else {return}
+//            // update book cover on screen
+//            self.bookCoverImageView.image = image
+//            // update book cover in Storage
+//            FirebaseUtilities.saveCoverImage(coverImage: image, isbn: isbn)
+//            // update book cover in cache
+//            coverCache.setObject(image, forKey: isbn as AnyObject)
+            
+        }
     }
 }
+
