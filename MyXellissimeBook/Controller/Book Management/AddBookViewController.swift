@@ -21,30 +21,15 @@ class AddBookViewController: UIViewController {
     /// Add with scan Button
     lazy var addWithScanButton = CustomUI().button
     /// Add With a photo Button
-    
     lazy var addWithPhotoButton = CustomUI().button
-    
+    /// ActivityIndicator
     var activityIndicator = CustomUI().activityIndicatorView
-    
     /// Add manually Button
-    lazy var addManuallyButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.clear
-        button.setTitle("Add manually", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 15
-        button.layer.borderWidth = 2
-        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20)
-        button.addTarget(self, action: #selector(addManually), for: .touchUpInside)
-        return button
-    }()
-    
+    lazy var addManuallyButton = CustomUI().button
     
     /// Declaration of VisionTextRecognizer
-    
     var textRecognizer: VisionTextRecognizer!
+    /// This image is to test recognizer: will be replace by photo take from picker
     var imageToTest = UIImage(named: "test1")
     
     
@@ -137,6 +122,9 @@ class AddBookViewController: UIViewController {
      Function that sets up addManuallyButton
      */
     private func setupaddManuallyButton(){
+        addManuallyButton.setTitle("Add manually", for: .normal)
+        addManuallyButton.layer.cornerRadius = 15
+        addManuallyButton.addTarget(self, action: #selector(addManually), for: .touchUpInside)
         // need x and y , width height contraints
         addManuallyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         addManuallyButton.topAnchor.constraint(equalTo: addWithPhotoButton.bottomAnchor, constant: 30).isActive = true
