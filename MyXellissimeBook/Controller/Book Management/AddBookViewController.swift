@@ -19,21 +19,7 @@ class AddBookViewController: UIViewController {
     // MARK: - Outlets and properties
     // create button
     /// Add with scan Button
-    lazy var addWithScanButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.clear
-        button.setTitle("Scan a book Isbn", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 15
-        button.layer.borderWidth = 2
-        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20)
-        button.addTarget(self, action: #selector(scanIsbn), for: .touchUpInside)
-        return button
-    }()
-    
-    // create button
+    lazy var addWithScanButton = CustomUI().button
     /// Add With a photo Button
     
     lazy var addWithPhotoButton = CustomUI().button
@@ -113,6 +99,10 @@ class AddBookViewController: UIViewController {
      Function that sets up addWithScanButton
      */
     private func setupaddWithScanButton(){
+        addWithScanButton.setTitle("Scan a book Isbn", for: .normal)
+        addWithScanButton.layer.cornerRadius = 15
+        addWithScanButton.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        addWithScanButton.addTarget(self, action: #selector(scanIsbn), for: .touchUpInside)
         // need x and y , width height contraints
         addWithScanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         addWithScanButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
