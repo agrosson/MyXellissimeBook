@@ -46,18 +46,24 @@ class MyTextRecognizer {
             print("no text found on picture")
             return
         }
-        print("Global text = \(features)")
+        var globalArray = [[String]]()
+        // print("Global text = \(features)")
         for block in features.blocks {
             let blockText = block.text
-            print("Paragraph \(blockText)")
+            //  print("Paragraph \(blockText)")
+            let testArray = MyTextRecognizer.breakDown(of: blockText)
+            globalArray.append(testArray)
             for line in block.lines {
-                let lineText = line.text
-               print("Lines \(lineText)")
+                _ = line.text
+               // print("Lines \(lineText)")
                 for element in line.elements {
-                    let elementText = element.text
-                    print("Characters \(elementText)")
+                    _ = element.text
+               //     print("Characters \(elementText)")
                 }
             }
+        }
+        for item in globalArray {
+          print(item)
         }
     }
     /**
@@ -65,13 +71,12 @@ class MyTextRecognizer {
      - Parameter text: text to decompose
      - Returns: Array of String (sentences)
      */
-    static func decomposition(text : String) -> [String] {
+    static func breakDown(of text : String) -> [String] {
         // Step 1: create an array of words
         var arrayOfWords = [String]()
         var stringToAddInTableau = ""
         var counter = 0
         for item in text {
-            print(item)
             if item.isUppercase {
                 stringToAddInTableau.append(item)
             } else {
@@ -99,7 +104,6 @@ class MyTextRecognizer {
             } else {
                 if !word.first!.isUppercase {
                     stringToAddInFinalArray += " \(word)"
-                    print(stringToAddInFinalArray)
                 } else {
                     arrayOfSentence.append(stringToAddInFinalArray)
                     stringToAddInFinalArray = word

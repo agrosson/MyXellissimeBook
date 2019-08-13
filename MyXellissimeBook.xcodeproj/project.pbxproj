@@ -75,6 +75,7 @@
 		C1B42B8522B140EF00982194 /* MyXellissimeBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */; };
 		C1B42B8D22B1412000982194 /* UserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8C22B1412000982194 /* UserTest.swift */; };
 		C1E5D7A32302B97000D23E80 /* MyTextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E5D7A22302B97000D23E80 /* MyTextRecognizer.swift */; };
+		C1E5D7A62302ED1200D23E80 /* ExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E5D7A52302ED1200D23E80 /* ExtensionViewController.swift */; };
 		F9FD6C546E60F13112A3A05B /* Pods_MyXellissimeBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4CB8B24C6201E44EC28B02 /* Pods_MyXellissimeBookTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -164,6 +165,7 @@
 		C1B42B8622B140EF00982194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1B42B8C22B1412000982194 /* UserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTest.swift; sourceTree = "<group>"; };
 		C1E5D7A22302B97000D23E80 /* MyTextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextRecognizer.swift; sourceTree = "<group>"; };
+		C1E5D7A52302ED1200D23E80 /* ExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionViewController.swift; sourceTree = "<group>"; };
 		D150990AA3C5194A0169970A /* Pods-MyXellissimeBookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBookTests/Pods-MyXellissimeBookTests.release.xcconfig"; sourceTree = "<group>"; };
 		DF6572B50869E9097F08E23E /* Pods-MyXellissimeBookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyXellissimeBookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyXellissimeBookTests/Pods-MyXellissimeBookTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -310,6 +312,7 @@
 			children = (
 				C19371E222B0FC510017E696 /* Info.plist */,
 				C13355C822BA68940006D9CD /* Supporting files */,
+				C1E5D7A42302ECA000D23E80 /* Extensions */,
 				C12C125522B3A02C006A3F2C /* View */,
 				C1B42B7722B13F8700982194 /* Model */,
 				C19371E822B0FCA70017E696 /* Controller */,
@@ -373,6 +376,14 @@
 				C116190C22BBDDCD005BC226 /* BookTestCase.swift */,
 			);
 			path = MyXellissimeBookTests;
+			sourceTree = "<group>";
+		};
+		C1E5D7A42302ECA000D23E80 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C1E5D7A52302ED1200D23E80 /* ExtensionViewController.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -629,6 +640,7 @@
 				C100899422BCAEB700D3497E /* UserBookCell.swift in Sources */,
 				C11B304A22BE034C0023CF0E /* SearchViewController+SetupScreen.swift in Sources */,
 				C1A5841022B4FE1000EABEBA /* ChatLogController.swift in Sources */,
+				C1E5D7A62302ED1200D23E80 /* ExtensionViewController.swift in Sources */,
 				C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */,
 				C1A86AE422EF134900AB78EC /* APIKeys.swift in Sources */,
 				C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */,
