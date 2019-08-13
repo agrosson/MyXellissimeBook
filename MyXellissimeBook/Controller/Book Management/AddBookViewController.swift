@@ -43,7 +43,6 @@ class AddBookViewController: UIViewController {
         view.addSubview(addManuallyButton)
         setupScreen()
         textRecognizerFunction()
-        
     }
     
     
@@ -51,22 +50,17 @@ class AddBookViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super .viewWillAppear(animated)
-        
         setupScreen()
     }
     // MARK: - Methods
-    
     /**
      Function that initializes all steps in viewDidLoad
      */
-    
     private func textRecognizerFunction(){
         let vision = Vision.vision()
         textRecognizer = vision.onDeviceTextRecognizer()
         runTextRecognition(with: imageToTest!)
-        
     }
-    
     /**
      Function that setup screen
      */
@@ -79,7 +73,6 @@ class AddBookViewController: UIViewController {
         setupactivityIndicator()
         setupaddManuallyButton()
     }
-    
     /**
      Function that sets up addWithScanButton
      */
@@ -131,33 +124,10 @@ class AddBookViewController: UIViewController {
         addManuallyButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         addManuallyButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
-    
-    // MARK: - Methods @objc - Actions
-    @objc private func dismissCurrentView(){
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @objc private func scanIsbn(){
-        print("go to scan")
-        let scanMenuViewController = UINavigationController(rootViewController: ScanMenuViewController())
-        present(scanMenuViewController, animated: true, completion: nil)
-    }
-    
-    @objc private func takePhoto(){
-        presentPhotoAlert()
-    }
-    
     /**
-     Function that presents addManually ViewController
-     */
-    @objc private func addManually(){
-        print("go to add manually")
-        let addManuallyViewController = UINavigationController(rootViewController: AddManuallyViewController())
-        present(addManuallyViewController, animated: true, completion: nil)
-    }
-    
-    /**
-     Function that presents addManually ViewController
+     Function that presents imagePicker
+     The image picked will be used in the text recognizer function.
+     Text will be extracted and analysed
      */
     private func presentPhotoAlert(){
         self.activityIndicator.isHidden = false
@@ -240,6 +210,32 @@ class AddBookViewController: UIViewController {
             }
         }
     }
+    // MARK: - Methods @objc - Actions
+    @objc private func dismissCurrentView(){
+        self.dismiss(animated: true, completion: nil)
+    }
+    /**
+     Function that presents scanMenuViewController ViewController
+     */
+    @objc private func scanIsbn(){
+        let scanMenuViewController = UINavigationController(rootViewController: ScanMenuViewController())
+        present(scanMenuViewController, animated: true, completion: nil)
+    }
+    /**
+     Function that presents imagePicker via UIAlert
+     */
+    @objc private func takePhoto(){
+        presentPhotoAlert()
+    }
+    /**
+     Function that presents addManually ViewController
+     */
+    @objc private func addManually(){
+        print("go to add manually")
+        let addManuallyViewController = UINavigationController(rootViewController: AddManuallyViewController())
+        present(addManuallyViewController, animated: true, completion: nil)
+    }
+
     
     
     
