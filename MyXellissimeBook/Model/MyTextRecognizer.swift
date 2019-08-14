@@ -46,25 +46,21 @@ class MyTextRecognizer {
             print("no text found on picture")
             return
         }
-        var globalArray = [[String]]()
-        // print("Global text = \(features)")
+        var globalArray = [String]()
         for block in features.blocks {
             let blockText = block.text
-            //  print("Paragraph \(blockText)")
-            let testArray = MyTextRecognizer.breakDown(of: blockText)
-            globalArray.append(testArray)
+            print("Paragraph \(blockText)")
+       //     let testArray = MyTextRecognizer.breakDown(of: blockText)
+            globalArray.append(blockText)
             for line in block.lines {
                 _ = line.text
-               // print("Lines \(lineText)")
                 for element in line.elements {
                     _ = element.text
-               //     print("Characters \(elementText)")
                 }
             }
         }
-        for item in globalArray {
-          print(item)
-        }
+        print("GlobalArrray = \(globalArray)")
+        MyTextRecognizer.setTitleAuthorAndEditor(with: globalArray)
     }
     /**
      Function that decompose a string (text) into a array of string (sentences)
@@ -113,6 +109,70 @@ class MyTextRecognizer {
                 arrayOfSentence.append(stringToAddInFinalArray)
             }
         }
-        return arrayOfSentence
+        
+        print("Fin du Step 2: \(arrayOfSentence)")
+        // Step 3 : Create a group of elements
+        
+        var arrayOfElement = [String]()
+        var stringToAddinArrayOfElement = ""
+        var counterArrayOfElement = 0
+        for item in arrayOfSentence {
+            counterArrayOfElement += 1
+            if counterArrayOfElement == 1 {
+                stringToAddinArrayOfElement = item
+            } else {
+                if item.last!.isUppercase && stringToAddinArrayOfElement.last!.isUppercase {
+                    stringToAddinArrayOfElement += " \(item)"
+                } else {
+                    arrayOfElement.append(stringToAddinArrayOfElement)
+                    stringToAddinArrayOfElement = item
+                }
+            }
+            if counterArrayOfElement == arrayOfElement.count {
+                arrayOfElement.append(stringToAddinArrayOfElement)
+            }
+        }
+        print("Fin du Step 3: \(arrayOfElement)")
+        
+        return arrayOfElement
+    }
+    
+    static func setTitleAuthorAndEditor(with arrayToSort : [String]){
+        var counterTitle = 0
+        var counterAuthor = 0
+        var indexOfTitle = 0
+        var indexOfAuthor = 0
+        var numberOfWords = 0
+        let chararacterSet = CharacterSet.whitespacesAndNewlines.union(.punctuationCharacters)
+        let smallWords = ["le","la","l'","du","des","les","en","par"]
+        
+        // Title is the longer ?
+        for item in arrayToSort {
+            let components = item.components(separatedBy: chararacterSet)
+            let words = components.filter { !$0.isEmpty }
+            if findIntersection(firstArray: words.map {$0.uppercased()}, secondArray: smallWords.map {$0.uppercased()}).isEmpty {
+                print("no small word")
+                if words.count > numberOfWords {
+                    numberOfWords = words.count
+                    indexOfTitle = counterTitle
+                }
+            } else {
+                print("should be a title")
+                indexOfTitle = counterTitle
+                numberOfWords = words.count
+            }
+            counterTitle += 1
+        }
+        print("le titre du livre est : \(arrayToSort[indexOfTitle])")
+         // Auhtor is the composed of 2 items ?
+        for item in arrayToSort {
+            let components = item.components(separatedBy: chararacterSet)
+            let words = components.filter { !$0.isEmpty }
+            if words.count == 2 {
+                indexOfAuthor = counterAuthor
+            }
+            counterAuthor += 1
+        }
+         print("l'auteur du livre est : \(arrayToSort[indexOfAuthor])")
     }
 }

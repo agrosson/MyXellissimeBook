@@ -69,6 +69,11 @@ func setupNavBarWithUser(user: User) -> UIView {
     return titleView
 }
 
+func findIntersection (firstArray : [String], secondArray : [String]) -> [String]
+{
+    return [String](Set<String>(firstArray).intersection(secondArray))
+}
+
 // MARK: - CustomLabel class
 /**
  This class enables to have insets in labels

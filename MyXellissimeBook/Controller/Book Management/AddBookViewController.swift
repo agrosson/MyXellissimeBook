@@ -181,35 +181,6 @@ class AddBookViewController: UIViewController {
         // 5
         present(imagePickerActionSheet, animated: true)
     }
-    
-    
-//    // MARK: Text recognition
-//    private func runTextRecognition(with image: UIImage) {
-//        let imageVision = VisionImage(image: image)
-//        textRecognizer.process(imageVision) { (features, error) in
-//            self.processResult(from: features, error: error)
-//        }
-//
-//    }
-//    // MARK: Text drawing
-//    private func processResult(from text : VisionText?, error: Error?) {
-//        guard let features = text else {
-//            return
-//        }
-//        print("le texte en entier = \(features)")
-//        for block in features.blocks {
-//            let blockText = block.text
-//            print("Mon premier essai \(blockText)")
-//            for line in block.lines {
-//                let lineText = line.text
-//                print("Mon deuxième essai \(lineText)")
-//                for element in line.elements {
-//                    let elementText = element.text
-//                    print("Mon troisième essai \(elementText)")
-//                }
-//            }
-//        }
-//    }
     // MARK: - Methods @objc - Actions
     @objc private func dismissCurrentView(){
         self.dismiss(animated: true, completion: nil)
@@ -256,8 +227,6 @@ extension AddBookViewController: UIImagePickerControllerDelegate {
         picker.dismiss(animated: true) {
             print("do something with the image: send the recognizer")
             MyTextRecognizer.textRecognizerFunction(image: image)
-            
-    //        self.textRecognizerFunction(image: image)
             
         }
     }
