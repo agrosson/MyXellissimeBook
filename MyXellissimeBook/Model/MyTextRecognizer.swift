@@ -144,12 +144,15 @@ class MyTextRecognizer {
         var indexOfAuthor = 0
         var numberOfWords = 0
         let chararacterSet = CharacterSet.whitespacesAndNewlines.union(.punctuationCharacters)
-        let smallWords = ["le","la","l'","du","des","les","en","par"]
+        let smallWords = ["le","la","l'","du","des","les","en","par","et","pour"]
         
         // Title is the longer ?
         for item in arrayToSort {
+            // separate string into words
             let components = item.components(separatedBy: chararacterSet)
+            // remove empty string
             let words = components.filter { !$0.isEmpty }
+            // test if there is a smallWords in the string
             if findIntersection(firstArray: words.map {$0.uppercased()}, secondArray: smallWords.map {$0.uppercased()}).isEmpty {
                 print("no small word")
                 if words.count > numberOfWords {
@@ -157,6 +160,7 @@ class MyTextRecognizer {
                     indexOfTitle = counterTitle
                 }
             } else {
+                // There is a small word then probably the title of the book
                 print("should be a title")
                 indexOfTitle = counterTitle
                 numberOfWords = words.count

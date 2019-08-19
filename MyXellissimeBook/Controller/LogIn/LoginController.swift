@@ -19,76 +19,30 @@ class LoginController: UIViewController {
     
     // MARK: - Outlets and properties
     /// Container View for inputs during registration
-    let inputsContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        // do not forget
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 5
-        return view
-    }()
+    let inputsContainerView = CustomUI().view
+        
     // create button
     /// Register Button
     lazy var loginRegisterButton = CustomUI().button
     
     /// TextField to get user name
-    let nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Name"
-        textField.keyboardType = UIKeyboardType.default
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.tag = 1
-        return textField
-    }()
+    let nameTextField = CustomUI().textField
+
     /// View as a separator between textField
-    let nameSeparatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    /// TextField to get user email
-    let emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Email address"
-        textField.keyboardType = UIKeyboardType.default
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.tag = 2
-        
-        return textField
-    }()
-    /// View as a separator between textField
-    let emailSeparatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    /// TextField to get user password
-    let passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Password"
-        // protect the text
-        // todo: see the problem with keyboard azerty
-        textField.isSecureTextEntry = true
-        textField.keyboardType = UIKeyboardType.default
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.tag = 3
-        
-        return textField
-    }()
-    /// ImageView to display user image/picture
-    lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "profileDefault")
-        //scaleToFit = enlarges the image to much
-        imageView.contentMode = UIView.ContentMode.scaleAspectFit
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImage)))
-        imageView.isUserInteractionEnabled = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    let nameSeparatorView = CustomUI().view
     
+    /// TextField to get user email
+    let emailTextField = CustomUI().textField
+
+    /// View as a separator between textField
+    let emailSeparatorView = CustomUI().view
+    
+    /// TextField to get user password
+    let passwordTextField = CustomUI().textField
+        
+    /// ImageView to display user image/picture
+    lazy var profileImageView = CustomUI().imageView
+
     /// SegmentedControl to switch from Login/Register
     lazy var loginRegisteredSegmentedControl: UISegmentedControl = {
         let segment = UISegmentedControl(items: ["Login","Register"])

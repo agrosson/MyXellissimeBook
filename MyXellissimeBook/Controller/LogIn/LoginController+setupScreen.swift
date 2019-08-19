@@ -35,6 +35,11 @@ extension LoginController {
      Function that sets up profileImageView
      */
      func setupProfileImageView(){
+        profileImageView.image = UIImage(named: "profileDefault")
+        //scaleToFit = enlarges the image to much
+        profileImageView.contentMode = UIView.ContentMode.scaleAspectFit
+        profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImage)))
+        profileImageView.isUserInteractionEnabled = true
         // need x and y , width height contraints
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profileImageView.bottomAnchor.constraint(equalTo: loginRegisteredSegmentedControl.topAnchor, constant: -12).isActive = true
@@ -45,6 +50,8 @@ extension LoginController {
      Function that sets up inputsContainerView
      */
      func setupInputsContrainerView(){
+        inputsContainerView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        inputsContainerView.layer.cornerRadius = 5
         // need x and y , width height contraints
         // todo : check safe width when rotate
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -58,6 +65,9 @@ extension LoginController {
         inputsContainerView.addSubview(emailTextField)
         inputsContainerView.addSubview(emailSeparatorView)
         inputsContainerView.addSubview(passwordTextField)
+        
+        nameTextField.placeholder = "Name"
+        nameTextField.tag = 1
         // need x and y , width height contraints for nameTextfield
         nameTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         nameTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: 0).isActive = true
@@ -65,6 +75,7 @@ extension LoginController {
         nameTextFieldViewHeightConstraint =  nameTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3)
         nameTextFieldViewHeightConstraint?.isActive = true
         
+         nameSeparatorView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         // need x and y , width height contraints for nameSeparator
         nameSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
         nameSeparatorView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
@@ -72,6 +83,9 @@ extension LoginController {
         nameSeperatorTextFieldViewHeightConstraint =  nameSeparatorView.heightAnchor.constraint(equalToConstant: 1)
         nameSeperatorTextFieldViewHeightConstraint?.isActive = true
         
+        
+        emailTextField.placeholder = "Email address"
+        emailTextField.tag = 2
         // need x and y , width height contraints for emailTextfield
         emailTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 0).isActive = true
@@ -79,11 +93,18 @@ extension LoginController {
         emailTextFieldViewHeightConstraint = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3)
         emailTextFieldViewHeightConstraint?.isActive = true
         
+        emailSeparatorView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         // need x and y , width height contraints for emailSeparator
         emailSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
         emailSeparatorView.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
         emailSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        passwordTextField.placeholder = "Password"
+        // protect the text
+        // todo: see the problem with keyboard azerty
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.tag = 3
         // need x and y , width height contraints for passwordTextfield
         passwordTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 0).isActive = true
