@@ -185,8 +185,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         }
         // Set the bubble to right if message from current user and hide profileImage
         if message.fromId == Auth.auth().currentUser?.uid {
-            // display message in gray bubble
-            cell.bubbleView.backgroundColor = .white
+            cell.messageImageView.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
             cell.textView.textColor = #colorLiteral(red: 0.3469632864, green: 0.3805449009, blue: 0.4321892262, alpha: 1)
             // Switch bubble from right to left
             cell.bubbleViewRightAnchor?.isActive = true
@@ -197,8 +196,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         }
         // Set the bubble to lfet if message not from current user and show profileImage from sender
         else {
-            cell.bubbleView.backgroundColor = #colorLiteral(red: 0.3469632864, green: 0.3805449009, blue: 0.4321892262, alpha: 1)
-            cell.textView.textColor = .white
+            cell.messageImageView.backgroundColor = #colorLiteral(red: 0.3469632864, green: 0.3805449009, blue: 0.4321892262, alpha: 1)
+            cell.textView.textColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
             cell.bubbleViewRightAnchor?.isActive = false
             cell.bubbleViewLeftAnchor?.isActive = true
             // show profile image view

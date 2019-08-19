@@ -66,8 +66,10 @@ extension LoginController {
         inputsContainerView.addSubview(emailSeparatorView)
         inputsContainerView.addSubview(passwordTextField)
         
+        nameTextField.clearButtonMode = UITextField.ViewMode.never
         nameTextField.placeholder = "Name"
         nameTextField.tag = 1
+        nameTextField.textColor = .black
         // need x and y , width height contraints for nameTextfield
         nameTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         nameTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: 0).isActive = true
@@ -83,7 +85,8 @@ extension LoginController {
         nameSeperatorTextFieldViewHeightConstraint =  nameSeparatorView.heightAnchor.constraint(equalToConstant: 1)
         nameSeperatorTextFieldViewHeightConstraint?.isActive = true
         
-        
+        emailTextField.clearButtonMode = UITextField.ViewMode.never
+        emailTextField.textColor = .black
         emailTextField.placeholder = "Email address"
         emailTextField.tag = 2
         // need x and y , width height contraints for emailTextfield
@@ -100,6 +103,8 @@ extension LoginController {
         emailSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
+        passwordTextField.clearButtonMode = UITextField.ViewMode.never
+        passwordTextField.textColor = .black
         passwordTextField.placeholder = "Password"
         // protect the text
         // todo: see the problem with keyboard azerty

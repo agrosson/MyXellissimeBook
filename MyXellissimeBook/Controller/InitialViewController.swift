@@ -20,55 +20,13 @@ class InitialViewController: UIViewController {
     static var titleName = ""
    
     // MARK: - Properties
-    // create button
     /// Button to show list of user's books
-    lazy var showUserBooksButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.clear
-        button.setTitle("My list of books", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 15
-        button.layer.borderWidth = 2
-        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 25)
-        button.addTarget(self, action: #selector(showUserBooks), for: .touchUpInside)
-        return button
-    }()
-    
-    // create button
+    lazy var showUserBooksButton = CustomUI().button
     /// Button to show list of user's books that are lent
-    lazy var showUserBooksLentButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.clear
-        button.setTitle("Show my books lent", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 15
-        button.layer.borderWidth = 2
-        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 25)
-        button.addTarget(self, action: #selector(showUserLentBooks), for: .touchUpInside)
-        return button
-    }()
-    // create button
+    lazy var showUserBooksLentButton = CustomUI().button
     /// Button to show list of user's books that are lent
-    lazy var showUserBooksBorrowedButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.clear
-        button.setTitle("Show books I've borrowed", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 15
-        button.layer.borderWidth = 2
-        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 25)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.minimumScaleFactor = 0.5
-        button.addTarget(self, action: #selector(showBooksUserBorrowed), for: .touchUpInside)
-        return button
-    }()
-    
+    lazy var showUserBooksBorrowedButton = CustomUI().button
+
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,6 +70,10 @@ class InitialViewController: UIViewController {
      Function that sets up showUserBooksLentButton
      */
     private func setupShowUserBooksLentButton(){
+        showUserBooksLentButton.setTitle("Show my books lent", for: .normal)
+        showUserBooksLentButton.layer.cornerRadius = 15
+        showUserBooksLentButton.titleLabel?.font = .systemFont(ofSize: 25)
+        showUserBooksLentButton.addTarget(self, action: #selector(showUserLentBooks), for: .touchUpInside)
         // need x and y , width height contraints
         showUserBooksLentButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         showUserBooksLentButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -122,6 +84,11 @@ class InitialViewController: UIViewController {
      Function that sets up showUserBooksButton
      */
     private func setupShowUserBooksButton(){
+        showUserBooksButton.setTitle("My list of books", for: .normal)
+        showUserBooksButton.layer.cornerRadius = 15
+        showUserBooksButton.titleLabel?.font = .systemFont(ofSize: 25)
+        showUserBooksButton.addTarget(self, action: #selector(showUserBooks), for: .touchUpInside)
+        
         // need x and y , width height contraints
         showUserBooksButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         showUserBooksButton.bottomAnchor.constraint(equalTo: showUserBooksLentButton.topAnchor, constant: -25).isActive = true
@@ -133,6 +100,13 @@ class InitialViewController: UIViewController {
      Function that sets up showUserBooksBorrowedButton
      */
     private func setupShowUserBooksBorrowedButton(){
+
+        showUserBooksBorrowedButton.setTitle("Show books I've borrowed", for: .normal)
+        showUserBooksBorrowedButton.layer.cornerRadius = 15
+        showUserBooksBorrowedButton.titleLabel?.font = .systemFont(ofSize: 25)
+        showUserBooksBorrowedButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        showUserBooksBorrowedButton.titleLabel?.minimumScaleFactor = 0.5
+        showUserBooksBorrowedButton.addTarget(self, action: #selector(showBooksUserBorrowed), for: .touchUpInside)
         // need x and y , width height contraints
         showUserBooksBorrowedButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         showUserBooksBorrowedButton.topAnchor.constraint(equalTo: showUserBooksLentButton.bottomAnchor, constant: 25).isActive = true
