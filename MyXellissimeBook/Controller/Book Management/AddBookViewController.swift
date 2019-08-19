@@ -115,6 +115,11 @@ class AddBookViewController: UIViewController {
         addManuallyButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         addManuallyButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
+    
+    func displayAlert() {
+        Alert.shared.controller = self
+        Alert.shared.alertDisplay = .noTextFoundOnBookCover
+    }
 //    /**
 //     Function that initializes all steps in viewDidLoad
 //     */
@@ -196,7 +201,11 @@ class AddBookViewController: UIViewController {
      Function that presents imagePicker via UIAlert
      */
     @objc private func takePhoto(){
-        presentPhotoAlert()
+        let alertVC = UIAlertController(title: "Dear user", message: "Take picture on landscape mode", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "Back", style: .default) { (alert) -> Void in
+            self.presentPhotoAlert()
+        })
+        present(alertVC, animated: true, completion: nil)
     }
     /**
      Function that presents addManually ViewController
@@ -225,9 +234,12 @@ extension AddBookViewController: UIImagePickerControllerDelegate {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         // What to do when operation is done
         picker.dismiss(animated: true) {
-            print("do something with the image: send the recognizer")
-            MyTextRecognizer.textRecognizerFunction(image: image)
-            
+            // Get info from picture with recognizer
+            MyTextRecognizer.textRecognizerFunction(image: image, callBack: { (array) in
+                print("please")
+                print(array)
+                MyTextRecognizer.setTitleAuthorAndEditor(with: array)
+            })
         }
     }
 }

@@ -41,7 +41,8 @@ class Alert {
         noUserFound,
         unableToCreateUser,
         noTitleForBook,
-        needAtLeastOneField
+        needAtLeastOneField,
+        noTextFoundOnBookCover
     }
     // MARK: - Initializer
     init() {}
@@ -108,6 +109,10 @@ class Alert {
             title: "Sorry",
             message: TextAndString.shared.needAtLeastOneField,
             titleButton: "Back")
+        case .noTextFoundOnBookCover : controller?.presentAlertDetails(
+            title: "Dear user,",
+            message: TextAndString.shared.noTextFoundOnBookCover,
+            titleButton: "Back")
         }
     }
 }
@@ -143,4 +148,5 @@ struct TextAndString {
     let unableToCreateUser = "User has not been created.\nTry Again"
     let noTitleForBook = "Please indicate book title"
     let needAtLeastOneField = "Please enter at least one element"
+    let noTextFoundOnBookCover = "No text found. Try again on landscape mode"
 }
