@@ -29,6 +29,67 @@ let screenHeight = UIScreen.main.bounds.height
 let screenWidth = UIScreen.main.bounds.width
 /// This string to be used when user scan a new isbn
 var scannedIsbn = ""
+/// List of french editors to be used in text recognizer activity
+let editors = ["Le Livre de Poche", "Pocket", "J'AI LU", "Bayard","First Edition",
+               "Hachette",
+               "Seuil",
+               "Larousse",
+               "Gauthier-Villars",
+               "Bordas",
+               "Michelin",
+               "Gallimard",
+               "Flammarion",
+               "Arthaud",
+               "Nathan",
+               "Dunod",
+               "Ediscience",
+               "Masson",
+               "Presses Universitaires de France (PUF)",
+               "Éditeurs français réunis",
+               "Casterman",
+               "Cerf",
+               "Dargaud",
+               "Delagrave",
+               "Denoël",
+               "Didier",
+               "Magnard",
+               "L'École des loisirs",
+               "Eyrolles",
+               "Fayard",
+               "La Pensée universelle",
+               "Fleurus",
+               "Foucher",
+               "Gautier-Languereau",
+               "Hatier",
+               "Istra",
+               "Desclée de Brouwer",
+               "Robert Laffont",
+               "Fixot",
+               "MDI",
+               "Albin Michel",
+               "Payot",
+               "STOCK",
+               "Bernard GRASSET",
+               "Presses de la Cité",
+               "PLON",
+               "PERRIN",
+               "Solar",
+               "ARCHIMBAUD LE ROCHER",
+               "France Loisirs",
+               "Atlas",
+               "ÉDITIONS SPINELLE",
+               "ARTHAUD",
+               "DIDIER & RICHARD",
+               "Pierre BELFOND",
+               "MERCURE DE FRANCE",
+               "Loisirs GALLIMARD",
+               "SUCCES DU LIVRE",
+               "JC Lattès",
+               "Phébus",
+               "Éditions Féret",
+               "le Monde",
+               "Phébus",
+               "le Monde"]
 
 // MARK: - Global functions
 
@@ -83,6 +144,5 @@ class CustomLabel: UILabel{
         super.drawText(in: rect.inset(by: UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)))
     }
 }
-
 
 
