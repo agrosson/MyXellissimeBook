@@ -196,7 +196,11 @@ class FirebaseUtilities {
         let imageDataTest = coverImage.jpegData(compressionQuality: 1)
         guard let imageSize = imageDataTest?.count else {return}
         var imageDataToUpload = Data()
-        if imageSize > 1000000 {
+        if imageSize > 1500000 {
+            guard let imageData = coverImage.jpegData(compressionQuality: 0.4) else {return}
+            imageDataToUpload = imageData
+        }
+        if  1000000...1500000 ~= imageSize{
             guard let imageData = coverImage.jpegData(compressionQuality: 0.5) else {return}
             imageDataToUpload = imageData
         }

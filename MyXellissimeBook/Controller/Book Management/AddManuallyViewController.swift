@@ -126,6 +126,10 @@ class AddManuallyViewController: UIViewController {
         return button
     }()
     
+    let labelTitle = CustomUI().label
+    let labelAuthor = CustomUI().label
+    let labelEditor = CustomUI().label
+    
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,12 +160,19 @@ class AddManuallyViewController: UIViewController {
             self.bookIsbnTextField.isHidden = true
             // create and show editor instead
             self.createEditorTextfield()
+            self.createLabels()
         })
         
     }
     
     private func createLabels(){
-        
+        view.addSubview(labelTitle)
+        view.addSubview(labelAuthor)
+        view.addSubview(labelEditor)
+        print("on est dans create labels")
+        setupLabelTitle()
+        setupLabelAuthor()
+        setupLabelEditor() 
     }
     // MARK: Methods API Request
     /**
