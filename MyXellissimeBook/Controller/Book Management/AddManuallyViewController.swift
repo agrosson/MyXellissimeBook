@@ -26,56 +26,20 @@ class AddManuallyViewController: UIViewController {
     
     
     /// Container View for inputs for books
-    let inputsContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        // do not forget
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 5
-        return view
-    }()
-    
+    let inputsContainerView = CustomUI().view
     /// TextField to get book title
-    let bookTitleTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Book title"
-        textField.keyboardType = UIKeyboardType.default
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+    let bookTitleTextField = CustomUI().textField
     /// View as a separator between textField
-    let bookTitleSeparatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    let bookTitleSeparatorView = CustomUI().view
     /// TextField to get book Author
-    let bookAuthorTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Book author"
-        textField.keyboardType = UIKeyboardType.default
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        
-        return textField
-    }()
+    let bookAuthorTextField = CustomUI().textField
     /// View as a separator between textField
-    let bookAuthorSeparatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    let bookAuthorSeparatorView = CustomUI().view
     /// TextField to get book Isbn
-    let bookIsbnTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Book Isbn"
-        textField.keyboardType = UIKeyboardType.default
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+    let bookIsbnTextField = CustomUI().textField
+    /// TextField to get book editor
      let editorTextField = CustomUI().textField
-    // create button
+    
     /// Launch search in APIs
     lazy var searchBookWithApiButton : UIButton = {
         let button = UIButton(type: .system)

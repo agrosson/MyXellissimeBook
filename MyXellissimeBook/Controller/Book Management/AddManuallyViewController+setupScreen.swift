@@ -118,9 +118,9 @@ extension AddManuallyViewController {
      Function that sets up inputsContainerView
      */
     func setupInputsContrainerView(){
-        
+        inputsContainerView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        inputsContainerView.layer.cornerRadius = 5
         // need x and y , width height contraints
-        // todo : check safe width when rotate
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsContainerView.centerYAnchor.constraint(equalTo: view.topAnchor, constant: topbarHeight+100).isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
@@ -134,31 +134,38 @@ extension AddManuallyViewController {
         inputsContainerView.addSubview(bookIsbnTextField)
         inputsContainerView.addSubview(editorTextField)
         
+        
+        bookTitleTextField.placeholder = "Book title"
         // need x and y , width height contraints for bookTitleTextField
         bookTitleTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookTitleTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: 0).isActive = true
         bookTitleTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         bookTitleTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3).isActive = true
         
-        
+        bookTitleSeparatorView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         // need x and y , width height contraints for bookTitleSeparatorView
         bookTitleSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
         bookTitleSeparatorView.topAnchor.constraint(equalTo: bookTitleTextField.bottomAnchor).isActive = true
         bookTitleSeparatorView.widthAnchor.constraint(equalTo: bookTitleTextField.widthAnchor).isActive = true
         bookTitleSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
+        
+        bookAuthorTextField.placeholder = "Book author"
         // need x and y , width height contraints for bookAuthorTextField
         bookAuthorTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookAuthorTextField.topAnchor.constraint(equalTo: bookTitleTextField.bottomAnchor, constant: 0).isActive = true
         bookAuthorTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         bookAuthorTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3).isActive = true
         
+        bookAuthorSeparatorView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         // need x and y , width height contraints for bookAuthorSeparatorView
         bookAuthorSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
         bookAuthorSeparatorView.topAnchor.constraint(equalTo: bookAuthorTextField.bottomAnchor).isActive = true
         bookAuthorSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         bookAuthorSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
+        
+        bookIsbnTextField.placeholder = "Book Isbn"
         // need x and y , width height contraints for bookIsbnTextField
         bookIsbnTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookIsbnTextField.topAnchor.constraint(equalTo: bookAuthorTextField.bottomAnchor, constant: 0).isActive = true
