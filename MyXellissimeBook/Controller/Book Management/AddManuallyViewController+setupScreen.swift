@@ -70,6 +70,10 @@ extension AddManuallyViewController {
         labelTitle.layer.cornerRadius = 5
         labelTitle.layer.borderWidth = 2
         labelTitle.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        labelTitle.text = bookToSave?.title
+        labelTitle.textColor = .black
+        labelTitle.textAlignment = .center
+        labelTitle.font = UIFont.systemFont(ofSize: 20)
         // need x and y , width height contraints
         labelTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         labelTitle.topAnchor.constraint(equalTo:addBookInFirebaseButton.bottomAnchor, constant: 20).isActive = true
@@ -82,6 +86,10 @@ extension AddManuallyViewController {
         labelAuthor.layer.cornerRadius = 15
         labelAuthor.layer.borderWidth = 2
         labelAuthor.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        labelAuthor.text = bookToSave?.author
+        labelAuthor.textColor = .black
+        labelAuthor.textAlignment = .center
+        labelAuthor.font = UIFont.systemFont(ofSize: 20)
         // need x and y , width height contraints
         labelAuthor.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         labelAuthor.topAnchor.constraint(equalTo:labelTitle.bottomAnchor, constant: 20).isActive = true
@@ -94,6 +102,10 @@ extension AddManuallyViewController {
         labelEditor.layer.cornerRadius = 5
         labelEditor.layer.borderWidth = 2
         labelEditor.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        labelEditor.text = bookToSave?.editor
+        labelEditor.textColor = .black
+        labelEditor.textAlignment = .center
+        labelEditor.font = UIFont.systemFont(ofSize: 20)
         // need x and y , width height contraints
         labelEditor.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         labelEditor.topAnchor.constraint(equalTo:labelAuthor.bottomAnchor, constant: 20).isActive = true

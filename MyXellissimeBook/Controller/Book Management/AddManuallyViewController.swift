@@ -24,6 +24,7 @@ class AddManuallyViewController: UIViewController {
     /// Elements from Photo?
     var bookElementFromPhoto = false
     
+    
     /// Container View for inputs for books
     let inputsContainerView: UIView = {
         let view = UIView()
@@ -130,6 +131,13 @@ class AddManuallyViewController: UIViewController {
     let labelAuthor = CustomUI().label
     let labelEditor = CustomUI().label
     
+    var originTitle: CGPoint!
+    var originAuthor: CGPoint!
+    var originEditor: CGPoint!
+    
+    var priority = "rien pour l'instant"
+    var currentLabelText = "empty"
+    
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,6 +147,9 @@ class AddManuallyViewController: UIViewController {
         view.addSubview(indicatorSearch)
         view.addSubview(indicatorSave)
         view.addSubview(addBookInFirebaseButton)
+        originTitle = labelTitle.center
+        originAuthor = labelAuthor.center
+        originEditor = labelEditor.center
         setupScreen()
         if bookElementFromPhoto {
             displayMessageOfExplanation()
@@ -148,6 +159,112 @@ class AddManuallyViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("titre")
+        print(bookTitleTextField.center)
+        print("auteur")
+        print(bookAuthorTextField.center)
+        print("isbn")
+        print(editorTextField.center)
+        for touch in touches {
+            priority = "rien pour l'instant"
+            currentLabelText = "empty"
+            let location = touch.location(in: self.view)
+            if labelTitle.frame.contains(location) {
+                labelTitle.center = location
+                priority = "montitre"
+                if labelTitle.text != nil {
+                    currentLabelText = labelTitle.text!
+                    print("Priority is \(priority)")
+                    print(currentLabelText)
+                }
+            }
+            if labelAuthor.frame.contains(location) {
+                labelAuthor.center = location
+                priority = "monauteur"
+                if labelAuthor.text != nil {
+                    currentLabelText = labelAuthor.text!
+                    print("Priority is \(priority)")
+                    print(currentLabelText)
+                }
+            }
+            if labelEditor.frame.contains(location) {
+                labelEditor.center = location
+                priority = "monediteur"
+                if labelEditor.text != nil {
+                    currentLabelText = labelEditor.text!
+                    print("Priority is \(priority)")
+                    print(currentLabelText)
+                }
+            }
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self.view)
+            if labelTitle.frame.contains(location) && priority == "montitre" {
+                labelTitle.center = location
+            }
+            if labelAuthor.frame.contains(location) && priority == "monauteur" {
+                labelAuthor.center = location
+            }
+            if labelEditor.frame.contains(location) && priority == "monediteur"{
+                labelEditor.center = location
+            }
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            print("Priority end is \(priority)")
+            let location = touch.location(in: self.view)
+            print("top bar  \(topbarHeight)")
+            let locationWithTopBar = CGPoint(x: location.x, y: location.y-topbarHeight-20)
+            print(location)
+            print(locationWithTopBar)
+            if priority != "rien pour l'instant" {
+                if bookTitleTextField.frame.contains(locationWithTopBar) {
+                    print(" end is title")
+                    bookTitleTextField.text = currentLabelText
+                    hideLabel(with: priority)
+                } else if bookAuthorTextField.frame.contains(locationWithTopBar) {
+                    print(" end is author")
+                    bookAuthorTextField.text = currentLabelText
+                    hideLabel(with: priority)
+                } else if editorTextField.frame.contains(locationWithTopBar) {
+                    print(" end is editor")
+                    editorTextField.text = currentLabelText
+                    editorTextField.textColor = .black
+                    hideLabel(with: priority)
+                }
+                else {
+                    labelTitle.center = originTitle
+                    labelAuthor.center = originAuthor
+                    labelEditor.center = originEditor
+                }
+            }
+             else {
+                labelTitle.center = originTitle
+                labelAuthor.center = originAuthor
+                labelEditor.center = originEditor
+            }
+        }
+    }
+    
+    private func hideLabel(with text: String) {
+        switch text {
+        case "montitre":
+            labelTitle.isHidden = true
+        case "monauteur":
+            labelAuthor.isHidden = true
+        case "monediteur":
+            labelEditor.isHidden = true
+        default:
+            print("error somewhere")
+        }
     }
     
     private func displayMessageOfExplanation(){
@@ -402,6 +519,11 @@ class AddManuallyViewController: UIViewController {
         // Test if bookToSave not nil
         if bookToSave != nil {
             myBookToSave = bookToSave!
+            if let editor = editorTextField.text {
+                myBookToSave.editor = editor
+            } else {
+                myBookToSave.editor = "Editor unknown"
+            }
         } else {
             myBookToSave.title = title
             if bookAuthorTextField.text != "" {
@@ -411,7 +533,11 @@ class AddManuallyViewController: UIViewController {
             }
             myBookToSave.isbn = bookIsbnTextField.text ?? ""
             myBookToSave.coverURL = ""
-            myBookToSave.editor = "Editor unknown"
+            if let editor = editorTextField.text {
+              myBookToSave.editor = editor
+            } else {
+                myBookToSave.editor = "Editor unknown"
+            }
             myBookToSave.isAvailable = true
             myBookToSave.uniqueId = ""
         }

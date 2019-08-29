@@ -81,7 +81,7 @@ class AddBookViewController: UIViewController {
         var editor = ""
         for item in arrayForEditor {
             if item.contains("poche") || item.contains("Poche") || item.contains("POCHE"){
-                editor = "l'éditeur est : le Livre de Poche"
+                editor = "Le Livre de Poche"
             }
         }
         if !editor.isEmpty {
@@ -237,6 +237,7 @@ extension AddBookViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        
         // What to do when operation is done
         picker.dismiss(animated: true) {
             // Get info from picture with recognizer
@@ -254,7 +255,8 @@ extension AddBookViewController: UIImagePickerControllerDelegate {
                 bookToSendToManually.editor = editor
                 let isbn = UUID().uuidString
                 bookToSendToManually.isbn = isbn
-                FirebaseUtilities.saveCoverImage(coverImage: image, isbn: isbn)
+                guard let imageRotated = image.rotate(radians: -.pi/2) else {return}
+                FirebaseUtilities.saveCoverImage(coverImage: imageRotated, isbn: isbn)
                 self.activeLabelsForDragAndDrop(with: bookToSendToManually)
 
             })
