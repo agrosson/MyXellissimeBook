@@ -159,6 +159,13 @@ class UserBooksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let book = self.books[indexPath.row]
+            
+            if !book.isAvailable! {
+                let actionSheet = UIAlertController(title: "Sorry", message: "The book can not be removed\n It is currently lent", preferredStyle: .alert)
+                actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(actionSheet, animated: true, completion : nil)
+                return
+            }
             guard let bookIdToRemove = book.uniqueId else {return}
             let refToRemove = Database.database().reference().child(FirebaseUtilities.shared.books).child(bookIdToRemove)
             refToRemove.removeValue { (error, dataref) in

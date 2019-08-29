@@ -144,17 +144,28 @@ class ManageLoanViewController: UIViewController {
 
        // var userFrom = User()
         guard var emailString = emailTextField.text else {return}
-        emailString.removeFirstAndLastAndDoubleWhitespace()
-        FirebaseUtilities.getUserFromEmail(email: emailString) { (user) in
-            print("test \(String(describing: user.name))")
-            if user.name == nil {
-                Alert.shared.controller = self
-                Alert.shared.alertDisplay = .noUserFound
-            } else {
-                guard let book = self.bookToLend else {return}
-                self.showConfirmationLoanViewControllerWith(book: book, and: user)
+        // Test if user want to lent to himself
+        guard let currentUserEmail = Auth.auth().currentUser?.email else {return}
+        if emailString == currentUserEmail {
+            let actionSheet = UIAlertController(title: "Sorry", message: "You can not lend this book to yourself", preferredStyle: .alert)
+            actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(actionSheet, animated: true, completion : nil)
+            return
+        } else {
+            emailString.removeFirstAndLastAndDoubleWhitespace()
+            FirebaseUtilities.getUserFromEmail(email: emailString) { (user) in
+                print("test \(String(describing: user.name))")
+                if user.name == nil {
+                    Alert.shared.controller = self
+                    Alert.shared.alertDisplay = .noUserFound
+                } else {
+                    guard let book = self.bookToLend else {return}
+                    self.showConfirmationLoanViewControllerWith(book: book, and: user)
+                }
             }
-        }        
+        }
+        
+        
     }
 }
 

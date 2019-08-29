@@ -12,6 +12,8 @@ import UIKit
 extension AddManuallyViewController {
    
     func  createEditorTextfield() {
+        editorTextField.textColor = .black
+        
         editorTextField.placeholder = "Book Editor"
         // need x and y , width height contraints for bookIsbnTextField
         editorTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
@@ -24,6 +26,9 @@ extension AddManuallyViewController {
      Function that sets up addWithScanButton
      */
     func setupSearchBookWithApiButton(){
+        searchBookWithApiButton.setTitle("Search book to add", for: .normal)
+        searchBookWithApiButton.layer.cornerRadius = 15
+        searchBookWithApiButton.addTarget(self, action: #selector(searchBook), for: .touchUpInside)
         // need x and y , width height contraints
         searchBookWithApiButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         searchBookWithApiButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 30).isActive = true
@@ -136,6 +141,7 @@ extension AddManuallyViewController {
         
         
         bookTitleTextField.placeholder = "Book title"
+        bookTitleTextField.textColor = .black
         // need x and y , width height contraints for bookTitleTextField
         bookTitleTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookTitleTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: 0).isActive = true
@@ -151,6 +157,7 @@ extension AddManuallyViewController {
         
         
         bookAuthorTextField.placeholder = "Book author"
+        bookAuthorTextField.textColor = .black
         // need x and y , width height contraints for bookAuthorTextField
         bookAuthorTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookAuthorTextField.topAnchor.constraint(equalTo: bookTitleTextField.bottomAnchor, constant: 0).isActive = true
@@ -164,7 +171,7 @@ extension AddManuallyViewController {
         bookAuthorSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         bookAuthorSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        
+        bookIsbnTextField.textColor = .black
         bookIsbnTextField.placeholder = "Book Isbn"
         // need x and y , width height contraints for bookIsbnTextField
         bookIsbnTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true

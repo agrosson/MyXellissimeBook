@@ -23,8 +23,6 @@ class AddManuallyViewController: UIViewController {
     var bookToSave: Book?
     /// Elements from Photo?
     var bookElementFromPhoto = false
-    
-    
     /// Container View for inputs for books
     let inputsContainerView = CustomUI().view
     /// TextField to get book title
@@ -38,43 +36,13 @@ class AddManuallyViewController: UIViewController {
     /// TextField to get book Isbn
     let bookIsbnTextField = CustomUI().textField
     /// TextField to get book editor
-     let editorTextField = CustomUI().textField
-    
+    let editorTextField = CustomUI().textField
     /// Launch search in APIs
-    lazy var searchBookWithApiButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.clear
-        button.setTitle("Search book to add", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 15
-        button.layer.borderWidth = 2
-        button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.addTarget(self, action: #selector(searchBook), for: .touchUpInside)
-        return button
-    }()
-    
-    // create ActivityIndicatorView
+    lazy var searchBookWithApiButton = CustomUI().button
     /// ActivityIndicatorView on searchBookWithApiButton when API research is sent
-    let indicatorSearch: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView()
-        indicator.color = UIColor.white
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.isHidden = false
-        indicator.hidesWhenStopped = true
-        return indicator
-    }()
-    
-    // create ActivityIndicatorView
+    let indicatorSearch = CustomUI().activityIndicatorView
     /// ActivityIndicatorView on addBookInFirebaseButton when book is saved in Firebase
-    let indicatorSave: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView()
-        indicator.color = UIColor.white
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.isHidden = false
-        indicator.hidesWhenStopped = true
-        return indicator
-    }()
+    let indicatorSave = CustomUI().activityIndicatorView
     
     // create button
     /// Add book in Firebase database
@@ -83,6 +51,7 @@ class AddManuallyViewController: UIViewController {
         button.backgroundColor = UIColor.clear
         button.setTitle("Save book", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 2
         button.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -426,6 +395,7 @@ class AddManuallyViewController: UIViewController {
         bookTitleTextField.delegate = self
         bookAuthorTextField.delegate = self
         bookIsbnTextField.delegate = self
+        editorTextField.delegate = self
     }
     /**
      Function that manages search in API activity indicator
@@ -459,7 +429,7 @@ class AddManuallyViewController: UIViewController {
     @objc private func dismissCurrentView(){
         self.dismiss(animated: true, completion: nil)
     }
-    @objc private func searchBook(){
+    @objc func searchBook(){
         print("launch search on APIs")
         googleBookCall()
         isSearchIndicator(shown: true)
@@ -567,6 +537,7 @@ extension AddManuallyViewController: UITextFieldDelegate {
         bookTitleTextField.resignFirstResponder()
         bookAuthorTextField.resignFirstResponder()
         bookIsbnTextField.resignFirstResponder()
+        editorTextField.resignFirstResponder()
         return true
     }
 }
