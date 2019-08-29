@@ -83,16 +83,7 @@ extension ManageLoanViewController {
         containerInputView.topAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
         containerInputView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -16).isActive = true
     }
-    /**
-     Function that sets up emailLabel
-     */
-    func setupEmailLabel(){
-        emailLabel.textAlignment = NSTextAlignment.center
-        emailLabel.leftAnchor.constraint(equalTo: containerInputView.leftAnchor, constant: 8).isActive = true
-        emailLabel.topAnchor.constraint(equalTo: containerInputView.topAnchor, constant: 40).isActive = true
-        emailLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        emailLabel.widthAnchor.constraint(equalTo: containerInputView.widthAnchor, constant: -16).isActive = true
-    }
+   
     /**
      Function that sets up emailTextField
      */
@@ -102,7 +93,7 @@ extension ManageLoanViewController {
         emailTextField.layer.cornerRadius = 5
         emailTextField.textAlignment = NSTextAlignment.center
         emailTextField.leftAnchor.constraint(equalTo: containerInputView.leftAnchor, constant:  8).isActive = true
-        emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 30).isActive = true
+        emailTextField.topAnchor.constraint(equalTo: containerInputView.topAnchor, constant: 40).isActive = true
         emailTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         emailTextField.widthAnchor.constraint(equalTo: containerInputView.widthAnchor, constant: -16).isActive = true
     }

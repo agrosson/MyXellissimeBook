@@ -40,8 +40,6 @@ class ManageLoanViewController: UIViewController {
     let separateView  = CustomUI().view
     /// Container View for Loan details
     let containerInputView = CustomUI().view
-    /// Instruction label for the loan
-    let emailLabel = CustomUI().label
     /// TextField to get boorower email
     let emailTextField = CustomUI().textField
     /// Validation button for loan
@@ -56,7 +54,6 @@ class ManageLoanViewController: UIViewController {
         containerView.addSubview(titleLabel)
         containerView.addSubview(authorLabel)
         containerView.addSubview(separateView)
-        containerInputView.addSubview(emailLabel)
         containerInputView.addSubview(emailTextField)
         containerInputView.addSubview(validLoanButton)
         view.addSubview(containerInputView)
@@ -73,9 +70,7 @@ class ManageLoanViewController: UIViewController {
         bookCoverImageView.contentMode = .scaleAspectFit
         authorLabel.font = UIFont.systemFont(ofSize: 16)
         separateView.backgroundColor = .white
-        emailLabel.text = "Please enter email of borrower"
-        emailLabel.font = UIFont.systemFont(ofSize: 16)
-        emailTextField.placeholder = "Email address"
+        emailTextField.placeholder = "Please enter email of borrower"
         validLoanButton.setTitle("Valid", for: .normal)
         validLoanButton.titleLabel?.font = UIFont.systemFont(ofSize: 25)
         validLoanButton.layer.cornerRadius = 15
@@ -95,7 +90,6 @@ class ManageLoanViewController: UIViewController {
         setupContainerView()
         setupSeparateView()
         setupContainerInputView()
-        setupEmailLabel()
         setupEmailTextField()
         setupValidLoanButton()
     }
