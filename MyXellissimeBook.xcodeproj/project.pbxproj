@@ -75,6 +75,7 @@
 		C1B42B7922B13FAF00982194 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B7822B13FAF00982194 /* User.swift */; };
 		C1B42B8522B140EF00982194 /* MyXellissimeBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */; };
 		C1B42B8D22B1412000982194 /* UserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8C22B1412000982194 /* UserTest.swift */; };
+		C1C12334231805E400B31989 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C12333231805E400B31989 /* ExtensionUIImage.swift */; };
 		C1D1A77E2316C78700E771AD /* AddBookViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1A77D2316C78700E771AD /* AddBookViewController+setupScreen.swift */; };
 		C1E5D7A32302B97000D23E80 /* MyTextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E5D7A22302B97000D23E80 /* MyTextRecognizer.swift */; };
 		C1E5D7A62302ED1200D23E80 /* ExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E5D7A52302ED1200D23E80 /* ExtensionViewController.swift */; };
@@ -170,6 +171,7 @@
 		C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyXellissimeBookTests.swift; sourceTree = "<group>"; };
 		C1B42B8622B140EF00982194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1B42B8C22B1412000982194 /* UserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTest.swift; sourceTree = "<group>"; };
+		C1C12333231805E400B31989 /* ExtensionUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIImage.swift; sourceTree = "<group>"; };
 		C1D1A77D2316C78700E771AD /* AddBookViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddBookViewController+setupScreen.swift"; sourceTree = "<group>"; };
 		C1E5D7A22302B97000D23E80 /* MyTextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextRecognizer.swift; sourceTree = "<group>"; };
 		C1E5D7A52302ED1200D23E80 /* ExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionViewController.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				C1E5D7AB2302F78100D23E80 /* ExtensionUIImageView.swift */,
+				C1C12333231805E400B31989 /* ExtensionUIImage.swift */,
 				C1E5D7A92302F70F00D23E80 /* ExtensionUIColor.swift */,
 				C1E5D7A52302ED1200D23E80 /* ExtensionViewController.swift */,
 				C1E5D7A72302F6A900D23E80 /* ExtensionString.swift */,
@@ -698,6 +701,7 @@
 				C1E5D7A82302F6A900D23E80 /* ExtensionString.swift in Sources */,
 				C120D35122C0E44500E749BC /* DetailBorrowedBookViewController.swift in Sources */,
 				C13355D022BA6BF40006D9CD /* APIManager.swift in Sources */,
+				C1C12334231805E400B31989 /* ExtensionUIImage.swift in Sources */,
 				C13355D422BA787D0006D9CD /* BookOpenLibraryResponse.swift in Sources */,
 				C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */,
 				C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */,
