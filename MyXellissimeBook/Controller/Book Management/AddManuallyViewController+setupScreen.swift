@@ -31,7 +31,7 @@ extension AddManuallyViewController {
         searchBookWithApiButton.addTarget(self, action: #selector(searchBook), for: .touchUpInside)
         // need x and y , width height contraints
         searchBookWithApiButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        searchBookWithApiButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 30).isActive = true
+        searchBookWithApiButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: (screenHeight > 600) ? 30:20).isActive = true
         searchBookWithApiButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         searchBookWithApiButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
@@ -64,7 +64,7 @@ extension AddManuallyViewController {
     func setupaddBookInFirebaseButton(){
         // need x and y , width height contraints
         addBookInFirebaseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        addBookInFirebaseButton.topAnchor.constraint(equalTo: searchBookWithApiButton.bottomAnchor, constant: 30).isActive = true
+        addBookInFirebaseButton.topAnchor.constraint(equalTo: searchBookWithApiButton.bottomAnchor, constant: (screenHeight > 600) ? 30:20).isActive = true
         addBookInFirebaseButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         addBookInFirebaseButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
@@ -81,8 +81,8 @@ extension AddManuallyViewController {
         labelTitle.font = UIFont.systemFont(ofSize: 20)
         // need x and y , width height contraints
         labelTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        labelTitle.topAnchor.constraint(equalTo:addBookInFirebaseButton.bottomAnchor, constant: 20).isActive = true
-        labelTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        labelTitle.topAnchor.constraint(equalTo:addBookInFirebaseButton.bottomAnchor, constant: (screenHeight > 600) ? 30:15).isActive = true
+        labelTitle.heightAnchor.constraint(equalToConstant: (screenHeight > 600) ? 50:40 ).isActive = true
         labelTitle.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
         
     }
@@ -97,8 +97,8 @@ extension AddManuallyViewController {
         labelAuthor.font = UIFont.systemFont(ofSize: 20)
         // need x and y , width height contraints
         labelAuthor.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        labelAuthor.topAnchor.constraint(equalTo:labelTitle.bottomAnchor, constant: 20).isActive = true
-        labelAuthor.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        labelAuthor.topAnchor.constraint(equalTo:labelTitle.bottomAnchor, constant: (screenHeight > 600) ? 30:15).isActive = true
+        labelAuthor.heightAnchor.constraint(equalToConstant: (screenHeight > 600) ? 50:40).isActive = true
         labelAuthor.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
         
     }
@@ -113,8 +113,8 @@ extension AddManuallyViewController {
         labelEditor.font = UIFont.systemFont(ofSize: 20)
         // need x and y , width height contraints
         labelEditor.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        labelEditor.topAnchor.constraint(equalTo:labelAuthor.bottomAnchor, constant: 20).isActive = true
-        labelEditor.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        labelEditor.topAnchor.constraint(equalTo:labelAuthor.bottomAnchor, constant: (screenHeight > 600) ? 30:15).isActive = true
+        labelEditor.heightAnchor.constraint(equalToConstant: (screenHeight > 600) ? 50:40).isActive = true
         labelEditor.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
     

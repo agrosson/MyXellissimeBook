@@ -82,7 +82,7 @@ class DetailAvailableBookViewController: UIViewController {
         let height = (screenHeight/3)-50
         let width = 3*height/4
         bookCoverImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        bookCoverImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50+topbarHeight).isActive = true
+        bookCoverImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: ((screenHeight > 600) ? 50:30) + topbarHeight).isActive = true
         bookCoverImageView.heightAnchor.constraint(equalToConstant: height).isActive = true
         bookCoverImageView.widthAnchor.constraint(equalToConstant :width).isActive = true
     }
@@ -93,7 +93,7 @@ class DetailAvailableBookViewController: UIViewController {
         titleLabel.text = bookToDisplay?.title
         // need x and y , width height contraints
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: bookCoverImageView.bottomAnchor, constant: 50).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: bookCoverImageView.bottomAnchor, constant: (screenHeight > 600) ? 50:30).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         titleLabel.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
     }
@@ -104,7 +104,7 @@ class DetailAvailableBookViewController: UIViewController {
         authorLabel.text = bookToDisplay?.author
         // need x and y , width height contraints
         authorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
+        authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: (screenHeight > 600) ? 30:20).isActive = true
         authorLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         authorLabel.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
     }
@@ -115,7 +115,7 @@ class DetailAvailableBookViewController: UIViewController {
         editorLabel.text = bookToDisplay?.editor
         // need x and y , width height contraints
         editorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        editorLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 20).isActive = true
+        editorLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: (screenHeight > 600) ? 30:20).isActive = true
         editorLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         editorLabel.widthAnchor.constraint(equalTo :view.widthAnchor, constant: -40).isActive = true
     }
