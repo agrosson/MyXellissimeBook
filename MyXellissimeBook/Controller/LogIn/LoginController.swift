@@ -14,35 +14,24 @@ import Firebase
  This class defines the Login ViewController
  */
 class LoginController: UIViewController {
-    
+     // MARK: - Outlets and properties
     var initialViewController: InitialViewController?
-    
-    // MARK: - Outlets and properties
     /// Container View for inputs during registration
     let inputsContainerView = CustomUI().view
-        
-    // create button
     /// Register Button
     lazy var loginRegisterButton = CustomUI().button
-    
     /// TextField to get user name
     let nameTextField = CustomUI().textField
-
     /// View as a separator between textField
     let nameSeparatorView = CustomUI().view
-    
     /// TextField to get user email
     let emailTextField = CustomUI().textField
-
     /// View as a separator between textField
     let emailSeparatorView = CustomUI().view
-    
     /// TextField to get user password
     let passwordTextField = CustomUI().textField
-        
     /// ImageView to display user image/picture
     lazy var profileImageView = CustomUI().imageView
-
     /// SegmentedControl to switch from Login/Register
     lazy var loginRegisteredSegmentedControl: UISegmentedControl = {
         let segment = UISegmentedControl(items: ["Login","Register"])
@@ -52,7 +41,6 @@ class LoginController: UIViewController {
         segment.addTarget(self, action: #selector(toggleSegment), for: .valueChanged)
         return segment
     }()
-    
     /// Height constraint of the input container
     var inputsContainerViewHeightConstraint: NSLayoutConstraint?
     /// Height constraint of the nametextfied
