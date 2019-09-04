@@ -1,0 +1,11 @@
+{
+    "MyXellissimeBook" : true,
+    "aps": {
+        "alert": {
+            "title": "Hello Foreround",
+            "body": "Tap me!"
+        },
+        "badge": 1,
+        "sound": "default"
+    }
+}
