@@ -15,7 +15,7 @@ import Firebase
  This class defines the DetailBorrowedBookViewController
  */
 class DetailBorrowedBookViewController: UIViewController {
-    
+    // MARK: - Properties
     /// Book borrowed
     var bookToDisplay = Book()
     /// Loan of current book displayed
@@ -27,10 +27,6 @@ class DetailBorrowedBookViewController: UIViewController {
         guard let uid = Auth.auth().currentUser?.uid else {return ""}
         return uid
     }
-    
-    /*******************************************************
-     UI variables: Start
-     ********************************************************/
     /// Cover of the book
     let bookCoverImageView = CustomUI().imageView
     /// Title label for the book
@@ -52,7 +48,7 @@ class DetailBorrowedBookViewController: UIViewController {
     /// toDate label
     let toDateLabel = CustomUI().label
     
-    
+     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(containerView)
@@ -69,7 +65,7 @@ class DetailBorrowedBookViewController: UIViewController {
         setupScreen()
         
     }
-    
+     // MARK: - Methods
     /**
      Function that sets up customUI objects
      */
@@ -85,6 +81,9 @@ class DetailBorrowedBookViewController: UIViewController {
         toDateLabel.text = "To date: " // calculate now
         toDateLabel.font = UIFont.systemFont(ofSize: 20)
     }
+    /**
+     Function that sets up the screen
+     */
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         if let isbn = bookToDisplay.isbn {
@@ -101,5 +100,4 @@ class DetailBorrowedBookViewController: UIViewController {
         setupFromDateLabel()
         setupToDateLabel()
     }
-   
 }

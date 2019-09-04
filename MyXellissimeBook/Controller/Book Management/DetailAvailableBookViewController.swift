@@ -8,15 +8,14 @@
 
 import UIKit
 
+// MARK: - Class DetailAvailableBookViewController
+/**
+ This class defines the DetailAvailableBookViewController
+ */
 class DetailAvailableBookViewController: UIViewController {
-
+    // MARK: - Properties
+    /// Book that will be displayed
     var bookToDisplay: Book?
-    let screenHeight = UIScreen.main.bounds.height
-    
-    
-    /*******************************************************
-                        UI variables: Start
-     ********************************************************/
     /// Cover of the book
     let bookCoverImageView = CustomUI().imageView
     /// Title label for the book
@@ -27,10 +26,6 @@ class DetailAvailableBookViewController: UIViewController {
     let editorLabel = CustomUI().label
     /// Propose loan Button
     lazy var createALoanButton = CustomUI().button
-
-    /*******************************************************
-                        UI variables: End
-     ********************************************************/
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +37,7 @@ class DetailAvailableBookViewController: UIViewController {
         setupUIObjects()
         setupScreen()
     }
+    // MARK: - Methods
     /**
      Function that sets up UI objects
      */
@@ -73,7 +69,6 @@ class DetailAvailableBookViewController: UIViewController {
         setupEditorLabel()
         setupCreateALoanButton()
     }
-    
     /**
      Function that sets up bookCoverImageView
      */
@@ -138,6 +133,7 @@ class DetailAvailableBookViewController: UIViewController {
         manageLoanViewController.bookToLend = bookToDisplay
         navigationController?.pushViewController(manageLoanViewController, animated: true)
     }
+    // MARK: - Methods  - Actions with objc functions
     /**
      Function that presents ManageLoanViewController when createALoanButton is pressed
      */
