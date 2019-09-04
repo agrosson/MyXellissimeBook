@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class DetailLentBookViewController: UIViewController {
-
+    // MARK: - Properties
     /// Book to be lent
     var bookToDisplay: Book?
     /// Height for labels
@@ -34,10 +34,6 @@ class DetailLentBookViewController: UIViewController {
         return uid
     }
     var currentLoanId: String?
-    
-    /*******************************************************
-     UI variables: Start
-     ********************************************************/
     /// Cover of the book
     let bookCoverImageView = CustomUI().imageView
     /// Title label for the book
@@ -56,11 +52,6 @@ class DetailLentBookViewController: UIViewController {
     let expectedEndDateOfLoanLabel = CustomUI().label
     /// Close loan Button
     lazy var closeLoanButton = CustomUI().button
- 
-
-    /*******************************************************
-     UI variables: End
-     ********************************************************/
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,11 +68,13 @@ class DetailLentBookViewController: UIViewController {
         setupScreen()
         getLoans()
     }
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
         getLoans()
     }
+    // MARK: - Methods
     /**
      Function that sets up customUI objects
      */
@@ -109,7 +102,7 @@ class DetailLentBookViewController: UIViewController {
             let loanId = snapshot.key
             // get the reference of the loan
             let loanReference = Database.database().reference().child(FirebaseUtilities.shared.loan).child(loanId)
-            // observe the messages for this user
+            // observe the details of the loan and get values from it
             loanReference.observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let dictionary = snapshot.value as? [String : Any] else {return}
                 guard let toUser = dictionary["toUser"] as? String else {return}
@@ -117,9 +110,11 @@ class DetailLentBookViewController: UIViewController {
                 guard let expectedEndDateOfLoan = dictionary["expectedEndDateOfLoan"] as? String else {return}
                 guard let bookId = dictionary["bookId"] as? String else {return}
                 guard let uniqueLoanBookId = dictionary["uniqueLoanBookId"] as? String else {return}
+                // Search the name of the borrowwer
                 FirebaseUtilities.getUserNameFromUserId(userId: toUser, callBack: { (name) in
                     if bookId == self.bookToDisplay?.uniqueId {
                         guard let name = name else {return}
+                        // Fill UI texts
                         self.borrowerLabel.text = "This book is lent to \(name)"
                         self.startingDateOfLoanLabel.text = "Loan from \(loanStartDate)"
                         self.expectedEndDateOfLoanLabel.text = "To \(expectedEndDateOfLoan)"
@@ -147,7 +142,9 @@ class DetailLentBookViewController: UIViewController {
         setupExpectedEndDateOfLoanLabel()
         setupCloseLoanButton()
     }
-    
+    /**
+     Function that displays message to confirm loan closing
+     */
     private func secondConfirmation() {
         let actionSheet = UIAlertController(title: "Dear user", message: "Are you sure to close this loan?", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction) in
@@ -156,7 +153,6 @@ class DetailLentBookViewController: UIViewController {
             guard let book = self.bookToDisplay else {return}
             // update availability in Firebase
             FirebaseUtilities.saveBook(book: book, fromUserId: self.currentUid)
-            // Todo: set the date for closed loan
             guard let loanIdToClose = self.currentLoanId else {return}
             FirebaseUtilities.closeLoan(for: loanIdToClose)
             self.dismiss(animated: true, completion: nil)
@@ -166,7 +162,7 @@ class DetailLentBookViewController: UIViewController {
         self.present(actionSheet, animated: true, completion : nil)
     }
     
-    
+    // MARK: - Methods  - Actions with objc functions
     /**
      Function that closes a loan
      */

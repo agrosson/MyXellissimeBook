@@ -14,6 +14,7 @@ import  Firebase
  This class enables to confirm and save a book loan
  */
 class LoanConfirmationViewController: UIViewController {
+    // MARK: - Properties
     /// The book to lend
     var bookToLend = Book()
     /// The borrower as user
@@ -37,9 +38,6 @@ class LoanConfirmationViewController: UIViewController {
     }
     /// height of text in container data view
     let heightOfText: CGFloat = 20
-    /*******************************************************
-     UI variables: Start
-     ********************************************************/
     /// Cover of the book
     let bookCoverImageView = CustomUI().imageView
     /// Title label for the book
@@ -62,9 +60,7 @@ class LoanConfirmationViewController: UIViewController {
     let toDateLabel = CustomUI().label
     /// Confirmation button for loan
     lazy var confirmLoanButton = CustomUI().button
-    /*******************************************************
-                    UI variables: end
-     ********************************************************/
+    // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(containerView)
@@ -81,6 +77,8 @@ class LoanConfirmationViewController: UIViewController {
         setupUIObjects()
         setupScreen()
     }
+    
+    // MARK: - Methods
     /**
      Function that sets up customUI objects
      */
@@ -120,8 +118,9 @@ class LoanConfirmationViewController: UIViewController {
         setupToDateLabel()
         setupConfirmLoanButton()
     }
+    // MARK: - Methods  - Actions with objc functions
     /**
-     Function that launch registration of the loan
+     Function that launches registration of the loan
      */
     @objc func confirmLoan() {
         guard let uid = Auth.auth().currentUser?.uid else {return}

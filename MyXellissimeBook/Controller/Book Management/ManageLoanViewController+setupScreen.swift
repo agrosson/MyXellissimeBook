@@ -16,7 +16,7 @@ import UIKit
  */
 
 extension ManageLoanViewController {
-
+     // MARK: - Methods
     /**
      Function that sets up containerView()
      */

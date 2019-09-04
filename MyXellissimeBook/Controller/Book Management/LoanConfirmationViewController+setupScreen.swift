@@ -9,6 +9,7 @@
 import UIKit
 
 extension LoanConfirmationViewController {
+    // MARK: - Methods
     /**
      Function that sets up containerView()
      */

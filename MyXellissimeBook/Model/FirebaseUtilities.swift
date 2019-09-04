@@ -240,9 +240,14 @@ class FirebaseUtilities {
         uploadTask.resume()
     }
     
-    /*******************************************************
-     This function saves an image as a message in firebase Storage:
-     ********************************************************/
+    /**
+     This function saves an image as a message in firebase Storage
+     
+     You can send either text or image to another User. Here is the case for image
+     
+     - Parameter imageAsMessage: UIImage to be stored
+     - Parameter imageAsMessageName: the UIImage name
+     */
     static func saveImageAsMessage(imageAsMessage: UIImage, imageAsMessageName : String){
         // test the size in byte of the image
         let imageDataTest = imageAsMessage.jpegData(compressionQuality: 1)
@@ -271,7 +276,7 @@ class FirebaseUtilities {
         let uploadMetadata = StorageMetadata()
         // Describe the type of image stored in FireStorage
         uploadMetadata.contentType = "image/jpeg"
-        // Create the upload task
+        // Create the upload task to store image
         let uploadTask = storageRef.putData(imageDataToUpload, metadata: uploadMetadata) { (metada, error) in
             if error != nil {
                 print("i received an error \(error?.localizedDescription ?? "error but no description")")
@@ -289,10 +294,14 @@ class FirebaseUtilities {
         uploadTask.resume()
     }
     
-    
-    /*******************************************************
-     This function creates a loan  in firebase
-     ********************************************************/
+    /**
+     This function creates a loan  in Firebase with several properties
+     - Parameter bookToLend: the book which is lent
+     - Parameter fromId: the id of the lender as a String
+     - Parameter toUser: the user of the borrower as a User
+     - Parameter loanStartDate: the loan starting date as a String
+     - Parameter expectedEndDateOfLoan: the loan expected end date as a String
+    */
     static func saveLoan(bookToLend: Book, fromId : String, toUser: User, loanStartDate: String,expectedEndDateOfLoan: String) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.loan)
         /// unique reference for the message
@@ -327,17 +336,17 @@ class FirebaseUtilities {
             FirebaseUtilities.saveBook(book: bookToLend, fromUserId: fromId)
         }
     }
-    /*******************************************************
-     This function closes a loan  in firebase
-     ********************************************************/
+    /**
+     This function closes a loan  in Firebase
+     - Parameter uniqueLoanBookId:  the loan id to be closed as a String
+     */
     static func closeLoan(for uniqueLoanBookId: String){
         let ref = Database.database().reference().child(FirebaseUtilities.shared.loan).child(uniqueLoanBookId)
-        //Create the dictionary of value to save
         let dateFormate = DateFormatter()
         dateFormate.dateFormat = "dd.MM.yyyy"
         let closeDate = dateFormate.string(from: Date())
         let values = ["effectiveEndDateOfLoan" : closeDate] as [String : Any]
-        // this block to save the message and then also make a reference and store the reference of message in antoher node
+        // this block to update the variable effectiveEndDateOfLoan with date of the day.
         ref.updateChildValues(values) { (error, ref) in
             if error != nil {
                 print(error as Any)

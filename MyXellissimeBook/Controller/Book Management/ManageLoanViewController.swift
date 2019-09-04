@@ -22,12 +22,6 @@ class ManageLoanViewController: UIViewController {
     var userUid: String? = {
        return Auth.auth().currentUser?.uid
     }()
-    
-    let screenHeight = UIScreen.main.bounds.height
-    
-    /*******************************************************
-                    UI variables: Start
-     ********************************************************/
     /// Cover of the book
     let bookCoverImageView = CustomUI().imageView
     /// Title label for the book
@@ -45,7 +39,6 @@ class ManageLoanViewController: UIViewController {
     /// Validation button for loan
     lazy var validLoanButton = CustomUI().button
 
-    
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +56,7 @@ class ManageLoanViewController: UIViewController {
         setupUIObjects()
         setupScreen()
     }
+    // MARK: - Methods
     /**
      Function that sets up customUI objects
      */
@@ -118,27 +112,28 @@ class ManageLoanViewController: UIViewController {
         emailTextField.delegate = self
     }
     /**
+     Function that presents LoanConfirmationViewController
+     */
+    private func showConfirmationLoanViewControllerWith(book : Book, and user: User){
+        let loanConfirmationVC = LoanConfirmationViewController()
+        loanConfirmationVC.bookToLend = book
+        loanConfirmationVC.userBorrower = user
+        navigationController?.pushViewController(loanConfirmationVC, animated: true)
+    }
+    // MARK: - Methods  - Actions with objc functions
+    /**
      Action for tap and Swipe Gesture Recognizer
      */
     @objc private func myTap() {
         emailTextField.resignFirstResponder()
     }
     /**
-     Function that presents LoanConfirmationViewController
+     Function that tests email for borrower and shows ConfirmationLoan VC
      */
-    private func showConfirmationLoanViewControllerWith(book : Book, and user: User){
-       let loanConfirmationVC = LoanConfirmationViewController()
-        loanConfirmationVC.bookToLend = book
-        loanConfirmationVC.userBorrower = user
-        navigationController?.pushViewController(loanConfirmationVC, animated: true)
-    }
-    
-    
     @objc func validLoan(){
-
        // var userFrom = User()
         guard var emailString = emailTextField.text else {return}
-        // Test if user want to lent to himself
+        // Test if user wants to lent to himself
         guard let currentUserEmail = Auth.auth().currentUser?.email else {return}
         if emailString == currentUserEmail {
             let actionSheet = UIAlertController(title: "Sorry", message: "You can not lend this book to yourself", preferredStyle: .alert)
@@ -148,11 +143,13 @@ class ManageLoanViewController: UIViewController {
         } else {
             emailString.removeFirstAndLastAndDoubleWhitespace()
             FirebaseUtilities.getUserFromEmail(email: emailString) { (user) in
-                print("test \(String(describing: user.name))")
+                // check if borrower user exists
                 if user.name == nil {
                     Alert.shared.controller = self
                     Alert.shared.alertDisplay = .noUserFound
-                } else {
+                }
+                // show ConfirmationLoanVC
+                else {
                     guard let book = self.bookToLend else {return}
                     self.showConfirmationLoanViewControllerWith(book: book, and: user)
                 }
@@ -162,7 +159,7 @@ class ManageLoanViewController: UIViewController {
         
     }
 }
-
+    // MARK: - Extension
 extension ManageLoanViewController : UITextFieldDelegate {
     /**
      UITextFieldDelegate : defines how textFieldShouldReturn
