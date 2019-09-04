@@ -28,13 +28,14 @@ class UserBooksTableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handelCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addBook))
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
-        // MARK: - Table view data source
     }
     // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
     }
+    
+    // MARK: - Methods
     /**
      Function that sets up the screen
      */
@@ -85,23 +86,6 @@ class UserBooksTableViewController: UITableViewController {
             }, withCancel: nil)
         }, withCancel: nil)
     }
-    
-    
-    // MARK: - Method  - Actions with objc functions
-    /**
-     Action that shows the AddBookViewController when navigationItem.leftBarButtonItem pressed
-     */
-    @objc func addBook() {
-        // present addBookViewController
-        let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
-        present(addBookViewController, animated: true, completion: nil)
-    }
-    /**
-     Action that dismisses VC when "back" button clicked
-     */
-    @objc private func handelCancel(){
-        self.dismiss(animated: true, completion: nil)
-    }
     /**
      Function that presents detailAvailableBookViewController
      */
@@ -118,6 +102,23 @@ class UserBooksTableViewController: UITableViewController {
         detailLentBookViewController.bookToDisplay = book
         navigationController?.pushViewController(detailLentBookViewController, animated: true)
     }
+    
+    // MARK: - Methods  - Actions with objc functions
+    /**
+     Action that shows the AddBookViewController when navigationItem.leftBarButtonItem pressed
+     */
+    @objc func addBook() {
+        // present addBookViewController
+        let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
+        present(addBookViewController, animated: true, completion: nil)
+    }
+    /**
+     Action that dismisses VC when "back" button clicked
+     */
+    @objc private func handelCancel(){
+        self.dismiss(animated: true, completion: nil)
+    }
+   
     
     // MARK: - Methods - override func tableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

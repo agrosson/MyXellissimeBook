@@ -22,20 +22,17 @@ class UserBorrowedBooksTableViewController: UITableViewController {
     /// Array of user's borrowed books
     var borrowedBooks = [Book]()
     var loansList = [LoanBook]()
-    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handelCancel))
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
     }
-    
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
     }
-    
     // MARK: - Methods
     /**
      Function that sets up the screen
@@ -47,7 +44,6 @@ class UserBorrowedBooksTableViewController: UITableViewController {
         observeUserBorrowedBooks()
         
     }
-    
     /**
      function that observes all the user's borrowed books
      */
@@ -108,15 +104,6 @@ class UserBorrowedBooksTableViewController: UITableViewController {
              }, withCancel: nil)
     }, withCancel: nil)
     }
-    
-    // MARK: - Methods  - Actions with objc functions
-    /**
-     Action that dismisses VC when "back" button clicked
-     */
-    @objc private func handelCancel(){
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     /**
      Function that presents DetailBorrowedBookViewController
      */
@@ -126,7 +113,13 @@ class UserBorrowedBooksTableViewController: UITableViewController {
         detailBorrowedBookViewController.currentLoan = loan
         navigationController?.pushViewController(detailBorrowedBookViewController, animated: true)
     }
-    
+    // MARK: - Methods  - Actions with objc functions
+    /**
+     Action that dismisses VC when "back" button clicked
+     */
+    @objc private func handelCancel(){
+        self.dismiss(animated: true, completion: nil)
+    }
     // MARK: - Methods - override func tableView
     /*******************************************************
      override func tableView
@@ -156,5 +149,4 @@ class UserBorrowedBooksTableViewController: UITableViewController {
         cell.book  = book
         return cell
     }
-    
 }

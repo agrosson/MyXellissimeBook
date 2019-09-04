@@ -14,11 +14,9 @@ import Firebase
  This class defines the UserLentBooksTableViewController
  */
 class UserLentBooksTableViewController: UITableViewController {
-
     // MARK: - Properties
     /// Id of cell of the tableView
     let cellId = "cellId"
-    
     /// Array of user's lent books
     var lentBooks = [Book]()
     // MARK: - viewDidLoad
@@ -32,7 +30,6 @@ class UserLentBooksTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         setupScreen()
     }
-    
     // MARK: - Methods
     /**
      Function that sets up the screen
@@ -42,7 +39,6 @@ class UserLentBooksTableViewController: UITableViewController {
         lentBooks.removeAll()
         tableView.reloadData()
         observeUserLentBooks()
-        
     }
     /**
      function that observes all the user's lent books
@@ -69,7 +65,6 @@ class UserLentBooksTableViewController: UITableViewController {
                 guard let isAvailable =  dictionary["isAvailable"] as? Bool else {return}
                 guard let coverURL =  dictionary["coverURL"] as? String else {return}
                 guard let editor =  dictionary["editor"] as? String else {return}
-                
                 book.uniqueId = uniqueId
                 book.title = title
                 book.author = author
@@ -77,11 +72,9 @@ class UserLentBooksTableViewController: UITableViewController {
                 book.isAvailable = isAvailable
                 book.coverURL = coverURL
                 book.editor = editor
-                
                 if book.isAvailable == false {
                      self.lentBooks.append(book)
                 }
-
                 DispatchQueue.main.async { self.tableView.reloadData() }
             }, withCancel: nil)
         }, withCancel: nil)
@@ -94,7 +87,6 @@ class UserLentBooksTableViewController: UITableViewController {
         detailLentBookViewController.bookToDisplay = book
         navigationController?.pushViewController(detailLentBookViewController, animated: true)
     }
-    
     // MARK: - Methods  - Actions with objc functions
     /**
      Action that dismisses VC when "back" button clicked
