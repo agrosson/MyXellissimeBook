@@ -20,10 +20,7 @@ class FirebaseUtilities {
     // MARK: - Initializer
     private init(){}
     
-    /*******************************************************
-     These variables used in Firebase to avoid misspelling
-     ********************************************************/
-    
+    //These variables used in Firebase to avoid misspelling
     let users = "users"
     let profileImage = "profileImage"
     let messages = "messages"
@@ -34,12 +31,13 @@ class FirebaseUtilities {
     let loan = "loan"
     let user_loans = "user-loans"
     let messageImage = "messageImage"
-    
-    
+    /// Variable used to retrieve a user name in Firebase
     var name = ""
-    /*******************************************************
+    /**
      This function returns the user name
-     ********************************************************/
+     
+     - Returns: the user name as a String
+     */
     static func getUserName() -> String? {
         guard let uid = Auth.auth().currentUser?.uid else {return "no name"}
         self.shared.name = ""
@@ -51,9 +49,13 @@ class FirebaseUtilities {
         }
         return self.shared.name
     }
-    /*******************************************************
+    /**
      This function returns a user name from a user id
-     ********************************************************/
+     
+     - Parameter userId: a userId
+     - Parameter callBack: a closure with the name of the user
+     
+     */
     static func getUserNameFromUserId(userId: String, callBack: @escaping (String?) -> Void) {
         Database.database().reference().child(FirebaseUtilities.shared.users).child(userId).observeSingleEvent(of: .value) {  (snapshot) in
             self.shared.name = ""
@@ -64,13 +66,17 @@ class FirebaseUtilities {
         }
     }
     
-    
-    /*******************************************************
+    /**
      This function returns a user from a email
-     ********************************************************/
+     
+     - Parameter email: a userId
+     - Parameter callBack: a closure with the user retrieved from the query
+     */
     static func getUserFromEmail(email: String, callBack: @escaping (User) -> Void){
         let rootRef = Database.database().reference()
+        // Create an object that returns all users with the email
         let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "email")
+        print(query)
         var counter = 0
         var counterTrue = 0
         query.observe(.value) { (snapshot) in

@@ -142,6 +142,7 @@ class ManageLoanViewController: UIViewController {
             return
         } else {
             emailString.removeFirstAndLastAndDoubleWhitespace()
+            // get user who wants to borrow the book
             FirebaseUtilities.getUserFromEmail(email: emailString) { (user) in
                 // check if borrower user exists
                 if user.name == nil {
