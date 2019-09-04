@@ -96,9 +96,14 @@ class FirebaseUtilities {
         }
     }
     
-    /*******************************************************
-     This function saves a text as a message in firebase
-     ********************************************************/
+    /**
+     This function saves a text as a message in Firebase
+     
+     - Parameter text: the text of the meassge to save
+     - Parameter fromId: the sender Id as a String
+     - Parameter toUser: the recipient user
+     
+     **/
     static func saveMessage(text: String, fromId : String, toUser: User) {
         let properties = ["messageImageUrl" : "messageImageUrl",
                           "imageHeight" : 0,
@@ -108,9 +113,16 @@ class FirebaseUtilities {
         }
     
     
-    /*******************************************************
-     This function saves a text as a message in firebase
-     ********************************************************/
+    /**
+     This function saves an image reference as a message in Firebase
+     
+     - Parameter messageImageUrl: the image reference used to retrieve the image in Firebase Storage
+     - Parameter fromId: the sender Id as a String
+     - Parameter toUser: the recipient user
+     - Parameter imageWidth: width of image
+     - Parameter imageHeight: height of image
+     
+    */
     static func saveMessageImage(messageImageUrl: String, fromId : String, toUser: User, imageWidth: CGFloat, imageHeight: CGFloat) {
 
         let properties = ["messageImageUrl" : messageImageUrl,
@@ -120,9 +132,14 @@ class FirebaseUtilities {
         FirebaseUtilities.saveMessageOrImage(properties: properties, fromId: fromId, toUser: toUser)
     }
     
-    /*******************************************************
-     This function saves a text or Image as a message in firebase
-     ********************************************************/
+    /**
+     This function saves a text or Image as a message in Firebase
+     
+     - Parameter properties: Dictionary with all elements to save in Firebase
+     - Parameter fromId: the sender Id as a String
+     - Parameter toUser: the recipient user
+     
+    */
     static func saveMessageOrImage(properties : [String : Any], fromId : String, toUser: User) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
         /// unique reference for the message
@@ -134,6 +151,7 @@ class FirebaseUtilities {
         var values = ["toId" : toId,
                       "fromId" : fromId,
                       "timestamp" : timestamp] as [String : Any]
+        // The dictionary is updated with the elements of properties, ie for each element of properties, update the value dictionary
         properties.forEach({values[$0] = $1})
         
         // this block to save the message and then also make a reference and store the reference of message in antoher node
@@ -155,10 +173,13 @@ class FirebaseUtilities {
         }
     }
     
-    /*******************************************************
-     This function saves a book in firebase:
-     Before saving, gather book atributes and user Id
-     ********************************************************/
+    /**
+     This function saves a book in Firebase
+     
+     - Parameter book: book to be stored
+     - Parameter fromUserId: the book owner's Id as a String
+     
+     */
     static func saveBook(book: Book, fromUserId : String){
         let ref = Database.database().reference().child(FirebaseUtilities.shared.books)
         /// unique reference for the book
@@ -188,9 +209,13 @@ class FirebaseUtilities {
         }
     }
     
-    /*******************************************************
-     This function saves a cover image for a book with isbn in firebase Storage:
-     ********************************************************/
+    /**
+     This function saves a cover image for a book with isbn in Firebase Storage
+     
+     - Parameter coverImage: UIImage of book cover to be stored
+     - Parameter isbn: the isbn of the book. It will be used as the id of the cover image
+     
+     */
     static func saveCoverImage(coverImage: UIImage, isbn: String){
         // test the size in byte of the image
         let imageDataTest = coverImage.jpegData(compressionQuality: 1)
@@ -234,14 +259,13 @@ class FirebaseUtilities {
             guard let progress = snapshot.progress else {
                 print("No progress for the snapshot")
                 return}
-            print("end of progress?? ")
             print(progress.fractionCompleted)
         }
         uploadTask.resume()
     }
     
     /**
-     This function saves an image as a message in firebase Storage
+     This function saves an image as a message in Firebase Storage
      
      You can send either text or image to another User. Here is the case for image
      
