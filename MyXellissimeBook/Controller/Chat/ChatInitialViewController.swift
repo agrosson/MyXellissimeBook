@@ -27,6 +27,8 @@ class ChatInitialViewController : UITableViewController {
     let cellId = "cellId"
     /// A timer to fix reload table to many times
     var timerChat: Timer?
+    ///
+    
     
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
@@ -35,11 +37,13 @@ class ChatInitialViewController : UITableViewController {
         fetchUserAndSetupNavBarTitle()
         // Registration of the reused cell
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
+        tableView.allowsMultipleSelectionDuringEditing = true
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchUserAndSetupNavBarTitle()
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     /**
      function that observes all messages send by a single user
@@ -61,6 +65,11 @@ class ChatInitialViewController : UITableViewController {
             }, withCancel: nil)
         //    return
         }, withCancel: nil)
+        
+        ref.observe(.childRemoved, with:  { (snapshot) in
+            self.messagesDictionary.removeValue(forKey: snapshot.key)
+            self.attemptReloadData()
+        }, withCancel: nil)
     }
     
     /**
@@ -74,25 +83,13 @@ class ChatInitialViewController : UITableViewController {
         messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let dictionary = snapshot.value as? [String : Any] else {return}
             let message = Message(dictionary: dictionary)
-//            guard let fromId = dictionary["fromId"] as? String else {return}
-//            guard let toId =  dictionary["toId"] as? String else {return}
-//            guard let text =  dictionary["text"] as? String else {return}
-//            guard let timestamp =  dictionary["timestamp"] as? Int else {return}
-//            
-//            message.fromId = fromId
-//            message.timestamp = timestamp
-//            message.toId = toId
-//            message.text = text
             let chatPartnerId: String?
-            
             if message.fromId == Auth.auth().currentUser?.uid {
                 chatPartnerId = message.toId
             } else {
                 chatPartnerId = message.fromId
-                
             }
             guard let idToUse = chatPartnerId else {return}
-            
             // get the last message for toId
             self.messagesDictionary[idToUse] = message
             // To avoid reload data too many times when messages have not be updated
@@ -222,5 +219,26 @@ class ChatInitialViewController : UITableViewController {
         cell.message = message
        
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        let message = self.messages[indexPath.row]
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        guard let toId = message.chatPartnerId() else {return}
+        Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(uid).child(toId).removeValue { (error, ref) in
+            if error != nil {
+                print("Failed to remove  message:", error as Any)
+                return
+            }
+            self.messagesDictionary.removeValue(forKey: toId)
+            self.attemptReloadData()
+        }
+    
+        
     }
 }

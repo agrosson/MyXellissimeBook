@@ -66,6 +66,11 @@ class FirebaseUtilities {
         }
     }
     
+    static func deleteMessage(userId: String, message: Message){
+        
+        
+    }
+    
     /**
      This function returns a user from a email
      
@@ -116,6 +121,7 @@ class FirebaseUtilities {
                           "imageWidth" : 0,
                           "text" : text,] as [String : Any]
         FirebaseUtilities.saveMessageOrImage(properties: properties, fromId: fromId, toUser: toUser)
+        FirebaseUtilities.sendNotification(fromId: fromId, toUser: toUser)
         }
     
     
@@ -136,6 +142,12 @@ class FirebaseUtilities {
                       "imageHeight" : imageHeight,
                       "text" : ""] as [String : Any]
         FirebaseUtilities.saveMessageOrImage(properties: properties, fromId: fromId, toUser: toUser)
+        FirebaseUtilities.sendNotification(fromId: fromId, toUser: toUser)
+    }
+    
+    static func sendNotification(fromId : String, toUser: User) {
+        print("here is the code to send Push Notification")
+     
     }
     
     /**

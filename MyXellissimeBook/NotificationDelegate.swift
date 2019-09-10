@@ -11,9 +11,10 @@ import UIKit
 import UserNotifications
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    
+    // allow notification in the foreground
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .badge, .sound])
+
     }
     
     func userNotificationCenter(
@@ -26,8 +27,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let payload = response.notification.request.content
         guard let _ = payload.userInfo["MyXellissimeBook"]
             else { return }
-        
-        let chatInitialViewController = UINavigationController(rootViewController: ChatInitialViewController())
-        self.window!.rootViewController!.present(chatInitialViewController, animated: true, completion: nil)
+        //  to do: Fix bug tab bar does not show up
+         self.window?.rootViewController = CustomInitialTabBarController()
     }
 }
+

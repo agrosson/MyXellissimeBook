@@ -10,52 +10,62 @@ import UIKit
 import Firebase
 // to setup Notification properties
 import UserNotifications
+import CoreData
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder {
     var window: UIWindow?
     
-    // A persistent container to save datas
-    /*
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "PushNotifications")
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        
-        return container
-    }()
-    */
+    
 }
 
-extension AppDelegate: UIApplicationDelegate {
+extension AppDelegate: UIApplicationDelegate, MessagingDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        // window configuration
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        window?.rootViewController = CustomInitialTabBarController()
         
         // Firebase configuration
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = false
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        window?.rootViewController = CustomInitialTabBarController()
-        //let vc = nc.topViewController as! NotificationTableViewController
-      //  vc.managedObjectContext = persistentContainer.viewContext
-      
+       
+        // Messaging Configuration
+        Messaging.messaging().delegate = self
         
-        // Ask the user authorization for notification
-        registerForPushNotifications(application: application)
+        UNUserNotificationCenter.current().delegate = self
         
-
+        // Notifications Configuration
+        attemptRegisterForNotifications(application: application)
         
         return true
     }
-    
+
     // MARK: - Remote Notifications
     /// Get the token from APNS
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.reduce("") { $0 + String(format: "%02x", $1) }
-        print("Device Token: \(token)")
+        print("Registered in APNS with Device Token: \(token)")
     }
+    // Token from Firebase Messaging
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        print("Registered in FCM with FCM Token: \(fcmToken)")
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+       
+        // we verify we receive from payload dict with keys "text" and "image"
+        guard let text = userInfo["text"] as? String,
+            let image = userInfo["image"] as? String,
+            let url = URL(string: image) else {
+                // ignore Notification
+                completionHandler(.noData)
+                return
+        }
+    }
+    
+    
 }
