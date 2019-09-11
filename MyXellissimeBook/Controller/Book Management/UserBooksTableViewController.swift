@@ -44,8 +44,10 @@ class UserBooksTableViewController: UITableViewController {
         books.removeAll()
         tableView.reloadData()
         observeUserBooks()
+        perform(#selector(testIfNoBook), with: nil, afterDelay: 0.5)
         
     }
+    
     /**
      function that observes all the user's books
      */
@@ -81,10 +83,10 @@ class UserBooksTableViewController: UITableViewController {
                 book.editor = editor
                 
                 self.books.append(book)
-                
-                DispatchQueue.main.async { self.tableView.reloadData() }
+                DispatchQueue.main.async {self.tableView.reloadData() }
             }, withCancel: nil)
         }, withCancel: nil)
+
     }
     /**
      Function that presents detailAvailableBookViewController
@@ -117,6 +119,15 @@ class UserBooksTableViewController: UITableViewController {
      */
     @objc private func handelCancel(){
         self.dismiss(animated: true, completion: nil)
+    }
+    /**
+     Displays alert to explain the user how to add books
+     */
+    @objc func testIfNoBook() {
+        if self.books.isEmpty {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .noBookForUSer
+        }
     }
    
     
@@ -187,15 +198,15 @@ class UserBooksTableViewController: UITableViewController {
             }
         }
     }
-    /**
-     Function that modifies book attributes : To do
-     */
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let modifyBook = UIContextualAction(style: .normal, title: "Modify Cover") { (action, view, nil) in
-            print("here we are modifying the book attributes")
-        }
-        
-        modifyBook.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
-        return UISwipeActionsConfiguration(actions: [modifyBook])
-    }
+//    /**
+//     Function that modifies book attributes : To do
+//     */
+//    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let modifyBook = UIContextualAction(style: .normal, title: "Modify Cover") { (action, view, nil) in
+//            print("here we are modifying the book attributes")
+//        }
+//
+//        modifyBook.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
+//        return UISwipeActionsConfiguration(actions: [modifyBook])
+//    }
 }

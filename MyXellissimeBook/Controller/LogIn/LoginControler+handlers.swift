@@ -106,18 +106,17 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             guard let uid = authDataResult?.user.uid else {
                 return
             }
-            // prepare dictionary with user info to upload in firebase
-            let values = ["name" : name, "email" : email, "profileId" : uid]
+                    
+            // Get the token for the user device
+            guard let fcmToken = Messaging.messaging().fcmToken else {return}
             
-            /*************************
-             Save user's data in database
-             **************************/
-
+            // prepare dictionary with user info to upload in firebase
+            let values = ["name" : name, "email" : email, "profileId" : uid, "fcmToken": fcmToken]
+            
+            //Save user's data in database
             self.registerUserIntoDatabaseWithUid(uid: uid, values: values)
             
-            /*************************
-             Store the image in Storage
-             **************************/
+            // Store the image in Storage
             self.saveProfileImageForUser(uid: uid)
         }
         /*************************
@@ -201,6 +200,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
      Function that handles Login
      */
     func handleLoginWithProfileUpdate(update: Bool){
+         print("log in 1 ")
         // Get info from textField
         guard var email = emailTextField.text, var password = passwordTextField.text else {
             //Todo an alert to be done
@@ -208,6 +208,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             Alert.shared.alertDisplay = .needAllFieldsCompleted
             return
         }
+        print("log in 2 ")
         email.removeFirstAndLastAndDoubleWhitespace()
         password.removeFirstAndLastAndDoubleWhitespace()
         
@@ -226,9 +227,11 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             Alert.shared.alertDisplay = .passwordIsTooShort
             return
         }
+        print("log in 3 ")
         // Connect to Firebase Auth
         Auth.auth().signIn(withEmail: email, password: password) { (resultSignIn, errorSignIn) in
             if errorSignIn != nil {
+                print("log in 4 ")
                 Alert.shared.controller = self
                 Alert.shared.alertDisplay = .noUserFound
                 return
@@ -236,12 +239,15 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             /*************************
              update the title of the initialVC with new name
              **************************/
+            print("log in 5 ")
             if update == true {
                 if let uid = Auth.auth().currentUser?.uid {
                     self.saveProfileImageForUser(uid:uid )
+                    print("log in 6 ")
                 }
             }
             self.initialViewController?.fetchUserAndSetupNavBarTitle()
+            print("log in 8 ")
             self.dismiss(animated: true, completion: nil)
             print("\(email) has been  successfully logged in !")
         }

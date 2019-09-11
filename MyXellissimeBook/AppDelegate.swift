@@ -58,13 +58,13 @@ extension AppDelegate: UIApplicationDelegate, MessagingDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
        
         // we verify we receive from payload dict with keys "text" and "image"
-        guard let text = userInfo["text"] as? String,
-            let image = userInfo["image"] as? String,
-            let url = URL(string: image) else {
+        guard let email = userInfo["email"] as? String else {
+             print("email is not")
                 // ignore Notification
                 completionHandler(.noData)
                 return
         }
+        print("email is : \(email)")
     }
     
     

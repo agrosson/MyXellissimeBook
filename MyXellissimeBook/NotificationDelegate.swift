@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import UserNotifications
+import Firebase
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     // allow notification in the foreground
@@ -17,18 +18,20 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
     }
     
+    
+    // this function is called when the notification is tapped on
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void) {
         defer { completionHandler() }
-        
         guard response.actionIdentifier == UNNotificationDefaultActionIdentifier else { return }
         let payload = response.notification.request.content
-        guard let _ = payload.userInfo["MyXellissimeBook"]
-            else { return }
-        //  to do: Fix bug tab bar does not show up
-         self.window?.rootViewController = CustomInitialTabBarController()
+        guard let titre = payload.userInfo["email"] else {
+            print("pb here ")
+            return
+        }
+        print("l'email est\(titre)" )
     }
 }
 

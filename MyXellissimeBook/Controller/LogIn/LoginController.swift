@@ -58,7 +58,7 @@ class LoginController: UIViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.addSubview(profileImageView)
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
@@ -67,11 +67,16 @@ class LoginController: UIViewController {
             passwordTextField.textContentType = .oneTimeCode
         }
         setupScreen()
+        perform(#selector(changePhoto), with: nil, afterDelay: 0.5)
+        
     }
     // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+   
+
+    
     // MARK: - Methods
     /**
      Function that setup screen
@@ -188,6 +193,13 @@ class LoginController: UIViewController {
         } else {
             handleRegister()
         }
+    }
+    /**
+     Function that displays a alert to propose to change profile image
+     */
+    @objc func changePhoto() {
+        Alert.shared.controller = self
+        Alert.shared.alertDisplay = .updateProfileImage
     }
     
     private func checkIfProfileImageShouldBeUpdated() {

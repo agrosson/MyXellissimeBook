@@ -42,7 +42,9 @@ class Alert {
         unableToCreateUser,
         noTitleForBook,
         needAtLeastOneField,
-        noTextFoundOnBookCover
+        noTextFoundOnBookCover,
+        noBookForUSer,
+        updateProfileImage
     }
     // MARK: - Initializer
     init() {}
@@ -113,6 +115,14 @@ class Alert {
             title: "Dear user,",
             message: TextAndString.shared.noTextFoundOnBookCover,
             titleButton: "Back")
+        case .noBookForUSer : controller?.presentAlertDetails(
+            title: "Dear user,",
+            message: TextAndString.shared.noBookForUSer,
+            titleButton: "Back")
+        case .updateProfileImage : controller?.presentAlertDetails(
+            title: "Dear user,",
+            message: TextAndString.shared.updateProfileImage,
+            titleButton: "Back")
         }
     }
 }
@@ -149,4 +159,6 @@ struct TextAndString {
     let noTitleForBook = "Please indicate book title"
     let needAtLeastOneField = "Please enter at least one element"
     let noTextFoundOnBookCover = "No text found. Try again on landscape mode"
+    let noBookForUSer = "No book so far. Please click on add button at the top right"
+    let updateProfileImage = "Change profile photo by tapping on book image"
 }
