@@ -189,6 +189,12 @@ class InitialViewController: UIViewController {
      Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed
      */
     @objc func handleLogout() {
+        
+        if let uid = Auth.auth().currentUser?.uid
+        {
+            FirebaseUtilities.changeToken(uid: uid)
+        }
+
         // Try to log out
         do {
             try Auth.auth().signOut()

@@ -250,6 +250,12 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             print("log in 8 ")
             self.dismiss(animated: true, completion: nil)
             print("\(email) has been  successfully logged in !")
+            if let uid = Auth.auth().currentUser?.uid {
+                if let fcm = Messaging.messaging().fcmToken {
+                    FirebaseUtilities.updateFcmTocken(with: fcm, for: uid)
+                }
+            }
+            
         }
     }
 }

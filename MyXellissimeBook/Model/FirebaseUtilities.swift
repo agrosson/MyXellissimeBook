@@ -396,4 +396,29 @@ class FirebaseUtilities {
             }
         }
     }
+    
+    static func changeToken(uid: String) {
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(uid)
+        let value = ["fcmToken": "fcmToken"] as [String : Any]
+        ref.updateChildValues(value) { (error, ref) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+        }
+        
+    }
+    
+    static func updateFcmTocken(with token: String, for userUid : String) {
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(userUid)
+        let value = ["fcmToken": token] as [String : Any]
+        ref.updateChildValues(value) { (error, ref) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+        }
+    }
+    
+    
 }
