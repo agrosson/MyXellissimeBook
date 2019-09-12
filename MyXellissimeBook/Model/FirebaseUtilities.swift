@@ -67,10 +67,10 @@ class FirebaseUtilities {
     }
     
     /**
-     This function returns a user from a email
-     
+     This function remove message from Firebase
      - Parameter messageId: The message id to delete
-     
+     - Parameter fromId: The message has been sent by fromId - delete node fromId/message
+     - Parameter toId: The message has been sent to toId - delete node toId/message
      */
     static func deleteMessage(with messageId: String, fromId: String, toId: String){
         // delete message

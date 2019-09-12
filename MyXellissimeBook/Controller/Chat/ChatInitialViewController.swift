@@ -27,8 +27,6 @@ class ChatInitialViewController : UITableViewController {
     let cellId = "cellId"
     /// A timer to fix reload table to many times
     var timerChat: Timer?
-    /// Array of all messages id to remove ( created 4 weeks ago)
-    var messagesToRemove = [String]()
     
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
@@ -268,10 +266,8 @@ class ChatInitialViewController : UITableViewController {
                 // Get current timestamp
                 let now = Int(NSDate().timeIntervalSince1970)
                 // a day is 864000 seconds / a week is 6048000 seconds / 4 weeks are 2419200 seconds
-                // if timeStamp is more than 4 weeks, add message to array
-                if now > timeStamp + 60 {
-                    self.messagesToRemove.append(messageId)
-                    print(self.messagesToRemove)
+                // if timeStamp is more than 4 weeks, remove message from Firebase
+                if now > timeStamp + 2419200 {
                     FirebaseUtilities.deleteMessage(with: messageId, fromId: fromId, toId: toId)
                 }
             }, withCancel: nil)
