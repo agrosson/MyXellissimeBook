@@ -424,7 +424,10 @@ class FirebaseUtilities {
             }
         }
     }
-    
+    /**
+     This function removes token in Firebase for a user when logs out
+     - Parameter uid:  the user uid
+     */
     static func changeToken(uid: String) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(uid)
         let value = ["fcmToken": "fcmToken"] as [String : Any]
@@ -436,7 +439,11 @@ class FirebaseUtilities {
         }
         
     }
-    
+    /**
+     This function updates token in Firebase for a user when logs in
+     - Parameter token:  the new token of user's device
+     - Parameter uid:  the user uid
+     */
     static func updateFcmTocken(with token: String, for userUid : String) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(userUid)
         let value = ["fcmToken": token] as [String : Any]
