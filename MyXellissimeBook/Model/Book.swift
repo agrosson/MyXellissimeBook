@@ -28,6 +28,9 @@ class Book: NSObject {
     var isAvailable: Bool?
     /// Url as a string of downloaded cover image from API
     var coverURL: String?
+    /// Timestamp de l'enregistrement du livre pour tri
+    var timestamp: Int?
+    
     // MARK: - Initializer
     override init(){}
 }

@@ -244,7 +244,7 @@ class ChatInitialViewController : UITableViewController {
     
     
     /**
-     function that observes all messages to identify messages posted more than 4 weeks ago
+     function that observes all messages to identify messages posted more than 4 weeks ago for deletion
      */
     private func observeAllMessages() {
         // Search message

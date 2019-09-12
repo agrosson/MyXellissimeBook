@@ -232,6 +232,7 @@ class FirebaseUtilities {
         guard let isbnForUniqueRefBok = book.isbn else {return}
         let uniqueRefForBook = "\(fromUserId)\(isbnForUniqueRefBok)"
         let childRef = ref.child(uniqueRefForBook)
+        let timestamp = Int(NSDate().timeIntervalSince1970)
         //Create the dictionary of value to save
         let values = ["uniqueId" : childRef.key,
                       "title": book.title ?? "",
@@ -239,6 +240,7 @@ class FirebaseUtilities {
                       "editor": book.editor ?? "unknown",
                       "isbn": book.isbn ?? "no isbn",
                       "isAvailable" : book.isAvailable ?? true,
+                      "timestamp": timestamp,
                       "coverURL" : book.coverURL ?? "no url"] as [String : Any]
         // this block to save the message and then also make a reference and store the reference of message in antoher node
         childRef.updateChildValues(values) { (error, ref) in
