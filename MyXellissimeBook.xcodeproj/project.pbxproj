@@ -69,6 +69,7 @@
 		C19371DE22B0FC510017E696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C19371DD22B0FC510017E696 /* Assets.xcassets */; };
 		C19371E122B0FC510017E696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19371DF22B0FC510017E696 /* LaunchScreen.storyboard */; };
 		C19371EA22B0FD070017E696 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19371E922B0FD070017E696 /* LoginController.swift */; };
+		C19E1EA3232A7EB8001FA746 /* AllBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E1EA2232A7EB8001FA746 /* AllBooksViewController.swift */; };
 		C1A5840E22B4F59200EABEBA /* ChatInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */; };
 		C1A5841022B4FE1000EABEBA /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A5840F22B4FE1000EABEBA /* ChatLogController.swift */; };
 		C1A86AE122EF131600AB78EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1A86AE022EF131600AB78EC /* GoogleService-Info.plist */; };
@@ -167,6 +168,7 @@
 		C19371E022B0FC510017E696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C19371E222B0FC510017E696 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C19371E922B0FD070017E696 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		C19E1EA2232A7EB8001FA746 /* AllBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBooksViewController.swift; sourceTree = "<group>"; };
 		C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInitialViewController.swift; sourceTree = "<group>"; };
 		C1A5840F22B4FE1000EABEBA /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		C1A86AE022EF131600AB78EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -353,12 +355,21 @@
 			children = (
 				C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */,
 				C19371D822B0FC500017E696 /* InitialViewController.swift */,
+				C19E1EA4232A7EC5001FA746 /* All Books VC */,
 				C100899A22BCD0CA00D3497E /* LogIn */,
 				C100899722BCD01D00D3497E /* Book Management */,
 				C100899922BCD0A000D3497E /* Search Management */,
 				C100899822BCD04500D3497E /* Chat */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		C19E1EA4232A7EC5001FA746 /* All Books VC */ = {
+			isa = PBXGroup;
+			children = (
+				C19E1EA2232A7EB8001FA746 /* AllBooksViewController.swift */,
+			);
+			path = "All Books VC";
 			sourceTree = "<group>";
 		};
 		C1B42B7722B13F8700982194 /* Model */ = {
@@ -705,6 +716,7 @@
 				C11B304E22BE20330023CF0E /* DetailLentBookViewController.swift in Sources */,
 				C19371EA22B0FD070017E696 /* LoginController.swift in Sources */,
 				C120D35522C1350600E749BC /* SearchBookResultTableViewController.swift in Sources */,
+				C19E1EA3232A7EB8001FA746 /* AllBooksViewController.swift in Sources */,
 				C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */,
 				C1E5D7AA2302F70F00D23E80 /* ExtensionUIColor.swift in Sources */,
 				C17EEF5822B2934100BF01B5 /* ChatTableViewController.swift in Sources */,

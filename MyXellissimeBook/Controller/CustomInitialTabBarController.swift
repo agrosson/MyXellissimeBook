@@ -22,12 +22,14 @@ class CustomInitialTabBarController: UITabBarController {
     let searchViewController = UINavigationController(rootViewController: SearchViewController())
     /// instance of ChatTableViewController
     let chatInitialTableViewController = UINavigationController(rootViewController: ChatInitialViewController())
+    /// /// instance of AllBooksViewController
+    let allBooksViewController = UINavigationController(rootViewController: AllBooksViewController())
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //setup custom VC
         setupTabBar()
-        viewControllers = [initialViewController, searchViewController, chatInitialTableViewController ]
+        viewControllers = [initialViewController, searchViewController, allBooksViewController, chatInitialTableViewController ]
     }
     /**
      Function that sets up tabBar
@@ -38,6 +40,8 @@ class CustomInitialTabBarController: UITabBarController {
         initialViewController.tabBarItem.image = UIImage(named: "books")
         searchViewController.tabBarItem.title = "Search"
         searchViewController.tabBarItem.image = UIImage(named: "search")
+        allBooksViewController.tabBarItem.title = "Last books"
+        allBooksViewController.tabBarItem.image = UIImage(named: "booksList")
         chatInitialTableViewController.tabBarItem.title = "Chat"
         chatInitialTableViewController.tabBarItem.image = UIImage(named: "message")
     }
