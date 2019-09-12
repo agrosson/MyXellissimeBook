@@ -66,9 +66,37 @@ class FirebaseUtilities {
         }
     }
     
-    static func deleteMessage(userId: String, message: Message){
-        
-        
+    /**
+     This function returns a user from a email
+     
+     - Parameter messageId: The message id to delete
+     
+     */
+    static func deleteMessage(with messageId: String, fromId: String, toId: String){
+        // delete message
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.messages).child(messageId)
+        ref.removeValue { (error, dataref) in
+            if error != nil {
+                print("fail to delete message", error as Any)
+                return
+            }
+        }
+        // delete message for fromId
+        let refFromId = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(fromId).child(toId).child(messageId)
+        refFromId.removeValue { (error, dataref) in
+            if error != nil {
+                print("fail to delete message", error as Any)
+                return
+            }
+        }
+        // delete message for toId
+        let refToId = Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(toId).child(fromId).child(messageId)
+        refToId.removeValue { (error, dataref) in
+            if error != nil {
+                print("fail to delete message", error as Any)
+                return
+            }
+        }
     }
     
     /**

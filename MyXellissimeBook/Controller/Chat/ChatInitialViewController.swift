@@ -27,8 +27,8 @@ class ChatInitialViewController : UITableViewController {
     let cellId = "cellId"
     /// A timer to fix reload table to many times
     var timerChat: Timer?
-    ///
-    
+    /// Array of all messages id to remove ( created 4 weeks ago)
+    var messagesToRemove = [String]()
     
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
@@ -38,7 +38,9 @@ class ChatInitialViewController : UITableViewController {
         // Registration of the reused cell
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
         tableView.allowsMultipleSelectionDuringEditing = true
+        observeAllMessages()
     }
+   
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -240,5 +242,39 @@ class ChatInitialViewController : UITableViewController {
         }
     
         
+    }
+    
+    
+    /**
+     function that observes all messages to identify messages posted more than 4 weeks ago
+     */
+    private func observeAllMessages() {
+        // Search message
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
+        // observe each node
+        ref.observe(.childAdded, with: { (snapshot) in
+            // get the key for the message
+            let messageId = snapshot.key
+            // then go to the message itself
+            let booksReference = Database.database().reference().child(FirebaseUtilities.shared.messages).child(messageId)
+            // observe the message, get info from it
+            booksReference.observeSingleEvent(of: .value, with: { (snapshot) in
+                // the snapshot result is a dictionary
+                guard let dictionary = snapshot.value as? [String : Any] else {return}
+                // get the value your need
+                guard let timeStamp = dictionary["timestamp"] as? Int else {return}
+                guard let toId = dictionary["toId"] as? String else {return}
+                guard let fromId  = dictionary["fromId"] as? String else {return}
+                // Get current timestamp
+                let now = Int(NSDate().timeIntervalSince1970)
+                // a day is 864000 seconds / a week is 6048000 seconds / 4 weeks are 2419200 seconds
+                // if timeStamp is more than 4 weeks, add message to array
+                if now > timeStamp + 60 {
+                    self.messagesToRemove.append(messageId)
+                    print(self.messagesToRemove)
+                    FirebaseUtilities.deleteMessage(with: messageId, fromId: fromId, toId: toId)
+                }
+            }, withCancel: nil)
+        }, withCancel: nil)
     }
 }
