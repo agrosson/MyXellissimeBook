@@ -44,7 +44,7 @@ class SearchBookDetailViewController: UIViewController {
     /// Reminder label
     var reminderLabel = CustomUI().label
     /// Button send message
-    let buttonSendMessage = CustomUI().button
+    lazy var buttonSendMessage = CustomUI().button
     
     override func viewDidLoad() {
         super.viewDidLoad()

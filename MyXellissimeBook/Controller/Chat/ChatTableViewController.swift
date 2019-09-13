@@ -20,14 +20,27 @@ class ChatTableViewController: UITableViewController {
     let cellId = "cellId"
     /// Array of users
     var users = [User]()
+    /// Array of filtered users
+    var filteredUsers = [User]()
     /// Var that track the reference of the database
     var rootRef = DatabaseReference()
-    
+    lazy var searchBar: UISearchBar = {
+        let sb = UISearchBar()
+        sb.translatesAutoresizingMaskIntoConstraints = false
+        sb.placeholder = "Enter contact name"
+        sb.delegate = self
+        return sb
+    }()
     
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.addSubview(searchBar)
+    
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handelCancel))
+        navigationController?.navigationBar.addSubview(searchBar)
+        setupSearchBar()
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
     }
     // MARK: - Method - viewWillAppear
@@ -38,6 +51,17 @@ class ChatTableViewController: UITableViewController {
         rootRef.removeAllObservers()
     }
     // MARK: - Method
+    
+    func setupSearchBar(){
+        guard let navBar = navigationController?.navigationBar else {return
+            
+        }
+        searchBar.rightAnchor.constraint(equalTo: navBar.rightAnchor, constant: -8).isActive = true
+        searchBar.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: screenWidth/4).isActive = true
+        searchBar.topAnchor.constraint(equalTo: navBar.topAnchor, constant: 8).isActive = true
+        searchBar.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -12).isActive = true
+    }
+    
     /**
      Function that fetches users in firebase database
      */
@@ -57,9 +81,11 @@ class ChatTableViewController: UITableViewController {
                     user.email = email
                     user.profileId = profileId
                     self.users.append(user)
-                    DispatchQueue.main.async { self.tableView.reloadData() }
                 }
             }
+            self.users.sort{ $0.name!.lowercased() < $1.name!.lowercased() }
+            self.filteredUsers = self.users
+            DispatchQueue.main.async { self.tableView.reloadData() }
         }
     }
     
@@ -86,7 +112,7 @@ class ChatTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return users.count
+        return filteredUsers.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -95,7 +121,7 @@ class ChatTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! UserCell
-        let user = users[indexPath.row]
+        let user = filteredUsers[indexPath.row]
         cell.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         cell.textLabel?.text = user.name
         cell.textLabel?.textColor = .white
@@ -118,8 +144,26 @@ class ChatTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dismiss(animated: true) {
-            let user = self.users[indexPath.row]
+            let user = self.filteredUsers[indexPath.row]
             self.chatInitial?.showChatControllerForUser(user: user)
         }
     }
+}
+
+extension ChatTableViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    
+        if filteredUsers.isEmpty || searchText.isEmpty {
+            filteredUsers = users
+        } else {
+            filteredUsers = users.filter({ user -> Bool in
+                return (user.name?.localizedCaseInsensitiveContains(searchText))!
+            })
+        }
+        self.tableView.reloadData()
+        
+        
+    }
+    
 }
