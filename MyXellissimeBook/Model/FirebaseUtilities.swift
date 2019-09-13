@@ -136,14 +136,14 @@ class FirebaseUtilities {
     }
     
     /**
-     This function returns a user from a userID
+     This function returns a user from a profileId
      
-     - Parameter email: a userId
+     - Parameter profileId: a profileId
      - Parameter callBack: a closure with the user retrieved from the query
      */
     static func getUserFromProfileId(profileId: String, callBack: @escaping (User) -> Void){
         let rootRef = Database.database().reference()
-        // Create an object that returns all users with the email
+        // Create an object that returns all users with the profileId
         let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "profileId")
         print(query)
         var counter = 0

@@ -105,6 +105,9 @@ class SearchBookDetailViewController: UIViewController {
         buttonSendMessage.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
+    /**
+     Function that opens ChatLogController after having retrieved user from profileId
+     */
     @objc func popChatViewController(){
         guard let uniqueId = bookToDisplay.uniqueId else {return}
         guard let isbn = bookToDisplay.isbn else {return}

@@ -63,8 +63,6 @@ class InitialViewController: UIViewController {
         setupShowUserBooksLentButton()
         setupShowUserBooksButton()
         setupShowUserBooksBorrowedButton()
-       
-
     }
     /**
      Function that sets up showUserBooksLentButton
