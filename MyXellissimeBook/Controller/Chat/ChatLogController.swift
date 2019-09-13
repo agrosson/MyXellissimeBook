@@ -247,7 +247,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
      */
     private func attemptReloadData(){
         self.timerChat?.invalidate()
-        self.timerChat = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handlerReloadTable), userInfo: nil, repeats: false)
+        self.timerChat = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.handlerReloadTable), userInfo: nil, repeats: false)
     }
     /**
      function that reloads data
