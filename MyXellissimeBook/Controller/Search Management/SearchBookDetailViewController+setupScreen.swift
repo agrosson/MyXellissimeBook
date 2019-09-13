@@ -80,7 +80,7 @@ extension SearchBookDetailViewController {
      */
     func setupReminderLabel(){
         // need x and y , width height contraints
-        reminderLabel.font = UIFont.systemFont(ofSize: 40)
+        reminderLabel.font = UIFont.systemFont(ofSize: 30)
         reminderLabel.textAlignment = NSTextAlignment.center
         reminderLabel.numberOfLines = 0
         reminderLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true

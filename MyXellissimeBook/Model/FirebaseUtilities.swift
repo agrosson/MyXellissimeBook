@@ -136,6 +136,44 @@ class FirebaseUtilities {
     }
     
     /**
+     This function returns a user from a userID
+     
+     - Parameter email: a userId
+     - Parameter callBack: a closure with the user retrieved from the query
+     */
+    static func getUserFromProfileId(profileId: String, callBack: @escaping (User) -> Void){
+        let rootRef = Database.database().reference()
+        // Create an object that returns all users with the email
+        let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "profileId")
+        print(query)
+        var counter = 0
+        var counterTrue = 0
+        query.observe(.value) { (snapshot) in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                counter += 1
+                if let value = child.value as? NSDictionary {
+                    if profileId == value["profileId"] as? String {
+                        counterTrue = +1
+                        let userTemp = User()
+                        let name = value["name"] as? String ?? "Name not found"
+                        let email = value["email"] as? String ?? "Email not found"
+                        let profileId = value["profileId"] as? String ?? "profileId not found"
+                        let fcmToken = value["fcmToken"] as? String ?? "fcmToken not found"
+                        userTemp.name = name
+                        userTemp.email = email
+                        userTemp.profileId = profileId
+                        userTemp.fcmToken = fcmToken
+                        callBack(userTemp)
+                    }
+                }
+            }
+            if counterTrue == 0 {
+                callBack(User())
+            }
+        }
+    }
+    
+    /**
      This function saves a text as a message in Firebase
      
      - Parameter text: the text of the meassge to save

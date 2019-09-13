@@ -43,6 +43,8 @@ class SearchBookDetailViewController: UIViewController {
     let containerDataView = CustomUI().view
     /// Reminder label
     var reminderLabel = CustomUI().label
+    /// Button send message
+    let buttonSendMessage = CustomUI().button
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +55,7 @@ class SearchBookDetailViewController: UIViewController {
         containerView.addSubview(separateView)
         view.addSubview(containerDataView)
         containerDataView.addSubview(reminderLabel)
+        containerDataView.addSubview(buttonSendMessage)
         setupUIObjects()
         setupScreen()
     }
@@ -84,7 +87,40 @@ class SearchBookDetailViewController: UIViewController {
         setupSeparateView()
         setupContainerDataView()
         setupReminderLabel()
+        setupbuttonSendMessage()
 
+    }
+    /**
+     Function that sets up showUserBooksLentButton
+     */
+    private func setupbuttonSendMessage(){
+        buttonSendMessage.setTitle("Send a message", for: .normal)
+        buttonSendMessage.layer.cornerRadius = 15
+        buttonSendMessage.titleLabel?.font = .systemFont(ofSize: 30)
+        buttonSendMessage.addTarget(self, action: #selector(popChatViewController), for: .touchUpInside)
+        // need x and y , width height contraints
+        buttonSendMessage.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
+        buttonSendMessage.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
+        buttonSendMessage.topAnchor.constraint(equalTo: reminderLabel.bottomAnchor, constant: 20).isActive = true
+        buttonSendMessage.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    @objc func popChatViewController(){
+        guard let uniqueId = bookToDisplay.uniqueId else {return}
+        guard let isbn = bookToDisplay.isbn else {return}
+        let ownerId = uniqueId.deletingSuffix(isbn)
+        FirebaseUtilities.getUserFromProfileId(profileId: ownerId) { user in
+             self.showChatControllerForUser(user: user)
+        }
+    }
+    
+    /**
+     Function that presents chatLogController
+     */
+    func showChatControllerForUser(user: User){
+        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatLogController.user = user
+        navigationController?.pushViewController(chatLogController, animated: true)
     }
 
 }
