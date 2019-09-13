@@ -263,12 +263,19 @@ class ChatInitialViewController : UITableViewController {
                 guard let timeStamp = dictionary["timestamp"] as? Int else {return}
                 guard let toId = dictionary["toId"] as? String else {return}
                 guard let fromId  = dictionary["fromId"] as? String else {return}
+                guard let messageImageUrl = dictionary["messageImageUrl"] as? String else {return}
                 // Get current timestamp
                 let now = Int(NSDate().timeIntervalSince1970)
                 // a day is 864000 seconds / a week is 6048000 seconds / 4 weeks are 2419200 seconds
                 // if timeStamp is more than 4 weeks, remove message from Firebase
                 if now > timeStamp + 2419200 {
                     FirebaseUtilities.deleteMessage(with: messageId, fromId: fromId, toId: toId)
+                    if messageImageUrl != "messageImageUrl" {
+                        let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.messageImage).child("\(messageImageUrl).jpg")
+                        storageRef.delete(completion: { (error) in
+                           print("error")
+                        })
+                    }
                 }
             }, withCancel: nil)
         }, withCancel: nil)
