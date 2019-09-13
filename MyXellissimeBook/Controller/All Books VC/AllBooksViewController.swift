@@ -28,8 +28,11 @@ class AllBooksViewController: UITableViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sort by date", style: .plain, target: self, action: #selector(handelSortDate))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort by title", style: .plain, target: self, action: #selector(handelSortTitle))
+        let color = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+        let textAttributes = [NSAttributedString.Key.foregroundColor:color]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationItem.title = "The last 20 books in database"
+
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
     }
     // MARK: - Method viewWillAppear
@@ -90,19 +93,7 @@ class AllBooksViewController: UITableViewController {
             }
         }
     }
-    
-    /**
-     Action that sorts books by date
-     */
-    @objc private func handelSortDate(){
-       print("here we sort by date (last first)")
-    }
-    /**
-    Action that sorts books by title
-     */
-    @objc private func handelSortTitle(){
-       print("here we sort by title")
-    }
+
     
     // MARK: - Table view data source
     
