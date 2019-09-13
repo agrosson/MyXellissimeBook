@@ -22,6 +22,8 @@ class UserBooksTableViewController: UITableViewController {
     /// Array of user's books
     var books = [Book]()
     
+    var rootRef = DatabaseReference()
+    
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,7 @@ class UserBooksTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
+        rootRef.removeAllObservers()
     }
     
     // MARK: - Methods
@@ -54,8 +57,10 @@ class UserBooksTableViewController: UITableViewController {
     private func observeUserBooks(){
         // get the Id of the user
         guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        rootRef = Database.database().reference()
         // get the ref of list of message for this uid
-        let ref = Database.database().reference().child(FirebaseUtilities.shared.user_books).child(uid)
+        let ref = rootRef.child(FirebaseUtilities.shared.user_books).child(uid)
         // observe the node
         ref.observe(.childAdded, with: { (snapshot) in
             // get the key for the message
@@ -81,7 +86,6 @@ class UserBooksTableViewController: UITableViewController {
                 book.isAvailable = isAvailable
                 book.coverURL = coverURL
                 book.editor = editor
-                
                 self.books.append(book)
                 DispatchQueue.main.async {self.tableView.reloadData() }
             }, withCancel: nil)

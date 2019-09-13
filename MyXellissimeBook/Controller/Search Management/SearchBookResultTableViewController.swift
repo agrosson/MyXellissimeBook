@@ -31,6 +31,8 @@ class SearchBookResultTableViewController: UITableViewController {
      /// isbn researched
     var isbnSearch: String?
     
+    var rootRef = DatabaseReference()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
@@ -39,6 +41,7 @@ class SearchBookResultTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
+         rootRef.removeAllObservers()
     }
     /**
      Function that sets up the screen
@@ -54,9 +57,10 @@ class SearchBookResultTableViewController: UITableViewController {
      */
     private func observeSearchBooks(){
         // get the ref of list of message for this uid
-        let ref = Database.database().reference().child(FirebaseUtilities.shared.books)
+        rootRef = Database.database().reference()
+        let query = rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "title")
         // observe the node
-        ref.observe(.childAdded, with: { (snapshot) in
+        query.observe(.childAdded, with: { (snapshot) in
             // get the key for the message
             let bookId = snapshot.key
             // get the reference of the message
