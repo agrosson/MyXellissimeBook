@@ -96,7 +96,7 @@ extension LoanConfirmationViewController {
         borrowerLabel.font = UIFont.systemFont(ofSize: heightOfText)
         guard let name = userBorrower.name else {return}
         guard let email = userBorrower.email else {return}
-        borrowerLabel.text = "\(name), with \(email)"
+        borrowerLabel.text = "\(name) (email: \(email)"
         borrowerLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         borrowerLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
         borrowerLabel.topAnchor.constraint(equalTo: reminderLabel.bottomAnchor, constant: 10).isActive = true
@@ -108,7 +108,7 @@ extension LoanConfirmationViewController {
     func setupFromDateLabel() {
         // need x and y , width height contraints
         fromDateLabel.font = UIFont.systemFont(ofSize: heightOfText)
-        fromDateLabel.text = "From: \(fromDate)"
+        fromDateLabel.text = "Du: \(fromDate)"
         fromDateLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         fromDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
         fromDateLabel.topAnchor.constraint(equalTo: borrowerLabel.bottomAnchor, constant: 10).isActive = true
@@ -121,7 +121,7 @@ extension LoanConfirmationViewController {
     func setupToDateLabel() {
         // need x and y , width height contraints
         toDateLabel.font = UIFont.systemFont(ofSize: heightOfText)
-        toDateLabel.text = "To: \(toDate)"
+        toDateLabel.text = "Au: \(toDate)"
         toDateLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         toDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
         toDateLabel.topAnchor.constraint(equalTo: fromDateLabel.bottomAnchor, constant: 10).isActive = true

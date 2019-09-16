@@ -27,8 +27,8 @@ class UserBooksTableViewController: UITableViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handelCancel))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addBook))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handelCancel))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Ajouter", style: .plain, target: self, action: #selector(addBook))
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
     }
     // MARK: - Method viewWillAppear
@@ -177,8 +177,8 @@ class UserBooksTableViewController: UITableViewController {
             let book = self.books[indexPath.row]
             
             if !book.isAvailable! {
-                let actionSheet = UIAlertController(title: "Sorry", message: "The book can not be removed\n It is currently lent", preferredStyle: .alert)
-                actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                let actionSheet = UIAlertController(title: "Désolé", message: "Le livre ne peut pas être supprimé\nIl est actuellement prêté", preferredStyle: .alert)
+                actionSheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
                 self.present(actionSheet, animated: true, completion : nil)
                 return
             }

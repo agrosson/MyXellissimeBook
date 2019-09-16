@@ -15,7 +15,7 @@ extension AddBookViewController {
      Function that sets up addWithScanButton
      */
     func setupaddWithScanButton(){
-        addWithScanButton.setTitle("Scan a book Isbn", for: .normal)
+        addWithScanButton.setTitle("Scanner l'ISBN d'un livre", for: .normal)
         addWithScanButton.layer.cornerRadius = 15
         addWithScanButton.layer.borderColor  = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         addWithScanButton.addTarget(self, action: #selector(scanIsbn), for: .touchUpInside)
@@ -31,7 +31,7 @@ extension AddBookViewController {
      */
     func setupaddWithPhotoButton(){
         addWithPhotoButton.layer.cornerRadius = 15
-        addWithPhotoButton.setTitle("Take a picture of the book", for: .normal)
+        addWithPhotoButton.setTitle("Prendre une photo d'un livre", for: .normal)
         addWithPhotoButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
         // need x and y , width height contraints
         addWithPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -53,7 +53,7 @@ extension AddBookViewController {
      Function that sets up addManuallyButton
      */
     func setupaddManuallyButton(){
-        addManuallyButton.setTitle("Add manually", for: .normal)
+        addManuallyButton.setTitle("Ajouter manuellement", for: .normal)
         addManuallyButton.layer.cornerRadius = 15
         addManuallyButton.addTarget(self, action: #selector(addManually), for: .touchUpInside)
         // need x and y , width height contraints

@@ -67,7 +67,7 @@ extension LoginController {
         inputsContainerView.addSubview(passwordTextField)
         
         nameTextField.clearButtonMode = UITextField.ViewMode.never
-        nameTextField.placeholder = "Name"
+        nameTextField.placeholder = "Nom d'utilisateur"
         nameTextField.tag = 1
         nameTextField.textColor = .black
         // need x and y , width height contraints for nameTextfield
@@ -87,7 +87,7 @@ extension LoginController {
         
         emailTextField.clearButtonMode = UITextField.ViewMode.never
         emailTextField.textColor = .black
-        emailTextField.placeholder = "Email address"
+        emailTextField.placeholder = "Adresse email"
         emailTextField.tag = 2
         // need x and y , width height contraints for emailTextfield
         emailTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
@@ -105,7 +105,7 @@ extension LoginController {
         
         passwordTextField.clearButtonMode = UITextField.ViewMode.never
         passwordTextField.textColor = .black
-        passwordTextField.placeholder = "Password"
+        passwordTextField.placeholder = "Mot de passe"
         // protect the text
         // todo: see the problem with keyboard azerty
         passwordTextField.isSecureTextEntry = true
@@ -121,7 +121,7 @@ extension LoginController {
      */
      func setupLoginRegisterButton(){
         
-        loginRegisterButton.setTitle("Register", for: .normal)
+        loginRegisterButton.setTitle("S'inscrire", for: .normal)
         loginRegisterButton.layer.borderWidth = 1
         loginRegisterButton.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
         // need x and y , width height contraints

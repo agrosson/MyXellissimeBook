@@ -49,7 +49,7 @@ class AddManuallyViewController: UIViewController {
     lazy var addBookInFirebaseButton : UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor.clear
-        button.setTitle("Save book", for: .normal)
+        button.setTitle("Enregistrer le livre", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         button.layer.cornerRadius = 15
@@ -74,7 +74,7 @@ class AddManuallyViewController: UIViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissCurrentView))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(dismissCurrentView))
         view.addSubview(inputsContainerView)
         view.addSubview(searchBookWithApiButton)
         view.addSubview(indicatorSearch)
@@ -95,12 +95,6 @@ class AddManuallyViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("titre")
-        print(bookTitleTextField.center)
-        print("auteur")
-        print(bookAuthorTextField.center)
-        print("isbn")
-        print(editorTextField.center)
         for touch in touches {
             priority = "rien pour l'instant"
             currentLabelText = "empty"
@@ -110,8 +104,6 @@ class AddManuallyViewController: UIViewController {
                 priority = "montitre"
                 if labelTitle.text != nil {
                     currentLabelText = labelTitle.text!
-                    print("Priority is \(priority)")
-                    print(currentLabelText)
                 }
             }
             if labelAuthor.frame.contains(location) {
@@ -119,8 +111,6 @@ class AddManuallyViewController: UIViewController {
                 priority = "monauteur"
                 if labelAuthor.text != nil {
                     currentLabelText = labelAuthor.text!
-                    print("Priority is \(priority)")
-                    print(currentLabelText)
                 }
             }
             if labelEditor.frame.contains(location) {
@@ -128,8 +118,6 @@ class AddManuallyViewController: UIViewController {
                 priority = "monediteur"
                 if labelEditor.text != nil {
                     currentLabelText = labelEditor.text!
-                    print("Priority is \(priority)")
-                    print(currentLabelText)
                 }
             }
         }
@@ -152,23 +140,16 @@ class AddManuallyViewController: UIViewController {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            print("Priority end is \(priority)")
             let location = touch.location(in: self.view)
-            print("top bar  \(topbarHeight)")
             let locationWithTopBar = CGPoint(x: location.x, y: location.y-topbarHeight-20)
-            print(location)
-            print(locationWithTopBar)
             if priority != "rien pour l'instant" {
                 if bookTitleTextField.frame.contains(locationWithTopBar) {
-                    print(" end is title")
                     bookTitleTextField.text = currentLabelText
                     hideLabel(with: priority)
                 } else if bookAuthorTextField.frame.contains(locationWithTopBar) {
-                    print(" end is author")
                     bookAuthorTextField.text = currentLabelText
                     hideLabel(with: priority)
                 } else if editorTextField.frame.contains(locationWithTopBar) {
-                    print(" end is editor")
                     editorTextField.text = currentLabelText
                     editorTextField.textColor = .black
                     hideLabel(with: priority)
@@ -201,7 +182,7 @@ class AddManuallyViewController: UIViewController {
     }
     
     private func displayMessageOfExplanation(){
-        let actionSheet = UIAlertController(title: "Drag and drop book attributes", message: "You can modify text after dropping labels", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Faites glisser les boutons vers les zones de textes", message: "Vous pourrez modifier/corriger les textes juste après", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         

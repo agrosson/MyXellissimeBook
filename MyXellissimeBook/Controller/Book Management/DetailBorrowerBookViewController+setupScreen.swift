@@ -113,7 +113,7 @@ extension DetailBorrowedBookViewController {
         fromDateLabel.font = UIFont.systemFont(ofSize: heightOfText)
         fromDateLabel.textAlignment = NSTextAlignment.center
         guard let date = currentLoan.loanStartDate else {return}
-        fromDateLabel.text = "From: \(date)"
+        fromDateLabel.text = "Du: \(date)"
         fromDateLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         fromDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
         fromDateLabel.topAnchor.constraint(equalTo: lenderLabel.bottomAnchor, constant: 10).isActive = true
@@ -128,7 +128,7 @@ extension DetailBorrowedBookViewController {
         toDateLabel.textAlignment = NSTextAlignment.center
         toDateLabel.font = UIFont.systemFont(ofSize: heightOfText)
         guard let date = currentLoan.expectedEndDateOfLoan else {return}
-        toDateLabel.text = "To: \(date)"
+        toDateLabel.text = "Au: \(date)"
         toDateLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         toDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
         toDateLabel.topAnchor.constraint(equalTo: fromDateLabel.bottomAnchor, constant: 10).isActive = true

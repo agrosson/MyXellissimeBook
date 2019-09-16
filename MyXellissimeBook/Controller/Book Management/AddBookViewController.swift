@@ -34,7 +34,7 @@ class AddBookViewController: UIViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissCurrentView))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(dismissCurrentView))
         view.addSubview(addWithScanButton)
         view.addSubview(addWithPhotoButton)
         view.addSubview(activityIndicator)
@@ -141,7 +141,7 @@ class AddBookViewController: UIViewController {
         // 2
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let cameraButton = UIAlertAction(
-                title: "Take Photo",
+                title: "Prendre une photo",
                 style: .default) { (alert) -> Void in
                     self.activityIndicator.isHidden = false
                     // 1
@@ -166,7 +166,7 @@ class AddBookViewController: UIViewController {
         
         // 3
         let libraryButton = UIAlertAction(
-            title: "Choose Existing",
+            title: "Choisir une photo existante",
             style: .default) { (alert) -> Void in
                 
                 // TODO: Add more code here...
@@ -174,7 +174,7 @@ class AddBookViewController: UIViewController {
         imagePickerActionSheet.addAction(libraryButton)
         
         // 4
-        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { (alert) -> Void in
+        let cancelButton = UIAlertAction(title: "Annueler", style: .cancel) { (alert) -> Void in
             self.activityIndicator.isHidden = true
         }
         imagePickerActionSheet.addAction(cancelButton)
@@ -198,8 +198,8 @@ class AddBookViewController: UIViewController {
      Function that presents imagePicker via UIAlert
      */
     @objc func takePhoto(){
-        let alertVC = UIAlertController(title: "Dear user", message: "Take picture on landscape mode", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .default) { (alert) -> Void in
+        let alertVC = UIAlertController(title: "Cher Utilisateur", message: "Merci de prendre la photo en mode paysage", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "Ok", style: .default) { (alert) -> Void in
             self.presentPhotoAlert()
         })
         present(alertVC, animated: true, completion: nil)

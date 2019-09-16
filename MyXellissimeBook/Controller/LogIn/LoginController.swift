@@ -34,7 +34,7 @@ class LoginController: UIViewController {
     lazy var profileImageView = CustomUI().imageView
     /// SegmentedControl to switch from Login/Register
     lazy var loginRegisteredSegmentedControl: UISegmentedControl = {
-        let segment = UISegmentedControl(items: ["Login","Register"])
+        let segment = UISegmentedControl(items: ["Se connecter","S'inscrire"])
         segment.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         segment.selectedSegmentIndex = 1
         segment.translatesAutoresizingMaskIntoConstraints = false
@@ -203,16 +203,16 @@ class LoginController: UIViewController {
     }
     
     private func checkIfProfileImageShouldBeUpdated() {
-        let actionSheet = UIAlertController(title: "Dear user", message: "Should we update profile image with current picture?", preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction) in
+        let actionSheet = UIAlertController(title: "Cher utilisateur", message: "Doit-on mettre à jour la photo du profil avec l'image actuelle?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Oui", style: .default, handler: { (action: UIAlertAction) in
             print("update the picture")
             self.handleLoginWithProfileUpdate(update: true)
             
         }))
-        actionSheet.addAction(UIAlertAction(title: "No", style: .default, handler: { (action: UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: "Non", style: .default, handler: { (action: UIAlertAction) in
             self.handleLoginWithProfileUpdate(update: false)
         }))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion : nil)
     }
     

@@ -115,9 +115,9 @@ class DetailLentBookViewController: UIViewController {
                     if bookId == self.bookToDisplay?.uniqueId {
                         guard let name = name else {return}
                         // Fill UI texts
-                        self.borrowerLabel.text = "This book is lent to \(name)"
-                        self.startingDateOfLoanLabel.text = "Loan from \(loanStartDate)"
-                        self.expectedEndDateOfLoanLabel.text = "To \(expectedEndDateOfLoan)"
+                        self.borrowerLabel.text = "Ce livre est prêté à \(name)"
+                        self.startingDateOfLoanLabel.text = "Prêt du \(loanStartDate)"
+                        self.expectedEndDateOfLoanLabel.text = "Au \(expectedEndDateOfLoan)"
                         self.currentLoanId = uniqueLoanBookId
                     } 
                 })
@@ -146,8 +146,8 @@ class DetailLentBookViewController: UIViewController {
      Function that displays message to confirm loan closing
      */
     private func secondConfirmation() {
-        let actionSheet = UIAlertController(title: "Dear user", message: "Are you sure to close this loan?", preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction) in
+        let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Etes vous sûr de vouloir clôturer le prêt?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Oui", style: .default, handler: { (action: UIAlertAction) in
             // change availability
             self.bookToDisplay?.isAvailable = true
             guard let book = self.bookToDisplay else {return}
@@ -158,7 +158,7 @@ class DetailLentBookViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
             
         }))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion : nil)
     }
     

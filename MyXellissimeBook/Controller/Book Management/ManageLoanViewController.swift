@@ -64,8 +64,8 @@ class ManageLoanViewController: UIViewController {
         bookCoverImageView.contentMode = .scaleAspectFit
         authorLabel.font = UIFont.systemFont(ofSize: 16)
         separateView.backgroundColor = .white
-        emailTextField.placeholder = "Please enter email of borrower"
-        validLoanButton.setTitle("Valid", for: .normal)
+        emailTextField.placeholder = "Entrer l'email de l'emprunteur"
+        validLoanButton.setTitle("Valider", for: .normal)
         validLoanButton.titleLabel?.font = UIFont.systemFont(ofSize: 25)
         validLoanButton.layer.cornerRadius = 15
         validLoanButton.addTarget(self, action: #selector(validLoan), for: .touchUpInside)
@@ -136,8 +136,8 @@ class ManageLoanViewController: UIViewController {
         // Test if user wants to lent to himself
         guard let currentUserEmail = Auth.auth().currentUser?.email else {return}
         if emailString == currentUserEmail {
-            let actionSheet = UIAlertController(title: "Sorry", message: "You can not lend this book to yourself", preferredStyle: .alert)
-            actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            let actionSheet = UIAlertController(title: "Désolé", message: "Vous ne pouvez pas vous prêter ce livre à vous même", preferredStyle: .alert)
+            actionSheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
             self.present(actionSheet, animated: true, completion : nil)
             return
         } else {

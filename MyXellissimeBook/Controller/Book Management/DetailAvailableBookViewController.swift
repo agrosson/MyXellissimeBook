@@ -51,7 +51,7 @@ class DetailAvailableBookViewController: UIViewController {
         authorLabel.textAlignment = NSTextAlignment.center
         editorLabel.textAlignment = NSTextAlignment.center
         editorLabel.numberOfLines = 2
-        createALoanButton.setTitle("Lend this book", for: .normal)
+        createALoanButton.setTitle("Prêter ce livre", for: .normal)
         createALoanButton.titleLabel?.font = UIFont.systemFont(ofSize: 25)
         createALoanButton.addTarget(self, action: #selector(handleCreateALoan), for: .touchUpInside)
     }
@@ -161,27 +161,27 @@ extension DetailAvailableBookViewController: UIImagePickerControllerDelegate, UI
         // Delegate to the viewController
         imagePickerController.delegate = self
         // Create a UIAlertController
-        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Source", message: "Choisissez une source", preferredStyle: .actionSheet)
         //  Action for Camera
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: "Appareil photo", style: .default, handler: { (action: UIAlertAction) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 // Create picker with source . Camera
                 imagePickerController.sourceType = .camera
                 self.present(imagePickerController, animated: true,completion: nil)
             }
             else {
-                let actionSheet = UIAlertController(title: "Camera not available", message: "Click on Cancel", preferredStyle: .alert)
-                actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                let actionSheet = UIAlertController(title: "Appareil photo non disponible", message: "Cliquer sur Annuler", preferredStyle: .alert)
+                actionSheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
                 self.present(actionSheet, animated: true, completion : nil)
             }
         }))
         //  Action for Photo Library
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: "Bibliothèque photos", style: .default, handler: { (action: UIAlertAction) in
             imagePickerController.sourceType = .photoLibrary
             self.present(imagePickerController, animated: true,completion: nil)
         }))
         // Action for Cancel
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion : nil)
     }
     /**

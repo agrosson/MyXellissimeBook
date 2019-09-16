@@ -22,7 +22,7 @@ class UserLentBooksTableViewController: UITableViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handelCancel))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handelCancel))
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
     }
     // MARK: - viewWillAppear

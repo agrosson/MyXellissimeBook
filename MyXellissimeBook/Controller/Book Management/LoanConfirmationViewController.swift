@@ -85,15 +85,15 @@ class LoanConfirmationViewController: UIViewController {
     private func setupUIObjects(){
         authorLabel.font = UIFont.systemFont(ofSize: 16)
         separateView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        reminderLabel.text = "You want to lend this book to"
+        reminderLabel.text = "Vous voulez prêter ce lui à"
         reminderLabel.font = UIFont.systemFont(ofSize: 20)
-        borrowerLabel.text = "name and email"
+        borrowerLabel.text = "nom et email"
         borrowerLabel.font = UIFont.systemFont(ofSize: 20)
-        fromDateLabel.text = "From date: " // calculate now
+        fromDateLabel.text = "Du: " // calculate now
         fromDateLabel.font = UIFont.systemFont(ofSize: 20)
-        toDateLabel.text = "To date: " // calculate now
+        toDateLabel.text = "Au: " // calculate now
         toDateLabel.font = UIFont.systemFont(ofSize: 20)
-        confirmLoanButton.setTitle("Confirm", for: .normal)
+        confirmLoanButton.setTitle("Confirmer", for: .normal)
         confirmLoanButton.titleLabel?.font = UIFont.systemFont(ofSize: 25)
         confirmLoanButton.layer.cornerRadius = 15
         confirmLoanButton.addTarget(self, action: #selector(confirmLoan), for: .touchUpInside)

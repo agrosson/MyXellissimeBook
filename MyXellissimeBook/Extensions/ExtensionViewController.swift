@@ -19,4 +19,12 @@ extension UIViewController {
         return UIApplication.shared.statusBarFrame.size.height +
             (self.navigationController?.navigationBar.frame.height ?? 0.0)
     }
+    /**
+     Function that presents an alert
+     */
+    func presentAlertDetails(title: String, message: String, titleButton: String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: titleButton, style: .cancel, handler: nil))
+        present(alertVC, animated: true, completion: nil)
+    }
 }

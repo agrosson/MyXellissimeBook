@@ -72,13 +72,13 @@ class DetailBorrowedBookViewController: UIViewController {
     private func setupUIObjects(){
         authorLabel.font = UIFont.systemFont(ofSize: 16)
         separateView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        reminderLabel.text = "You have borrowed this book from"
+        reminderLabel.text = "Vous avez emprunté ce livre à"
         reminderLabel.font = UIFont.systemFont(ofSize: 20)
-        lenderLabel.text = "name and email"
+        lenderLabel.text = "nom et email"
         lenderLabel.font = UIFont.systemFont(ofSize: 20)
-        fromDateLabel.text = "From date: " // calculate now
+        fromDateLabel.text = "Du " // calculate now
         fromDateLabel.font = UIFont.systemFont(ofSize: 20)
-        toDateLabel.text = "To date: " // calculate now
+        toDateLabel.text = "Au " // calculate now
         toDateLabel.font = UIFont.systemFont(ofSize: 20)
     }
     /**

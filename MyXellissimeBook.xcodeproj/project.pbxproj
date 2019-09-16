@@ -58,6 +58,7 @@
 		C15D2B2022BD256300B621E8 /* DetailAvailableBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */; };
 		C15D2B2222BD495B00B621E8 /* LoginController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15D2B2122BD495B00B621E8 /* LoginController+setupScreen.swift */; };
 		C163F9B2230D2F2500458423 /* AddManuallyViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C163F9B1230D2F2500458423 /* AddManuallyViewController+setupScreen.swift */; };
+		C16B2C71232F955A002D4F4B /* AlertEnglish.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16B2C70232F955A002D4F4B /* AlertEnglish.swift */; };
 		C16D3EFF23200CAA00F85271 /* ApnsUploads.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16D3EFE23200CAA00F85271 /* ApnsUploads.swift */; };
 		C16D3F0123200DD000F85271 /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16D3F0023200DD000F85271 /* NotificationDelegate.swift */; };
 		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
@@ -153,6 +154,7 @@
 		C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAvailableBookViewController.swift; sourceTree = "<group>"; };
 		C15D2B2122BD495B00B621E8 /* LoginController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+setupScreen.swift"; sourceTree = "<group>"; };
 		C163F9B1230D2F2500458423 /* AddManuallyViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddManuallyViewController+setupScreen.swift"; sourceTree = "<group>"; };
+		C16B2C70232F955A002D4F4B /* AlertEnglish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertEnglish.swift; sourceTree = "<group>"; };
 		C16D3EFD231FFC4200F85271 /* MyXellissimeBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyXellissimeBook.entitlements; sourceTree = "<group>"; };
 		C16D3EFE23200CAA00F85271 /* ApnsUploads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApnsUploads.swift; sourceTree = "<group>"; };
 		C16D3F0023200DD000F85271 /* NotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				C13355DB22BA88E90006D9CD /* GoodReadsAPI.swift */,
 				C13355D922BA87C30006D9CD /* OpenLibraryAPI.swift */,
 				C13355D722BA85680006D9CD /* Alert.swift */,
+				C16B2C70232F955A002D4F4B /* AlertEnglish.swift */,
 				C13355D522BA84B40006D9CD /* GoogleBookAPI.swift */,
 				C13355D322BA787D0006D9CD /* BookOpenLibraryResponse.swift */,
 				C13355CF22BA6BF40006D9CD /* APIManager.swift */,
@@ -736,6 +739,7 @@
 				C13355D422BA787D0006D9CD /* BookOpenLibraryResponse.swift in Sources */,
 				C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */,
 				C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */,
+				C16B2C71232F955A002D4F4B /* AlertEnglish.swift in Sources */,
 				C13355D222BA724A0006D9CD /* BookResponse.swift in Sources */,
 				C16D3F0123200DD000F85271 /* NotificationDelegate.swift in Sources */,
 				C120D35322C0E6E800E749BC /* DetailBorrowerBookViewController+setupScreen.swift in Sources */,

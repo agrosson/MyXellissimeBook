@@ -109,9 +109,11 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                     
             // Get the token for the user device
             guard let fcmToken = Messaging.messaging().fcmToken else {return}
+            let timestamp = Int(NSDate().timeIntervalSince1970)
+            let hasAcceptedConditions = "YES"
             
             // prepare dictionary with user info to upload in firebase
-            let values = ["name" : name, "email" : email, "profileId" : uid, "fcmToken": fcmToken]
+            let values = ["name" : name, "email" : email, "profileId" : uid, "fcmToken": fcmToken, "hasAcceptedConditions":hasAcceptedConditions, "timestamp": timestamp] as [String : Any]
             
             //Save user's data in database
             self.registerUserIntoDatabaseWithUid(uid: uid, values: values)
