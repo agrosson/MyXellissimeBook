@@ -31,7 +31,7 @@ class InitialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Create the left button
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: #selector(handleLogout))
       
         setupScreen()
         checkIfUserIsAlreadyLoggedIn()
@@ -68,7 +68,7 @@ class InitialViewController: UIViewController {
      Function that sets up showUserBooksLentButton
      */
     private func setupShowUserBooksLentButton(){
-        showUserBooksLentButton.setTitle("Show my books lent", for: .normal)
+        showUserBooksLentButton.setTitle("Mes livres prêtés", for: .normal)
         showUserBooksLentButton.layer.cornerRadius = 15
         showUserBooksLentButton.titleLabel?.font = .systemFont(ofSize: 25)
         showUserBooksLentButton.addTarget(self, action: #selector(showUserLentBooks), for: .touchUpInside)
@@ -82,7 +82,7 @@ class InitialViewController: UIViewController {
      Function that sets up showUserBooksButton
      */
     private func setupShowUserBooksButton(){
-        showUserBooksButton.setTitle("My list of books", for: .normal)
+        showUserBooksButton.setTitle("Ma liste de livres", for: .normal)
         showUserBooksButton.layer.cornerRadius = 15
         showUserBooksButton.titleLabel?.font = .systemFont(ofSize: 25)
         showUserBooksButton.addTarget(self, action: #selector(showUserBooks), for: .touchUpInside)
@@ -99,7 +99,7 @@ class InitialViewController: UIViewController {
      */
     private func setupShowUserBooksBorrowedButton(){
 
-        showUserBooksBorrowedButton.setTitle("Show books I've borrowed", for: .normal)
+        showUserBooksBorrowedButton.setTitle("Mes livres empruntés", for: .normal)
         showUserBooksBorrowedButton.layer.cornerRadius = 15
         showUserBooksBorrowedButton.titleLabel?.font = .systemFont(ofSize: 25)
         showUserBooksBorrowedButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -187,7 +187,6 @@ class InitialViewController: UIViewController {
      Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed
      */
     @objc func handleLogout() {
-        
         if let uid = Auth.auth().currentUser?.uid
         {
             FirebaseUtilities.changeToken(uid: uid)

@@ -37,6 +37,7 @@ class ChatInitialViewController : UITableViewController {
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
         tableView.allowsMultipleSelectionDuringEditing = true
         observeAllMessages()
+        perform(#selector(testIfNoMessage), with: nil, afterDelay: 0.5)
     }
    
     // MARK: - Method - viewWillAppear
@@ -121,6 +122,16 @@ class ChatInitialViewController : UITableViewController {
         })
         DispatchQueue.main.async {
             self.tableView.reloadData() }
+    }
+    
+    /**
+     Displays alert to explain the user how to write message
+     */
+    @objc func testIfNoMessage() {
+        if self.messages.isEmpty {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .noMessageForUSer
+        }
     }
     
     /**

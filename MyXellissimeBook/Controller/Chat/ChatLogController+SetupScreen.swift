@@ -36,7 +36,7 @@ extension ChatLogController {
      Function that setup layout of container for writing
      */
     func setInputComponents(){
-        inputTextField.placeholder = "Enter your message"
+        inputTextField.placeholder = "Taper votre message"
         inputTextField.delegate = self
         view.addSubview(containerView)
         containerViewSetup()
@@ -74,7 +74,7 @@ extension ChatLogController {
      */
     private func sendButtonSetup(){
         sendButton.tintColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
-        sendButton.setTitle("Send", for: .normal)
+        sendButton.setTitle("Envoyer", for: .normal)
         sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         // need x and y , width height contraints

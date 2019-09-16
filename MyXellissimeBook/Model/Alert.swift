@@ -44,7 +44,9 @@ class Alert {
         needAtLeastOneField,
         noTextFoundOnBookCover,
         noBookForUSer,
-        updateProfileImage
+        updateProfileImage,
+        noUserFoundForLoan,
+        noMessageForUSer
     }
     // MARK: - Initializer
     init() {}
@@ -123,6 +125,14 @@ class Alert {
             title: "Cher Utilisateur,",
             message: TextAndString.shared.updateProfileImage,
             titleButton: "Retour")
+        case .noUserFoundForLoan : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.noUserFoundForLoan,
+            titleButton: "Retour")
+        case .noMessageForUSer : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.noMessageForUSer,
+            titleButton: "Retour")
         }
     }
 }
@@ -145,10 +155,12 @@ struct TextAndString {
     let bookDidNotFindAResult = "Aucun livre n'a été trouvé.\nMerci de saisir les données manuellement"
     let needAllFieldsCompleted = "Merci de remplir tous les champs"
     let noUserFound = "Aucun utilisateur trouvé avec cet email et/ou mot de passe"
+    let noUserFoundForLoan = "Aucun utilisateur trouvé avec cet email"
     let unableToCreateUser = "L'utilisateur n'a pas été créé.\nMerci d'essayer une nouvelle fois"
     let noTitleForBook = "Merci d'indiquer le titre du livre"
     let needAtLeastOneField = "Merci de saisir au moins un élément"
     let noTextFoundOnBookCover = "Aucun texte n'a été trouvé.\nMerci d'essayer en mode paysage"
     let noBookForUSer = "Vous n'avez aucun livre pour l'instant.\nPour ajouter un livre, cliquer sur le bouton <ajouter> en haut à droite"
-    let updateProfileImage = "Vous pouvez changer la photo de votre profile en tappant sur l'image du livre"
+    let noMessageForUSer = "Vous pouvez écrire un message en cliquant sur l'icône en haut à droite"
+    let updateProfileImage = "Vous pouvez changer la photo de votre profil en tappant sur l'image du livre"
 }

@@ -27,7 +27,7 @@ class ChatTableViewController: UITableViewController {
     lazy var searchBar: UISearchBar = {
         let sb = UISearchBar()
         sb.translatesAutoresizingMaskIntoConstraints = false
-        sb.placeholder = "Enter contact name"
+        sb.placeholder = "Entrer le nom d'un contact"
         sb.delegate = self
         return sb
     }()
@@ -38,7 +38,7 @@ class ChatTableViewController: UITableViewController {
         navigationController?.navigationBar.addSubview(searchBar)
     
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handelCancel))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Annuler", style: .plain, target: self, action: #selector(handelCancel))
         navigationController?.navigationBar.addSubview(searchBar)
         setupSearchBar()
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)

@@ -147,7 +147,7 @@ class ManageLoanViewController: UIViewController {
                 // check if borrower user exists
                 if user.name == nil {
                     Alert.shared.controller = self
-                    Alert.shared.alertDisplay = .noUserFound
+                    Alert.shared.alertDisplay = .noUserFoundForLoan
                 }
                 // show ConfirmationLoanVC
                 else {

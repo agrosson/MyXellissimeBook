@@ -48,7 +48,7 @@ extension SearchViewController {
         inputsContainerView.addSubview(bookAuthorSeparatorView)
         inputsContainerView.addSubview(bookIsbnTextField)
         // need x and y , width height contraints for bookTitleTextField
-        bookTitleTextField.placeholder = "Book title"
+        bookTitleTextField.placeholder = "Titre du livre"
         bookTitleTextField.textColor = UIColor.black
         bookTitleTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookTitleTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: 0).isActive = true
@@ -61,7 +61,7 @@ extension SearchViewController {
         bookTitleSeparatorView.widthAnchor.constraint(equalTo: bookTitleTextField.widthAnchor).isActive = true
         bookTitleSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         // need x and y , width height contraints for bookAuthorTextField
-        bookAuthorTextField.placeholder = "Book author"
+        bookAuthorTextField.placeholder = "Auteur"
         bookAuthorTextField.textColor = UIColor.black
         bookAuthorTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookAuthorTextField.topAnchor.constraint(equalTo: bookTitleTextField.bottomAnchor, constant: 0).isActive = true
@@ -74,7 +74,7 @@ extension SearchViewController {
         bookAuthorSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         bookAuthorSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         // need x and y , width height contraints for bookIsbnTextField
-        bookIsbnTextField.placeholder = "Book Isbn"
+        bookIsbnTextField.placeholder = "Numéro ISBN du livre"
         bookIsbnTextField.textColor = UIColor.black
         bookIsbnTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookIsbnTextField.topAnchor.constraint(equalTo: bookAuthorTextField.bottomAnchor, constant: 0).isActive = true

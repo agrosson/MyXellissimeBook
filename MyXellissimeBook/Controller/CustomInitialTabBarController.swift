@@ -36,11 +36,11 @@ class CustomInitialTabBarController: UITabBarController {
      */
     private func setupTabBar(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-        initialViewController.tabBarItem.title = "My books"
+        initialViewController.tabBarItem.title = "Mes livres"
         initialViewController.tabBarItem.image = UIImage(named: "books")
-        searchViewController.tabBarItem.title = "Search"
+        searchViewController.tabBarItem.title = "Rechercher"
         searchViewController.tabBarItem.image = UIImage(named: "search")
-        allBooksViewController.tabBarItem.title = "Last books"
+        allBooksViewController.tabBarItem.title = "Livres récents"
         allBooksViewController.tabBarItem.image = UIImage(named: "booksList")
         chatInitialTableViewController.tabBarItem.title = "Chat"
         chatInitialTableViewController.tabBarItem.image = UIImage(named: "message")

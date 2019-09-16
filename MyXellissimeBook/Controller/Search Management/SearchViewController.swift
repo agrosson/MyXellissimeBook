@@ -22,7 +22,7 @@ class SearchViewController: UIViewController {
         let label = UILabel()
         label.backgroundColor = UIColor.clear
         // do not forget
-        label.text = "Please enter at least one element"
+        label.text = "Entrer au moins un élément"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.textAlignment = .center
@@ -58,7 +58,7 @@ class SearchViewController: UIViewController {
     lazy var searchBookInDatabaseButton : UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor.clear
-        button.setTitle("Search book", for: .normal)
+        button.setTitle("Rechercher le livre", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 2
