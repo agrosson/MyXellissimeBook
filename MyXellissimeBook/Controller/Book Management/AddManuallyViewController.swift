@@ -200,7 +200,6 @@ class AddManuallyViewController: UIViewController {
         view.addSubview(labelTitle)
         view.addSubview(labelAuthor)
         view.addSubview(labelEditor)
-        print("on est dans create labels")
         setupLabelTitle()
         setupLabelAuthor()
         setupLabelEditor() 
@@ -308,16 +307,16 @@ class AddManuallyViewController: UIViewController {
                                                 print("Failure : the book has not been found in our databases")
                                                 // Alert.shared.controller = self
                                                 // Alert.shared.alertDisplay = .bookDidNotFindAResult
-                                                let actionSheet = UIAlertController(title: "Sorry",
-                                                                                    message: "No book found in databases",
+                                                let actionSheet = UIAlertController(title: "Désolé",
+                                                                                    message: "Aucun livre trouver dans la base de données",
                                                                                     preferredStyle: .alert)
-                                                actionSheet.addAction(UIAlertAction(title: "Add Manually",
+                                                actionSheet.addAction(UIAlertAction(title: "Ajouter manuellement",
                                                                                     style: .default,
                                                                                     handler: { (_: UIAlertAction) in
                                                                                    //     self.dismiss(animated: true)
                                                                                         self.isSearchIndicator(shown: false)
                                                 }))
-                                                actionSheet.addAction(UIAlertAction(title: "Cancel",
+                                                actionSheet.addAction(UIAlertAction(title: "Annuler",
                                                                                     style: .default,
                                                                                     handler: { (_: UIAlertAction) in
                                                                                         scannedIsbn = ""

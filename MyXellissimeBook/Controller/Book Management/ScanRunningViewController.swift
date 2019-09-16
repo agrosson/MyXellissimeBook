@@ -16,7 +16,7 @@ class ScanRunningViewController: UIViewController, AVCaptureMetadataOutputObject
     override func viewDidLoad() {
         super.viewDidLoad()
         scannedIsbn = ""
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissCurrentView))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(dismissCurrentView))
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
@@ -48,10 +48,10 @@ class ScanRunningViewController: UIViewController, AVCaptureMetadataOutputObject
         captureSession.startRunning()
     }
     func failed() {
-        let alertScan = UIAlertController(title: "Scanning not supported",
-                                          message: "Your device doesn't support scanning a code from an item. Please use a device with a camera.",
+        let alertScan = UIAlertController(title: "Le scanner n'est pas possible",
+                                          message: "Merci d'utiliser un appareil avec une caméra compatible.",
                                           preferredStyle: .alert)
-        alertScan.addAction(UIAlertAction(title: "OK", style: .default))
+        alertScan.addAction(UIAlertAction(title: "Ok", style: .default))
         present(alertScan, animated: true)
         captureSession = nil
     }
@@ -77,10 +77,10 @@ class ScanRunningViewController: UIViewController, AVCaptureMetadataOutputObject
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
         }
-        let actionSheet = UIAlertController(title: "Congratulations",
-                                            message: "Isbn code found is \(codeToDisplay).",
+        let actionSheet = UIAlertController(title: "Félicitations",
+                                            message: "L'ISBN a été trouvé: \(codeToDisplay).",
             preferredStyle: .alert)
-        actionSheet.addAction(UIAlertAction(title: "Back", style: .default, handler: { (_: UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: "Retour", style: .default, handler: { (_: UIAlertAction) in
             self.dismiss(animated: true)
         }))
         self.present(actionSheet, animated: true, completion: nil)

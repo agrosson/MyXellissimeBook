@@ -72,7 +72,7 @@ class SearchBookDetailViewController: UIViewController {
         reminderLabel.numberOfLines = 0
         FirebaseUtilities.getUserNameFromUserId(userId: ownerId, callBack: { (name) in
             guard let name = name else {return}
-            self.reminderLabel.text = "This book belongs to \(name). You can send a message to borrow the book"
+            self.reminderLabel.text = "Ce livre appartient à \(name). Vous pouvez lui envoyer un message pour emprunter le livre"
         })
     }
     private func setupScreen(){
@@ -94,7 +94,7 @@ class SearchBookDetailViewController: UIViewController {
      Function that sets up showUserBooksLentButton
      */
     private func setupbuttonSendMessage(){
-        buttonSendMessage.setTitle("Send a message", for: .normal)
+        buttonSendMessage.setTitle("Envoyer un message", for: .normal)
         buttonSendMessage.layer.cornerRadius = 15
         buttonSendMessage.titleLabel?.font = .systemFont(ofSize: 30)
         buttonSendMessage.addTarget(self, action: #selector(popChatViewController), for: .touchUpInside)

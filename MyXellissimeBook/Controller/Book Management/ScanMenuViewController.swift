@@ -22,7 +22,7 @@ class ScanMenuViewController: UIViewController {
     lazy var scanButton : UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor.clear
-        button.setTitle("START SCANNING", for: .normal)
+        button.setTitle("LANCER LE SCAN", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 2
@@ -46,7 +46,7 @@ class ScanMenuViewController: UIViewController {
     lazy var exportButton : UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor.clear
-        button.setTitle("Export Isbn", for: .normal)
+        button.setTitle("Exporter l'ISBN", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 2
@@ -61,7 +61,7 @@ class ScanMenuViewController: UIViewController {
         let label = CustomLabel()
         label.backgroundColor = UIColor.clear
         // do not forget
-        label.text = "here isbn will be displayed"
+        label.text = "Le numéro ISBN va être affiché ici"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.clipsToBounds = true
         label.font = .systemFont(ofSize: 30)
@@ -78,7 +78,7 @@ class ScanMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(dismissCurrentView))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(dismissCurrentView))
         view.addSubview(scanButton)
         view.addSubview(containerView)
         containerView.addSubview(exportButton)
@@ -104,7 +104,7 @@ class ScanMenuViewController: UIViewController {
             containerView.isHidden = false
             scanButton.isHidden = true
         }
-        isbnLabel.text = "Isbn number: \(scannedIsbn)"
+        isbnLabel.text = "Numéro ISBN: \(scannedIsbn)"
       //  scannedIsbn = ""
     }
     
