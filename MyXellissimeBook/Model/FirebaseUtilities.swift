@@ -122,9 +122,15 @@ class FirebaseUtilities {
                         let name = value["name"] as? String ?? "Name not found"
                         let email = value["email"] as? String ?? "Email not found"
                         let profileId = value["profileId"] as? String ?? "profileId not found"
+                        let fcmToken = value["fcmToken"] as? String ?? "fcmToken not found"
+                        let hasAcceptedConditions = value["hasAcceptedConditions"] as? String ?? "hasAcceptedConditions not found"
+                        let timestamp = value["timestamp"] as? Int ?? 0
                         userTemp.name = name
                         userTemp.email = email
                         userTemp.profileId = profileId
+                        userTemp.fcmToken = fcmToken
+                        userTemp.hasAcceptedConditions = hasAcceptedConditions
+                        userTemp.timestamp = timestamp
                         callBack(userTemp)
                     }
                 }
@@ -159,10 +165,14 @@ class FirebaseUtilities {
                         let email = value["email"] as? String ?? "Email not found"
                         let profileId = value["profileId"] as? String ?? "profileId not found"
                         let fcmToken = value["fcmToken"] as? String ?? "fcmToken not found"
+                        let hasAcceptedConditions = value["hasAcceptedConditions"] as? String ?? "hasAcceptedConditions not found"
+                        let timestamp = value["timestamp"] as? Int ?? 0
                         userTemp.name = name
                         userTemp.email = email
                         userTemp.profileId = profileId
                         userTemp.fcmToken = fcmToken
+                        userTemp.hasAcceptedConditions = hasAcceptedConditions
+                        userTemp.timestamp = timestamp
                         callBack(userTemp)
                     }
                 }

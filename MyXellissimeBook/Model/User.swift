@@ -23,6 +23,10 @@ class User : NSObject {
     var profileId: String?
     /// fcmToken : Firebase Cloud Messaging token
     var fcmToken: String?
+    /// Var to track if user has accepted conditions
+    var hasAcceptedConditions: String?
+    /// Date of user registrations
+    var timestamp: Int?
     
     // MARK: - Initializer
     override init(){}
