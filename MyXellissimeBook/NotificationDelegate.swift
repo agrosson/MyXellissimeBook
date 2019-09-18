@@ -15,7 +15,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     // allow notification in the foreground
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .badge, .sound])
-
     }
     
     
@@ -28,7 +27,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         guard response.actionIdentifier == UNNotificationDefaultActionIdentifier else { return }
         let payload = response.notification.request.content
         guard let titre = payload.userInfo["email"] else {
-            print("pb here ")
             return
         }
         print("l'email est\(titre)" )

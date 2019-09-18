@@ -96,12 +96,10 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Vous devez accepter les conditions d'utilisation pour vous inscrire", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Voir les conditions", style: .default, handler: { (action: UIAlertAction) in
-            print("Redirection vers le site internet")
             self.showConditionsInSafariVC()
             
         }))
         actionSheet.addAction(UIAlertAction(title: "J'ai lu et j'accepte les conditions", style: .default, handler: { (action: UIAlertAction) in
-            print("Les conditions ont été acceptées")
             //Create a user
             Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
                 // identification creation failed
@@ -220,7 +218,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
      Function that handles Login
      */
     func handleLoginWithProfileUpdate(update: Bool){
-         print("log in 1 ")
         // Get info from textField
         guard var email = emailTextField.text, var password = passwordTextField.text else {
             //Todo an alert to be done
@@ -228,7 +225,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             Alert.shared.alertDisplay = .needAllFieldsCompleted
             return
         }
-        print("log in 2 ")
         email.removeFirstAndLastAndDoubleWhitespace()
         password.removeFirstAndLastAndDoubleWhitespace()
         
@@ -247,11 +243,9 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             Alert.shared.alertDisplay = .passwordIsTooShort
             return
         }
-        print("log in 3 ")
         // Connect to Firebase Auth
         Auth.auth().signIn(withEmail: email, password: password) { (resultSignIn, errorSignIn) in
             if errorSignIn != nil {
-                print("log in 4 ")
                 Alert.shared.controller = self
                 Alert.shared.alertDisplay = .noUserFound
                 return
@@ -259,15 +253,12 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             /*************************
              update the title of the initialVC with new name
              **************************/
-            print("log in 5 ")
             if update == true {
                 if let uid = Auth.auth().currentUser?.uid {
                     self.saveProfileImageForUser(uid:uid )
-                    print("log in 6 ")
                 }
             }
             self.initialViewController?.fetchUserAndSetupNavBarTitle()
-            print("log in 8 ")
             self.dismiss(animated: true, completion: nil)
             print("\(email) has been  successfully logged in !")
             if let uid = Auth.auth().currentUser?.uid {
@@ -284,7 +275,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
      */
     private func showConditionsInSafariVC(){
         guard let url = URL(string: "https://xellissime.blogspot.com/") else {
-            print("erreur du site Xellissime")
             return
         }
         let safariVC = SFSafariViewController(url: url)
@@ -292,8 +282,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
     }
     
     private func checkIfMessagesDuringLogout(for uid: String){
-        print("ici nous vérifions s'il y a eu des mails entre logout et login")
- 
         observeUserMessages()
     }
     
@@ -337,14 +325,11 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             guard let dictionary = snapshot.value as? [String : Any] else {return}
             let message = Message(dictionary: dictionary)
             if let timeToCheck = message.timestamp {
-                 print("Voici le timeTocheck \(timeToCheck)")
                 FirebaseUtilities.getUserFromProfileId(profileId: usedId, callBack: { user in
                     guard let timeLogin = user.timestampLastLogIn else {return}
                     if let timeLogout = user.timestampLastLogout {
                         if timeToCheck > timeLogout && timeToCheck < timeLogin {
                             newMessage = true
-                        } else {
-                            print("message dejà vu")
                         }
                     }
                     DatabaseReference().removeAllObservers()

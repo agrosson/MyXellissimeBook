@@ -41,7 +41,6 @@ class InitialViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         setupScreen()
-        print("message \(newMessage)")
         perform(#selector(testIfNewMessage), with: nil, afterDelay: 0.5)
 
     }
