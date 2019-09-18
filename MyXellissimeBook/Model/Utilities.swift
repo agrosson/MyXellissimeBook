@@ -91,6 +91,9 @@ let editors = ["Le Livre de Poche", "Pocket", "J'AI LU", "Bayard","First Edition
                "Phébus",
                "le Monde"]
 
+/// Track if new message during logout period
+var newMessage = false
+
 // MARK: - Global functions
 
 

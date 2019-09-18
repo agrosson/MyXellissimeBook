@@ -47,7 +47,8 @@ class Alert {
         updateProfileImage,
         noUserFoundForLoan,
         noMessageForUSer,
-        conditionMustBeAccepted
+        conditionMustBeAccepted,
+        newMessagesAfterLogin
     }
     // MARK: - Initializer
     init() {}
@@ -138,6 +139,10 @@ class Alert {
             title: "Cher Utilisateur,",
             message: TextAndString.shared.conditionMustBeAccepted,
             titleButton: "Retour")
+        case .newMessagesAfterLogin : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.newMessagesAfterLogin,
+            titleButton: "Retour")
         }
     }
 }
@@ -168,4 +173,5 @@ struct TextAndString {
     let noBookForUSer = "Vous n'avez aucun livre pour l'instant.\nPour ajouter un livre, cliquer sur le bouton <ajouter> en haut à droite"
     let noMessageForUSer = "Vous pouvez écrire un message en cliquant sur l'icône en haut à droite"
     let updateProfileImage = "Vous pouvez changer la photo de votre profil en tappant sur l'image du livre"
+    let newMessagesAfterLogin = "Nous sommes heureux de vous revoir.\n\nVous avez reçu de nouveaux messages durant votre absence.\nC'est peut être important 😉"
 }

@@ -35,11 +35,22 @@ class InitialViewController: UIViewController {
       
         setupScreen()
         checkIfUserIsAlreadyLoggedIn()
+
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         setupScreen()
+        print("message \(newMessage)")
+        perform(#selector(testIfNewMessage), with: nil, afterDelay: 0.5)
+
+    }
+    
+    @objc func testIfNewMessage(){
+        if newMessage {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .newMessagesAfterLogin
+        }
     }
     // MARK: - Methods
     /**

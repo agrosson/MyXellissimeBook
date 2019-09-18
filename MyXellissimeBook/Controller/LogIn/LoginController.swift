@@ -51,6 +51,8 @@ class LoginController: UIViewController {
     var passwordTextFieldViewHeightConstraint: NSLayoutConstraint?
     /// Height constraint of the passwordTextField
     var nameSeperatorTextFieldViewHeightConstraint: NSLayoutConstraint?
+    
+    
     // Show battery image in white
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -75,6 +77,10 @@ class LoginController: UIViewController {
         super.viewWillAppear(animated)
     }
    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+       DatabaseReference().removeAllObservers()
+    }
 
     
     // MARK: - Methods

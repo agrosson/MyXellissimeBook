@@ -273,9 +273,9 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             if let uid = Auth.auth().currentUser?.uid {
                 if let fcm = Messaging.messaging().fcmToken {
                     FirebaseUtilities.updateFcmTocken(with: fcm, for: uid)
+                    self.checkIfMessagesDuringLogout(for: uid)
                 }
             }
-            
         }
     }
     
@@ -290,5 +290,68 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         let safariVC = SFSafariViewController(url: url)
         present(safariVC, animated: true, completion: nil)
     }
+    
+    private func checkIfMessagesDuringLogout(for uid: String){
+        print("ici nous vérifions s'il y a eu des mails entre logout et login")
+ 
+        observeUserMessages()
+    }
+    
+    /**
+     function that observes all messages send by or received by a single user
+     */
+    private func observeUserMessages(){
+        // get the Id of the user
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        // get the ref of list of message for this uid
+        let ref = Database.database().reference().child("user-messages").child(uid)
+        // observe the node
+        ref.observe(.childAdded, with: { (snapshot) in
+            // get the key for the userId
+            let userId = snapshot.key
+            Database.database().reference().child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
+                // get the key for the message
+                let messageId = snapshot.key
+                self.fetchMessageWithMessageId(messageId: messageId, usedId: uid )
+                
+            }, withCancel: nil)
+            //    return
+        }, withCancel: nil)
+           DatabaseReference().removeAllObservers()
+        if newMessage {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .newMessagesAfterLogin
+        }
+    }
+    
+    /**
+     function that fetches message
+     - Parameter messageId: the unique identifier (String) of the message in Firebase
+     */
+    private func fetchMessageWithMessageId(messageId: String, usedId: String) {
+        //get the reference of the message
+        let messagesReference = Database.database().reference().child("messages").child(messageId)
+        // observe the messages for this user
+        messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let dictionary = snapshot.value as? [String : Any] else {return}
+            let message = Message(dictionary: dictionary)
+            if let timeToCheck = message.timestamp {
+                 print("Voici le timeTocheck \(timeToCheck)")
+                FirebaseUtilities.getUserFromProfileId(profileId: usedId, callBack: { user in
+                    guard let timeLogin = user.timestampLastLogIn else {return}
+                    if let timeLogout = user.timestampLastLogout {
+                        if timeToCheck > timeLogout && timeToCheck < timeLogin {
+                            newMessage = true
+                        } else {
+                            print("message dejà vu")
+                        }
+                    }
+                    DatabaseReference().removeAllObservers()
+                })
+            }
+        }, withCancel: nil)
+    }
+    
 }
 

@@ -124,6 +124,8 @@ class FirebaseUtilities {
                         let profileId = value["profileId"] as? String ?? "profileId not found"
                         let fcmToken = value["fcmToken"] as? String ?? "fcmToken not found"
                         let hasAcceptedConditions = value["hasAcceptedConditions"] as? String ?? "hasAcceptedConditions not found"
+                        let timestampLastLogout = value["timestampLastLogout"] as? Int ?? 0
+                        let timestampLastLogIn = value["timestampLastLogIn"] as? Int ?? 0
                         let timestamp = value["timestamp"] as? Int ?? 0
                         userTemp.name = name
                         userTemp.email = email
@@ -131,6 +133,8 @@ class FirebaseUtilities {
                         userTemp.fcmToken = fcmToken
                         userTemp.hasAcceptedConditions = hasAcceptedConditions
                         userTemp.timestamp = timestamp
+                        userTemp.timestampLastLogout = timestampLastLogout
+                        userTemp.timestampLastLogIn = timestampLastLogIn
                         callBack(userTemp)
                     }
                 }
@@ -167,12 +171,16 @@ class FirebaseUtilities {
                         let fcmToken = value["fcmToken"] as? String ?? "fcmToken not found"
                         let hasAcceptedConditions = value["hasAcceptedConditions"] as? String ?? "hasAcceptedConditions not found"
                         let timestamp = value["timestamp"] as? Int ?? 0
+                        let timestampLastLogout = value["timestampLastLogout"] as? Int ?? 0
+                        let timestampLastLogIn = value["timestampLastLogIn"] as? Int ?? 0
                         userTemp.name = name
                         userTemp.email = email
                         userTemp.profileId = profileId
                         userTemp.fcmToken = fcmToken
                         userTemp.hasAcceptedConditions = hasAcceptedConditions
                         userTemp.timestamp = timestamp
+                        userTemp.timestampLastLogout = timestampLastLogout
+                        userTemp.timestampLastLogIn = timestampLastLogIn
                         callBack(userTemp)
                     }
                 }

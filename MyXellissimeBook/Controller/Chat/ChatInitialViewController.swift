@@ -43,11 +43,12 @@ class ChatInitialViewController : UITableViewController {
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        newMessage = false
         fetchUserAndSetupNavBarTitle()
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
     /**
-     function that observes all messages send by a single user
+     function that observes all messages send by or received by a single user
      */
     private func observeUserMessages(){
         // get the Id of the user
@@ -265,9 +266,9 @@ class ChatInitialViewController : UITableViewController {
             // get the key for the message
             let messageId = snapshot.key
             // then go to the message itself
-            let booksReference = Database.database().reference().child(FirebaseUtilities.shared.messages).child(messageId)
+            let messageReference = Database.database().reference().child(FirebaseUtilities.shared.messages).child(messageId)
             // observe the message, get info from it
-            booksReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            messageReference.observeSingleEvent(of: .value, with: { (snapshot) in
                 // the snapshot result is a dictionary
                 guard let dictionary = snapshot.value as? [String : Any] else {return}
                 // get the value your need
