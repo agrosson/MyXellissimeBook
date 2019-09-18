@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
+import SafariServices
 
 
 
@@ -91,44 +92,61 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             Alert.shared.alertDisplay = .passwordIsTooShort
              return
         }
-        /*************************
-                 Create a user
-         **************************/
-        Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
-            // identification creation failed
-            if error != nil {
-                print(error.debugDescription)
-                Alert.shared.controller = self
-                Alert.shared.alertDisplay = .unableToCreateUser
-                return
+        // Ask User to accept conditions before sign in
+        let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Vous devez accepeter les conditions d'utilisation pour vous inscrire", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Voir les conditions", style: .default, handler: { (action: UIAlertAction) in
+            print("Redirection vers le site internet")
+            self.showConditionsInSafariVC()
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Accepter", style: .default, handler: { (action: UIAlertAction) in
+            print("Les conditions ont été acceptées")
+            //Create a user
+            Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
+                // identification creation failed
+                if error != nil {
+                    print(error.debugDescription)
+                    Alert.shared.controller = self
+                    Alert.shared.alertDisplay = .unableToCreateUser
+                    return
+                }
+                // Create a unique UID for the user
+                guard let uid = authDataResult?.user.uid else {
+                    return
+                }
+                
+                // Get the token for the user device
+                guard let fcmToken = Messaging.messaging().fcmToken else {return}
+                let timestamp = Int(NSDate().timeIntervalSince1970)
+                let hasAcceptedConditions = "YES"
+                
+                // prepare dictionary with user info to upload in firebase
+                let values = ["name" : name, "email" : email, "profileId" : uid, "fcmToken": fcmToken, "hasAcceptedConditions":hasAcceptedConditions, "timestamp": timestamp] as [String : Any]
+                
+                //Save user's data in database
+                self.registerUserIntoDatabaseWithUid(uid: uid, values: values)
+                
+                // Store the image in Storage
+                self.saveProfileImageForUser(uid: uid)
             }
-            // Create a unique UID for the user
-            guard let uid = authDataResult?.user.uid else {
-                return
-            }
-                    
-            // Get the token for the user device
-            guard let fcmToken = Messaging.messaging().fcmToken else {return}
-            let timestamp = Int(NSDate().timeIntervalSince1970)
-            let hasAcceptedConditions = "YES"
-            
-            // prepare dictionary with user info to upload in firebase
-            let values = ["name" : name, "email" : email, "profileId" : uid, "fcmToken": fcmToken, "hasAcceptedConditions":hasAcceptedConditions, "timestamp": timestamp] as [String : Any]
-            
-            //Save user's data in database
-            self.registerUserIntoDatabaseWithUid(uid: uid, values: values)
-            
-            // Store the image in Storage
-            self.saveProfileImageForUser(uid: uid)
-        }
-        /*************************
-         update the title of the initialVC with new name
-         **************************/
-          self.initialViewController?.fetchUserAndSetupNavBarTitle()
-        /*************************
-         Dismiss the view controller
-         **************************/
-          self.dismiss(animated: true, completion: nil)
+            /*************************
+             update the title of the initialVC with new name
+             **************************/
+            self.initialViewController?.fetchUserAndSetupNavBarTitle()
+            /*************************
+             Dismiss the view controller
+             **************************/
+            self.dismiss(animated: true, completion: nil)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Refuser", style: .cancel, handler: { (action: UIAlertAction) in
+            print("conditions refusées")
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .conditionMustBeAccepted
+        }))
+        
+        self.present(actionSheet, animated: true, completion : nil)
+
     }
     /**
      Function that handles upload of data user in Firebase
@@ -259,6 +277,18 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             }
             
         }
+    }
+    
+    /**
+     Function that shows condition on web site with safari
+     */
+    private func showConditionsInSafariVC(){
+        guard let url = URL(string: "https://xellissime.blogspot.com/") else {
+            print("erreur du site Xellissime")
+            return
+        }
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true, completion: nil)
     }
 }
 

@@ -46,7 +46,8 @@ class Alert {
         noBookForUSer,
         updateProfileImage,
         noUserFoundForLoan,
-        noMessageForUSer
+        noMessageForUSer,
+        conditionMustBeAccepted
     }
     // MARK: - Initializer
     init() {}
@@ -132,6 +133,10 @@ class Alert {
         case .noMessageForUSer : controller?.presentAlertDetails(
             title: "Cher Utilisateur,",
             message: TextAndString.shared.noMessageForUSer,
+            titleButton: "Retour")
+        case .conditionMustBeAccepted : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.conditionMustBeAccepted,
             titleButton: "Retour")
         }
     }
