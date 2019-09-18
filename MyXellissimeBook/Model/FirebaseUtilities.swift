@@ -475,12 +475,14 @@ class FirebaseUtilities {
         }
     }
     /**
-     This function removes token in Firebase for a user when logs out
+     This function removes token in Firebase for a user when logs out and set timestampLastLogout
      - Parameter uid:  the user uid
      */
     static func changeToken(uid: String) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(uid)
-        let value = ["fcmToken": "fcmToken"] as [String : Any]
+        let timestampLastLogout = Int(NSDate().timeIntervalSince1970)
+        let value = ["fcmToken": "fcmToken",
+                     "timestampLastLogout" : timestampLastLogout] as [String : Any]
         ref.updateChildValues(value) { (error, ref) in
             if error != nil {
                 print(error as Any)
@@ -490,13 +492,15 @@ class FirebaseUtilities {
         
     }
     /**
-     This function updates token in Firebase for a user when logs in
+     This function updates token in Firebase for a user when logs in and sets timestampLastLogIn
      - Parameter token:  the new token of user's device
      - Parameter uid:  the user uid
      */
     static func updateFcmTocken(with token: String, for userUid : String) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(userUid)
-        let value = ["fcmToken": token] as [String : Any]
+        let timestampLastLogIn = Int(NSDate().timeIntervalSince1970)
+        let value = ["fcmToken": token,
+                     "timestampLastLogIn" : timestampLastLogIn] as [String : Any]
         ref.updateChildValues(value) { (error, ref) in
             if error != nil {
                 print(error as Any)

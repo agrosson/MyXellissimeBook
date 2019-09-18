@@ -27,6 +27,11 @@ class User : NSObject {
     var hasAcceptedConditions: String?
     /// Date of user registrations
     var timestamp: Int?
+    /// Date of user last logout
+    var timestampLastLogout: Int?
+    /// Date of user last login
+    var timestampLastLogIn: Int?
+    
     
     // MARK: - Initializer
     override init(){}
