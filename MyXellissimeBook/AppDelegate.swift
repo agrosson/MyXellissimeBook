@@ -6,11 +6,14 @@
 //  Copyright © 2019 GROSSON. All rights reserved.
 //
 
+// Add mod ca-app-pub-9970351873403667~6714835017
+
 import UIKit
 import Firebase
 // to setup Notification properties
 import UserNotifications
 import CoreData
+import GoogleMobileAds
 
 @UIApplicationMain
 
@@ -34,6 +37,9 @@ extension AppDelegate: UIApplicationDelegate, MessagingDelegate {
        
         // Messaging Configuration
         Messaging.messaging().delegate = self
+        
+        // Admobs Configuration
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         UNUserNotificationCenter.current().delegate = self
         

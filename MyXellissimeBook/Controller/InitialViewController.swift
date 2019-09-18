@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleMobileAds
 
 
 
@@ -26,13 +27,22 @@ class InitialViewController: UIViewController {
     lazy var showUserBooksLentButton = CustomUI().button
     /// Button to show list of user's books that are lent
     lazy var showUserBooksBorrowedButton = CustomUI().button
+    /// View to display adds
+    var advertisingBannerView = GADBannerView()
+    
 
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         // Create the left button
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: #selector(handleLogout))
-      
+        //real adUnitID
+        //advertisingBannerView.adUnitID = "ca-app-pub-9970351873403667/5083216814"
+        // test id for banner
+        advertisingBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        advertisingBannerView.rootViewController = self
+        advertisingBannerView.load(GADRequest())
+        advertisingBannerView.delegate = self
         setupScreen()
         checkIfUserIsAlreadyLoggedIn()
 
@@ -70,9 +80,11 @@ class InitialViewController: UIViewController {
         view.addSubview(showUserBooksLentButton)
         view.addSubview(showUserBooksButton)
         view.addSubview(showUserBooksBorrowedButton)
+        view.addSubview(advertisingBannerView)
         setupShowUserBooksLentButton()
         setupShowUserBooksButton()
         setupShowUserBooksBorrowedButton()
+        setupBannerView()
     }
     /**
      Function that sets up showUserBooksLentButton
@@ -120,6 +132,16 @@ class InitialViewController: UIViewController {
         showUserBooksBorrowedButton.topAnchor.constraint(equalTo: showUserBooksLentButton.bottomAnchor, constant: 25).isActive = true
         showUserBooksBorrowedButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         showUserBooksBorrowedButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
+    }
+    
+    private func setupBannerView(){
+        advertisingBannerView.backgroundColor = .red
+        advertisingBannerView.translatesAutoresizingMaskIntoConstraints = false
+        // need x and y , width height contraints
+        advertisingBannerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        advertisingBannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+        advertisingBannerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        advertisingBannerView.widthAnchor.constraint(equalToConstant: 320).isActive = true
     }
     /**
      Function that sets title for NavBar
@@ -242,4 +264,42 @@ class InitialViewController: UIViewController {
         let userBorrowedBooksTableViewController = UINavigationController(rootViewController: UserBorrowedBooksTableViewController())
         present(userBorrowedBooksTableViewController, animated: true, completion: nil)
     }
+}
+
+extension InitialViewController: GADBannerViewDelegate {
+    
+    /// Tells the delegate an ad request loaded an ad.
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("adViewDidReceiveAd")
+    }
+    
+    /// Tells the delegate an ad request failed.
+    func adView(_ bannerView: GADBannerView,
+                didFailToReceiveAdWithError error: GADRequestError) {
+        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+    /// Tells the delegate that a full-screen view will be presented in response
+    /// to the user clicking on an ad.
+    func adViewWillPresentScreen(_ bannerView: GADBannerView) {
+        print("adViewWillPresentScreen")
+    }
+    
+    /// Tells the delegate that the full-screen view will be dismissed.
+    func adViewWillDismissScreen(_ bannerView: GADBannerView) {
+        print("adViewWillDismissScreen")
+    }
+    
+    /// Tells the delegate that the full-screen view has been dismissed.
+    func adViewDidDismissScreen(_ bannerView: GADBannerView) {
+        print("adViewDidDismissScreen")
+    }
+    
+    /// Tells the delegate that a user click will open another app (such as
+    /// the App Store), backgrounding the current app.
+    func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
+        print("adViewWillLeaveApplication")
+    }
+    
+    
 }
