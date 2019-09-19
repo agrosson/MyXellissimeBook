@@ -47,7 +47,7 @@ class UserBooksTableViewController: UITableViewController {
         books.removeAll()
         tableView.reloadData()
         observeUserBooks()
-        perform(#selector(testIfNoBook), with: nil, afterDelay: 0.5)
+        perform(#selector(testIfNoBook), with: nil, afterDelay: 1)
         
     }
     

@@ -30,19 +30,21 @@ class InitialViewController: UIViewController {
     /// View to display adds
     var advertisingBannerView = GADBannerView()
     
+    var interstitial: GADInterstitial!
+    
+    
 
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         // Create the left button
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: #selector(handleLogout))
-        //real adUnitID
-        //advertisingBannerView.adUnitID = "ca-app-pub-9970351873403667/5083216814"
-        // test id for banner
-        advertisingBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        advertisingBannerView.rootViewController = self
-        advertisingBannerView.load(GADRequest())
-        advertisingBannerView.delegate = self
+        
+        setupBanner()
+        interstitial = createAndLoadInterstitial()
+        interstitial.delegate = self
+        
+        
         setupScreen()
         checkIfUserIsAlreadyLoggedIn()
 
@@ -51,8 +53,38 @@ class InitialViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         setupScreen()
-        perform(#selector(testIfNewMessage), with: nil, afterDelay: 0.5)
+        perform(#selector(testIfNewMessage), with: nil, afterDelay: 2)
+        perform(#selector(launchInterstitial), with: nil, afterDelay: 1)
 
+    }
+    
+    private func setupBanner(){
+        // Banner
+        //real adUnitID for banner
+        //advertisingBannerView.adUnitID = "ca-app-pub-9970351873403667/5083216814"
+        // test id for banner
+        advertisingBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        advertisingBannerView.rootViewController = self
+        advertisingBannerView.load(GADRequest())
+        advertisingBannerView.delegate = self
+    }
+    
+    func createAndLoadInterstitial() -> GADInterstitial {
+        //Interstitial
+        // Interstitial real id
+        //interstitial = GADInterstitial(adUnitID: "ca-app-pub-9970351873403667/5248644445")
+        // Interstitial test id
+        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        interstitial.delegate = self
+        interstitial.load(GADRequest())
+        return interstitial
+    }
+    
+    @objc private func launchInterstitial(){
+        if interstitial.isReady && counterInterstitial < 1{
+            interstitial.present(fromRootViewController: self)
+            counterInterstitial += 1
+        }
     }
     
     @objc func testIfNewMessage(){
@@ -135,7 +167,6 @@ class InitialViewController: UIViewController {
     }
     
     private func setupBannerView(){
-        advertisingBannerView.backgroundColor = .red
         advertisingBannerView.translatesAutoresizingMaskIntoConstraints = false
         // need x and y , width height contraints
         advertisingBannerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -302,4 +333,37 @@ extension InitialViewController: GADBannerViewDelegate {
     }
     
     
+}
+
+extension InitialViewController: GADInterstitialDelegate {
+    /// Tells the delegate the interstitial had been animated off the screen.
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+         print("interstitialWillDismissScreen")
+        interstitial = createAndLoadInterstitial()
+    }
+    /// Tells the delegate an ad request succeeded.
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        print("interstitialDidReceiveAd")
+    }
+    
+    /// Tells the delegate an ad request failed.
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        print("interstitial:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+    /// Tells the delegate that an interstitial will be presented.
+    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
+        print("interstitialWillPresentScreen")
+    }
+    
+    /// Tells the delegate the interstitial is to be animated off the screen.
+    func interstitialWillDismissScreen(_ ad: GADInterstitial) {
+       
+    }
+
+    /// Tells the delegate that a user click will open another app
+    /// (such as the App Store), backgrounding the current app.
+    func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
+        print("interstitialWillLeaveApplication")
+    }
 }

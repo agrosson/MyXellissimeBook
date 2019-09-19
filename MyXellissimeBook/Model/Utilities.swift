@@ -93,6 +93,8 @@ let editors = ["Le Livre de Poche", "Pocket", "J'AI LU", "Bayard","First Edition
 
 /// Track if new message during logout period
 var newMessage = false
+/// Track number of Interstitial
+var counterInterstitial = 0
 
 // MARK: - Global functions
 

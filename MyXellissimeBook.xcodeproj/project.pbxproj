@@ -794,6 +794,7 @@
 /* Begin XCBuildConfiguration section */
 		C19371E322B0FC510017E696 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5039E6534E02372DEB3671A4 /* Pods-MyXellissimeBook.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

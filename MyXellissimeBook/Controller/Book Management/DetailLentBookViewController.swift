@@ -146,7 +146,7 @@ class DetailLentBookViewController: UIViewController {
      Function that displays message to confirm loan closing
      */
     private func secondConfirmation() {
-        let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Etes vous sûr de vouloir clôturer le prêt?", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Etes vous sûr de vouloir clôturer le prêt?", preferredStyle: .alert)
         actionSheet.addAction(UIAlertAction(title: "Oui", style: .default, handler: { (action: UIAlertAction) in
             // change availability
             self.bookToDisplay?.isAvailable = true

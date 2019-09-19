@@ -31,6 +31,7 @@ class ChatInitialViewController : UITableViewController {
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        counterInterstitial = 0
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
         fetchUserAndSetupNavBarTitle()
         // Registration of the reused cell

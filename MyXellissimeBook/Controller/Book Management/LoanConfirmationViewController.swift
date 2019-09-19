@@ -85,7 +85,7 @@ class LoanConfirmationViewController: UIViewController {
     private func setupUIObjects(){
         authorLabel.font = UIFont.systemFont(ofSize: 16)
         separateView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        reminderLabel.text = "Vous voulez prêter ce lui à"
+        reminderLabel.text = "Vous voulez prêter ce livre à"
         reminderLabel.font = UIFont.systemFont(ofSize: 20)
         borrowerLabel.text = "nom et email"
         borrowerLabel.font = UIFont.systemFont(ofSize: 20)

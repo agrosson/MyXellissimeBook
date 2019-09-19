@@ -93,7 +93,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
              return
         }
         // Ask User to accept conditions before sign in
-        let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Vous devez accepter les conditions d'utilisation pour vous inscrire", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Vous devez accepter les conditions d'utilisation pour vous inscrire", preferredStyle: .alert)
         
         actionSheet.addAction(UIAlertAction(title: "Voir les conditions", style: .default, handler: { (action: UIAlertAction) in
             self.showConditionsInSafariVC()

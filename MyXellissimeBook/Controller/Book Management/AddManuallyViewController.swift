@@ -85,6 +85,7 @@ class AddManuallyViewController: UIViewController {
         originEditor = labelEditor.center
         setupScreen()
         if bookElementFromPhoto {
+            searchBookWithApiButton.isEnabled = false
             displayMessageOfExplanation()
         }
     }
@@ -182,7 +183,7 @@ class AddManuallyViewController: UIViewController {
     }
     
     private func displayMessageOfExplanation(){
-        let actionSheet = UIAlertController(title: "Faites glisser les boutons vers les zones de textes", message: "Vous pourrez modifier/corriger les textes juste après", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Faites glisser les boutons vers les zones de textes", message: "Vous pourrez modifier/corriger les textes juste après", preferredStyle: .alert)
         
         actionSheet.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         

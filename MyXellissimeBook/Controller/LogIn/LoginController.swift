@@ -209,7 +209,7 @@ class LoginController: UIViewController {
     }
     
     private func checkIfProfileImageShouldBeUpdated() {
-        let actionSheet = UIAlertController(title: "Cher utilisateur", message: "Doit-on mettre à jour la photo du profil avec l'image actuelle?", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Cher utilisateur", message: "Doit-on mettre à jour la photo du profil avec l'image actuelle?", preferredStyle: .alert)
         actionSheet.addAction(UIAlertAction(title: "Oui", style: .default, handler: { (action: UIAlertAction) in
             print("update the picture")
             self.handleLoginWithProfileUpdate(update: true)

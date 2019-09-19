@@ -161,7 +161,7 @@ extension DetailAvailableBookViewController: UIImagePickerControllerDelegate, UI
         // Delegate to the viewController
         imagePickerController.delegate = self
         // Create a UIAlertController
-        let actionSheet = UIAlertController(title: "Source", message: "Choisissez une source", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Source", message: "Choisissez une source", preferredStyle: .alert)
         //  Action for Camera
         actionSheet.addAction(UIAlertAction(title: "Appareil photo", style: .default, handler: { (action: UIAlertAction) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {

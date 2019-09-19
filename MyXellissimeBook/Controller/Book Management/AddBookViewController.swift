@@ -134,9 +134,9 @@ class AddBookViewController: UIViewController {
         print("will take a picture of the book to extract data ")
         // 1
         let imagePickerActionSheet =
-            UIAlertController(title: "Snap/Upload Image",
+            UIAlertController(title: "Couverture du livre",
                               message: nil,
-                              preferredStyle: .actionSheet)
+                              preferredStyle: .alert)
         
         // 2
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -164,17 +164,8 @@ class AddBookViewController: UIViewController {
             imagePickerActionSheet.addAction(cameraButton)
         }
         
-        // 3
-        let libraryButton = UIAlertAction(
-            title: "Choisir une photo existante",
-            style: .default) { (alert) -> Void in
-                
-                // TODO: Add more code here...
-        }
-        imagePickerActionSheet.addAction(libraryButton)
-        
         // 4
-        let cancelButton = UIAlertAction(title: "Annueler", style: .cancel) { (alert) -> Void in
+        let cancelButton = UIAlertAction(title: "Annuler", style: .cancel) { (alert) -> Void in
             self.activityIndicator.isHidden = true
         }
         imagePickerActionSheet.addAction(cancelButton)
@@ -200,6 +191,7 @@ class AddBookViewController: UIViewController {
     @objc func takePhoto(){
         let alertVC = UIAlertController(title: "Cher Utilisateur", message: "Merci de prendre la photo en mode paysage", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "Ok", style: .default) { (alert) -> Void in
+            print("on est ici")
             self.presentPhotoAlert()
         })
         present(alertVC, animated: true, completion: nil)

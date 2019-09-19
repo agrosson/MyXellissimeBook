@@ -18,8 +18,8 @@ extension LoanConfirmationViewController {
         let height:CGFloat = screenHeight/6
         
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10+topbarHeight).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: height + topbarHeight).isActive = true
         containerView.widthAnchor.constraint(equalTo : view.widthAnchor, constant: -20).isActive = true
     }
     
@@ -29,10 +29,10 @@ extension LoanConfirmationViewController {
     func setupBookCoverImageView(){
         // need x and y , width height contraints
         
-        bookCoverImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: +20).isActive = true
-        bookCoverImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        bookCoverImageView.heightAnchor.constraint(equalTo: containerView.heightAnchor, constant: -30).isActive = true
-        bookCoverImageView.widthAnchor.constraint(equalTo:containerView.widthAnchor, constant: -3*screenWidth/4).isActive = true
+        bookCoverImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: +30).isActive = true
+        bookCoverImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: +5).isActive = true
+        bookCoverImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8).isActive = true
+        bookCoverImageView.widthAnchor.constraint(equalTo:containerView.widthAnchor, multiplier: 0.2).isActive = true
     }
     /**
      Function that sets up titleLabel
@@ -40,7 +40,7 @@ extension LoanConfirmationViewController {
     func setupTitleLabel(){
         titleLabel.text = bookToLend.title
         // need x and y , width height contraints
-        titleLabel.leftAnchor.constraint(equalTo: bookCoverImageView.rightAnchor, constant: 15).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: screenWidth/2).isActive = true
         titleLabel.topAnchor.constraint(equalTo: bookCoverImageView.topAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
         titleLabel.rightAnchor.constraint(equalTo : containerView.rightAnchor, constant: -8).isActive = true
@@ -51,7 +51,7 @@ extension LoanConfirmationViewController {
     func setupAuthorLabel(){
         authorLabel.text = bookToLend.author
         // need x and y , width height contraints
-        authorLabel.leftAnchor.constraint(equalTo: bookCoverImageView.rightAnchor, constant: 15).isActive = true
+        authorLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: screenWidth/2).isActive = true
         authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
         authorLabel.heightAnchor.constraint(equalToConstant: 18).isActive = true
         authorLabel.rightAnchor.constraint(equalTo : containerView.rightAnchor, constant: -8).isActive = true
@@ -96,7 +96,7 @@ extension LoanConfirmationViewController {
         borrowerLabel.font = UIFont.systemFont(ofSize: heightOfText)
         guard let name = userBorrower.name else {return}
         guard let email = userBorrower.email else {return}
-        borrowerLabel.text = "\(name) (email: \(email)"
+        borrowerLabel.text = "\(name.uppercased()) qui a pour email: \(email)"
         borrowerLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         borrowerLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
         borrowerLabel.topAnchor.constraint(equalTo: reminderLabel.bottomAnchor, constant: 10).isActive = true

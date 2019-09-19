@@ -72,6 +72,7 @@ class SearchViewController: UIViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        counterInterstitial = 0
         view.addSubview(searchLabel)
         view.addSubview(inputsContainerView)
         view.addSubview(searchBookInDatabaseButton)
