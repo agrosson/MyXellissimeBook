@@ -101,7 +101,7 @@ class DetailLentBookViewController: UIViewController {
             // get the key for the message
             let loanId = snapshot.key
             // get the reference of the loan
-            let loanReference = Database.database().reference().child(FirebaseUtilities.shared.loan).child(loanId)
+            let loanReference = Database.database().reference().child(FirebaseUtilities.shared.loans).child(loanId)
             // observe the details of the loan and get values from it
             loanReference.observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let dictionary = snapshot.value as? [String : Any] else {return}

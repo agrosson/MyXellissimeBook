@@ -47,6 +47,7 @@ class InitialViewController: UIViewController {
         
         setupScreen()
         checkIfUserIsAlreadyLoggedIn()
+        sendNotificationForLateLoans()
 
     }
     // MARK: - Method - viewWillAppear
@@ -100,7 +101,7 @@ class InitialViewController: UIViewController {
     fileprivate func checkIfUserIsAlreadyLoggedIn() {
         // check if user is already logged in
         if Auth.auth().currentUser?.uid == nil {
-            perform(#selector(handleLogout), with: nil, afterDelay: 0)
+            perform(#selector(handleLogout), with: nil, afterDelay: 1)
         }
     }
     /**
@@ -365,5 +366,70 @@ extension InitialViewController: GADInterstitialDelegate {
     /// (such as the App Store), backgrounding the current app.
     func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
         print("interstitialWillLeaveApplication")
+    }
+}
+
+
+extension InitialViewController {
+    
+    // Specific function for admin to send notification on loans
+    private func sendNotificationForLateLoans() {
+        guard let userUid = Auth.auth().currentUser?.uid else {return}
+        FirebaseUtilities.getUserFromProfileId(profileId: userUid) { (user) in
+            guard let email = user.email else {return}
+            print("email du user \(email)")
+            if email == "admin@xellissime.com" {
+                print("we fetch loans")
+                self.fetchLateLoans()
+            }
+        }
+    }
+    /**
+     This function fetch late loans to send notification
+     */
+    private func fetchLateLoans(){
+        //first get current date
+        print("step 4")
+        let now = Date()
+        let nowGoodFormat = now.formatDateTo_dd_dot_MM_dot_yyyy().toDateLoan()
+        var loansArray = [LoanBook]()
+        
+        let rootRef = Database.database().reference()
+        let query = rootRef.child(FirebaseUtilities.shared.loans).queryOrdered(byChild: "expectedEndDateOfLoan")
+        query.observe(.value) { (snapshot) in
+            // this to avoid duplicated row when reloaded
+            print("step 5")
+            loansArray = [LoanBook]()
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                print("step 6")
+                if let value = child.value as? NSDictionary {
+                    print("step 7")
+                    let loan = LoanBook()
+                    let uniqueLoanBookId = value["uniqueLoanBookId"] as? String ?? "uniqueLoanBookId not found"
+                    let bookId = value["bookId"] as? String ?? "bookId not found"
+                    let fromUser = value["fromUser"] as? String ?? "fromUser not found"
+                    let toUser = value["toUser"] as? String ?? "toUser not found"
+                    let loanStartDate = value["loanStartDate"] as? String ?? "loanStartDate not found"
+                    let expectedEndDateOfLoan = value["expectedEndDateOfLoan"] as? String ?? "expectedEndDateOfLoan not found"
+                    let effectiveEndDateOfLoan = value["effectiveEndDateOfLoan"] as? String ?? ""
+                    
+                    print(expectedEndDateOfLoan)
+                    
+                    loan.uniqueLoanBookId = uniqueLoanBookId
+                    loan.bookId = bookId
+                    loan.fromUser = fromUser
+                    loan.toUser = toUser
+                    loan.expectedEndDateOfLoan = expectedEndDateOfLoan
+                    loan.loanStartDate = loanStartDate
+                    loan.effectiveEndDateOfLoan = effectiveEndDateOfLoan
+                    
+                    loansArray.append(loan)
+                    
+                    // todo : limit to 20 books
+                }
+            }
+            print(loansArray)
+        }
+        //
     }
 }

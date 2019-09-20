@@ -44,6 +44,21 @@ extension String {
     
 }
 /**
+ This extension returns a date fron a string format "dd.MM.yyyy"
+ */
+
+extension String {
+    func toDateLoan(withFormat format: String = "dd.MM.yyyy") -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        guard let date = dateFormatter.date(from: self) else {
+            preconditionFailure("Take a look to your format")
+        }
+        return date
+    }
+}
+
+/**
  This extension calculates Jaro-Wringler distance between two Strings thanks to a static function
  Implementation:
  String.jaroWinglerDistance("First String", "Second String")

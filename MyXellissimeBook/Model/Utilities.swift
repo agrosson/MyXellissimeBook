@@ -23,6 +23,9 @@ import Firebase
 
 
 // MARK: - Global properties
+/// Admin email
+let adminEmail = "admin@xellissime.com"
+
 /// Current screen height
 let screenHeight = UIScreen.main.bounds.height
 /// Current screen width

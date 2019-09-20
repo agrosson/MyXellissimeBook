@@ -28,7 +28,7 @@ class FirebaseUtilities {
     let user_books = "user-books"
     let books = "books"
     let coverImage = "coverImage"
-    let loan = "loan"
+    let loans = "loan"
     let user_loans = "user-loans"
     let messageImage = "messageImage"
     /// Variable used to retrieve a user name in Firebase
@@ -431,7 +431,7 @@ class FirebaseUtilities {
      - Parameter expectedEndDateOfLoan: the loan expected end date as a String
     */
     static func saveLoan(bookToLend: Book, fromId : String, toUser: User, loanStartDate: String,expectedEndDateOfLoan: String) {
-        let ref = Database.database().reference().child(FirebaseUtilities.shared.loan)
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.loans)
         /// unique reference for the message
         let childRef = ref.childByAutoId()
         /// get the recipient Id
@@ -469,7 +469,7 @@ class FirebaseUtilities {
      - Parameter uniqueLoanBookId:  the loan id to be closed as a String
      */
     static func closeLoan(for uniqueLoanBookId: String){
-        let ref = Database.database().reference().child(FirebaseUtilities.shared.loan).child(uniqueLoanBookId)
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.loans).child(uniqueLoanBookId)
         let dateFormate = DateFormatter()
         dateFormate.dateFormat = "dd.MM.yyyy"
         let closeDate = dateFormate.string(from: Date())
