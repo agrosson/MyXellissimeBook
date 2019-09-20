@@ -53,6 +53,7 @@
 		C13355D822BA85680006D9CD /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355D722BA85680006D9CD /* Alert.swift */; };
 		C13355DA22BA87C30006D9CD /* OpenLibraryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355D922BA87C30006D9CD /* OpenLibraryAPI.swift */; };
 		C13355DC22BA88E90006D9CD /* GoodReadsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355DB22BA88E90006D9CD /* GoodReadsAPI.swift */; };
+		C148A66C2334CA4200CA4717 /* ExtensionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C148A66B2334CA4200CA4717 /* ExtensionDate.swift */; };
 		C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */; };
 		C1596ED822B6807500CBCD08 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1596ED722B6807500CBCD08 /* Message.swift */; };
 		C15D2B2022BD256300B621E8 /* DetailAvailableBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */; };
@@ -149,6 +150,7 @@
 		C13355D722BA85680006D9CD /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		C13355D922BA87C30006D9CD /* OpenLibraryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLibraryAPI.swift; sourceTree = "<group>"; };
 		C13355DB22BA88E90006D9CD /* GoodReadsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodReadsAPI.swift; sourceTree = "<group>"; };
+		C148A66B2334CA4200CA4717 /* ExtensionDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDate.swift; sourceTree = "<group>"; };
 		C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		C1596ED722B6807500CBCD08 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C15D2B1F22BD256300B621E8 /* DetailAvailableBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAvailableBookViewController.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 		C1E5D7A42302ECA000D23E80 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C148A66B2334CA4200CA4717 /* ExtensionDate.swift */,
 				C1E5D7AB2302F78100D23E80 /* ExtensionUIImageView.swift */,
 				C1C12333231805E400B31989 /* ExtensionUIImage.swift */,
 				C1E5D7A92302F70F00D23E80 /* ExtensionUIColor.swift */,
@@ -705,6 +708,7 @@
 				C13355D622BA84B40006D9CD /* GoogleBookAPI.swift in Sources */,
 				C13355D822BA85680006D9CD /* Alert.swift in Sources */,
 				C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */,
+				C148A66C2334CA4200CA4717 /* ExtensionDate.swift in Sources */,
 				C12C125222B3915A006A3F2C /* Utilities.swift in Sources */,
 				C16D3EFF23200CAA00F85271 /* ApnsUploads.swift in Sources */,
 				C11B305022BE61310023CF0E /* DetailLentBookViewController+setupScreen.swift in Sources */,
