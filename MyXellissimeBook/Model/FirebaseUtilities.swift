@@ -28,7 +28,7 @@ class FirebaseUtilities {
     let user_books = "user-books"
     let books = "books"
     let coverImage = "coverImage"
-    let loans = "loan"
+    let loans = "loans"
     let user_loans = "user-loans"
     let messageImage = "messageImage"
     /// Variable used to retrieve a user name in Firebase
