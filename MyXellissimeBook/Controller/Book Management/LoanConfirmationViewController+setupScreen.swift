@@ -106,9 +106,10 @@ extension LoanConfirmationViewController {
      Function that sets up fromDateLabel
      */
     func setupFromDateLabel() {
+        let fromDateToDisplay = Date(timeIntervalSince1970: Double(fromDate)).formatDateTo_dd_dot_MM_dot_yyyy()
         // need x and y , width height contraints
         fromDateLabel.font = UIFont.systemFont(ofSize: heightOfText)
-        fromDateLabel.text = "Du: \(fromDate)"
+        fromDateLabel.text = "Du: \(fromDateToDisplay)"
         fromDateLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         fromDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
         fromDateLabel.topAnchor.constraint(equalTo: borrowerLabel.bottomAnchor, constant: 10).isActive = true
@@ -119,9 +120,10 @@ extension LoanConfirmationViewController {
      Function that sets up toDateLabel
      */
     func setupToDateLabel() {
+        let toDateToDisplay = Date(timeIntervalSince1970: Double(toDate)).formatDateTo_dd_dot_MM_dot_yyyy()
         // need x and y , width height contraints
         toDateLabel.font = UIFont.systemFont(ofSize: heightOfText)
-        toDateLabel.text = "Au: \(toDate)"
+        toDateLabel.text = "Au: \(toDateToDisplay)"
         toDateLabel.leftAnchor.constraint(equalTo: containerDataView.leftAnchor, constant: 8).isActive = true
         toDateLabel.rightAnchor.constraint(equalTo: containerDataView.rightAnchor, constant: -8).isActive = true
         toDateLabel.topAnchor.constraint(equalTo: fromDateLabel.bottomAnchor, constant: 10).isActive = true

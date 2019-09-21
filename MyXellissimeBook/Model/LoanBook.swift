@@ -23,11 +23,11 @@ class LoanBook: NSObject {
     /// User who borrows the book
     var toUser: String?
     /// Loan start date
-    var loanStartDate: String?
+    var loanStartDate: Int?
     /// Expected end date of the loan
-    var expectedEndDateOfLoan: String?
+    var expectedEndDateOfLoan: Int?
     /// Effective end date of loan : loan closed
-    var effectiveEndDateOfLoan: String?
+    var effectiveEndDateOfLoan: Int?
     // MARK: - Initializer
     override init() {}
 }

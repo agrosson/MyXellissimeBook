@@ -106,8 +106,8 @@ class DetailLentBookViewController: UIViewController {
             loanReference.observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let dictionary = snapshot.value as? [String : Any] else {return}
                 guard let toUser = dictionary["toUser"] as? String else {return}
-                guard let loanStartDate = dictionary["loanStartDate"] as? String else {return}
-                guard let expectedEndDateOfLoan = dictionary["expectedEndDateOfLoan"] as? String else {return}
+                guard let loanStartDate = dictionary["loanStartDate"] as? Int else {return}
+                guard let expectedEndDateOfLoan = dictionary["expectedEndDateOfLoan"] as? Int else {return}
                 guard let bookId = dictionary["bookId"] as? String else {return}
                 guard let uniqueLoanBookId = dictionary["uniqueLoanBookId"] as? String else {return}
                 // Search the name of the borrowwer
@@ -116,8 +116,10 @@ class DetailLentBookViewController: UIViewController {
                         guard let name = name else {return}
                         // Fill UI texts
                         self.borrowerLabel.text = "Ce livre est prêté à \(name)"
-                        self.startingDateOfLoanLabel.text = "Prêt du \(loanStartDate)"
-                        self.expectedEndDateOfLoanLabel.text = "Au \(expectedEndDateOfLoan)"
+                        let loanStartDateToDisplay = Date(timeIntervalSince1970: Double(loanStartDate)).formatDateTo_dd_dot_MM_dot_yyyy()
+                        self.startingDateOfLoanLabel.text = "Prêt du \(loanStartDateToDisplay)"
+                        let expectedEndDateOfLoanToDisplay = Date(timeIntervalSince1970: Double(expectedEndDateOfLoan)).formatDateTo_dd_dot_MM_dot_yyyy()
+                        self.expectedEndDateOfLoanLabel.text = "Au \(expectedEndDateOfLoanToDisplay)"
                         self.currentLoanId = uniqueLoanBookId
                     } 
                 })

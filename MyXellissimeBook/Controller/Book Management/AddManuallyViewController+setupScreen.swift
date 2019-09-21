@@ -26,7 +26,7 @@ extension AddManuallyViewController {
      Function that sets up addWithScanButton
      */
     func setupSearchBookWithApiButton(){
-        searchBookWithApiButton.setTitle("Rechercher le livre à ajouter", for: .normal)
+        searchBookWithApiButton.setTitle("Rechercher dans les bases de données\nle livre à ajouter", for: .normal)
         searchBookWithApiButton.layer.cornerRadius = 15
         searchBookWithApiButton.addTarget(self, action: #selector(searchBook), for: .touchUpInside)
         // need x and y , width height contraints

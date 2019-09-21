@@ -63,10 +63,10 @@ class UserBorrowedBooksTableViewController: UITableViewController {
                 guard let dictionary = snapshot.value as? [String : Any] else {return}
                 let loanToAdd = LoanBook()
                 guard let bookId = dictionary["bookId"] as? String else {return}
-                let effectiveEndDateOfLoan = dictionary["effectiveEndDateOfLoan"] as? String ?? ""
-                guard let expectedEndDateOfLoan = dictionary["expectedEndDateOfLoan"] as? String else {return}
+                let effectiveEndDateOfLoan = dictionary["effectiveEndDateOfLoan"] as? Int ?? 0
+                guard let expectedEndDateOfLoan = dictionary["expectedEndDateOfLoan"] as? Int else {return}
                 guard let fromUser = dictionary["fromUser"] as? String else {return}
-                guard let loanStartDate = dictionary["loanStartDate"] as? String else {return}
+                guard let loanStartDate = dictionary["loanStartDate"] as? Int else {return}
                 guard let toUser = dictionary["toUser"] as? String else {return}
                 guard let uniqueLoanBookId = dictionary["uniqueLoanBookId"] as? String else {return}
                 loanToAdd.bookId = bookId
@@ -76,7 +76,7 @@ class UserBorrowedBooksTableViewController: UITableViewController {
                 loanToAdd.loanStartDate = loanStartDate
                 loanToAdd.toUser = toUser
                 loanToAdd.uniqueLoanBookId = uniqueLoanBookId
-                if toUser == uid && effectiveEndDateOfLoan == "" {
+                if toUser == uid && effectiveEndDateOfLoan == 0 {
                     let booksReference = Database.database().reference().child(FirebaseUtilities.shared.books).child(bookId)
                     // observe the messages for this user
                     booksReference.observeSingleEvent(of: .value, with: { (snapshot) in

@@ -430,7 +430,7 @@ class FirebaseUtilities {
      - Parameter loanStartDate: the loan starting date as a String
      - Parameter expectedEndDateOfLoan: the loan expected end date as a String
     */
-    static func saveLoan(bookToLend: Book, fromId : String, toUser: User, loanStartDate: String,expectedEndDateOfLoan: String) {
+    static func saveLoan(bookToLend: Book, fromId : String, toUser: User, loanStartDate: Int,expectedEndDateOfLoan: Int) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.loans)
         /// unique reference for the message
         let childRef = ref.childByAutoId()
@@ -470,9 +470,7 @@ class FirebaseUtilities {
      */
     static func closeLoan(for uniqueLoanBookId: String){
         let ref = Database.database().reference().child(FirebaseUtilities.shared.loans).child(uniqueLoanBookId)
-        let dateFormate = DateFormatter()
-        dateFormate.dateFormat = "dd.MM.yyyy"
-        let closeDate = dateFormate.string(from: Date())
+        let closeDate = Int(NSDate().timeIntervalSince1970)
         let values = ["effectiveEndDateOfLoan" : closeDate] as [String : Any]
         // this block to update the variable effectiveEndDateOfLoan with date of the day.
         ref.updateChildValues(values) { (error, ref) in

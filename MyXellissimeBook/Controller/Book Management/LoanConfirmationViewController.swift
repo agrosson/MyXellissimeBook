@@ -20,21 +20,15 @@ class LoanConfirmationViewController: UIViewController {
     /// The borrower as user
     var userBorrower = User()
     /// Starting Date of the Loan
-    var fromDate: String {
-        let dateFormate = DateFormatter()
-        dateFormate.dateFormat = "dd.MM.yyyy"
-        let date = Date()
-        let stringOfDate = dateFormate.string(from: date)
-        return stringOfDate
+    var fromDate: Int {
+        let date = Int(NSDate().timeIntervalSince1970)
+        return date
     }
     /// Expected date for date of loan
-    var toDate: String {
-        let dateFormate = DateFormatter()
-        dateFormate.dateFormat = "dd.MM.yyyy"
-        let today = Date()
-        let toDate = Calendar.current.date(byAdding: .day, value: 21, to: today)!
-        let stringOfDate = dateFormate.string(from: toDate)
-        return stringOfDate
+    // a day is 86 400 seconds / a week is 604 800 seconds / 3 weeks are 1 814 400 seconds /4 weeks are 2 419 200 seconds
+    var toDate: Int {
+        let toDate = Int(NSDate().timeIntervalSince1970)+1814400
+        return toDate
     }
     /// height of text in container data view
     let heightOfText: CGFloat = 20

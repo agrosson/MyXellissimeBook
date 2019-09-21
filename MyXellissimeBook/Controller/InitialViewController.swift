@@ -38,16 +38,13 @@ class InitialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Create the left button
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: #selector(handleLogout))
-        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: #selector(handleConnexion))
+        checkIfUserIsAlreadyLoggedIn()
+        setupScreen()
+        sendNotificationForLateLoans()
         setupBanner()
         interstitial = createAndLoadInterstitial()
         interstitial.delegate = self
-        
-        
-        setupScreen()
-        checkIfUserIsAlreadyLoggedIn()
-        sendNotificationForLateLoans()
 
     }
     // MARK: - Method - viewWillAppear
@@ -56,7 +53,6 @@ class InitialViewController: UIViewController {
         setupScreen()
         perform(#selector(testIfNewMessage), with: nil, afterDelay: 2)
         perform(#selector(launchInterstitial), with: nil, afterDelay: 1)
-
     }
     
     private func setupBanner(){
@@ -98,10 +94,11 @@ class InitialViewController: UIViewController {
     /**
      Function that checks if user already loggedin
      */
-    fileprivate func checkIfUserIsAlreadyLoggedIn() {
+    func checkIfUserIsAlreadyLoggedIn() {
         // check if user is already logged in
         if Auth.auth().currentUser?.uid == nil {
-            perform(#selector(handleLogout), with: nil, afterDelay: 1)
+            print("no current")
+            perform(#selector(handleLogout), with: nil, afterDelay: 0.1)
         }
     }
     /**
@@ -180,7 +177,9 @@ class InitialViewController: UIViewController {
      */
     func fetchUserAndSetupNavBarTitle(){
         
-        guard let uid = Auth.auth().currentUser?.uid else {return}
+        guard let uid = Auth.auth().currentUser?.uid else {
+        //   navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Connexion", style: .plain, target: self, action: #selector(handleConnexion))
+            return}
         Database.database().reference().child(FirebaseUtilities.shared.users).child(uid).observeSingleEvent(of: .value) { (snapshot) in
             if let dictionary = snapshot.value as? [String : Any] {
                 
@@ -247,6 +246,20 @@ class InitialViewController: UIViewController {
     }
     
     // MARK: - Method  - Actions with objc functions
+    @objc func handleConnexion() {
+        if Auth.auth().currentUser?.uid != nil &&   navigationItem.leftBarButtonItem?.title == "Déconnexion" {
+            let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Vous voulez vraiment vous déconnecter?", preferredStyle: .alert)
+            
+            actionSheet.addAction(UIAlertAction(title: "Oui", style: .default, handler: { (action: UIAlertAction) in
+                self.handleLogout()
+            }))
+            actionSheet.addAction(UIAlertAction(title: "Non", style: .cancel, handler: nil))
+            
+            self.present(actionSheet, animated: true, completion : nil)
+        }
+
+    }
+    
     /**
      Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed
      */
@@ -359,7 +372,6 @@ extension InitialViewController: GADInterstitialDelegate {
     
     /// Tells the delegate the interstitial is to be animated off the screen.
     func interstitialWillDismissScreen(_ ad: GADInterstitial) {
-       
     }
 
     /// Tells the delegate that a user click will open another app
@@ -395,7 +407,7 @@ extension InitialViewController {
         var loansArray = [LoanBook]()
         
         let rootRef = Database.database().reference()
-        let query = rootRef.child(FirebaseUtilities.shared.loans).queryOrdered(byChild: "expectedEndDateOfLoan")
+        let query = rootRef.child(FirebaseUtilities.shared.loans).queryOrdered(byChild: "expectedEndDateOfLoan").queryEnding(atValue: 1570807900)
         query.observe(.value) { (snapshot) in
             // this to avoid duplicated row when reloaded
             print("step 5")
@@ -409,9 +421,9 @@ extension InitialViewController {
                     let bookId = value["bookId"] as? String ?? "bookId not found"
                     let fromUser = value["fromUser"] as? String ?? "fromUser not found"
                     let toUser = value["toUser"] as? String ?? "toUser not found"
-                    let loanStartDate = value["loanStartDate"] as? String ?? "loanStartDate not found"
-                    let expectedEndDateOfLoan = value["expectedEndDateOfLoan"] as? String ?? "expectedEndDateOfLoan not found"
-                    let effectiveEndDateOfLoan = value["effectiveEndDateOfLoan"] as? String ?? ""
+                    let loanStartDate = value["loanStartDate"] as? Int ?? 0
+                    let expectedEndDateOfLoan = value["expectedEndDateOfLoan"] as? Int ?? 0
+                    let effectiveEndDateOfLoan = value["effectiveEndDateOfLoan"] as? Int ?? 0
                     
                     print(expectedEndDateOfLoan)
                     
