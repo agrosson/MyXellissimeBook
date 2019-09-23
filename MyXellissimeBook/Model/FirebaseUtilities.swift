@@ -438,9 +438,11 @@ class FirebaseUtilities {
         let loanId = childRef.key
         guard let bookId = bookToLend.uniqueId else {return}
         guard let toUserId = toUser.profileId else {return}
+        guard let bookTitle = bookToLend.title else {return}
         // Create a dictionary of values to save as a loan 
         let values = ["uniqueLoanBookId" : loanId,
                       "bookId" : bookId,
+                      "bookTitle" : bookTitle,
                       "fromUser" : fromId,
                       "toUser" : toUserId,
                       "loanStartDate" : loanStartDate,

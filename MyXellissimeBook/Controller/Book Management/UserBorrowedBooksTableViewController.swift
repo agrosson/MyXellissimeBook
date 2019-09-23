@@ -69,6 +69,7 @@ class UserBorrowedBooksTableViewController: UITableViewController {
                 guard let loanStartDate = dictionary["loanStartDate"] as? Int else {return}
                 guard let toUser = dictionary["toUser"] as? String else {return}
                 guard let uniqueLoanBookId = dictionary["uniqueLoanBookId"] as? String else {return}
+                guard let bookTitle = dictionary["bookTitle"] as? String else {return}
                 loanToAdd.bookId = bookId
                 loanToAdd.effectiveEndDateOfLoan = effectiveEndDateOfLoan
                 loanToAdd.expectedEndDateOfLoan = expectedEndDateOfLoan
@@ -76,6 +77,7 @@ class UserBorrowedBooksTableViewController: UITableViewController {
                 loanToAdd.loanStartDate = loanStartDate
                 loanToAdd.toUser = toUser
                 loanToAdd.uniqueLoanBookId = uniqueLoanBookId
+                loanToAdd.bookTitle = bookTitle
                 if toUser == uid && effectiveEndDateOfLoan == 0 {
                     let booksReference = Database.database().reference().child(FirebaseUtilities.shared.books).child(bookId)
                     // observe the messages for this user

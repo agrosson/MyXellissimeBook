@@ -36,6 +36,7 @@ class UserBooksTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         setupScreen()
         rootRef.removeAllObservers()
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     // MARK: - Methods

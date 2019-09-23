@@ -28,6 +28,8 @@ class LoanBook: NSObject {
     var expectedEndDateOfLoan: Int?
     /// Effective end date of loan : loan closed
     var effectiveEndDateOfLoan: Int?
+    /// book title
+    var bookTitle: String?
     // MARK: - Initializer
     override init() {}
 }

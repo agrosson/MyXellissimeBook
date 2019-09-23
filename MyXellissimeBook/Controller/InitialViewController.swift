@@ -53,6 +53,7 @@ class InitialViewController: UIViewController {
         setupScreen()
         perform(#selector(testIfNewMessage), with: nil, afterDelay: 2)
         perform(#selector(launchInterstitial), with: nil, afterDelay: 1)
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     private func setupBanner(){
