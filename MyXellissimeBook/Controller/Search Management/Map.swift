@@ -85,39 +85,22 @@ class MapViewController: UIViewController  {
     
     // This function will show all users around the current users (10Km)
     func addAnotherUser() {
-        // get the coordinate from current users
-        // get coordinates from other users where latitude and longiture are + or - 0.01 and
-        // add to an array
-        // for each element
-        
-        
-        
-        
-        let location = CLLocationCoordinate2D(latitude: 48.8605,
-            longitude: 2.015)
-        
-        // 2
-//        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-//        let region = MKCoordinateRegion(center: location, span: span)
-//        usersMap.setRegion(region, animated: true)
-            
-        //3
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = location
-        annotation.subtitle = "Fabienne"
-        usersMap.addAnnotation(annotation)
-        
         fetchUserAnnotation(latitudeUser: 48.859771728515625, longitudeUser: 2.0114145714726535)
-        print(mapAnnotationArray)
-        perform(#selector(tt), with: nil, afterDelay: 2)
-        
-        // ici faire soit un call back soit un delay puis faire une fonction qui affiche les users.
+        perform(#selector(pinPointAnnotation), with: nil, afterDelay: 3)
     }
     
-    
-    @objc func tt(){
-        print("fin2")
-        print(self.mapAnnotationArray)
+    // This function display all users
+    @objc func pinPointAnnotation(){
+        for item in mapAnnotationArray {
+            guard let latitute = item.latitude else {return}
+            guard let longiture = item.longitude else {return}
+            guard let name = item.userName else {return}
+            let location = CLLocationCoordinate2D(latitude: latitute, longitude: longiture)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = location
+            annotation.subtitle = name
+            usersMap.addAnnotation(annotation)
+        }
     }
     
     private func setupLocationManager(){
@@ -132,7 +115,6 @@ class MapViewController: UIViewController  {
             // center on user location with regionInMeters distance
             let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
             usersMap.setRegion(region, animated: true)
-            print("la latitude = \(location.latitude) et la longitude = \(location.longitude)")
             addAnotherUser()
         }
         
@@ -147,7 +129,7 @@ class MapViewController: UIViewController  {
     usersMap.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
     
     }
-    
+    //
     func fetchUserAnnotation(latitudeUser: Double, longitudeUser : Double) {
         print("on est ici fetch annotation")
         mapAnnotationArray = [MapAnnotation]()
@@ -172,13 +154,11 @@ class MapViewController: UIViewController  {
                 print("on est ici fetch annotation deeper 2 \(latitude) \(longitude) \(name) \(profileId))")
                 print(mapAnnotation)
                 self.mapAnnotationArray.append(mapAnnotation)
-                print(self.mapAnnotationArray)
-            })
-        })
+             }, withCancel: nil)
+         }, withCancel: nil)
         print("fin")
-         print(self.mapAnnotationArray)
+        print(self.mapAnnotationArray)
     }
-    
 }
 
 extension MapViewController: CLLocationManagerDelegate {

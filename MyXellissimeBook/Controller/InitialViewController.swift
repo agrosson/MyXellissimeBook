@@ -50,6 +50,7 @@ class InitialViewController: UIViewController {
         setupScreen()
         perform(#selector(testIfNewMessage), with: nil, afterDelay: 2)
         UIApplication.shared.applicationIconBadgeNumber = 0
+        updateUserLocationInFirebase()
     }
     // MARK: - Methods
     /**

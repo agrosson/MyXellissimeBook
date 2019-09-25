@@ -33,6 +33,8 @@ class FirebaseUtilities {
     let messageImage = "messageImage"
     /// Variable used to retrieve a user name in Firebase
     var name = ""
+    /// Variable used to retrieve a mapAnnotationin  Firebase
+    var mapAnnotationArray = [MapAnnotation]()
     /**
      This function returns the user name
      
@@ -544,34 +546,36 @@ class FirebaseUtilities {
      This function fetches location in Firebase for all user near current user
      - Parameter latitude:  the new latitude of user's device
      - Parameter longitude:  the new longitude of user's device
-     - Returns  uid:  the user uid
+     - Parameter callBack: a closure with an array of MapAnnotation
      */
-    static func fetchUserAnnotation(latitudeUser: Double, longitudeUser : Double) -> [MapAnnotation] {
+    static func fetchUserAnnotation(latitudeUser: Double, longitudeUser : Double, callBack: @escaping ([MapAnnotation]) -> Void) {
         print("on est ici fetch annotation")
-        var mapAnnotationArray = [MapAnnotation]()
+        self.shared.mapAnnotationArray = [MapAnnotation]()
         let rootRef = Database.database().reference().child(FirebaseUtilities.shared.users)
+        
         rootRef.observe(.childAdded, with: { (snapshot) in
-              print("on est ici fetch annotation inside")
-            // get the key for the userId
-            let userId = snapshot.key
-            rootRef.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
-                  print("on est ici fetch annotation deeper")
-                guard let dictionary = snapshot.value as? [String : Any] else {return}
-                
-                let mapAnnotation = MapAnnotation()
-                guard let latitude = dictionary["latitude"] as? Double else {return}
-                guard let longitude = dictionary["longitude"] as? Double else {return}
-                guard let name = dictionary["name"] as? String else {return}
-                guard let profileId = dictionary["profileId"] as? String else {return}
-                mapAnnotation.latitude = latitude
-                mapAnnotation.longitude = longitude
-                mapAnnotation.userName = name
-                mapAnnotation.userId = profileId
-                 print("on est ici fetch annotation deeper 2")
-                print(mapAnnotation)
-                mapAnnotationArray.append(mapAnnotation)
-            })
+            DispatchQueue.main.async {
+                print("on est ici fetch annotation inside")
+                // get the key for the userId
+                let userId = snapshot.key
+                rootRef.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+                    print("on est ici fetch annotation deeper")
+                    guard let dictionary = snapshot.value as? [String : Any] else {return}
+                    let mapAnnotation = MapAnnotation()
+                    guard let latitude = dictionary["latitude"] as? Double else {return}
+                    guard let longitude = dictionary["longitude"] as? Double else {return}
+                    guard let name = dictionary["name"] as? String else {return}
+                    guard let profileId = dictionary["profileId"] as? String else {return}
+                    mapAnnotation.latitude = latitude
+                    mapAnnotation.longitude = longitude
+                    mapAnnotation.userName = name
+                    mapAnnotation.userId = profileId
+                    print("on est ici fetch annotation deeper 2")
+                    self.shared.mapAnnotationArray.append(mapAnnotation)
+                })
+            }
         })
-        return mapAnnotationArray
+        callBack(self.shared.mapAnnotationArray)
+        
     }
 }
