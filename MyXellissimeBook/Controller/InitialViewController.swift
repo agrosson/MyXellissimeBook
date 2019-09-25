@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleMobileAds
+import CoreLocation
 
 
 
@@ -17,9 +18,9 @@ import GoogleMobileAds
  This class defines the InitialViewController
  */
 class InitialViewController: UIViewController {
-   
+    
     static var titleName = ""
-   
+    
     // MARK: - Properties
     /// Button to show list of user's books
     lazy var showUserBooksButton = CustomUI().button
@@ -29,11 +30,9 @@ class InitialViewController: UIViewController {
     lazy var showUserBooksBorrowedButton = CustomUI().button
     /// View to display adds
     var advertisingBannerView = GADBannerView()
-    
-    var interstitial: GADInterstitial!
-    
-    
 
+    let locationManager = CLLocationManager()
+    
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,21 +40,21 @@ class InitialViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: #selector(handleConnexion))
         checkIfUserIsAlreadyLoggedIn()
         setupScreen()
-        sendNotificationForLateLoans()
         setupBanner()
-        interstitial = createAndLoadInterstitial()
-        interstitial.delegate = self
-
+        updateUserLocation()
+        
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         setupScreen()
         perform(#selector(testIfNewMessage), with: nil, afterDelay: 2)
-        perform(#selector(launchInterstitial), with: nil, afterDelay: 1)
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
-    
+    // MARK: - Methods
+    /**
+     Function that setups advertissing banner
+     */
     private func setupBanner(){
         // Banner
         //real adUnitID for banner
@@ -66,32 +65,15 @@ class InitialViewController: UIViewController {
         advertisingBannerView.load(GADRequest())
         advertisingBannerView.delegate = self
     }
-    
-    func createAndLoadInterstitial() -> GADInterstitial {
-        //Interstitial
-        // Interstitial real id
-       //let interstitial = GADInterstitial(adUnitID: "ca-app-pub-9970351873403667/5248644445")
-        // Interstitial test id
-        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
-        interstitial.delegate = self
-        interstitial.load(GADRequest())
-        return interstitial
-    }
-    
-    @objc private func launchInterstitial(){
-        if interstitial.isReady && counterInterstitial < 1{
-            interstitial.present(fromRootViewController: self)
-            counterInterstitial += 1
-        }
-    }
-    
+    /**
+    Function that check if a message has been sent to current user while logged out
+    */
     @objc func testIfNewMessage(){
         if newMessage {
             Alert.shared.controller = self
             Alert.shared.alertDisplay = .newMessagesAfterLogin
         }
     }
-    // MARK: - Methods
     /**
      Function that checks if user already loggedin
      */
@@ -108,10 +90,7 @@ class InitialViewController: UIViewController {
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         fetchUserAndSetupNavBarTitle()
-        view.addSubview(showUserBooksLentButton)
-        view.addSubview(showUserBooksButton)
-        view.addSubview(showUserBooksBorrowedButton)
-        view.addSubview(advertisingBannerView)
+        view.addSubviews(showUserBooksLentButton,showUserBooksButton,showUserBooksBorrowedButton,advertisingBannerView)
         setupShowUserBooksLentButton()
         setupShowUserBooksButton()
         setupShowUserBooksBorrowedButton()
@@ -151,7 +130,7 @@ class InitialViewController: UIViewController {
      Function that sets up showUserBooksBorrowedButton
      */
     private func setupShowUserBooksBorrowedButton(){
-
+        
         showUserBooksBorrowedButton.setTitle("Mes livres empruntés", for: .normal)
         showUserBooksBorrowedButton.layer.cornerRadius = 15
         showUserBooksBorrowedButton.titleLabel?.font = .systemFont(ofSize: 25)
@@ -179,7 +158,7 @@ class InitialViewController: UIViewController {
     func fetchUserAndSetupNavBarTitle(){
         
         guard let uid = Auth.auth().currentUser?.uid else {
-        //   navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Connexion", style: .plain, target: self, action: #selector(handleConnexion))
+            //   navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Connexion", style: .plain, target: self, action: #selector(handleConnexion))
             return}
         Database.database().reference().child(FirebaseUtilities.shared.users).child(uid).observeSingleEvent(of: .value) { (snapshot) in
             if let dictionary = snapshot.value as? [String : Any] {
@@ -201,7 +180,7 @@ class InitialViewController: UIViewController {
     }
     
     func setupNavBarWithUser(user: User){
-      //  self.navigationItem.title = user.name
+        //  self.navigationItem.title = user.name
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         
@@ -216,21 +195,21 @@ class InitialViewController: UIViewController {
         profileImageView.layer.cornerRadius = 20
         profileImageView.clipsToBounds = true
         if let profileUrl = user.profileId {
-             profileImageView.loadingImageUsingCacheWithUrlString(urlString: profileUrl)
+            profileImageView.loadingImageUsingCacheWithUrlString(urlString: profileUrl)
         }
-
+        
         containerView.addSubview(profileImageView)
         // Contraints X Y Width height
         profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-
+        
         let nameLabel = UILabel()
         nameLabel.text = user.name
         nameLabel.textColor = .white
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-         containerView.addSubview(nameLabel)
+        containerView.addSubview(nameLabel)
         // Contraints X Y Width height
         nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
@@ -258,9 +237,8 @@ class InitialViewController: UIViewController {
             
             self.present(actionSheet, animated: true, completion : nil)
         }
-
+        
     }
-    
     /**
      Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed
      */
@@ -269,11 +247,11 @@ class InitialViewController: UIViewController {
         {
             FirebaseUtilities.changeToken(uid: uid)
         }
-
+        
         // Try to log out
         do {
             try Auth.auth().signOut()
-             print("You are successfully logged out")
+            print("You are successfully logged out")
         }
         catch let logoutError {
             // todo: Alert to do
@@ -284,7 +262,6 @@ class InitialViewController: UIViewController {
         loginController.initialViewController = self
         present(loginController, animated: true, completion: nil)
     }
-
     /**
      Action that shows the list of user's books when showUserBooksButton is clicked
      */
@@ -292,7 +269,6 @@ class InitialViewController: UIViewController {
         let userBooksTableViewController = UINavigationController(rootViewController: UserBooksTableViewController())
         present(userBooksTableViewController, animated: true, completion: nil)
     }
-
     /**
      Action that shows the list of user's books which are lent when showUserBooksLentButton is clicked
      */
@@ -346,103 +322,59 @@ extension InitialViewController: GADBannerViewDelegate {
     func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
         print("adViewWillLeaveApplication")
     }
-    
-    
 }
-
-extension InitialViewController: GADInterstitialDelegate {
-    /// Tells the delegate the interstitial had been animated off the screen.
-    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-         print("interstitialWillDismissScreen")
-        interstitial = createAndLoadInterstitial()
-    }
-    /// Tells the delegate an ad request succeeded.
-    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        print("interstitialDidReceiveAd")
-    }
-    
-    /// Tells the delegate an ad request failed.
-    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
-        print("interstitial:didFailToReceiveAdWithError: \(error.localizedDescription)")
-    }
-    
-    /// Tells the delegate that an interstitial will be presented.
-    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
-        print("interstitialWillPresentScreen")
-    }
-    
-    /// Tells the delegate the interstitial is to be animated off the screen.
-    func interstitialWillDismissScreen(_ ad: GADInterstitial) {
-    }
-
-    /// Tells the delegate that a user click will open another app
-    /// (such as the App Store), backgrounding the current app.
-    func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
-        print("interstitialWillLeaveApplication")
-    }
-}
-
 
 extension InitialViewController {
     
-    // Specific function for admin to send notification on loans
-    private func sendNotificationForLateLoans() {
-        guard let userUid = Auth.auth().currentUser?.uid else {return}
-        FirebaseUtilities.getUserFromProfileId(profileId: userUid) { (user) in
-            guard let email = user.email else {return}
-            print("email du user \(email)")
-            if email == "admin@xellissime.com" {
-                print("we fetch loans")
-                self.fetchLateLoans()
-            }
-        }
-    }
-    /**
-     This function fetch late loans to send notification
-     */
-    private func fetchLateLoans(){
-        //first get current date
-        print("step 4")
-        let now = Date()
-        let nowGoodFormat = now.formatDateTo_dd_dot_MM_dot_yyyy().toDateLoan()
-        var loansArray = [LoanBook]()
+    private func updateUserLocation(){
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
         
-        let rootRef = Database.database().reference()
-        let query = rootRef.child(FirebaseUtilities.shared.loans).queryOrdered(byChild: "expectedEndDateOfLoan").queryEnding(atValue: 1570807900)
-        query.observe(.value) { (snapshot) in
-            // this to avoid duplicated row when reloaded
-            print("step 5")
-            loansArray = [LoanBook]()
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                print("step 6")
-                if let value = child.value as? NSDictionary {
-                    print("step 7")
-                    let loan = LoanBook()
-                    let uniqueLoanBookId = value["uniqueLoanBookId"] as? String ?? "uniqueLoanBookId not found"
-                    let bookId = value["bookId"] as? String ?? "bookId not found"
-                    let fromUser = value["fromUser"] as? String ?? "fromUser not found"
-                    let toUser = value["toUser"] as? String ?? "toUser not found"
-                    let loanStartDate = value["loanStartDate"] as? Int ?? 0
-                    let expectedEndDateOfLoan = value["expectedEndDateOfLoan"] as? Int ?? 0
-                    let effectiveEndDateOfLoan = value["effectiveEndDateOfLoan"] as? Int ?? 0
-                    
-                    print(expectedEndDateOfLoan)
-                    
-                    loan.uniqueLoanBookId = uniqueLoanBookId
-                    loan.bookId = bookId
-                    loan.fromUser = fromUser
-                    loan.toUser = toUser
-                    loan.expectedEndDateOfLoan = expectedEndDateOfLoan
-                    loan.loanStartDate = loanStartDate
-                    loan.effectiveEndDateOfLoan = effectiveEndDateOfLoan
-                    
-                    loansArray.append(loan)
-                    
-                    // todo : limit to 20 books
-                }
-            }
-            print(loansArray)
-        }
-        //
     }
+    private func updateUserLocationInFirebase(){
+        if let location = locationManager.location?.coordinate {
+            let latitude = location.latitude
+            let longitude = location.longitude
+            if let uid = Auth.auth().currentUser?.uid {
+                FirebaseUtilities.updateUserLocation(latitude: latitude,longitude: longitude,userUid: uid)
+            }
+        }
+    }
+    func checkLocationAuthorization(){
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedWhenInUse:
+            updateUserLocationInFirebase()
+            break
+        case .denied:
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .locationAuthorization
+            break
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            break
+        case .restricted:
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .locationAuthorization
+            break
+        case .authorizedAlways:
+            break
+        default:
+            break
+        }
+    }
+    
+}
+
+
+extension InitialViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        checkLocationAuthorization()
+    }
+    
+    private func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("error:: (error)")
+    }
+    
 }

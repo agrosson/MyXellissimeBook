@@ -68,14 +68,14 @@ class SearchViewController: UIViewController {
         return button
     }()
     
+    lazy var showMap = CustomUI().button
     
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         counterInterstitial = 0
-        view.addSubview(searchLabel)
-        view.addSubview(inputsContainerView)
-        view.addSubview(searchBookInDatabaseButton)
+        view.addSubviews(searchLabel,inputsContainerView,searchBookInDatabaseButton,showMap)
+        
         fetchUserAndSetupNavBarTitle()
     }
     // MARK: - Method viewWillAppear
@@ -118,6 +118,7 @@ class SearchViewController: UIViewController {
         setupSearchLabel()
         setupInputsContrainerView()
         setupsearchBookInDatabaseButton()
+        setupShowMap()
     }
     /**
      Function that creates a tap Gesture Recognizer

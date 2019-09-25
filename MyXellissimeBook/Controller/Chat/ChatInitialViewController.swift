@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
+import GoogleMobileAds
 
 // MARK: - Class ChatInitialViewController
 /**
@@ -28,10 +29,11 @@ class ChatInitialViewController : UITableViewController {
     /// A timer to fix reload table to many times
     var timerChat: Timer?
     
+    var interstitial: GADInterstitial!
+    
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        counterInterstitial = 0
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
         fetchUserAndSetupNavBarTitle()
         // Registration of the reused cell
@@ -39,6 +41,8 @@ class ChatInitialViewController : UITableViewController {
         tableView.allowsMultipleSelectionDuringEditing = true
         observeAllMessages()
         perform(#selector(testIfNoMessage), with: nil, afterDelay: 0.5)
+        interstitial = createAndLoadInterstitial()
+        interstitial.delegate = self
     }
    
     // MARK: - Method - viewWillAppear
@@ -46,7 +50,26 @@ class ChatInitialViewController : UITableViewController {
         super.viewWillAppear(animated)
         newMessage = false
         fetchUserAndSetupNavBarTitle()
+        perform(#selector(launchInterstitial), with: nil, afterDelay: 1)
         UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+    
+    func createAndLoadInterstitial() -> GADInterstitial {
+        //Interstitial
+        // Interstitial real id
+        //let interstitial = GADInterstitial(adUnitID: "ca-app-pub-9970351873403667/5248644445")
+        // Interstitial test id
+        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        interstitial.delegate = self
+        interstitial.load(GADRequest())
+        return interstitial
+    }
+    
+    @objc private func launchInterstitial(){
+        if interstitial.isReady && counterInterstitial < 1{
+            interstitial.present(fromRootViewController: self)
+            counterInterstitial += 1
+        }
     }
     /**
      function that observes all messages send by or received by a single user
@@ -292,5 +315,38 @@ class ChatInitialViewController : UITableViewController {
                 }
             }, withCancel: nil)
         }, withCancel: nil)
+    }
+}
+
+
+extension ChatInitialViewController: GADInterstitialDelegate {
+    /// Tells the delegate the interstitial had been animated off the screen.
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        print("interstitialWillDismissScreen")
+        interstitial = createAndLoadInterstitial()
+    }
+    /// Tells the delegate an ad request succeeded.
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        print("interstitialDidReceiveAd")
+    }
+    
+    /// Tells the delegate an ad request failed.
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        print("interstitial:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+    /// Tells the delegate that an interstitial will be presented.
+    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
+        print("interstitialWillPresentScreen")
+    }
+    
+    /// Tells the delegate the interstitial is to be animated off the screen.
+    func interstitialWillDismissScreen(_ ad: GADInterstitial) {
+    }
+    
+    /// Tells the delegate that a user click will open another app
+    /// (such as the App Store), backgrounding the current app.
+    func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
+        print("interstitialWillLeaveApplication")
     }
 }

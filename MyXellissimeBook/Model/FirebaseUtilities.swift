@@ -127,6 +127,8 @@ class FirebaseUtilities {
                         let timestampLastLogout = value["timestampLastLogout"] as? Int ?? 0
                         let timestampLastLogIn = value["timestampLastLogIn"] as? Int ?? 0
                         let timestamp = value["timestamp"] as? Int ?? 0
+                        let latitude = value["latitude"] as? Double ?? 0
+                        let longitude = value["longitude"] as? Double ?? 0
                         userTemp.name = name
                         userTemp.email = email
                         userTemp.profileId = profileId
@@ -135,6 +137,8 @@ class FirebaseUtilities {
                         userTemp.timestamp = timestamp
                         userTemp.timestampLastLogout = timestampLastLogout
                         userTemp.timestampLastLogIn = timestampLastLogIn
+                        userTemp.latitude = latitude
+                        userTemp.longitude = longitude
                         callBack(userTemp)
                     }
                 }
@@ -155,7 +159,6 @@ class FirebaseUtilities {
         let rootRef = Database.database().reference()
         // Create an object that returns all users with the profileId
         let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "profileId")
-        print(query)
         var counter = 0
         var counterTrue = 0
         query.observe(.value) { (snapshot) in
@@ -173,6 +176,8 @@ class FirebaseUtilities {
                         let timestamp = value["timestamp"] as? Int ?? 0
                         let timestampLastLogout = value["timestampLastLogout"] as? Int ?? 0
                         let timestampLastLogIn = value["timestampLastLogIn"] as? Int ?? 0
+                        let latitude = value["latitude"] as? Double ?? 0
+                        let longitude = value["longitude"] as? Double ?? 0
                         userTemp.name = name
                         userTemp.email = email
                         userTemp.profileId = profileId
@@ -181,6 +186,8 @@ class FirebaseUtilities {
                         userTemp.timestamp = timestamp
                         userTemp.timestampLastLogout = timestampLastLogout
                         userTemp.timestampLastLogIn = timestampLastLogIn
+                        userTemp.latitude = latitude
+                        userTemp.longitude = longitude
                         callBack(userTemp)
                     }
                 }
@@ -206,7 +213,7 @@ class FirebaseUtilities {
                           "text" : text,] as [String : Any]
         FirebaseUtilities.saveMessageOrImage(properties: properties, fromId: fromId, toUser: toUser)
         FirebaseUtilities.sendNotification(fromId: fromId, toUser: toUser)
-        }
+    }
     
     
     /**
@@ -218,20 +225,20 @@ class FirebaseUtilities {
      - Parameter imageWidth: width of image
      - Parameter imageHeight: height of image
      
-    */
+     */
     static func saveMessageImage(messageImageUrl: String, fromId : String, toUser: User, imageWidth: CGFloat, imageHeight: CGFloat) {
-
+        
         let properties = ["messageImageUrl" : messageImageUrl,
-                      "imageWidth" : imageWidth,
-                      "imageHeight" : imageHeight,
-                      "text" : ""] as [String : Any]
+                          "imageWidth" : imageWidth,
+                          "imageHeight" : imageHeight,
+                          "text" : ""] as [String : Any]
         FirebaseUtilities.saveMessageOrImage(properties: properties, fromId: fromId, toUser: toUser)
         FirebaseUtilities.sendNotification(fromId: fromId, toUser: toUser)
     }
     
     static func sendNotification(fromId : String, toUser: User) {
         print("here is the code to send Push Notification")
-     
+        
     }
     
     /**
@@ -241,7 +248,7 @@ class FirebaseUtilities {
      - Parameter fromId: the sender Id as a String
      - Parameter toUser: the recipient user
      
-    */
+     */
     static func saveMessageOrImage(properties : [String : Any], fromId : String, toUser: User) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.messages)
         /// unique reference for the message
@@ -429,7 +436,7 @@ class FirebaseUtilities {
      - Parameter toUser: the user of the borrower as a User
      - Parameter loanStartDate: the loan starting date as a String
      - Parameter expectedEndDateOfLoan: the loan expected end date as a String
-    */
+     */
     static func saveLoan(bookToLend: Book, fromId : String, toUser: User, loanStartDate: Int,expectedEndDateOfLoan: Int) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.loans)
         /// unique reference for the message
@@ -516,6 +523,55 @@ class FirebaseUtilities {
             }
         }
     }
-    
-    
+    /**
+     This function updates location in Firebase for a user
+     - Parameter latitude:  the new latitude of user's device
+     - Parameter longitude:  the new longitude of user's device
+     - Parameter uid:  the user uid
+     */
+    static func updateUserLocation(latitude: Double, longitude : Double, userUid : String) {
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(userUid)
+        let value = ["latitude": latitude,
+                     "longitude" : longitude] as [String : Any]
+        ref.updateChildValues(value) { (error, ref) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+        }
+    }
+    /**
+     This function fetches location in Firebase for all user near current user
+     - Parameter latitude:  the new latitude of user's device
+     - Parameter longitude:  the new longitude of user's device
+     - Returns  uid:  the user uid
+     */
+    static func fetchUserAnnotation(latitudeUser: Double, longitudeUser : Double) -> [MapAnnotation] {
+        print("on est ici fetch annotation")
+        var mapAnnotationArray = [MapAnnotation]()
+        let rootRef = Database.database().reference().child(FirebaseUtilities.shared.users)
+        rootRef.observe(.childAdded, with: { (snapshot) in
+              print("on est ici fetch annotation inside")
+            // get the key for the userId
+            let userId = snapshot.key
+            rootRef.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+                  print("on est ici fetch annotation deeper")
+                guard let dictionary = snapshot.value as? [String : Any] else {return}
+                
+                let mapAnnotation = MapAnnotation()
+                guard let latitude = dictionary["latitude"] as? Double else {return}
+                guard let longitude = dictionary["longitude"] as? Double else {return}
+                guard let name = dictionary["name"] as? String else {return}
+                guard let profileId = dictionary["profileId"] as? String else {return}
+                mapAnnotation.latitude = latitude
+                mapAnnotation.longitude = longitude
+                mapAnnotation.userName = name
+                mapAnnotation.userId = profileId
+                 print("on est ici fetch annotation deeper 2")
+                print(mapAnnotation)
+                mapAnnotationArray.append(mapAnnotation)
+            })
+        })
+        return mapAnnotationArray
+    }
 }

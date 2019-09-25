@@ -31,6 +31,10 @@ class User : NSObject {
     var timestampLastLogout: Int?
     /// Date of user last login
     var timestampLastLogIn: Int?
+    /// User Latitude
+    var latitude : Double?
+    /// User Longitude
+    var longitude : Double?
     
     
     // MARK: - Initializer

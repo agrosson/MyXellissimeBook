@@ -48,7 +48,8 @@ class Alert {
         noUserFoundForLoan,
         noMessageForUSer,
         conditionMustBeAccepted,
-        newMessagesAfterLogin
+        newMessagesAfterLogin,
+        locationAuthorization
     }
     // MARK: - Initializer
     init() {}
@@ -143,6 +144,10 @@ class Alert {
             title: "Cher Utilisateur,",
             message: TextAndString.shared.newMessagesAfterLogin,
             titleButton: "Retour")
+        case .locationAuthorization : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+        message: TextAndString.shared.locationAuthorization,
+            titleButton: "Retour")
         }
     }
 }
@@ -174,4 +179,5 @@ struct TextAndString {
     let noMessageForUSer = "Vous pouvez écrire un message en cliquant sur l'icône en haut à droite"
     let updateProfileImage = "Vous pouvez changer la photo de votre profil en tappant sur l'image du livre"
     let newMessagesAfterLogin = "Nous sommes heureux de vous revoir.\n\nVous avez reçu de nouveaux messages durant votre absence.\nC'est peut être important 😉"
+    let locationAuthorization = "Merci d'autoriser la géolocalisation pour afficher la carte.\nPour cela, aller dans les paramètres de votre iphone."
 }

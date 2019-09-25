@@ -91,4 +91,20 @@ extension SearchViewController {
         searchBookInDatabaseButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         searchBookInDatabaseButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
     }
+    
+    func setupShowMap() {
+        guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
+        showMap.addTarget(self, action: #selector(displayMap), for: .touchUpInside)
+        showMap.setTitle("Localiser des proches utilisateurs", for: .normal)
+        showMap.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        showMap.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight-20).isActive = true
+        showMap.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        showMap.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
+        
+    }
+    
+    @objc func displayMap(){
+        let mapViewController = MapViewController()
+        navigationController?.pushViewController(mapViewController, animated: true)
+    }
 }

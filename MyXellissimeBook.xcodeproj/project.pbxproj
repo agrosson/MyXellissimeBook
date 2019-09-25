@@ -65,6 +65,10 @@
 		C17EEF5422B28D8B00BF01B5 /* CustomInitialTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */; };
 		C17EEF5622B292C500BF01B5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5522B292C500BF01B5 /* SearchViewController.swift */; };
 		C17EEF5822B2934100BF01B5 /* ChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */; };
+		C1873F9E233A202D004C1F13 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1873F9D233A202D004C1F13 /* CoreLocation.framework */; };
+		C1873FA0233A3BAF004C1F13 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1873F9F233A3BAF004C1F13 /* Map.swift */; };
+		C1873FA2233A4117004C1F13 /* ExtensionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1873FA1233A4117004C1F13 /* ExtensionsView.swift */; };
+		C1873FA4233A77C8004C1F13 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1873FA3233A77C8004C1F13 /* MapAnnotation.swift */; };
 		C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19371D622B0FC500017E696 /* AppDelegate.swift */; };
 		C19371D922B0FC500017E696 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19371D822B0FC500017E696 /* InitialViewController.swift */; };
 		C19371DC22B0FC500017E696 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19371DA22B0FC500017E696 /* Main.storyboard */; };
@@ -164,6 +168,10 @@
 		C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInitialTabBarController.swift; sourceTree = "<group>"; };
 		C17EEF5522B292C500BF01B5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewController.swift; sourceTree = "<group>"; };
+		C1873F9D233A202D004C1F13 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C1873F9F233A3BAF004C1F13 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		C1873FA1233A4117004C1F13 /* ExtensionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsView.swift; sourceTree = "<group>"; };
+		C1873FA3233A77C8004C1F13 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		C19371D322B0FC500017E696 /* MyXellissimeBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyXellissimeBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C19371D622B0FC500017E696 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C19371D822B0FC500017E696 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1873F9E233A202D004C1F13 /* CoreLocation.framework in Frameworks */,
 				0ECCF58DCFEF7CD98451C9A5 /* Pods_MyXellissimeBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +226,7 @@
 		79850C0125A74725E8FDC603 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1873F9D233A202D004C1F13 /* CoreLocation.framework */,
 				9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */,
 				0C4CB8B24C6201E44EC28B02 /* Pods_MyXellissimeBookTests.framework */,
 			);
@@ -273,6 +283,7 @@
 		C100899922BCD0A000D3497E /* Search Management */ = {
 			isa = PBXGroup;
 			children = (
+				C1873F9F233A3BAF004C1F13 /* Map.swift */,
 				C120D35622C1602C00E749BC /* SearchBookDetailViewController.swift */,
 				C120D35822C1618500E749BC /* SearchBookDetailViewController+setupScreen.swift */,
 				C120D35422C1350600E749BC /* SearchBookResultTableViewController.swift */,
@@ -394,6 +405,7 @@
 				C1B42B7822B13FAF00982194 /* User.swift */,
 				C1596ED722B6807500CBCD08 /* Message.swift */,
 				C12C125122B3915A006A3F2C /* Utilities.swift */,
+				C1873FA3233A77C8004C1F13 /* MapAnnotation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -427,6 +439,7 @@
 				C1E5D7A92302F70F00D23E80 /* ExtensionUIColor.swift */,
 				C1E5D7A52302ED1200D23E80 /* ExtensionViewController.swift */,
 				C1E5D7A72302F6A900D23E80 /* ExtensionString.swift */,
+				C1873FA1233A4117004C1F13 /* ExtensionsView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -731,17 +744,20 @@
 				C120D35722C1602C00E749BC /* SearchBookDetailViewController.swift in Sources */,
 				C1D1A77E2316C78700E771AD /* AddBookViewController+setupScreen.swift in Sources */,
 				C100899622BCCB6100D3497E /* UserBooksTableViewController.swift in Sources */,
+				C1873FA4233A77C8004C1F13 /* MapAnnotation.swift in Sources */,
 				C13355C122BA1D270006D9CD /* Book.swift in Sources */,
 				C1596ED822B6807500CBCD08 /* Message.swift in Sources */,
 				C13355C322BA1E290006D9CD /* LoanBook.swift in Sources */,
 				C11B305222BE7E530023CF0E /* ManageLoanViewController.swift in Sources */,
 				C15D2B2222BD495B00B621E8 /* LoginController+setupScreen.swift in Sources */,
 				C1E5D7A82302F6A900D23E80 /* ExtensionString.swift in Sources */,
+				C1873FA0233A3BAF004C1F13 /* Map.swift in Sources */,
 				C120D35122C0E44500E749BC /* DetailBorrowedBookViewController.swift in Sources */,
 				C13355D022BA6BF40006D9CD /* APIManager.swift in Sources */,
 				C1C12334231805E400B31989 /* ExtensionUIImage.swift in Sources */,
 				C13355D422BA787D0006D9CD /* BookOpenLibraryResponse.swift in Sources */,
 				C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */,
+				C1873FA2233A4117004C1F13 /* ExtensionsView.swift in Sources */,
 				C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */,
 				C16B2C71232F955A002D4F4B /* AlertEnglish.swift in Sources */,
 				C13355D222BA724A0006D9CD /* BookResponse.swift in Sources */,
