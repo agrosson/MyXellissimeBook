@@ -247,6 +247,7 @@ extension AddBookViewController: UIImagePickerControllerDelegate {
                 bookToSendToManually.editor = editor
                 let isbn = UUID().uuidString
                 bookToSendToManually.isbn = isbn
+                bookToSendToManually.coverURL = isbn
                 guard let imageRotated = image.rotate(radians: -.pi/2) else {return}
                 FirebaseUtilities.saveCoverImage(coverImage: imageRotated, isbn: isbn)
                 self.activeLabelsForDragAndDrop(with: bookToSendToManually)

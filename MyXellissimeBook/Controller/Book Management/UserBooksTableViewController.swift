@@ -24,6 +24,9 @@ class UserBooksTableViewController: UITableViewController {
     
     var rootRef = DatabaseReference()
     
+    /// Timer to delay update data in chatlog
+    var timerBook: Timer?
+    
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +40,7 @@ class UserBooksTableViewController: UITableViewController {
         setupScreen()
         rootRef.removeAllObservers()
         UIApplication.shared.applicationIconBadgeNumber = 0
+        attemptReloadData()
     }
     
     // MARK: - Methods
@@ -88,11 +92,25 @@ class UserBooksTableViewController: UITableViewController {
                 book.coverURL = coverURL
                 book.editor = editor
                 self.books.append(book)
-                DispatchQueue.main.async {self.tableView.reloadData() }
+                DispatchQueue.main.async {self.attemptReloadData()}
             }, withCancel: nil)
         }, withCancel: nil)
 
     }
+    /**
+        function that attempts to reload data
+        */
+       private func attemptReloadData(){
+           self.timerBook?.invalidate()
+           self.timerBook = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.handlerReloadTable), userInfo: nil, repeats: false)
+       }
+       /**
+        function that reloads data
+        */
+       @objc func handlerReloadTable(){
+           DispatchQueue.main.async {self.tableView.reloadData()}
+       }
+    
     /**
      Function that presents detailAvailableBookViewController
      */

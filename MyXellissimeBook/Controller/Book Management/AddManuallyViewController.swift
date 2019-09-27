@@ -161,7 +161,7 @@ class AddManuallyViewController: UIViewController {
                     labelEditor.center = originEditor
                 }
             }
-             else {
+            else {
                 labelTitle.center = originTitle
                 labelAuthor.center = originAuthor
                 labelEditor.center = originEditor
@@ -314,7 +314,7 @@ class AddManuallyViewController: UIViewController {
                                                 actionSheet.addAction(UIAlertAction(title: "Ajouter manuellement",
                                                                                     style: .default,
                                                                                     handler: { (_: UIAlertAction) in
-                                                                                   //     self.dismiss(animated: true)
+                                                                                        //     self.dismiss(animated: true)
                                                                                         self.isSearchIndicator(shown: false)
                                                 }))
                                                 actionSheet.addAction(UIAlertAction(title: "Annuler",
@@ -367,7 +367,7 @@ class AddManuallyViewController: UIViewController {
         mySwipeGestureRecognizer.direction = .down
         self.view.addGestureRecognizer(mySwipeGestureRecognizer)
     }
-   
+    
     
     /**
      Function that manages TextField
@@ -449,7 +449,7 @@ class AddManuallyViewController: UIViewController {
             myBookToSave.isbn = bookIsbnTextField.text ?? ""
             myBookToSave.coverURL = ""
             if let editor = editorTextField.text {
-              myBookToSave.editor = editor
+                myBookToSave.editor = editor
             } else {
                 myBookToSave.editor = "Editor unknown"
             }
@@ -465,36 +465,40 @@ class AddManuallyViewController: UIViewController {
         } else {
             myBookToSave.author = "Author unknown"
         }
-
+        
         if myBookToSave.isbn == nil || myBookToSave.isbn == "" {
             myBookToSave.isbn = UUID().uuidString
         }
         guard let uid = Auth.auth().currentUser?.uid else {
             isSaveIndicator(shown: false)
             return}
-
+        
         myBookToSave.uniqueId = "\(uid)\(String(describing: myBookToSave.isbn))"
         FirebaseUtilities.saveBook(book: myBookToSave, fromUserId: uid)
         // if there is no cover image, this will be the image
-        var dataAsImage = UIImage(named: "profileDefault") ?? UIImage()
-        if myBookToSave.coverURL?.contains("nophoto") ?? true {
-            myBookToSave.coverURL = ""
-        }
-        if myBookToSave.coverURL != "" {
-            if let coverUrl = myBookToSave.coverURL {
-                if let url = URL(string: coverUrl) {
-                    if  let data = try? Data(contentsOf: url) {
-                        if let datatest = UIImage(data: data) {
-                            dataAsImage = datatest
+        if myBookToSave.isbn != myBookToSave.coverURL{
+            var dataAsImage = UIImage(named: "profileDefault") ?? UIImage()
+            if myBookToSave.coverURL?.contains("nophoto") ?? true {
+                myBookToSave.coverURL = ""
+            }
+            if myBookToSave.coverURL != "" {
+                if let coverUrl = myBookToSave.coverURL {
+                    if let url = URL(string: coverUrl) {
+                        if  let data = try? Data(contentsOf: url) {
+                            if let datatest = UIImage(data: data) {
+                                dataAsImage = datatest
+                            }
                         }
                     }
                 }
             }
+            guard let isbnToSave = myBookToSave.isbn else {
+                isSaveIndicator(shown: false)
+                return }
+            FirebaseUtilities.saveCoverImage(coverImage: dataAsImage, isbn: isbnToSave)
+            
         }
-        guard let isbnToSave = myBookToSave.isbn else {
-            isSaveIndicator(shown: false)
-            return }
-        FirebaseUtilities.saveCoverImage(coverImage: dataAsImage, isbn: isbnToSave)
+        
         isSaveIndicator(shown: false)
         scannedIsbn = ""
         dismiss(animated: true, completion: nil)

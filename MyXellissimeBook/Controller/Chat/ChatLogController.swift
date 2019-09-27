@@ -22,7 +22,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     /// Id of cell of the Collection view
     var cellId = "cellId"
-    
     /// Array of all messages
     var messages = [Message]()
     /// Dictionary of last messages by users
@@ -43,6 +42,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     var timerChat: Timer?
     /// Container view anchor
     var containerViewBottomAnchor: NSLayoutConstraint?
+    /// RefreshControl
+    var refreshControl = UIRefreshControl()
     
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
@@ -51,9 +52,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         setInputComponents()
         collectionViewSetup()
         manageObservers()
-        //These notifications to observe behavior of keyboard
-        // Show keyboard
-
+        addRefreshControl()
     }
     // MARK: - Method - viewDidDisappear
     override func viewDidDisappear(_ animated: Bool) {
@@ -63,10 +62,23 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
-        manageObservers()
         super.viewWillAppear(animated)
+         manageObservers()
     }
-    
+    // MARK: - Method
+    /**
+     Function that adds and defines refresh control for collection view
+     */
+    fileprivate func addRefreshControl() {
+        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.white]
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes )
+        refreshControl.tintColor = .white
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        collectionView.addSubview(refreshControl)
+    }
+    /**
+    Function that manages observers for keyboards
+    */
     private func manageObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         // hide keyboard
@@ -86,13 +98,19 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         NotificationCenter.default.removeObserver(self)
         manageObservers()
     }
-    
+    /**
+    Function that refreshes collection View
+    */
+    @objc func refresh() {
+        print("refresh selected")
+        attemptReloadData()
+        self.refreshControl.endRefreshing()
+    }
     
     /**
      Function that modifies containerViewBottomAnchor to lift the textField with keyboard
      */
     @objc func handldeKeyboardWillShow(notification : NSNotification){
-        print("move up?")
         let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
         let keyboardDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
         let safeLayoutGuideBot = self.view.safeAreaInsets.bottom
@@ -126,10 +144,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             
         } else  {
             if let url = message.messageImageUrl {
-            cell.messageImageView.loadingMessageImageUsingCacheWithisString(urlString: url)
-            cell.textView.isHidden = true
-            cell.bubbleWidthAnchor?.constant = 200
-        }
+                cell.messageImageView.loadingMessageImageUsingCacheWithisString(urlString: url)
+                cell.textView.isHidden = true
+                cell.bubbleWidthAnchor?.constant = 200
+            }
         }
         
         setupCell(cell: cell, message: message)
@@ -140,7 +158,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let width = UIScreen.main.bounds.width
         
         let message = messages[indexPath.row]
-       // let url = message.messageImageUrl
+        // let url = message.messageImageUrl
         let text = message.text
         guard let imageWidth = message.imageWidth else {return CGSize(width: 0, height: 0)}
         guard let imageHeight = message.imageHeight else {return CGSize(width: 0, height: 0)}
@@ -148,8 +166,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         if text != "" {
             guard let textToDisplay = text else {return CGSize(width: 0, height: 0)}
             height = estimateFrameFor(text: textToDisplay).height + 16
-            }
-         else {
+        }
+        else {
             height = CGFloat(imageHeight/imageWidth * 200)
         }
         return CGSize(width: width, height: height)
@@ -161,7 +179,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     
     // MARK: - Methods
-
+    
     
     /**
      Function that returns a estimated CGRect given a String
@@ -194,7 +212,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             cell.profileImageView.isHidden = true
             
         }
-        // Set the bubble to lfet if message not from current user and show profileImage from sender
+            // Set the bubble to lfet if message not from current user and show profileImage from sender
         else {
             cell.messageImageView.backgroundColor = #colorLiteral(red: 0.3469632864, green: 0.3805449009, blue: 0.4321892262, alpha: 1)
             cell.textView.textColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
@@ -224,11 +242,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
                 guard let dictionary = snapshot.value as? [String : Any] else {return}
                 let message = Message(dictionary: dictionary)
                 self.messages.append(message)
-                DispatchQueue.main.async {self.collectionView.reloadData()
-                // scroll to last message
-                let indexPath = IndexPath(item: self.messages.count-1, section: 0)
-                self.collectionView?.scrollToItem(at: indexPath, at: .bottom, animated: true)
-            }
+                DispatchQueue.main.async {self.attemptReloadData()                    
+                }
             }, withCancel: nil)
         }, withCancel: nil)
     }
@@ -253,7 +268,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
      function that reloads data
      */
     @objc func handlerReloadTable(){
-        DispatchQueue.main.async {self.collectionView.reloadData()}
+        DispatchQueue.main.async {self.collectionView.reloadData()
+            let indexPath = IndexPath(item: self.messages.count-1, section: 0)
+            self.collectionView?.scrollToItem(at: indexPath, at: .bottom, animated: true)
+        }
     }
     
     /**
