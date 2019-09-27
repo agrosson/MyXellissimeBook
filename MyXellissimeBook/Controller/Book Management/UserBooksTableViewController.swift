@@ -52,7 +52,7 @@ class UserBooksTableViewController: UITableViewController {
         books.removeAll()
         tableView.reloadData()
         observeUserBooks()
-        perform(#selector(testIfNoBook), with: nil, afterDelay: 1)
+        perform(#selector(testIfNoBook), with: nil, afterDelay: 2)
         
     }
     
@@ -62,7 +62,6 @@ class UserBooksTableViewController: UITableViewController {
     private func observeUserBooks(){
         // get the Id of the user
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        
         rootRef = Database.database().reference()
         // get the ref of list of message for this uid
         let ref = rootRef.child(FirebaseUtilities.shared.user_books).child(uid)
@@ -101,14 +100,14 @@ class UserBooksTableViewController: UITableViewController {
         function that attempts to reload data
         */
        private func attemptReloadData(){
-           self.timerBook?.invalidate()
-           self.timerBook = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.handlerReloadTable), userInfo: nil, repeats: false)
+        self.timerBook?.invalidate()
+        self.timerBook = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.handlerReloadTable), userInfo: nil, repeats: false)
        }
        /**
         function that reloads data
         */
        @objc func handlerReloadTable(){
-           DispatchQueue.main.async {self.tableView.reloadData()}
+        DispatchQueue.main.async {self.tableView.reloadData()}
        }
     
     /**

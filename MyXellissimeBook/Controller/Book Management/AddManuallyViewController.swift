@@ -68,7 +68,7 @@ class AddManuallyViewController: UIViewController {
     var originAuthor: CGPoint!
     var originEditor: CGPoint!
     
-    var priority = "rien pour l'instant"
+    var priority = "no priority"
     var currentLabelText = "empty"
     
     // MARK: - Method viewDidLoad
@@ -97,26 +97,26 @@ class AddManuallyViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            priority = "rien pour l'instant"
+            priority = "no priority"
             currentLabelText = "empty"
             let location = touch.location(in: self.view)
             if labelTitle.frame.contains(location) {
                 labelTitle.center = location
-                priority = "montitre"
+                priority = "titlePriority"
                 if labelTitle.text != nil {
                     currentLabelText = labelTitle.text!
                 }
             }
             if labelAuthor.frame.contains(location) {
                 labelAuthor.center = location
-                priority = "monauteur"
+                priority = "authorPriority"
                 if labelAuthor.text != nil {
                     currentLabelText = labelAuthor.text!
                 }
             }
             if labelEditor.frame.contains(location) {
                 labelEditor.center = location
-                priority = "monediteur"
+                priority = "editorPriority"
                 if labelEditor.text != nil {
                     currentLabelText = labelEditor.text!
                 }
@@ -127,13 +127,13 @@ class AddManuallyViewController: UIViewController {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self.view)
-            if labelTitle.frame.contains(location) && priority == "montitre" {
+            if labelTitle.frame.contains(location) && priority == "titlePriority" {
                 labelTitle.center = location
             }
-            if labelAuthor.frame.contains(location) && priority == "monauteur" {
+            if labelAuthor.frame.contains(location) && priority == "authorPriority" {
                 labelAuthor.center = location
             }
-            if labelEditor.frame.contains(location) && priority == "monediteur"{
+            if labelEditor.frame.contains(location) && priority == "editorPriority"{
                 labelEditor.center = location
             }
         }
@@ -143,7 +143,7 @@ class AddManuallyViewController: UIViewController {
         for touch in touches {
             let location = touch.location(in: self.view)
             let locationWithTopBar = CGPoint(x: location.x, y: location.y-topbarHeight-20)
-            if priority != "rien pour l'instant" {
+            if priority != "no priority" {
                 if bookTitleTextField.frame.contains(locationWithTopBar) {
                     bookTitleTextField.text = currentLabelText
                     hideLabel(with: priority)
@@ -171,11 +171,11 @@ class AddManuallyViewController: UIViewController {
     
     private func hideLabel(with text: String) {
         switch text {
-        case "montitre":
+        case "titlePriority":
             labelTitle.isHidden = true
-        case "monauteur":
+        case "authorPriority":
             labelAuthor.isHidden = true
-        case "monediteur":
+        case "editorPriority":
             labelEditor.isHidden = true
         default:
             print("error somewhere")
@@ -501,15 +501,27 @@ class AddManuallyViewController: UIViewController {
         
         isSaveIndicator(shown: false)
         scannedIsbn = ""
-        dismiss(animated: true, completion: nil)
+        if bookElementFromPhoto {
+            bookElementFromPhoto = false
+            let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
+            self.present(addBookViewController, animated: true, completion: nil)
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+        
     }
+    fileprivate func resignAllFirstResponder() {
+        bookTitleTextField.resignFirstResponder()
+        bookAuthorTextField.resignFirstResponder()
+        bookIsbnTextField.resignFirstResponder()
+        editorTextField.resignFirstResponder()
+    }
+    
     /**
      Action for tap and Swipe Gesture Recognizer
      */
     @objc private func myTap() {
-        bookTitleTextField.resignFirstResponder()
-        bookAuthorTextField.resignFirstResponder()
-        bookIsbnTextField.resignFirstResponder()
+        resignAllFirstResponder()
     }
 }
 // MARK: - Extensions   UITextFieldDelegate
@@ -519,10 +531,7 @@ extension AddManuallyViewController: UITextFieldDelegate {
      UITextFieldDelegate : defines how textFieldShouldReturn
      */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        bookTitleTextField.resignFirstResponder()
-        bookAuthorTextField.resignFirstResponder()
-        bookIsbnTextField.resignFirstResponder()
-        editorTextField.resignFirstResponder()
+        resignAllFirstResponder()
         return true
     }
 }
