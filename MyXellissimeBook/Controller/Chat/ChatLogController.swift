@@ -113,8 +113,11 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     @objc func handldeKeyboardWillShow(notification : NSNotification){
         let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
         let keyboardDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
-        let safeLayoutGuideBot = self.view.safeAreaInsets.bottom
-        let height =  (keyboardFrame?.height)! - safeLayoutGuideBot
+        var safeLayoutGuideBottom: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            safeLayoutGuideBottom = self.view.safeAreaInsets.bottom
+        }
+        let height =  (keyboardFrame?.height)! - safeLayoutGuideBottom
         guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
         containerViewBottomAnchor?.constant = -height - tabbarHeight
         UIView.animate(withDuration: keyboardDuration!) {

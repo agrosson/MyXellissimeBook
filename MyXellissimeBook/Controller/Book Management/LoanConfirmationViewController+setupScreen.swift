@@ -18,7 +18,11 @@ extension LoanConfirmationViewController {
         let height:CGFloat = screenHeight/6
         
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
+        if #available(iOS 11.0, *) {
+            containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
+        } else {
+             containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
+        }
         containerView.heightAnchor.constraint(equalToConstant: height + topbarHeight).isActive = true
         containerView.widthAnchor.constraint(equalTo : view.widthAnchor, constant: -20).isActive = true
     }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0ECCF58DCFEF7CD98451C9A5 /* Pods_MyXellissimeBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */; };
 		C100899422BCAEB700D3497E /* UserBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100899322BCAEB700D3497E /* UserBookCell.swift */; };
 		C100899622BCCB6100D3497E /* UserBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100899522BCCB6100D3497E /* UserBooksTableViewController.swift */; };
 		C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */; };
@@ -84,6 +83,8 @@
 		C1B42B7922B13FAF00982194 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B7822B13FAF00982194 /* User.swift */; };
 		C1B42B8522B140EF00982194 /* MyXellissimeBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */; };
 		C1B42B8D22B1412000982194 /* UserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8C22B1412000982194 /* UserTest.swift */; };
+		C1BECD67233E594B00CF45F7 /* Pods_MyXellissimeBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */; };
+		C1BECD68233E595200CF45F7 /* Pods_MyXellissimeBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4CB8B24C6201E44EC28B02 /* Pods_MyXellissimeBookTests.framework */; };
 		C1C12334231805E400B31989 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C12333231805E400B31989 /* ExtensionUIImage.swift */; };
 		C1D1A77E2316C78700E771AD /* AddBookViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1A77D2316C78700E771AD /* AddBookViewController+setupScreen.swift */; };
 		C1E5D7A32302B97000D23E80 /* MyTextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E5D7A22302B97000D23E80 /* MyTextRecognizer.swift */; };
@@ -191,6 +192,14 @@
 		C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyXellissimeBookTests.swift; sourceTree = "<group>"; };
 		C1B42B8622B140EF00982194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1B42B8C22B1412000982194 /* UserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTest.swift; sourceTree = "<group>"; };
+		C1BECD54233E536A00CF45F7 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1BECD57233E543000CF45F7 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1BECD59233E544100CF45F7 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1BECD5B233E545D00CF45F7 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1BECD5D233E555900CF45F7 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1BECD5F233E557800CF45F7 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1BECD61233E583800CF45F7 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1BECD63233E583D00CF45F7 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1C12333231805E400B31989 /* ExtensionUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIImage.swift; sourceTree = "<group>"; };
 		C1D1A77D2316C78700E771AD /* AddBookViewController+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddBookViewController+setupScreen.swift"; sourceTree = "<group>"; };
 		C1E5D7A22302B97000D23E80 /* MyTextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextRecognizer.swift; sourceTree = "<group>"; };
@@ -207,8 +216,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1BECD68233E595200CF45F7 /* Pods_MyXellissimeBookTests.framework in Frameworks */,
+				C1BECD67233E594B00CF45F7 /* Pods_MyXellissimeBook.framework in Frameworks */,
 				C1873F9E233A202D004C1F13 /* CoreLocation.framework in Frameworks */,
-				0ECCF58DCFEF7CD98451C9A5 /* Pods_MyXellissimeBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +236,14 @@
 		79850C0125A74725E8FDC603 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1BECD63233E583D00CF45F7 /* GTMSessionFetcher.framework */,
+				C1BECD61233E583800CF45F7 /* GTMSessionFetcher.framework */,
+				C1BECD5F233E557800CF45F7 /* GTMSessionFetcher.framework */,
+				C1BECD5D233E555900CF45F7 /* GTMSessionFetcher.framework */,
+				C1BECD5B233E545D00CF45F7 /* GTMSessionFetcher.framework */,
+				C1BECD59233E544100CF45F7 /* GTMSessionFetcher.framework */,
+				C1BECD57233E543000CF45F7 /* GTMSessionFetcher.framework */,
+				C1BECD54233E536A00CF45F7 /* GTMSessionFetcher.framework */,
 				C1873F9D233A202D004C1F13 /* CoreLocation.framework */,
 				9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */,
 				0C4CB8B24C6201E44EC28B02 /* Pods_MyXellissimeBookTests.framework */,
@@ -864,7 +882,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -919,7 +937,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -938,7 +956,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2UG4LAMEK9;
 				INFOPLIST_FILE = MyXellissimeBook/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -959,7 +977,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2UG4LAMEK9;
 				INFOPLIST_FILE = MyXellissimeBook/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

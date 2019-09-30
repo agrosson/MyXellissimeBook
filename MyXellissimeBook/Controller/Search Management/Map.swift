@@ -123,10 +123,26 @@ class MapViewController: UIViewController  {
     
     private func setupMap(){
         
-    usersMap.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-    usersMap.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-    usersMap.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-    usersMap.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        if #available(iOS 11.0, *) {
+            usersMap.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        } else {
+               usersMap.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        }
+        if #available(iOS 11.0, *) {
+            usersMap.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        } else {
+             usersMap.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        }
+        if #available(iOS 11.0, *) {
+            usersMap.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        } else {
+            usersMap.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        }
+        if #available(iOS 11.0, *) {
+            usersMap.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        } else {
+            usersMap.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true   
+        }
     
     }
     //

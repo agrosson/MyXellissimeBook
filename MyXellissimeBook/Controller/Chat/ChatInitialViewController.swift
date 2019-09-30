@@ -61,7 +61,7 @@ class ChatInitialViewController : UITableViewController {
         // Interstitial test id
         let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
         interstitial.delegate = self
-        interstitial.load(GADRequest())
+        perform(#selector(launchDelayInterstitial), with: nil, afterDelay: 1)
         return interstitial
     }
     
@@ -70,6 +70,10 @@ class ChatInitialViewController : UITableViewController {
             interstitial.present(fromRootViewController: self)
             counterInterstitial += 1
         }
+    }
+    
+    @objc func launchDelayInterstitial(){
+         interstitial.load(GADRequest())
     }
     /**
      function that observes all messages send by or received by a single user

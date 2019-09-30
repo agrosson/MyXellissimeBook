@@ -27,6 +27,8 @@ extension AddManuallyViewController {
      */
     func setupSearchBookWithApiButton(){
         searchBookWithApiButton.setTitle("Rechercher dans les bases de données\nle livre à ajouter", for: .normal)
+        searchBookWithApiButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        searchBookWithApiButton.contentScaleFactor = 0.5
         searchBookWithApiButton.layer.cornerRadius = 15
         searchBookWithApiButton.addTarget(self, action: #selector(searchBook), for: .touchUpInside)
         // need x and y , width height contraints
@@ -70,7 +72,6 @@ extension AddManuallyViewController {
     }
     
     func setupLabelTitle() {
-        print("on est setTitle")
         labelTitle.backgroundColor = .white
         labelTitle.layer.cornerRadius = 5
         labelTitle.layer.borderWidth = 2

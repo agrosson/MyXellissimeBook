@@ -59,9 +59,9 @@ class InitialViewController: UIViewController {
     private func setupBanner(){
         // Banner
         //real adUnitID for banner
-        //advertisingBannerView.adUnitID = "ca-app-pub-9970351873403667/5083216814"
+        advertisingBannerView.adUnitID = "ca-app-pub-9970351873403667/5083216814"
         // test id for banner
-        advertisingBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        //advertisingBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         advertisingBannerView.rootViewController = self
         advertisingBannerView.load(GADRequest())
         advertisingBannerView.delegate = self
@@ -149,7 +149,11 @@ class InitialViewController: UIViewController {
         advertisingBannerView.translatesAutoresizingMaskIntoConstraints = false
         // need x and y , width height contraints
         advertisingBannerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        advertisingBannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+        if #available(iOS 11.0, *) {
+            advertisingBannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+        } else {
+           advertisingBannerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+        }
         advertisingBannerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         advertisingBannerView.widthAnchor.constraint(equalToConstant: 320).isActive = true
     }

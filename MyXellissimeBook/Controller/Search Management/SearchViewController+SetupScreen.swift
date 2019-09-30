@@ -96,6 +96,8 @@ extension SearchViewController {
         guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
         showMap.addTarget(self, action: #selector(displayMap), for: .touchUpInside)
         showMap.setTitle("Localiser des proches utilisateurs", for: .normal)
+        showMap.titleLabel?.adjustsFontSizeToFitWidth = true
+        showMap.contentScaleFactor = 0.5
         showMap.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         showMap.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight-20).isActive = true
         showMap.heightAnchor.constraint(equalToConstant: 50).isActive = true
