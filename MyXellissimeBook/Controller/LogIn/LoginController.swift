@@ -15,7 +15,7 @@ import CoreLocation
  This class defines the Login ViewController
  */
 class LoginController: UIViewController {
-     // MARK: - Outlets and properties
+    // MARK: - Outlets and properties
     var initialViewController: InitialViewController?
     /// Container View for inputs during registration
     let inputsContainerView = CustomUI().view
@@ -52,6 +52,8 @@ class LoginController: UIViewController {
     var passwordTextFieldViewHeightConstraint: NSLayoutConstraint?
     /// Height constraint of the passwordTextField
     var nameSeperatorTextFieldViewHeightConstraint: NSLayoutConstraint?
+    /// loginRegisterButtonYAnchor
+    var inputsContainerViewYAnchor: NSLayoutConstraint?
     
     
     // Show battery image in white
@@ -61,7 +63,7 @@ class LoginController: UIViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.addSubview(profileImageView)
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
@@ -71,20 +73,64 @@ class LoginController: UIViewController {
         }
         setupScreen()
         perform(#selector(changePhoto), with: nil, afterDelay: 0.5)
+        manageObservers()
         
     }
     // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        manageObservers()
+        
     }
-   
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-       DatabaseReference().removeAllObservers()
+        DatabaseReference().removeAllObservers()
+        NotificationCenter.default.removeObserver(self)
     }
-
+    
     
     // MARK: - Methods
+    /**
+     Function that manages observers for keyboards
+     */
+    private func manageObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        // hide keyboard
+        NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+    }
+    // MARK: - Methods: Objc functions
+    /**
+     Function that modifies containerViewBottomAnchor to lift the textField with keyboard
+     */
+    @objc func handldeKeyboardDidShow(){
+        NotificationCenter.default.removeObserver(self)
+        manageObservers()
+    }
+    /**
+     Function that modifies containerViewBottomAnchor to lift the textField with keyboard
+     */
+    @objc func handldeKeyboardWillShow(notification : NSNotification){
+        let keyboardDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+        let height: CGFloat =  screenHeight > 600 ? 70 : 200
+        inputsContainerViewYAnchor?.constant = -height
+        UIView.animate(withDuration: keyboardDuration!) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    /**
+     Function that modifes containerViewBottomAnchor to set down the textField with keyboard
+     */
+    @objc func handldeKeyboardWillHide(notification : NSNotification){
+        let keyboardDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+        inputsContainerViewYAnchor?.constant = 0
+        UIView.animate(withDuration: keyboardDuration!) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     /**
      Function that setup screen
      */
@@ -126,7 +172,7 @@ class LoginController: UIViewController {
         passwordTextField.delegate = self
     }
     
-   
+    
     // MARK: - Method  - Actions with objc functions
     /**
      Action for switch segmented control

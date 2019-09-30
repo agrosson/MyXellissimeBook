@@ -42,7 +42,17 @@ class UserBorrowedBooksTableViewController: UITableViewController {
         borrowedBooks.removeAll()
         tableView.reloadData()
         observeUserBorrowedBooks()
+        perform(#selector(testIfNoBorrowedBooks), with: nil, afterDelay: 2)
         
+    }
+    /**
+     Displays alert to explain the user how to add books
+     */
+    @objc func testIfNoBorrowedBooks() {
+        if self.borrowedBooks.isEmpty {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .hasNoBorrowedYet
+        }
     }
     /**
      function that observes all the user's borrowed books

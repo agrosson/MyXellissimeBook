@@ -49,7 +49,9 @@ class Alert {
         noMessageForUSer,
         conditionMustBeAccepted,
         newMessagesAfterLogin,
-        locationAuthorization
+        locationAuthorization,
+        noLoansForUSer,
+        hasNoBorrowedYet
     }
     // MARK: - Initializer
     init() {}
@@ -148,6 +150,15 @@ class Alert {
             title: "Cher Utilisateur,",
         message: TextAndString.shared.locationAuthorization,
             titleButton: "Retour")
+        case .noLoansForUSer : controller?.presentAlertDetails(
+                  title: "Cher Utilisateur,",
+              message: TextAndString.shared.noLoansForUSer,
+                  titleButton: "Retour")
+        case .hasNoBorrowedYet : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+        message: TextAndString.shared.hasNoBorrowedYet,
+            titleButton: "Retour")
+            
         }
     }
 }
@@ -175,9 +186,11 @@ struct TextAndString {
     let noTitleForBook = "Merci d'indiquer le titre du livre"
     let needAtLeastOneField = "Merci de saisir au moins un élément"
     let noTextFoundOnBookCover = "Aucun texte n'a été trouvé.\nMerci d'essayer en mode paysage"
-    let noBookForUSer = "Vous n'avez aucun livre pour l'instant.\nPour ajouter un livre, cliquer sur le bouton <ajouter> en haut à droite"
+    let noBookForUSer = "Vous n'avez aucun livre pour l'instant.\nPour ajouter un livre, cliquer sur le bouton 'ajouter' en haut à droite"
     let noMessageForUSer = "Vous pouvez écrire un message en cliquant sur l'icône en haut à droite"
     let updateProfileImage = "Vous pouvez changer la photo de votre profil en tappant sur l'image du livre"
     let newMessagesAfterLogin = "Nous sommes heureux de vous revoir.\n\nVous avez reçu de nouveaux messages durant votre absence.\nC'est peut être important 😉"
-    let locationAuthorization = "Merci d'autoriser la géolocalisation pour afficher la carte.\nPour cela, aller dans les paramètres de votre iphone."
+    let locationAuthorization = "Merci d'autoriser la géolocalisation pour afficher la carte.\nPour cela, allez dans les paramètres de votre iphone."
+    let noLoansForUSer = "Vous ne prétez aucun livre pour l'instant.\n\nPour prêter un livre, aller dans la liste de vos livres, sélectionner un livre et cliquer sur 'Prêter ce livre'"
+    let hasNoBorrowedYet = "Vous n'avez emprunté aucun livre pour l'instant.\n\nAller dans l'onglet 'Rechercher' et indiquer le nom du livre recherché.\n\nVous pouvez aussi aller dans l'onglet 'Livres récents' pour voir les derniers livres proposés."
 }

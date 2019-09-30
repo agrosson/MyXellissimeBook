@@ -39,6 +39,16 @@ class UserLentBooksTableViewController: UITableViewController {
         lentBooks.removeAll()
         tableView.reloadData()
         observeUserLentBooks()
+        perform(#selector(testIfNoLoans), with: nil, afterDelay: 2)
+    }
+    /**
+     Displays alert to explain the user how to add books
+     */
+    @objc func testIfNoLoans() {
+        if self.lentBooks.isEmpty {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .noLoansForUSer
+        }
     }
     /**
      function that observes all the user's lent books

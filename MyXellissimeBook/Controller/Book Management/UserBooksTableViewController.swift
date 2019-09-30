@@ -23,6 +23,7 @@ class UserBooksTableViewController: UITableViewController {
     var books = [Book]()
     
     var rootRef = DatabaseReference()
+    var refreshController = UIRefreshControl()
     
     /// Timer to delay update data in chatlog
     var timerBook: Timer?
@@ -33,6 +34,7 @@ class UserBooksTableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handelCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Ajouter", style: .plain, target: self, action: #selector(addBook))
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
+        addRefreshControl()
     }
     // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +46,24 @@ class UserBooksTableViewController: UITableViewController {
     }
     
     // MARK: - Methods
+    /**
+     Function that adds and defines refresh control for collection view
+     */
+    fileprivate func addRefreshControl() {
+        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.white]
+        refreshController.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes )
+        refreshController.tintColor = .white
+        refreshController.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshController)
+    }
+    /**
+    Function that refreshes collection View
+    */
+    @objc func refresh() {
+        print("refresh selected")
+        attemptReloadData()
+        self.refreshController.endRefreshing()
+    }
     /**
      Function that sets up the screen
      */

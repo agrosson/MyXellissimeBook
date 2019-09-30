@@ -43,7 +43,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     /// Container view anchor
     var containerViewBottomAnchor: NSLayoutConstraint?
     /// RefreshControl
-    var refreshControl = UIRefreshControl()
+    var refreshController = UIRefreshControl()
     
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
@@ -71,10 +71,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
      */
     fileprivate func addRefreshControl() {
         let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.white]
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes )
-        refreshControl.tintColor = .white
-        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        collectionView.addSubview(refreshControl)
+        refreshController.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes )
+        refreshController.tintColor = .white
+        refreshController.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        collectionView.addSubview(refreshController)
     }
     /**
     Function that manages observers for keyboards
@@ -104,7 +104,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     @objc func refresh() {
         print("refresh selected")
         attemptReloadData()
-        self.refreshControl.endRefreshing()
+        self.refreshController.endRefreshing()
     }
     
     /**

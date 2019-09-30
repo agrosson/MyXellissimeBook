@@ -55,7 +55,8 @@ extension LoginController {
         // need x and y , width height contraints
         // todo : check safe width when rotate
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        inputsContainerViewYAnchor = inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        inputsContainerViewYAnchor?.isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
         inputsContainerViewHeightConstraint = inputsContainerView.heightAnchor.constraint(equalToConstant: 150)
         inputsContainerViewHeightConstraint?.isActive = true
