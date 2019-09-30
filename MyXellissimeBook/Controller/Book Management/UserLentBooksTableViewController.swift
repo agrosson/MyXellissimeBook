@@ -19,11 +19,16 @@ class UserLentBooksTableViewController: UITableViewController {
     let cellId = "cellId"
     /// Array of user's lent books
     var lentBooks = [Book]()
+    
+    
+    var refreshController = UIRefreshControl()
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handelCancel))
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
+        addRefreshControl()
     }
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -31,6 +36,24 @@ class UserLentBooksTableViewController: UITableViewController {
         setupScreen()
     }
     // MARK: - Methods
+    /**
+     Function that adds and defines refresh control for collection view
+     */
+    fileprivate func addRefreshControl() {
+        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.white]
+        refreshController.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes )
+        refreshController.tintColor = .white
+        refreshController.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshController)
+    }
+    /**
+    Function that refreshes table View
+    */
+    @objc func refresh() {
+        print("refresh selected")
+        tableView.reloadData()
+        self.refreshController.endRefreshing()
+    }
     /**
      Function that sets up the screen
      */

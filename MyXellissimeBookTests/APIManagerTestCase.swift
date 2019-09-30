@@ -29,7 +29,7 @@ class APIManagerTestCase: XCTestCase {
             XCTAssertNil(book)
             expectation.fulfill()
         })
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
         }
     
     func testGoogleBooksShouldPostFailedCallbackIfnoData() {
@@ -44,7 +44,7 @@ class APIManagerTestCase: XCTestCase {
             XCTAssertNil(book)
             expectation.fulfill()
         })
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
  
     func testGoogleBooksShouldPostFailedCallbackIfResponseKO() {
@@ -61,7 +61,7 @@ class APIManagerTestCase: XCTestCase {
             XCTAssertNil(book)
             expectation.fulfill()
         })
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGoogleBooksShouldPostFailedCallbackIfResponseOKNoErrorDataIncorrect() {
@@ -78,7 +78,7 @@ class APIManagerTestCase: XCTestCase {
             XCTAssertNil(book)
             expectation.fulfill()
         })
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
 
     }
 
@@ -94,7 +94,7 @@ class APIManagerTestCase: XCTestCase {
             XCTAssertNotNil(book)
             expectation.fulfill()
         })
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     /*******************************************************
@@ -115,7 +115,7 @@ class APIManagerTestCase: XCTestCase {
             expectation.fulfill()
         })
         
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
 
    
@@ -132,7 +132,7 @@ class APIManagerTestCase: XCTestCase {
             expectation.fulfill()
         })
         
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testOpenLibraryShouldPostFailedCallbackIfResponseKO() {
@@ -147,7 +147,7 @@ class APIManagerTestCase: XCTestCase {
             expectation.fulfill()
         })
         
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testOpenLibraryShouldPostFailedCallbackIfResponseOKButIncorrectData() {
@@ -162,7 +162,7 @@ class APIManagerTestCase: XCTestCase {
             expectation.fulfill()
         })
         
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
    
     func testOpenLibraryShouldPostPassCallbackIfResponseOKNoErrorAndCorrectData() {
@@ -177,7 +177,7 @@ class APIManagerTestCase: XCTestCase {
             expectation.fulfill()
         })
         
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     /*******************************************************
@@ -196,7 +196,7 @@ class APIManagerTestCase: XCTestCase {
             XCTAssertNil(book)
             expectation.fulfill()
         })
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testGoodReadsShouldPostFailedCallbackIfNodata() {
@@ -210,7 +210,7 @@ class APIManagerTestCase: XCTestCase {
             XCTAssertNil(book)
             expectation.fulfill()
         })
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
    
@@ -225,7 +225,7 @@ class APIManagerTestCase: XCTestCase {
             XCTAssertNil(book)
             expectation.fulfill()
         })
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
 
     func testGoodReadsShouldPostFailedCallbackIfResponseOKbutIncorrectData() {
@@ -239,7 +239,7 @@ class APIManagerTestCase: XCTestCase {
             XCTAssertNil(book)
             expectation.fulfill()
         })
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     func testGoodReadsShouldPostPassCallbackIfResponseOKNoErrorAndCorrectData() {
         // Given
@@ -252,6 +252,6 @@ class APIManagerTestCase: XCTestCase {
             XCTAssertNotNil(book)
             expectation.fulfill()
         })
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
 }

@@ -57,7 +57,7 @@ class UserBooksTableViewController: UITableViewController {
         tableView.addSubview(refreshController)
     }
     /**
-    Function that refreshes collection View
+    Function that refreshes table View
     */
     @objc func refresh() {
         print("refresh selected")

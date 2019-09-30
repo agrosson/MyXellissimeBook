@@ -33,9 +33,12 @@ class SearchBookResultTableViewController: UITableViewController {
     
     var rootRef = DatabaseReference()
     
+    var refreshController = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
+        addRefreshControl()
     }
     // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +54,24 @@ class SearchBookResultTableViewController: UITableViewController {
         books.removeAll()
         tableView.reloadData()
         observeSearchBooks()
+    }
+    /**
+     Function that adds and defines refresh control for collection view
+     */
+    fileprivate func addRefreshControl() {
+        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.white]
+        refreshController.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes )
+        refreshController.tintColor = .white
+        refreshController.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshController)
+    }
+    /**
+    Function that refreshes table View
+    */
+    @objc func refresh() {
+        print("refresh selected")
+        tableView.reloadData()
+        self.refreshController.endRefreshing()
     }
     /**
      function that observes all the books that match with research attributes

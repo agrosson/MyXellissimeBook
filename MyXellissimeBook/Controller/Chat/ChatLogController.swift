@@ -45,6 +45,10 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     /// RefreshControl
     var refreshController = UIRefreshControl()
     
+    var startingFrame: CGRect?
+    var blackView = UIView()
+    var startingImageView = UIImageView()
+    
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +67,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-         manageObservers()
+        manageObservers()
     }
     // MARK: - Method
     /**
@@ -77,8 +81,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView.addSubview(refreshController)
     }
     /**
-    Function that manages observers for keyboards
-    */
+     Function that manages observers for keyboards
+     */
     private func manageObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handldeKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         // hide keyboard
@@ -99,8 +103,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         manageObservers()
     }
     /**
-    Function that refreshes collection View
-    */
+     Function that refreshes collection View
+     */
     @objc func refresh() {
         print("refresh selected")
         attemptReloadData()
@@ -138,6 +142,9 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCell
         cell.backgroundColor = .clear
+        
+        cell.chatLogController = self
+        
         let message = messages[indexPath.row]
         guard let text = message.text else {return UICollectionViewCell()}
         if  text != "" {
@@ -346,6 +353,70 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         inputTextField.resignFirstResponder()
         
     }
+}
+
+extension ChatLogController {
+    // Custom zooming
+    func performZoomInForStartingImageView(startingImageView :UIImageView) {
+        self.startingImageView = startingImageView
+        self.startingImageView.isHidden = true
+        
+        // Get the frame of the picture we want to zoom in
+        if let startingFrameSafe = startingImageView.superview?.convert(startingImageView.frame, to: nil) {
+            self.startingFrame = startingFrameSafe
+            // Create a new image view with this frame
+            let zoomingImageView = UIImageView(frame: startingFrame!)
+            // Set the image with original image
+            zoomingImageView.image = startingImageView.image
+            zoomingImageView.isUserInteractionEnabled = true
+            zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handelZoomOut)))
+            // Add the new imageView and create an animation
+            if let keyWindow = UIApplication.shared.keyWindow {
+                // create the black view behind
+                blackView = UIView(frame: keyWindow.frame)
+                blackView.backgroundColor = .black
+                blackView.alpha = 0
+             //   containerView.isHidden = true
+            //    self.tabBarController?.view.isHidden = true
+                keyWindow.addSubview(blackView)
+                // add the new imageView
+                keyWindow.addSubview(zoomingImageView)
+                // create an animation
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                    self.blackView.alpha = 1
+                    let height = self.startingFrame!.height / self.startingFrame!.width * keyWindow.frame.width
+                    zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
+                    zoomingImageView.center = keyWindow.center
+                }, completion: nil)
+            }
+        }
+        
+    }
+    
+    
+    @objc private func handelZoomOut(tapGesture: UITapGestureRecognizer){
+        
+        // Define the view tapped on
+        if let zoomOutImageView = tapGesture.view {
+            zoomOutImageView.layer.cornerRadius = 16
+            zoomOutImageView.layer.masksToBounds = true
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                if let startingFrame = self.startingFrame {
+                    zoomOutImageView.frame = startingFrame
+                    self.blackView.alpha = 0
+                    print(startingFrame)
+                }
+            }) { (completed : Bool) in
+                zoomOutImageView.removeFromSuperview()
+                self.startingImageView.isHidden = false
+              //  self.tabBarController?.view.isHidden = false
+              // self.containerView.isHidden = false
+                
+            }
+        }
+    }
+    
 }
 
 extension ChatLogController : UITextFieldDelegate {

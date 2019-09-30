@@ -24,6 +24,7 @@ class AllBooksViewController: UITableViewController {
     var allBooks = [Book]()
     
     var rootRef = DatabaseReference()
+    var refreshController = UIRefreshControl()
     
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
@@ -33,8 +34,8 @@ class AllBooksViewController: UITableViewController {
         let textAttributes = [NSAttributedString.Key.foregroundColor:color]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationItem.title = "Derniers livres proposés"
-
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
+        addRefreshControl()
     }
     // MARK: - Method viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +56,23 @@ class AllBooksViewController: UITableViewController {
     }
     
     // MARK: - Method
+    /**
+     Function that adds and defines refresh control for collection view
+     */
+    fileprivate func addRefreshControl() {
+        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.white]
+        refreshController.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes )
+        refreshController.tintColor = .white
+        refreshController.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshController)
+    }
+    /**
+    Function that refreshes table View
+    */
+    @objc func refresh() {
+        tableView.reloadData()
+        self.refreshController.endRefreshing()
+    }
     /**
      Function that fetches users in firebase database
      */

@@ -11,9 +11,12 @@ import XCTest
 import Firebase
 
 class MessageTestCase: XCTestCase {
-
+    
     func testIfMeassageExists() {
-        let message = Message()
+        let dictionaryTest = ["text" : 2,
+                              "fromId" : "this a id from user",
+                              "gg":"gg"] as [String : Any]
+        let message = Message(dictionary: dictionaryTest)
         XCTAssertNotNil(message)
     }
 }

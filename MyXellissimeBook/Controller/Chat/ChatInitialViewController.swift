@@ -19,7 +19,7 @@ import GoogleMobileAds
  */
 class ChatInitialViewController : UITableViewController {
     
-     var rootRef = DatabaseReference()
+    var rootRef = DatabaseReference()
     /// Array of all messages
     var messages = [Message]()
     /// Dictionary of last messages by users
@@ -30,6 +30,7 @@ class ChatInitialViewController : UITableViewController {
     var timerChat: Timer?
     
     var interstitial: GADInterstitial!
+    var refreshController = UIRefreshControl()
     
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
@@ -43,8 +44,9 @@ class ChatInitialViewController : UITableViewController {
         perform(#selector(testIfNoMessage), with: nil, afterDelay: 0.5)
         interstitial = createAndLoadInterstitial()
         interstitial.delegate = self
+        addRefreshControl()
     }
-   
+    
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -54,12 +56,31 @@ class ChatInitialViewController : UITableViewController {
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
+    /**
+     Function that adds and defines refresh control for collection view
+     */
+    fileprivate func addRefreshControl() {
+        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.white]
+        refreshController.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes )
+        refreshController.tintColor = .white
+        refreshController.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshController)
+    }
+    /**
+     Function that refreshes table View
+     */
+    @objc func refresh() {
+        attemptReloadData()
+        interstitial = createAndLoadInterstitial()
+        self.refreshController.endRefreshing()
+    }
+    
     func createAndLoadInterstitial() -> GADInterstitial {
         //Interstitial
         // Interstitial real id
         let interstitial = GADInterstitial(adUnitID: "ca-app-pub-9970351873403667/5248644445")
         // Interstitial test id
-       // let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        // let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
         interstitial.delegate = self
         perform(#selector(launchDelayInterstitial), with: nil, afterDelay: 1)
         return interstitial
@@ -73,7 +94,7 @@ class ChatInitialViewController : UITableViewController {
     }
     
     @objc func launchDelayInterstitial(){
-         interstitial.load(GADRequest())
+        interstitial.load(GADRequest())
     }
     /**
      function that observes all messages send by or received by a single user
@@ -88,12 +109,12 @@ class ChatInitialViewController : UITableViewController {
             // get the key for the userId
             let userId = snapshot.key
             Database.database().reference().child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
-            // get the key for the message
+                // get the key for the message
                 let messageId = snapshot.key
                 self.fetchMessageWithMessageId(messageId: messageId)
-
+                
             }, withCancel: nil)
-        //    return
+            //    return
         }, withCancel: nil)
         
         ref.observe(.childRemoved, with:  { (snapshot) in
@@ -189,7 +210,7 @@ class ChatInitialViewController : UITableViewController {
     /**
      Function that sets up screen
      */
-     func setupScreen(user: User){
+    func setupScreen(user: User){
         messages.removeAll()
         messagesDictionary.removeAll()
         tableView.reloadData()
@@ -230,10 +251,10 @@ class ChatInitialViewController : UITableViewController {
         // first get the identifier of the parner user clicked
         let ref = Database.database().reference().child("users").child(chatPartnerId)
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-             guard let dictionary = snapshot.value as? [String : Any] else {return}
+            guard let dictionary = snapshot.value as? [String : Any] else {return}
             // a user is created and in chatlogController a function is called because a user is set
             let user = User()
-          
+            
             guard let name = dictionary["name"] as? String else {return}
             guard let email =  dictionary["email"] as? String else {return}
             guard let profileId =  dictionary["profileId"] as? String else {return}
@@ -243,7 +264,7 @@ class ChatInitialViewController : UITableViewController {
             // Todo : check if  user.profileId should be chatPartnerId
             
             self.showChatControllerForUser(user: user)
-          
+            
         }, withCancel: nil)
     }
     
@@ -257,7 +278,7 @@ class ChatInitialViewController : UITableViewController {
         // Get the message from the Array
         let message = messages[indexPath.row]
         cell.message = message
-       
+        
         return cell
     }
     
@@ -278,8 +299,6 @@ class ChatInitialViewController : UITableViewController {
             self.messagesDictionary.removeValue(forKey: toId)
             self.attemptReloadData()
         }
-    
-        
     }
     
     
@@ -313,7 +332,7 @@ class ChatInitialViewController : UITableViewController {
                     if messageImageUrl != "messageImageUrl" {
                         let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.messageImage).child("\(messageImageUrl).jpg")
                         storageRef.delete(completion: { (error) in
-                           print("error")
+                            print("error")
                         })
                     }
                 }

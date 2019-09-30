@@ -28,6 +28,8 @@ class ChatMessageCell: UICollectionViewCell {
     /// UIImageView that display a image if any
     lazy var messageImageView = CustomUI().imageView
     
+    var chatLogController: ChatLogController?
+    
     /*******************************************************
                         UI variables: End
      ********************************************************/
@@ -100,6 +102,7 @@ class ChatMessageCell: UICollectionViewCell {
     }
     
     @objc func handleZoomTap(tapGesture: UITapGestureRecognizer) {
-        print("we tap on image")
+        guard let imageView = tapGesture.view as? UIImageView else {return}
+        self.chatLogController?.performZoomInForStartingImageView(startingImageView: imageView)
     }
 }
