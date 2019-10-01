@@ -549,17 +549,14 @@ class FirebaseUtilities {
      - Parameter callBack: a closure with an array of MapAnnotation
      */
     static func fetchUserAnnotation(latitudeUser: Double, longitudeUser : Double, callBack: @escaping ([MapAnnotation]) -> Void) {
-        print("on est ici fetch annotation")
         self.shared.mapAnnotationArray = [MapAnnotation]()
         let rootRef = Database.database().reference().child(FirebaseUtilities.shared.users)
         
         rootRef.observe(.childAdded, with: { (snapshot) in
             DispatchQueue.main.async {
-                print("on est ici fetch annotation inside")
                 // get the key for the userId
                 let userId = snapshot.key
                 rootRef.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
-                    print("on est ici fetch annotation deeper")
                     guard let dictionary = snapshot.value as? [String : Any] else {return}
                     let mapAnnotation = MapAnnotation()
                     guard let latitude = dictionary["latitude"] as? Double else {return}
@@ -570,7 +567,6 @@ class FirebaseUtilities {
                     mapAnnotation.longitude = longitude
                     mapAnnotation.userName = name
                     mapAnnotation.userId = profileId
-                    print("on est ici fetch annotation deeper 2")
                     self.shared.mapAnnotationArray.append(mapAnnotation)
                 })
             }

@@ -16,11 +16,11 @@ import Firebase
  This class defines UserCell customized cell
  */
 class UserCell: UITableViewCell {
-
+    
     // MARK: - Properties
     /** Message object:
      when this variable is set, it executes the block to fill the cell with accurate data
-    */
+     */
     var message: Message? {
         didSet{
             setupNameAndImageProfile()
@@ -28,15 +28,17 @@ class UserCell: UITableViewCell {
     }
     
     /*******************************************************
-                   UI variables: Start
+     UI variables: Start
      ********************************************************/
     // MARK: - Properties UIViews
     /// ImageView that is used to display profile image
     let profileImageView = CustomUI().imageView
     /// Timestamp that is displayed in the cell
-    let timeLabel = CustomUI().label
+    let timeLabelHour = CustomUI().label
+    /// Timestamp that is displayed in the cell
+    let timeLabelDate = CustomUI().label
     /*******************************************************
-                    UI variables: End
+     UI variables: End
      ********************************************************/
     
     // MARK: - Initializer
@@ -44,7 +46,8 @@ class UserCell: UITableViewCell {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         // add the profile image
         addSubview(profileImageView)
-        addSubview(timeLabel)
+        addSubview(timeLabelHour)
+        addSubview(timeLabelDate)
         setupConstraints()
     }
     
@@ -67,16 +70,24 @@ class UserCell: UITableViewCell {
         profileImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         // Contraints X Y Width height
-        timeLabel.font = UIFont.systemFont(ofSize: 12)
-        timeLabel.textColor = UIColor.darkGray
-        timeLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 24).isActive = true
-        timeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        timeLabel.heightAnchor.constraint(equalTo: textLabel!.heightAnchor).isActive = true
+        timeLabelHour.font = UIFont.systemFont(ofSize: 12)
+        timeLabelHour.textColor = UIColor.white
+        timeLabelHour.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        timeLabelHour.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
+        timeLabelHour.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        timeLabelHour.heightAnchor.constraint(equalTo: textLabel!.heightAnchor).isActive = true
+        
+        
+        timeLabelDate.font = UIFont.systemFont(ofSize: 12)
+        timeLabelDate.textColor = UIColor.white
+        timeLabelDate.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        timeLabelDate.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
+        timeLabelDate.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        timeLabelDate.heightAnchor.constraint(equalTo: textLabel!.heightAnchor).isActive = true
     }
     /**
      Function that sets up the name and the image profile
-    
+     
      When message is displayed, the profile image shown is the partner profile and not the user.
      1. Get the partner id
      2. Get profile of partner
@@ -111,8 +122,12 @@ class UserCell: UITableViewCell {
             let time = Date(timeIntervalSince1970: TimeInterval(seconds))
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "hh:mm:ss a"
+            //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             // other format "yyyy-MM-dd'T'HH:mm:ssZ"
-            timeLabel.text = dateFormatter.string(from: time)
+            timeLabelHour.text = dateFormatter.string(from: time)
+            let dateFormatterDay = DateFormatter()
+            dateFormatterDay.dateFormat = "dd.MM.yyyy"
+            timeLabelDate.text = dateFormatterDay.string(from: time)
         }
     }
     

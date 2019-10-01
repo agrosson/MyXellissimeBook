@@ -15,7 +15,7 @@ import Firebase
  This class defines the UserBorrowedBooksTableViewController
  */
 class UserBorrowedBooksTableViewController: UITableViewController {
-
+    
     // MARK: - Properties
     /// Id of cell of the tableView
     let cellId = "cellId"
@@ -50,8 +50,8 @@ class UserBorrowedBooksTableViewController: UITableViewController {
         tableView.addSubview(refreshController)
     }
     /**
-    Function that refreshes table View
-    */
+     Function that refreshes table View
+     */
     @objc func refresh() {
         print("refresh selected")
         tableView.reloadData()
@@ -133,11 +133,11 @@ class UserBorrowedBooksTableViewController: UITableViewController {
                         book.editor = editor
                         self.borrowedBooks.append(book)
                         self.loansList.append(loanToAdd)
-                DispatchQueue.main.async { self.tableView.reloadData() }
+                        DispatchQueue.main.async { self.tableView.reloadData() }
+                    }, withCancel: nil)
+                }
             }, withCancel: nil)
-            }
-             }, withCancel: nil)
-    }, withCancel: nil)
+        }, withCancel: nil)
     }
     /**
      Function that presents DetailBorrowedBookViewController

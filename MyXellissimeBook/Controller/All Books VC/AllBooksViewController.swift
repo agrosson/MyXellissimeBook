@@ -25,10 +25,12 @@ class AllBooksViewController: UITableViewController {
     
     var rootRef = DatabaseReference()
     var refreshController = UIRefreshControl()
+    var numberOfAdditionalBooks = 5
     
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Autres", style: .plain, target: self, action: #selector(shuffleBooks))
         counterInterstitial = 0
         let color = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         let textAttributes = [NSAttributedString.Key.foregroundColor:color]
@@ -44,6 +46,10 @@ class AllBooksViewController: UITableViewController {
         rootRef.removeAllObservers()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        numberOfAdditionalBooks = 5
+    }
     // MARK: - Methods
     /**
      Function that sets up the screen
@@ -78,14 +84,13 @@ class AllBooksViewController: UITableViewController {
      */
     private func fetchBooks(){
         rootRef = Database.database().reference()
-        let query = rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "timestamp").queryLimited(toLast: 20)
+        let query = rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "timestamp").queryLimited(toLast: 5)
         query.observe(.value) { (snapshot) in
             // this to avoid duplicated row when reloaded
             self.allBooks = [Book]()
             for child in snapshot.children.allObjects as! [DataSnapshot] {
                 if let value = child.value as? NSDictionary {
                     let book = Book()
-                    
                     let uniqueId = value["uniqueId"] as? String ?? "uniqueId not found"
                     let title = value["title"] as? String ?? "title not found"
                     let author = value["author"] as? String ?? "author not found"
@@ -94,7 +99,6 @@ class AllBooksViewController: UITableViewController {
                     let isAvailable = value["isAvailable"] as? Bool ?? true
                     let coverURL = value["coverURL"] as? String ?? "coverURL not found"
                     let timestamp = value["timestamp"] as? Int ?? 0
-                    
                     book.uniqueId = uniqueId
                     book.title = title
                     book.author = author
@@ -103,14 +107,68 @@ class AllBooksViewController: UITableViewController {
                     book.isAvailable = isAvailable
                     book.coverURL = coverURL
                     book.timestamp = timestamp
-
                     self.allBooks.append(book)
- 
                     DispatchQueue.main.async { self.tableView.reloadData() }
                     // todo : limit to 20 books
                 }
             }
         }
+    }
+    
+       /**
+        Function that fetches users in firebase database
+        */
+       private func fetchOtherBooks(){
+            numberOfAdditionalBooks += 5
+           rootRef = Database.database().reference()
+        let query = rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "timestamp").queryLimited(toLast: UInt(numberOfAdditionalBooks))
+           query.observe(.value) { (snapshot) in
+               // this to avoid duplicated row when reloaded
+               self.allBooks = [Book]()
+               for child in snapshot.children.allObjects as! [DataSnapshot] {
+                   if let value = child.value as? NSDictionary {
+                       let book = Book()
+                       let uniqueId = value["uniqueId"] as? String ?? "uniqueId not found"
+                       let title = value["title"] as? String ?? "title not found"
+                       let author = value["author"] as? String ?? "author not found"
+                       let editor = value["editor"] as? String ?? "editor not found"
+                       let isbn = value["isbn"] as? String ?? "isbn not found"
+                       let isAvailable = value["isAvailable"] as? Bool ?? true
+                       let coverURL = value["coverURL"] as? String ?? "coverURL not found"
+                       let timestamp = value["timestamp"] as? Int ?? 0
+                       book.uniqueId = uniqueId
+                       book.title = title
+                       book.author = author
+                       book.editor = editor
+                       book.isbn = isbn
+                       book.isAvailable = isAvailable
+                       book.coverURL = coverURL
+                       book.timestamp = timestamp
+                       self.allBooks.append(book)
+                       DispatchQueue.main.async { self.tableView.reloadData() }
+                       // todo : limit to 20 books
+                   }
+               }
+           }
+       }
+    
+    @objc func displayAtBottom() {
+        let indexpath = IndexPath(item: self.allBooks.count-1, section: 0)
+        self.tableView.scrollToRow(at: indexpath, at: .bottom, animated: true)
+    }
+    
+    @objc private func shuffleBooks(){
+        print("on vient de cliquer sur autres")
+        
+        let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Vous shouhaitez voir d'autres livres", preferredStyle: .alert)
+        
+        actionSheet.addAction(UIAlertAction(title: "Oui", style: .default, handler: { (action: UIAlertAction) in
+            print("on veut d'autres livres")
+            self.fetchOtherBooks()
+            self.perform(#selector(self.displayAtBottom), with: nil, afterDelay: 1)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Non", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion : nil)
     }
 
     
