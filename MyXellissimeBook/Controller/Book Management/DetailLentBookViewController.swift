@@ -154,7 +154,7 @@ class DetailLentBookViewController: UIViewController {
             self.bookToDisplay?.isAvailable = true
             guard let book = self.bookToDisplay else {return}
             // update availability in Firebase
-            FirebaseUtilities.saveBook(book: book, fromUserId: self.currentUid)
+            FirebaseUtilities.updateBookAfterLoan(book: book, fromUserId: self.currentUid)
             guard let loanIdToClose = self.currentLoanId else {return}
             FirebaseUtilities.closeLoan(for: loanIdToClose)
             self.dismiss(animated: true, completion: nil)

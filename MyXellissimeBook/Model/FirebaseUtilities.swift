@@ -472,7 +472,7 @@ class FirebaseUtilities {
             borrowerRef.updateChildValues([loanId : 1])
             // update availability of the book
             bookToLend.isAvailable = false
-            FirebaseUtilities.saveBook(book: bookToLend, fromUserId: fromId)
+            FirebaseUtilities.updateBookAfterLoan(book: bookToLend, fromUserId: fromId)
         }
     }
     /**
@@ -573,5 +573,35 @@ class FirebaseUtilities {
         })
         callBack(self.shared.mapAnnotationArray)
         
+    }
+    
+    /**
+     This function saves a book in Firebase
+     
+     - Parameter book: book to be stored
+     - Parameter fromUserId: the book owner's Id as a String
+     
+     */
+    static func updateBookAfterLoan(book: Book, fromUserId : String){
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.books)
+        /// unique reference for the book
+        guard let isbnForUniqueRefBok = book.isbn else {return}
+        let uniqueRefForBook = "\(fromUserId)\(isbnForUniqueRefBok)"
+        let childRef = ref.child(uniqueRefForBook)
+        //Create the dictionary of value to save
+        let values = ["isAvailable" : book.isAvailable ?? true] as [String : Any]
+        // this block to save the message and then also make a reference and store the reference of message in antoher node
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            // create a new node fromId user
+            let userBookRef = Database.database().reference().child(FirebaseUtilities.shared.user_books).child(fromUserId)
+            // get the key of the message
+            let bookId = childRef.key
+            // store the  message here for the fromId user
+            userBookRef.updateChildValues([bookId : 1])
+        }
     }
 }

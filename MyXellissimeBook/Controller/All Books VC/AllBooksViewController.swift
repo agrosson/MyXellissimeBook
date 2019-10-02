@@ -120,36 +120,39 @@ class AllBooksViewController: UITableViewController {
         */
        private func fetchOtherBooks(){
             numberOfAdditionalBooks += 5
-           rootRef = Database.database().reference()
-        let query = rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "timestamp").queryLimited(toLast: UInt(numberOfAdditionalBooks))
-           query.observe(.value) { (snapshot) in
-               // this to avoid duplicated row when reloaded
-               self.allBooks = [Book]()
-               for child in snapshot.children.allObjects as! [DataSnapshot] {
-                   if let value = child.value as? NSDictionary {
-                       let book = Book()
-                       let uniqueId = value["uniqueId"] as? String ?? "uniqueId not found"
-                       let title = value["title"] as? String ?? "title not found"
-                       let author = value["author"] as? String ?? "author not found"
-                       let editor = value["editor"] as? String ?? "editor not found"
-                       let isbn = value["isbn"] as? String ?? "isbn not found"
-                       let isAvailable = value["isAvailable"] as? Bool ?? true
-                       let coverURL = value["coverURL"] as? String ?? "coverURL not found"
-                       let timestamp = value["timestamp"] as? Int ?? 0
-                       book.uniqueId = uniqueId
-                       book.title = title
-                       book.author = author
-                       book.editor = editor
-                       book.isbn = isbn
-                       book.isAvailable = isAvailable
-                       book.coverURL = coverURL
-                       book.timestamp = timestamp
-                       self.allBooks.append(book)
-                       DispatchQueue.main.async { self.tableView.reloadData() }
-                       // todo : limit to 20 books
+            rootRef = Database.database().reference()
+            rootRef.child(FirebaseUtilities.shared.books).observe(DataEventType.value, with: { (snapshot) in
+            let numberOfBooks = snapshot.childrenCount
+            let query = self.rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "timestamp").queryLimited(toLast: UInt(min(self.numberOfAdditionalBooks,Int(numberOfBooks))))
+               query.observe(.value) { (snapshot) in
+                   // this to avoid duplicated row when reloaded
+                   self.allBooks = [Book]()
+                   for child in snapshot.children.allObjects as! [DataSnapshot] {
+                       if let value = child.value as? NSDictionary {
+                           let book = Book()
+                           let uniqueId = value["uniqueId"] as? String ?? "uniqueId not found"
+                           let title = value["title"] as? String ?? "title not found"
+                           let author = value["author"] as? String ?? "author not found"
+                           let editor = value["editor"] as? String ?? "editor not found"
+                           let isbn = value["isbn"] as? String ?? "isbn not found"
+                           let isAvailable = value["isAvailable"] as? Bool ?? true
+                           let coverURL = value["coverURL"] as? String ?? "coverURL not found"
+                           let timestamp = value["timestamp"] as? Int ?? 0
+                           book.uniqueId = uniqueId
+                           book.title = title
+                           book.author = author
+                           book.editor = editor
+                           book.isbn = isbn
+                           book.isAvailable = isAvailable
+                           book.coverURL = coverURL
+                           book.timestamp = timestamp
+                           self.allBooks.append(book)
+                           DispatchQueue.main.async { self.tableView.reloadData() }
+                           // todo : limit to 20 books
+                       }
                    }
                }
-           }
+        })
        }
     
     @objc func displayAtBottom() {
