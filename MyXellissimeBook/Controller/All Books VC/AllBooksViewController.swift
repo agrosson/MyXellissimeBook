@@ -25,7 +25,7 @@ class AllBooksViewController: UITableViewController {
     
     var rootRef = DatabaseReference()
     var refreshController = UIRefreshControl()
-    var numberOfAdditionalBooks = 5
+    var numberOfAdditionalBooks = 20
     
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
@@ -84,7 +84,7 @@ class AllBooksViewController: UITableViewController {
      */
     private func fetchBooks(){
         rootRef = Database.database().reference()
-        let query = rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "timestamp").queryLimited(toLast: 5)
+        let query = rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "timestamp").queryLimited(toLast:20)
         query.observe(.value) { (snapshot) in
             // this to avoid duplicated row when reloaded
             self.allBooks = [Book]()
@@ -119,7 +119,7 @@ class AllBooksViewController: UITableViewController {
         Function that fetches users in firebase database
         */
        private func fetchOtherBooks(){
-            numberOfAdditionalBooks += 5
+            numberOfAdditionalBooks += 10
             rootRef = Database.database().reference()
             rootRef.child(FirebaseUtilities.shared.books).observe(DataEventType.value, with: { (snapshot) in
             let numberOfBooks = snapshot.childrenCount
@@ -161,12 +161,9 @@ class AllBooksViewController: UITableViewController {
     }
     
     @objc private func shuffleBooks(){
-        print("on vient de cliquer sur autres")
-        
-        let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Vous shouhaitez voir d'autres livres", preferredStyle: .alert)
+        let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Vous souhaitez voir plus de livres", preferredStyle: .alert)
         
         actionSheet.addAction(UIAlertAction(title: "Oui", style: .default, handler: { (action: UIAlertAction) in
-            print("on veut d'autres livres")
             self.fetchOtherBooks()
             self.perform(#selector(self.displayAtBottom), with: nil, afterDelay: 1)
         }))

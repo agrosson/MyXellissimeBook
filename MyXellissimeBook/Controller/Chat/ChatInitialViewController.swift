@@ -325,16 +325,31 @@ class ChatInitialViewController : UITableViewController {
                 guard let messageImageUrl = dictionary["messageImageUrl"] as? String else {return}
                 // Get current timestamp
                 let now = Int(NSDate().timeIntervalSince1970)
-                // a day is 864000 seconds / a week is 6048000 seconds / 4 weeks are 2419200 seconds
+                // a day is 86 400 seconds / a week is 604 800 seconds / 4 weeks are 2 419 200 seconds
                 // if timeStamp is more than 4 weeks, remove message from Firebase
                 if now > timeStamp + 2419200 {
+                    //remove message from Firebase
                     FirebaseUtilities.deleteMessage(with: messageId, fromId: fromId, toId: toId)
+                    // remove message from Storage if message is an image
                     if messageImageUrl != "messageImageUrl" {
                         let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.messageImage).child("\(messageImageUrl).jpg")
                         storageRef.delete(completion: { (error) in
                             print("error")
                         })
                     }
+                    // remove nodes from Firebase
+                    Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(fromId).child(toId).child(messageId).removeValue { (error, ref) in
+                        if error != nil {
+                            print("Failed to remove  message:", error as Any)
+                            return
+                        }
+                    }
+                    Database.database().reference().child(FirebaseUtilities.shared.user_messages).child(fromId).child(fromId).child(toId).removeValue { (error, ref) in
+                                           if error != nil {
+                                               print("Failed to remove  message:", error as Any)
+                                               return
+                                           }
+                                       }
                 }
             }, withCancel: nil)
         }, withCancel: nil)
