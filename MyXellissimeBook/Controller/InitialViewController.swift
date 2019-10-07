@@ -45,7 +45,6 @@ class InitialViewController: UIViewController {
         setupScreen()
         setupBanner()
         updateUserLocation()
-        
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -183,8 +182,6 @@ class InitialViewController: UIViewController {
                 
                 
                 self.navigationItem.titleView = setupNavBarWithUser(user: user)
-                
-                //self.setupNavBarWithUser(user: user)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
             }
         }
@@ -205,11 +202,9 @@ class InitialViewController: UIViewController {
         
     }
     @objc func handleSettings(){
-        // present addBookViewController
                let settingsViewController = UINavigationController(rootViewController: SettingsViewController())
                present(settingsViewController, animated: true, completion: nil)
     }
-    
     /**
      Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed
      */
@@ -256,6 +251,10 @@ class InitialViewController: UIViewController {
         // present listOfUserBooksLentViewController
         let userBorrowedBooksTableViewController = UINavigationController(rootViewController: UserBorrowedBooksTableViewController())
         present(userBorrowedBooksTableViewController, animated: true, completion: nil)
+    }
+    
+    @objc func handletest(){
+        print("last chance")
     }
 }
 
