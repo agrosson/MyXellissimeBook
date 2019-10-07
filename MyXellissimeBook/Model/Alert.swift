@@ -51,7 +51,8 @@ class Alert {
         newMessagesAfterLogin,
         locationAuthorization,
         noLoansForUSer,
-        hasNoBorrowedYet
+        hasNoBorrowedYet,
+        invalidPasswordChangeIdentical
     }
     // MARK: - Initializer
     init() {}
@@ -158,7 +159,10 @@ class Alert {
             title: "Cher Utilisateur,",
         message: TextAndString.shared.hasNoBorrowedYet,
             titleButton: "Retour")
-            
+        case .invalidPasswordChangeIdentical : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+        message: TextAndString.shared.invalidPasswordChangeIdentical,
+            titleButton: "Retour")
         }
     }
 }
@@ -175,6 +179,7 @@ struct TextAndString {
     let passwordIsTooShort = "Le mot de passe doit contenir au moins 6 caractères"
     let noUserRegistered = "Aucun utilisateur enregistré avec cet email.\nMerci de vous inscrire"
     let invalidPassword = "Mot de passe invalide"
+    let invalidPasswordChangeIdentical = "L'ancien et le nouveau mot de passe sont identiques.\nMerci de modifier le nouveau mot de passe"
     let noData = "Merci de remplir tous les champs"
     let googleBookDidNotFindAResult = "Aucun livre trouvé dans Google Books. Une nouvelle recherche va être lancée avec Open Library"
     let googleBookAPIProblemWithUrl = "Il y a un problème avec l'API de Google Books."
