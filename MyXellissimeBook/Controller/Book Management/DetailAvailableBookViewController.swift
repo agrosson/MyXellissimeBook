@@ -29,6 +29,11 @@ class DetailAvailableBookViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        let color = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+        let textAttributes = [NSAttributedString.Key.foregroundColor:color]
+        navigationItem.leftBarButtonItem?.tintColor = color
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationItem.title = "Mon livre"
         view.addSubview(bookCoverImageView)
         view.addSubview(titleLabel)
         view.addSubview(authorLabel)

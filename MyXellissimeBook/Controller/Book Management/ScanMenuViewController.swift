@@ -79,6 +79,11 @@ class ScanMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(dismissCurrentView))
+        let color = #colorLiteral(red: 0.2744090557, green: 0.4518461823, blue: 0.527189374, alpha: 1)
+        navigationItem.leftBarButtonItem?.tintColor = color
+        let textAttributes = [NSAttributedString.Key.foregroundColor:color]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationItem.title = "Scanner un ISBN"
         view.addSubview(scanButton)
         view.addSubview(containerView)
         containerView.addSubview(exportButton)
@@ -113,7 +118,7 @@ class ScanMenuViewController: UIViewController {
      */
     private func setupScreen(){
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+      //  navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         setupScanButton()
         setupContainerView()
         setupExportButton()

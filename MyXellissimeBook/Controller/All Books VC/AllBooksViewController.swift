@@ -32,7 +32,8 @@ class AllBooksViewController: UITableViewController {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Autres", style: .plain, target: self, action: #selector(shuffleBooks))
         counterInterstitial = 0
-        let color = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
+        let color = #colorLiteral(red: 0.2744090557, green: 0.4518461823, blue: 0.527189374, alpha: 1)
+        navigationItem.rightBarButtonItem?.tintColor = color
         let textAttributes = [NSAttributedString.Key.foregroundColor:color]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationItem.title = "Derniers livres proposés"
@@ -48,7 +49,7 @@ class AllBooksViewController: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        numberOfAdditionalBooks = 5
+        numberOfAdditionalBooks = 20
     }
     // MARK: - Methods
     /**

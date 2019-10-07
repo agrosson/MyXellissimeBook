@@ -18,7 +18,7 @@ import MapKit
  This class defines will enable user to locate other users
  */
 class MapViewController: UIViewController  {
-   
+    
     // MARK: - Outlets and properties
     var usersMap: MKMapView = {
         let map = MKMapView()
@@ -31,18 +31,23 @@ class MapViewController: UIViewController  {
     let regionInMeters: Double = 5000
     
     var mapAnnotationArray = [MapAnnotation]()
-
+    
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        let color = #colorLiteral(red: 0.2744090557, green: 0.4518461823, blue: 0.527189374, alpha: 1)
+        navigationItem.leftBarButtonItem?.tintColor = color
+        let textAttributes = [NSAttributedString.Key.foregroundColor:color]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationItem.title = "Localisation des utilisateurs"
         checkLocationService()
         view.addSubview(usersMap)
         setupMap()
-
+        
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
-       
+        
     }
     
     func checkLocationService(){
@@ -63,7 +68,7 @@ class MapViewController: UIViewController  {
             usersMap.showsUserLocation = true
             centerViewOnUserLocation()
             //Only use this to track movements
-          //  locationManager.startUpdatingLocation()
+            //  locationManager.startUpdatingLocation()
             break
         case .denied:
             Alert.shared.controller = self
@@ -126,12 +131,12 @@ class MapViewController: UIViewController  {
         if #available(iOS 11.0, *) {
             usersMap.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         } else {
-               usersMap.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            usersMap.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         }
         if #available(iOS 11.0, *) {
             usersMap.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         } else {
-             usersMap.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            usersMap.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         }
         if #available(iOS 11.0, *) {
             usersMap.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
@@ -143,7 +148,7 @@ class MapViewController: UIViewController  {
         } else {
             usersMap.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true   
         }
-    
+        
     }
     //
     func fetchUserAnnotation(latitudeUser: Double, longitudeUser : Double) {
@@ -151,11 +156,11 @@ class MapViewController: UIViewController  {
         mapAnnotationArray = [MapAnnotation]()
         let rootRef = Database.database().reference().child(FirebaseUtilities.shared.users)
         rootRef.observe(.childAdded, with: { (snapshot) in
-              print("on est ici fetch annotation inside")
+            print("on est ici fetch annotation inside")
             // get the key for the userId
             let userId = snapshot.key
             rootRef.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
-                  print("on est ici fetch annotation deeper")
+                print("on est ici fetch annotation deeper")
                 guard let dictionary = snapshot.value as? [String : Any] else {return}
                 
                 let mapAnnotation = MapAnnotation()
@@ -170,8 +175,8 @@ class MapViewController: UIViewController  {
                 print("on est ici fetch annotation deeper 2 \(latitude) \(longitude) \(name) \(profileId))")
                 print(mapAnnotation)
                 self.mapAnnotationArray.append(mapAnnotation)
-             }, withCancel: nil)
-         }, withCancel: nil)
+            }, withCancel: nil)
+        }, withCancel: nil)
         print("fin")
         print(self.mapAnnotationArray)
     }
@@ -184,18 +189,18 @@ extension MapViewController: CLLocationManagerDelegate {
         guard let location = locations.last else {return}
         let center = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
         let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-       // let reg2 = MKCoordinateSpan.init(latitudeDelta: 0.005, longitudeDelta: 0.005)
-      //  let region3 = MKCoordinateRegion.init(center: center, span: reg2)
+        // let reg2 = MKCoordinateSpan.init(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        //  let region3 = MKCoordinateRegion.init(center: center, span: reg2)
         usersMap.setRegion(region, animated: true)
-       
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-       checkLocationAuthorization()
+        checkLocationAuthorization()
     }
     
     private func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("error:: (error)")
     }
-
+    
 }

@@ -127,7 +127,8 @@ func setupNavBarWithUser(user: User) -> UIView {
     
     let nameLabel = UILabel()
     nameLabel.text = user.name
-    nameLabel.textColor = .white
+    let color = #colorLiteral(red: 0.2744090557, green: 0.4518461823, blue: 0.527189374, alpha: 1)
+    nameLabel.textColor = color
     nameLabel.translatesAutoresizingMaskIntoConstraints = false
     containerView.addSubview(nameLabel)
     // Contraints X Y Width height
