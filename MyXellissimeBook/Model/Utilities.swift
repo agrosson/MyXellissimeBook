@@ -27,6 +27,8 @@ import Firebase
 let adminEmail = "admin@xellissime.com"
 /// Color for Navigation item
  let navigationItemColor = #colorLiteral(red: 0.2744090557, green: 0.4518461823, blue: 0.527189374, alpha: 1)
+/// Color for backGround view
+ let mainBackgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
 /// Current screen height
 let screenHeight = UIScreen.main.bounds.height
 /// Current screen width
