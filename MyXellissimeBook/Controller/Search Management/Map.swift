@@ -35,9 +35,8 @@ class MapViewController: UIViewController  {
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        let color = #colorLiteral(red: 0.2744090557, green: 0.4518461823, blue: 0.527189374, alpha: 1)
-        navigationItem.leftBarButtonItem?.tintColor = color
-        let textAttributes = [NSAttributedString.Key.foregroundColor:color]
+        navigationItem.leftBarButtonItem?.tintColor = navigationItemColor
+        let textAttributes = [NSAttributedString.Key.foregroundColor:navigationItemColor]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationItem.title = "Localisation des utilisateurs"
         checkLocationService()

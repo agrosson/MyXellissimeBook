@@ -39,9 +39,8 @@ class InitialViewController: UIViewController {
         // Create the left button
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: #selector(handleConnexion))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(handleSettings))
-        let color = #colorLiteral(red: 0.2744090557, green: 0.4518461823, blue: 0.527189374, alpha: 1)
-        navigationItem.leftBarButtonItem?.tintColor = color
-        navigationItem.rightBarButtonItem?.tintColor = color
+        navigationItem.leftBarButtonItem?.tintColor = navigationItemColor
+        navigationItem.rightBarButtonItem?.tintColor = navigationItemColor
         checkIfUserIsAlreadyLoggedIn()
         setupScreen()
         setupBanner()
@@ -206,7 +205,9 @@ class InitialViewController: UIViewController {
         
     }
     @objc func handleSettings(){
-        print("go to settings")
+        // present addBookViewController
+               let settingsViewController = UINavigationController(rootViewController: SettingsViewController())
+               present(settingsViewController, animated: true, completion: nil)
     }
     
     /**

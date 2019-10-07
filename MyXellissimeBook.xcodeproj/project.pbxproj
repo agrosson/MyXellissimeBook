@@ -10,6 +10,7 @@
 		C100899422BCAEB700D3497E /* UserBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100899322BCAEB700D3497E /* UserBookCell.swift */; };
 		C100899622BCCB6100D3497E /* UserBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100899522BCCB6100D3497E /* UserBooksTableViewController.swift */; };
 		C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */; };
+		C114F721234B25CD00D6E115 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C114F720234B25CD00D6E115 /* Settings.swift */; };
 		C116190122BB8080005BC226 /* GoodReads.xml in Resources */ = {isa = PBXBuildFile; fileRef = C116190022BB8080005BC226 /* GoodReads.xml */; };
 		C116190322BB8646005BC226 /* GoogleBooks.json in Resources */ = {isa = PBXBuildFile; fileRef = C116190222BB8646005BC226 /* GoogleBooks.json */; };
 		C116190522BB986E005BC226 /* OpenLibrary.json in Resources */ = {isa = PBXBuildFile; fileRef = C116190422BB986E005BC226 /* OpenLibrary.json */; };
@@ -113,6 +114,7 @@
 		C100899322BCAEB700D3497E /* UserBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBookCell.swift; sourceTree = "<group>"; };
 		C100899522BCCB6100D3497E /* UserBooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBooksTableViewController.swift; sourceTree = "<group>"; };
 		C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtilities.swift; sourceTree = "<group>"; };
+		C114F720234B25CD00D6E115 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C116190022BB8080005BC226 /* GoodReads.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = GoodReads.xml; sourceTree = "<group>"; };
 		C116190222BB8646005BC226 /* GoogleBooks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GoogleBooks.json; sourceTree = "<group>"; };
 		C116190422BB986E005BC226 /* OpenLibrary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenLibrary.json; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 			children = (
 				C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */,
 				C19371D822B0FC500017E696 /* InitialViewController.swift */,
+				C114F720234B25CD00D6E115 /* Settings.swift */,
 				C19E1EA4232A7EC5001FA746 /* All Books VC */,
 				C100899A22BCD0CA00D3497E /* LogIn */,
 				C100899722BCD01D00D3497E /* Book Management */,
@@ -758,6 +761,7 @@
 				C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */,
 				C1E5D7AA2302F70F00D23E80 /* ExtensionUIColor.swift in Sources */,
 				C17EEF5822B2934100BF01B5 /* ChatTableViewController.swift in Sources */,
+				C114F721234B25CD00D6E115 /* Settings.swift in Sources */,
 				C13355DC22BA88E90006D9CD /* GoodReadsAPI.swift in Sources */,
 				C120D35722C1602C00E749BC /* SearchBookDetailViewController.swift in Sources */,
 				C1D1A77E2316C78700E771AD /* AddBookViewController+setupScreen.swift in Sources */,
