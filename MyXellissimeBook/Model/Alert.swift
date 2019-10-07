@@ -52,7 +52,13 @@ class Alert {
         locationAuthorization,
         noLoansForUSer,
         hasNoBorrowedYet,
-        invalidPasswordChangeIdentical
+        invalidPasswordChangeIdentical,
+        passwordNotChanged,
+        passwordChanged,
+        emailNotChanged,
+        emailChanged,
+        nameNotChanged,
+        nameChanged
     }
     // MARK: - Initializer
     init() {}
@@ -149,29 +155,58 @@ class Alert {
             titleButton: "Retour")
         case .locationAuthorization : controller?.presentAlertDetails(
             title: "Cher Utilisateur,",
-        message: TextAndString.shared.locationAuthorization,
+            message: TextAndString.shared.locationAuthorization,
             titleButton: "Retour")
         case .noLoansForUSer : controller?.presentAlertDetails(
-                  title: "Cher Utilisateur,",
-              message: TextAndString.shared.noLoansForUSer,
-                  titleButton: "Retour")
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.noLoansForUSer,
+            titleButton: "Retour")
         case .hasNoBorrowedYet : controller?.presentAlertDetails(
             title: "Cher Utilisateur,",
-        message: TextAndString.shared.hasNoBorrowedYet,
+            message: TextAndString.shared.hasNoBorrowedYet,
             titleButton: "Retour")
         case .invalidPasswordChangeIdentical : controller?.presentAlertDetails(
             title: "Cher Utilisateur,",
-        message: TextAndString.shared.invalidPasswordChangeIdentical,
+            message: TextAndString.shared.invalidPasswordChangeIdentical,
+            titleButton: "Retour")
+        case .passwordChanged : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.passwordChanged,
+            titleButton: "Retour")
+        case .passwordNotChanged : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.passwordNotChanged,
+            titleButton: "Retour")
+        case .emailChanged : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.emailChanged,
+            titleButton: "Retour")
+        case .emailNotChanged : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.emailNotChanged,
+            titleButton: "Retour")
+        case .nameChanged : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.nameChanged,
+            titleButton: "Retour")
+        case .nameNotChanged : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.nameNotChanged,
             titleButton: "Retour")
         }
     }
 }
-
 /**
  This Struct enables to list all texts of the application in a single file
  */
 struct TextAndString {
     static let shared = TextAndString()
+    let nameChanged = "Le nom a été changé !"
+    let nameNotChanged = "Le nom n'a pas été changé.\nMerci de revoir les éléments saisis"
+    let emailChanged = "L'email a été changé !"
+    let emailNotChanged = "L'email n'a pas été changé.\nMerci de revoir les éléments saisis"
+    let passwordChanged = "Le mot de passe a été changé !"
+    let passwordNotChanged = "Le mot de passe n'a pas été changé.\nMerci de revoir les éléments saisis"
     let initialWarning = "Vous devez accepter les conditions générales pour utiliser l'application"
     let conditionMustBeAccepted = "Vous ne pouvez pas utiliser l'application car vous n'avez pas encore accepté les conditions générales"
     let userEmailAlreadyUsedByAnotherUser = "Cet email est déjà utilisé par une autre personne.\nMerci de choisir un autre email."
@@ -199,3 +234,4 @@ struct TextAndString {
     let noLoansForUSer = "Vous ne prétez aucun livre pour l'instant.\n\nPour prêter un livre, aller dans la liste de vos livres, sélectionner un livre et cliquer sur 'Prêter ce livre'"
     let hasNoBorrowedYet = "Vous n'avez emprunté aucun livre pour l'instant.\n\nAller dans l'onglet 'Rechercher' et indiquer le nom du livre recherché.\n\nVous pouvez aussi aller dans l'onglet 'Livres récents' pour voir les derniers livres proposés."
 }
+

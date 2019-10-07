@@ -492,6 +492,40 @@ class FirebaseUtilities {
         }
     }
     /**
+     This function saves  an email for a user  in Firebase
+     - Parameter email:  the new email for the user
+     - Parameter userUid:  the user uid
+     */
+    static func saveEmail(with email: String, for uid : String){
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(uid)
+        let values = ["email" : email] as [String : Any]
+        // this block to update the variable email
+        ref.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+        }
+    }
+    
+    /**
+     This function saves  an name for a user  in Firebase
+     - Parameter name:  the new name for the user
+     - Parameter userUid:  the user uid
+     */
+    static func saveName(with name: String, for uid : String){
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(uid)
+        let values = ["name" : name] as [String : Any]
+        // this block to update the variable email
+        ref.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+        }
+    }
+    
+    /**
      This function removes token in Firebase for a user when logs out and set timestampLastLogout
      - Parameter uid:  the user uid
      */

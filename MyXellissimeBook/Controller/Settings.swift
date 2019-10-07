@@ -24,13 +24,15 @@ class SettingsViewController: UIViewController {
     
     /// User Profile Image
     var userProfileImage = UIImage()
+    var email: String?
     
     override func viewDidLoad() {
+        email = Auth.auth().currentUser?.email
+        
         setupNavigationBar()
         setupViews()
     }
-    
-    
+    typealias Completion = (Error?) -> Void
     /**
      Function that sets up views on screen
      */
@@ -131,29 +133,31 @@ class SettingsViewController: UIViewController {
         print("here modify photo")
         // Display picker to get the new photo/Image
         launchPicker()
-      
+        
     }
     /**
      Action that modifies user password
      */
     @objc private func handleModifyPassword(){
         print("here modify password")
-        alertWithTF(title: "Modifier le mot de passe", message: "Indiquer l'ancien mot de passe et\nle nouveau mot de passe")
+        alertToModifyPassword(title: "Modification du mot de passe", message: "Indiquer l'ancien mot de passe et\nle nouveau mot de passe")
     }
     /**
      Action that modifies user name
      */
     @objc private func handleModifyUserName(){
         print("here modify user name")
+        alertToModifyName(title: "Modification du nom d'utilisateur", message: "Indiquer le mot de passe et\nindiquer votre nouveau nom utilisateur")
     }
     /**
      Action that modifies user name
      */
     @objc private func handleModifyEmail(){
         print("here modify user email")
+        alertToModifyEmail(title: "Modification de l'email", message: "Indiquer le mot de passe et\nindiquer votre nouvel email")
     }
     
-   func launchPicker() {
+    func launchPicker() {
         // create a instance of UIImagePickerController()
         let picker = UIImagePickerController()
         
@@ -166,79 +170,141 @@ class SettingsViewController: UIViewController {
     }
     
     /**
-        Function that update and upload of profile image of the user
-        - Parameter uid: the unique identifier (String) of the user
-        - Parameter image: the new image for user profile image
-        */
+     Function that update and upload of profile image of the user
+     - Parameter uid: the unique identifier (String) of the user
+     - Parameter image: the new image for user profile image
+     */
     func saveProfileImageForUser(uid : String, image: UIImage){
-           // update the cache
-           imageCache.setObject(image, forKey: uid as AnyObject)
-           // test the size in byte of the image
-           let imageDataTest = image.jpegData(compressionQuality: 1)
-           guard let imageSize = imageDataTest?.count else {return}
-           var imageDataToUpload = Data()
-           if imageSize > 1000000 {
-               guard let imageData = image.jpegData(compressionQuality: 0.5) else {return}
-               imageDataToUpload = imageData
-           }
-           if  100000...1000000 ~= imageSize {
-               guard let imageData = image.jpegData(compressionQuality: 0.7) else {return}
-               imageDataToUpload = imageData
-           }
-           if  imageSize < 100000 {
-               guard let imageData = image.jpegData(compressionQuality: 0.7) else {return}
-               imageDataToUpload = imageData
-           }
-           // Create a Storage reference with the bookId
-           let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.profileImage).child("\(uid).jpg")
-           // Create a Storage Metadata
-           let uploadMetadata = StorageMetadata()
-           // Describe the type of image stored in FireStorage
-           uploadMetadata.contentType = "image/jpeg"
-           // Create the upload task
-           let uploadTask = storageRef.putData(imageDataToUpload, metadata: uploadMetadata) { (metada, error) in
-               if error != nil {
-                   print("i received an error \(error?.localizedDescription ?? "error but no description")")
-               }   else {
-                   print("up load complete, here some metadata \(String(describing: metada))")
-               }
-           }
-           uploadTask.observe(.progress) { (snapshot) in
-               guard let progress = snapshot.progress else {
-                   print("No progress for the snapshot")
-                   return}
-               print("end of progress?? ")
-               print(progress.fractionCompleted)
-           }
-           uploadTask.resume()
-       }
+        // update the cache
+        imageCache.setObject(image, forKey: uid as AnyObject)
+        // test the size in byte of the image
+        let imageDataTest = image.jpegData(compressionQuality: 1)
+        guard let imageSize = imageDataTest?.count else {return}
+        var imageDataToUpload = Data()
+        if imageSize > 1000000 {
+            guard let imageData = image.jpegData(compressionQuality: 0.5) else {return}
+            imageDataToUpload = imageData
+        }
+        if  100000...1000000 ~= imageSize {
+            guard let imageData = image.jpegData(compressionQuality: 0.7) else {return}
+            imageDataToUpload = imageData
+        }
+        if  imageSize < 100000 {
+            guard let imageData = image.jpegData(compressionQuality: 0.7) else {return}
+            imageDataToUpload = imageData
+        }
+        // Create a Storage reference with the bookId
+        let storageRef = Storage.storage().reference().child(FirebaseUtilities.shared.profileImage).child("\(uid).jpg")
+        // Create a Storage Metadata
+        let uploadMetadata = StorageMetadata()
+        // Describe the type of image stored in FireStorage
+        uploadMetadata.contentType = "image/jpeg"
+        // Create the upload task
+        let uploadTask = storageRef.putData(imageDataToUpload, metadata: uploadMetadata) { (metada, error) in
+            if error != nil {
+                print("i received an error \(error?.localizedDescription ?? "error but no description")")
+            }   else {
+                print("up load complete, here some metadata \(String(describing: metada))")
+            }
+        }
+        uploadTask.observe(.progress) { (snapshot) in
+            guard let progress = snapshot.progress else {
+                print("No progress for the snapshot")
+                return}
+            print("end of progress?? ")
+            print(progress.fractionCompleted)
+        }
+        uploadTask.resume()
+    }
     
     @objc func alertIdenticalPassword() {
         Alert.shared.controller = self
         Alert.shared.alertDisplay = .invalidPasswordChangeIdentical
     }
-    
-    func alertWithTF(title: String, message: String) {
-        //Step : 1
+    /**
+        Function that creates an alert with 2 textfields to modify password
+        - Parameter title: The alert title
+        - Parameter message: The alert message
+        */
+    func alertToModifyEmail(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction (UIAlertAction(title: "Sauvegarder", style: .default) { (alertAction) in
+            guard let password = alert.textFields![0].text else {
+                return
+            }
+            guard let newEmail = alert.textFields![1].text else {
+                return
+            }
+            if !self.isValidEmail(testStr: newEmail) {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .emailBadlyFormatted
+                return
+            }
+            if let email = self.email {
+                self.changeEmail(email: email, currentPassword: password, newEmail: newEmail) { (error) in
+                    if error == nil {
+                        guard let uid = Auth.auth().currentUser?.uid else {return}
+                        FirebaseUtilities.saveEmail(with: newEmail, for: uid)
+                        Alert.shared.controller = self
+                        Alert.shared.alertDisplay = .emailChanged
+                    } else {
+                        print(error as Any)
+                        Alert.shared.controller = self
+                        Alert.shared.alertDisplay = .emailNotChanged
+                    }
+                }
+            }
+        })
+        alert.addTextField { (textField) in
+            textField.placeholder = "Mot de passe"
+            textField.textColor = mainBackgroundColor
+        }
+        alert.addTextField { (textField) in
+            textField.placeholder = "Nouvel email"
+            textField.textColor = mainBackgroundColor
+        }
+        alert.addAction(UIAlertAction(title: "Annuler", style: .default) { (alertAction) in })
+        self.present(alert, animated:true, completion: nil)
+    }
 
-        //Step : 2
+    /**
+        Function that creates an alert with 2 textfields to modify password
+        - Parameter title: The alert title
+        - Parameter message: The alert message
+        */
+    func alertToModifyPassword(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction (UIAlertAction(title: "Sauvegarder", style: .default) { (alertAction) in
             guard let oldPassword = alert.textFields![0].text else {
-                print("TF 1 is Empty...")
                 return
             }
             guard let newPassword = alert.textFields![1].text else {
-                 print("TF 2 is Empty...")
                 return
             }
-            
             if newPassword == oldPassword {
                 self.alertIdenticalPassword()
-              //  self.perform(#selector(self.alertIdenticalPassword), with: nil, afterDelay: 1)
+                return
+            }
+            // test if password has at least 6 characters
+            if newPassword.count < 5 {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .passwordIsTooShort
+                return
+            }
+            if let email = self.email {
+                self.changePassword(email: email, currentPassword: oldPassword, newPassword: newPassword) { (error) in
+                    if error != nil {
+                        print(error as Any)
+                        Alert.shared.controller = self
+                        Alert.shared.alertDisplay = .passwordNotChanged
+                    } else {
+                        Alert.shared.controller = self
+                        Alert.shared.alertDisplay = .passwordChanged
+                    }
+                }
             }
         })
-
+        
         //Step : 3
         //For first TF
         alert.addTextField { (textField) in
@@ -250,12 +316,106 @@ class SettingsViewController: UIViewController {
             textField.placeholder = "Nouveau mot de passe"
             textField.textColor = mainBackgroundColor
         }
-
+        //alertC.setBackgroundColor(color: mainBackgroundColor)
         //Cancel action
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default) { (alertAction) in })
-       self.present(alert, animated:true, completion: nil)
-
+        alert.addAction(UIAlertAction(title: "Annuler", style: .default) { (alertAction) in })
+        self.present(alert, animated:true, completion: nil)
     }
+    /**
+        Function that creates an alert with 2 textfields to modify name
+        - Parameter title: The alert title
+        - Parameter message: The alert message
+        */
+    func alertToModifyName(title: String, message: String) {
+        //Step : 1
+        let alertC = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        //Step : 2
+        alertC.addAction (UIAlertAction(title: "Sauvegarder", style: .default) { (alertAction) in
+            guard let password = alertC.textFields![0].text else {
+                return
+            }
+            guard let newname = alertC.textFields![1].text else {
+                return
+            }
+            if newname.isEmpty {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .noData
+            }
+            if let email = self.email {
+                self.changeName(email: email, currentPassword: password, newName: newname)
+            }
+        })
+        
+        //Step : 3
+        //For first TF
+        alertC.addTextField { (textField) in
+            textField.placeholder = "Mot de passe"
+            textField.textColor = mainBackgroundColor
+        }
+        //For second TF
+        alertC.addTextField { (textField) in
+            textField.placeholder = "Nouveau nom d'utilisateur"
+            textField.textColor = mainBackgroundColor
+        }
+        //alertC.setBackgroundColor(color: mainBackgroundColor)
+        //Cancel action
+        alertC.addAction(UIAlertAction(title: "Annuler", style: .default) { (alertAction) in })
+        self.present(alertC, animated:true, completion: nil)
+    }
+    
+    
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
+    
+    
+    func changePassword(email: String, currentPassword: String, newPassword: String, completion: @escaping Completion) {
+        if let currentUser = Auth.auth().currentUser {
+            let credential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
+            Auth.auth().currentUser?.reauthenticateAndRetrieveData(with: credential, completion: { (authResult, error) in
+                if error == nil {
+                    currentUser.updatePassword(to: newPassword) { (error) in
+                        completion(error)
+                    }
+                }
+            })
+        }
+    }
+    
+    func changeEmail(email: String, currentPassword: String, newEmail: String, completion: @escaping Completion) {
+        if let currentUser = Auth.auth().currentUser {
+            let credential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
+            Auth.auth().currentUser?.reauthenticateAndRetrieveData(with: credential, completion: { (authResult, error) in
+                if error == nil {
+                    currentUser.updateEmail(to: newEmail) { (error) in
+                        completion(error)
+                    }
+                } else {
+                    Alert.shared.controller = self
+                    Alert.shared.alertDisplay = .emailNotChanged
+                }
+            })
+        }   
+    }
+    
+    func changeName(email: String, currentPassword: String, newName: String) {
+            guard  let uid = Auth.auth().currentUser?.uid else {return}
+            let credential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
+            Auth.auth().currentUser?.reauthenticateAndRetrieveData(with: credential, completion: { (authResult, error) in
+                if error == nil {
+                    FirebaseUtilities.saveName(with: newName, for: uid)
+                    Alert.shared.controller = self
+                    Alert.shared.alertDisplay = .nameChanged
+                } else {
+                    Alert.shared.controller = self
+                    Alert.shared.alertDisplay = .nameNotChanged
+                }
+            })
+        }
 }
 
 extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -271,11 +431,19 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
         self.userProfileImage = selectedImageFromPicker
         self.dismiss(animated: true, completion: {
             // Get user's uid
-                  guard let uid = Auth.auth().currentUser?.uid else {return}
+            guard let uid = Auth.auth().currentUser?.uid else {return}
             self.saveProfileImageForUser(uid: uid, image: self.userProfileImage)})
     }
     
     internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+extension UIAlertController {
+    //Set background color of UIAlertController
+    func setBackgroundColor(color: UIColor) {
+        if let bgView = self.view.subviews.first, let groupView = bgView.subviews.first, let contentView = groupView.subviews.first {
+            contentView.backgroundColor = color
+        }
     }
 }

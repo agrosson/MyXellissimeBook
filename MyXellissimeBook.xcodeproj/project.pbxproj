@@ -11,6 +11,7 @@
 		C100899622BCCB6100D3497E /* UserBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C100899522BCCB6100D3497E /* UserBooksTableViewController.swift */; };
 		C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */; };
 		C114F721234B25CD00D6E115 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C114F720234B25CD00D6E115 /* Settings.swift */; };
+		C114F723234B591200D6E115 /* ExtensionUIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C114F722234B591200D6E115 /* ExtensionUIAlertController.swift */; };
 		C116190122BB8080005BC226 /* GoodReads.xml in Resources */ = {isa = PBXBuildFile; fileRef = C116190022BB8080005BC226 /* GoodReads.xml */; };
 		C116190322BB8646005BC226 /* GoogleBooks.json in Resources */ = {isa = PBXBuildFile; fileRef = C116190222BB8646005BC226 /* GoogleBooks.json */; };
 		C116190522BB986E005BC226 /* OpenLibrary.json in Resources */ = {isa = PBXBuildFile; fileRef = C116190422BB986E005BC226 /* OpenLibrary.json */; };
@@ -115,6 +116,7 @@
 		C100899522BCCB6100D3497E /* UserBooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBooksTableViewController.swift; sourceTree = "<group>"; };
 		C113699722B2F1FF003F0503 /* FirebaseUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtilities.swift; sourceTree = "<group>"; };
 		C114F720234B25CD00D6E115 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C114F722234B591200D6E115 /* ExtensionUIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIAlertController.swift; sourceTree = "<group>"; };
 		C116190022BB8080005BC226 /* GoodReads.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = GoodReads.xml; sourceTree = "<group>"; };
 		C116190222BB8646005BC226 /* GoogleBooks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GoogleBooks.json; sourceTree = "<group>"; };
 		C116190422BB986E005BC226 /* OpenLibrary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OpenLibrary.json; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 		C1E5D7A42302ECA000D23E80 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C114F722234B591200D6E115 /* ExtensionUIAlertController.swift */,
 				C148A66B2334CA4200CA4717 /* ExtensionDate.swift */,
 				C1E5D7AB2302F78100D23E80 /* ExtensionUIImageView.swift */,
 				C1C12333231805E400B31989 /* ExtensionUIImage.swift */,
@@ -721,6 +724,7 @@
 			files = (
 				C15D2B2022BD256300B621E8 /* DetailAvailableBookViewController.swift in Sources */,
 				C12FAA53230159900031AF19 /* ChatLogController+SetupScreen.swift in Sources */,
+				C114F723234B591200D6E115 /* ExtensionUIAlertController.swift in Sources */,
 				C120D34D22C0AE0F00E749BC /* LoanConfirmationViewController+setupScreen.swift in Sources */,
 				C1226F0D22BFAE5500A35A51 /* LoanConfirmationViewController.swift in Sources */,
 				C13355DA22BA87C30006D9CD /* OpenLibraryAPI.swift in Sources */,
