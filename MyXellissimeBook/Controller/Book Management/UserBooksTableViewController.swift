@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SystemConfiguration
 
 // MARK: - Class UserBooksTableViewController
 /**
@@ -28,9 +29,12 @@ class UserBooksTableViewController: UITableViewController {
     /// Timer to delay update data in chatlog
     var timerBook: Timer?
     
+     private let reachability = SCNetworkReachabilityCreateWithName(nil, "www.xellissime.com")
+    
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.checkReachable()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handelCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Ajouter", style: .plain, target: self, action: #selector(addBook))
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
@@ -51,6 +55,59 @@ class UserBooksTableViewController: UITableViewController {
     }
     
     // MARK: - Methods
+    
+    private func checkReachable()
+    {
+        var flags = SCNetworkReachabilityFlags()
+        SCNetworkReachabilityGetFlags(self.reachability!, &flags)
+        
+        if (isNetworkReachable(with: flags))
+        {
+            print (flags)
+            if flags.contains(.isWWAN) {
+                self.alertOnNetwork(message:"via mobile",title:"Reachable")
+                return
+            }
+            
+            self.alertOnNetwork(message:"via wifi",title:"Reachable")
+        }
+        else if (!isNetworkReachable(with: flags)) {
+            self.alertOnNetwork(message:"Sorry no connection",title: "unreachable")
+            print (flags)
+            return
+        }
+    }
+    
+    
+    private func isNetworkReachable(with flags: SCNetworkReachabilityFlags) -> Bool {
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
+        let canConnectAutomatically = flags.contains(.connectionOnDemand) || flags.contains(.connectionOnTraffic)
+        let canConnectWithoutUserInteraction = canConnectAutomatically && !flags.contains(.interventionRequired)
+        return isReachable && (!needsConnection || canConnectWithoutUserInteraction)
+    }
+
+    
+    @objc func reachabilityChanged(note: Notification) {
+        
+        let reachability = note.object as! Reachability
+        
+        switch reachability.connection {
+        case .wifi:
+            print("Reachable via WiFi")
+        case .cellular:
+            print("Reachable via Cellular")
+        case .unavailable:
+            print("Network not reachable")
+        default:
+            print("No information on Network")
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
     /**
      Function that adds and defines refresh control for collection view
      */
@@ -243,6 +300,18 @@ class UserBooksTableViewController: UITableViewController {
                     return
                 }
             }
+        }
+    }
+}
+extension UserBooksTableViewController
+{
+    func alertOnNetwork(message: String, title: String = "") {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(OKAction)
+        
+        DispatchQueue.main.async  {
+               self.present(alertController, animated: true, completion: nil)
         }
     }
 }

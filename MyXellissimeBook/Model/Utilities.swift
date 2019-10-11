@@ -101,7 +101,6 @@ let editors = ["Le Livre de Poche", "Pocket", "J'AI LU", "Bayard","First Edition
 var newMessage = false
 /// Track number of Interstitial
 var counterInterstitial = 0
-
 // MARK: - Global functions
 
 

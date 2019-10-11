@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import GoogleMobileAds
 import CoreLocation
-
+import SystemConfiguration
 
 
 // MARK: - Class InitialViewController
