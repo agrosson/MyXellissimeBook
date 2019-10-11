@@ -227,7 +227,9 @@ class ChatInitialViewController : UITableViewController {
     @objc func handelCompose(){
         let chatTableViewController = ChatTableViewController()
         chatTableViewController.chatInitial = self
+        chatTableViewController.modalPresentationStyle = .fullScreen
         let navController = UINavigationController(rootViewController: chatTableViewController)
+        navigationController?.modalPresentationStyle = .fullScreen
         present(navController, animated: true, completion: nil)
     }
     /**
@@ -236,6 +238,7 @@ class ChatInitialViewController : UITableViewController {
     func showChatControllerForUser(user: User){
         let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
         chatLogController.user = user
+        chatLogController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(chatLogController, animated: true)
     }
     // MARK: - Methods - override func tableView

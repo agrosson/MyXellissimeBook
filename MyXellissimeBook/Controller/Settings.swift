@@ -165,6 +165,7 @@ class SettingsViewController: UIViewController {
         picker.delegate = self
         // Enable to edit the photo (zoom, resize etc)
         picker.allowsEditing = true
+        picker.modalPresentationStyle = .fullScreen
         // present the picker
         present(picker, animated: true, completion: nil)
     }

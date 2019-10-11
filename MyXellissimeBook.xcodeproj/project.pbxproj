@@ -76,6 +76,7 @@
 		C19371DE22B0FC510017E696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C19371DD22B0FC510017E696 /* Assets.xcassets */; };
 		C19371E122B0FC510017E696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19371DF22B0FC510017E696 /* LaunchScreen.storyboard */; };
 		C19371EA22B0FD070017E696 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19371E922B0FD070017E696 /* LoginController.swift */; };
+		C19C444923507C8B005E4A3C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19C444823507C8B005E4A3C /* Reachability.swift */; };
 		C19E1EA3232A7EB8001FA746 /* AllBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E1EA2232A7EB8001FA746 /* AllBooksViewController.swift */; };
 		C1A5840E22B4F59200EABEBA /* ChatInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */; };
 		C1A5841022B4FE1000EABEBA /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A5840F22B4FE1000EABEBA /* ChatLogController.swift */; };
@@ -86,7 +87,7 @@
 		C1B42B8522B140EF00982194 /* MyXellissimeBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */; };
 		C1B42B8D22B1412000982194 /* UserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8C22B1412000982194 /* UserTest.swift */; };
 		C1BECD67233E594B00CF45F7 /* Pods_MyXellissimeBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9535DBD3288E688706084B5D /* Pods_MyXellissimeBook.framework */; };
-		C1BECD68233E595200CF45F7 /* Pods_MyXellissimeBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4CB8B24C6201E44EC28B02 /* Pods_MyXellissimeBookTests.framework */; };
+		C1BECD68233E595200CF45F7 /* Pods_MyXellissimeBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4CB8B24C6201E44EC28B02 /* Pods_MyXellissimeBookTests.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C1C12334231805E400B31989 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C12333231805E400B31989 /* ExtensionUIImage.swift */; };
 		C1D1A77E2316C78700E771AD /* AddBookViewController+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D1A77D2316C78700E771AD /* AddBookViewController+setupScreen.swift */; };
 		C1E5D7A32302B97000D23E80 /* MyTextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E5D7A22302B97000D23E80 /* MyTextRecognizer.swift */; };
@@ -185,6 +186,7 @@
 		C19371E022B0FC510017E696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C19371E222B0FC510017E696 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C19371E922B0FD070017E696 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		C19C444823507C8B005E4A3C /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = "MyXellissimeBook/Controller/Book Management/Reachability.swift"; sourceTree = SOURCE_ROOT; };
 		C19E1EA2232A7EB8001FA746 /* AllBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBooksViewController.swift; sourceTree = "<group>"; };
 		C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInitialViewController.swift; sourceTree = "<group>"; };
 		C1A5840F22B4FE1000EABEBA /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 		C13355C822BA68940006D9CD /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				C19C444823507C8B005E4A3C /* Reachability.swift */,
 				C1A86AE022EF131600AB78EC /* GoogleService-Info.plist */,
 				C1A86AE322EF134900AB78EC /* APIKeys.plist */,
 				C1A86AE222EF134900AB78EC /* APIKeys.swift */,
@@ -370,8 +373,8 @@
 			isa = PBXGroup;
 			children = (
 				C16D3EFD231FFC4200F85271 /* MyXellissimeBook.entitlements */,
-				C16D3F022320113600F85271 /* payload.geojson */,
 				C19371E222B0FC510017E696 /* Info.plist */,
+				C16D3F022320113600F85271 /* payload.geojson */,
 				C13355C822BA68940006D9CD /* Supporting files */,
 				C1E5D7A42302ECA000D23E80 /* Extensions */,
 				C12C125522B3A02C006A3F2C /* View */,
@@ -728,6 +731,7 @@
 				C120D34D22C0AE0F00E749BC /* LoanConfirmationViewController+setupScreen.swift in Sources */,
 				C1226F0D22BFAE5500A35A51 /* LoanConfirmationViewController.swift in Sources */,
 				C13355DA22BA87C30006D9CD /* OpenLibraryAPI.swift in Sources */,
+				C19C444923507C8B005E4A3C /* Reachability.swift in Sources */,
 				C100899422BCAEB700D3497E /* UserBookCell.swift in Sources */,
 				C11B304A22BE034C0023CF0E /* SearchViewController+SetupScreen.swift in Sources */,
 				C1A5841022B4FE1000EABEBA /* ChatLogController.swift in Sources */,

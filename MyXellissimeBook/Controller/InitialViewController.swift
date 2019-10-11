@@ -42,15 +42,16 @@ class InitialViewController: UIViewController {
         navigationItem.leftBarButtonItem?.tintColor = navigationItemColor
         navigationItem.rightBarButtonItem?.tintColor = navigationItemColor
         checkIfUserIsAlreadyLoggedIn()
-        setupScreen()
+        perform(#selector(testIfNewMessage), with: nil, afterDelay: 1)
         setupBanner()
         updateUserLocation()
+        setupScreen()
+       
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         setupScreen()
-        perform(#selector(testIfNewMessage), with: nil, afterDelay: 2)
         UIApplication.shared.applicationIconBadgeNumber = 0
         updateUserLocationInFirebase()
     }
@@ -61,9 +62,9 @@ class InitialViewController: UIViewController {
     private func setupBanner(){
         // Banner
         //real adUnitID for banner
-        //advertisingBannerView.adUnitID = "ca-app-pub-9970351873403667/5083216814"
+        advertisingBannerView.adUnitID = "ca-app-pub-9970351873403667/5083216814"
         // test id for banner
-        advertisingBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        //advertisingBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         advertisingBannerView.rootViewController = self
         advertisingBannerView.load(GADRequest())
         advertisingBannerView.delegate = self
@@ -202,9 +203,18 @@ class InitialViewController: UIViewController {
         
     }
     @objc func handleSettings(){
-               let settingsViewController = UINavigationController(rootViewController: SettingsViewController())
-               present(settingsViewController, animated: true, completion: nil)
+            let settingsViewController = UINavigationController(rootViewController: SettingsViewController())
+            settingsViewController.modalPresentationStyle = .fullScreen
+            present(settingsViewController, animated: true, completion: nil)
     }
+    @objc func presentLoginVC() {
+        // present LoginController
+        let loginController = LoginController()
+        loginController.initialViewController = self
+        loginController.modalPresentationStyle = .fullScreen
+        present(loginController, animated: true, completion: nil)
+    }
+    
     /**
      Action that shows the loginviewcontroller when navigationItem.leftBarButtonItem pressed
      */
@@ -218,21 +228,20 @@ class InitialViewController: UIViewController {
         do {
             try Auth.auth().signOut()
             print("You are successfully logged out")
+            
         }
         catch let logoutError {
             // todo: Alert to do
             print("error somewhere \(logoutError)")
         }
-        // present LoginController
-        let loginController = LoginController()
-        loginController.initialViewController = self
-        present(loginController, animated: true, completion: nil)
+        perform(#selector(presentLoginVC), with: nil, afterDelay: 1)
     }
     /**
      Action that shows the list of user's books when showUserBooksButton is clicked
      */
     @objc func showUserBooks() {
         let userBooksTableViewController = UINavigationController(rootViewController: UserBooksTableViewController())
+        userBooksTableViewController.modalPresentationStyle = .fullScreen
         present(userBooksTableViewController, animated: true, completion: nil)
     }
     /**
@@ -241,6 +250,7 @@ class InitialViewController: UIViewController {
     @objc func showUserLentBooks() {
         // present listOfUserBooksLentViewController
         let userLentBooksTableViewController = UINavigationController(rootViewController: UserLentBooksTableViewController())
+        userLentBooksTableViewController.modalPresentationStyle = .fullScreen
         present(userLentBooksTableViewController, animated: true, completion: nil)
         
     }
@@ -250,6 +260,7 @@ class InitialViewController: UIViewController {
     @objc func showBooksUserBorrowed() {
         // present listOfUserBooksLentViewController
         let userBorrowedBooksTableViewController = UINavigationController(rootViewController: UserBorrowedBooksTableViewController())
+        userBorrowedBooksTableViewController.modalPresentationStyle = .fullScreen
         present(userBorrowedBooksTableViewController, animated: true, completion: nil)
     }
     
