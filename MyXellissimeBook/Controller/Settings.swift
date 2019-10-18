@@ -383,6 +383,10 @@ class SettingsViewController: UIViewController {
                         completion(error)
                     }
                 }
+                else {
+                    Alert.shared.controller = self
+                    Alert.shared.alertDisplay = .passwordNotChanged
+                }
             })
         }
     }

@@ -54,6 +54,7 @@ class InitialViewController: UIViewController {
         setupScreen()
         UIApplication.shared.applicationIconBadgeNumber = 0
         updateUserLocationInFirebase()
+        checkIfUserIsAlreadyLoggedIn()
     }
     // MARK: - Methods
     /**
