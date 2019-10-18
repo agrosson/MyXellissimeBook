@@ -21,6 +21,7 @@ class SettingsViewController: UIViewController {
     let modifyUserPasswordButton = CustomUI().button
     let modifyUserNameButton = CustomUI().button
     let modifyUserEmailButton = CustomUI().button
+    let tutorialButton = CustomUI().button
     
     /// User Profile Image
     var userProfileImage = UIImage()
@@ -28,7 +29,6 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         email = Auth.auth().currentUser?.email
-        
         setupNavigationBar()
         setupViews()
     }
@@ -38,12 +38,13 @@ class SettingsViewController: UIViewController {
      */
     fileprivate func setupViews() {
         view.addSubview(containerView)
-        containerView.addSubviews(modifyUserProfileImageButton,modifyUserPasswordButton,modifyUserNameButton,modifyUserEmailButton)
+        containerView.addSubviews(modifyUserProfileImageButton,modifyUserPasswordButton,modifyUserNameButton,modifyUserEmailButton,tutorialButton)
         containerView.backgroundColor? = mainBackgroundColor
         setupModifyUserProfileImageButton()
         setupModifyUserPasswordButton()
         setupModifyUserNameButton()
         setupModifyUserEmailButton()
+        setupTutorialButton()
         NSLayoutConstraint.activate([
             // ContainerView
             containerView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -70,8 +71,22 @@ class SettingsViewController: UIViewController {
             modifyUserEmailButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             modifyUserEmailButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
             modifyUserEmailButton.heightAnchor.constraint(equalToConstant: 60),
+            // modifyUserEmailButton
+            tutorialButton.topAnchor.constraint(equalTo: modifyUserEmailButton.bottomAnchor, constant: 25),
+            tutorialButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            tutorialButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            tutorialButton.heightAnchor.constraint(equalToConstant: 60),
             
         ])
+    }
+    /**
+     Function that sets up modifyUserProfileImageButton
+     */
+    fileprivate func setupTutorialButton() {
+        tutorialButton.setTitle("Lancer le tutorial", for: .normal)
+        tutorialButton.layer.cornerRadius = 15
+        tutorialButton.titleLabel?.font = .systemFont(ofSize: 25)
+        tutorialButton.addTarget(self, action: #selector(handleTutorial), for: .touchUpInside)
     }
     /**
      Function that sets up NavigationBar
@@ -135,6 +150,18 @@ class SettingsViewController: UIViewController {
         launchPicker()
         
     }
+    /**
+     Action that modifies user profile photo
+     */
+    @objc private func handleTutorial(){
+        print("the tutorial is sent")
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let swipingController = SwipingController(collectionViewLayout: layout)
+        swipingController.modalPresentationStyle = .fullScreen
+        present(swipingController, animated: true, completion: nil)
+    }
+    
     /**
      Action that modifies user password
      */

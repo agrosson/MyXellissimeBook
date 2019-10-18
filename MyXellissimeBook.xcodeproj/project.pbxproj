@@ -76,6 +76,9 @@
 		C19371DE22B0FC510017E696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C19371DD22B0FC510017E696 /* Assets.xcassets */; };
 		C19371E122B0FC510017E696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19371DF22B0FC510017E696 /* LaunchScreen.storyboard */; };
 		C19371EA22B0FD070017E696 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19371E922B0FD070017E696 /* LoginController.swift */; };
+		C19AE1E8235A066C00ABEF14 /* SwipingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19AE1E7235A066C00ABEF14 /* SwipingController.swift */; };
+		C19AE1EA235A074600ABEF14 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19AE1E9235A074600ABEF14 /* Page.swift */; };
+		C19AE1EC235A077D00ABEF14 /* PageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19AE1EB235A077D00ABEF14 /* PageCell.swift */; };
 		C19C444923507C8B005E4A3C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19C444823507C8B005E4A3C /* Reachability.swift */; };
 		C19E1EA3232A7EB8001FA746 /* AllBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E1EA2232A7EB8001FA746 /* AllBooksViewController.swift */; };
 		C1A5840E22B4F59200EABEBA /* ChatInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */; };
@@ -186,6 +189,9 @@
 		C19371E022B0FC510017E696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C19371E222B0FC510017E696 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C19371E922B0FD070017E696 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		C19AE1E7235A066C00ABEF14 /* SwipingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingController.swift; sourceTree = "<group>"; };
+		C19AE1E9235A074600ABEF14 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		C19AE1EB235A077D00ABEF14 /* PageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCell.swift; sourceTree = "<group>"; };
 		C19C444823507C8B005E4A3C /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = "MyXellissimeBook/Controller/Book Management/Reachability.swift"; sourceTree = SOURCE_ROOT; };
 		C19E1EA2232A7EB8001FA746 /* AllBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBooksViewController.swift; sourceTree = "<group>"; };
 		C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInitialViewController.swift; sourceTree = "<group>"; };
@@ -372,6 +378,7 @@
 		C19371D522B0FC500017E696 /* MyXellissimeBook */ = {
 			isa = PBXGroup;
 			children = (
+				C19AE1E6235A062F00ABEF14 /* Tutorial */,
 				C16D3EFD231FFC4200F85271 /* MyXellissimeBook.entitlements */,
 				C19371E222B0FC510017E696 /* Info.plist */,
 				C16D3F022320113600F85271 /* payload.geojson */,
@@ -403,6 +410,16 @@
 				C100899822BCD04500D3497E /* Chat */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		C19AE1E6235A062F00ABEF14 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				C19AE1E7235A066C00ABEF14 /* SwipingController.swift */,
+				C19AE1E9235A074600ABEF14 /* Page.swift */,
+				C19AE1EB235A077D00ABEF14 /* PageCell.swift */,
+			);
+			path = Tutorial;
 			sourceTree = "<group>";
 		};
 		C19E1EA4232A7EC5001FA746 /* All Books VC */ = {
@@ -729,6 +746,7 @@
 				C12FAA53230159900031AF19 /* ChatLogController+SetupScreen.swift in Sources */,
 				C114F723234B591200D6E115 /* ExtensionUIAlertController.swift in Sources */,
 				C120D34D22C0AE0F00E749BC /* LoanConfirmationViewController+setupScreen.swift in Sources */,
+				C19AE1EA235A074600ABEF14 /* Page.swift in Sources */,
 				C1226F0D22BFAE5500A35A51 /* LoanConfirmationViewController.swift in Sources */,
 				C13355DA22BA87C30006D9CD /* OpenLibraryAPI.swift in Sources */,
 				C19C444923507C8B005E4A3C /* Reachability.swift in Sources */,
@@ -766,6 +784,7 @@
 				C19371EA22B0FD070017E696 /* LoginController.swift in Sources */,
 				C120D35522C1350600E749BC /* SearchBookResultTableViewController.swift in Sources */,
 				C19E1EA3232A7EB8001FA746 /* AllBooksViewController.swift in Sources */,
+				C19AE1E8235A066C00ABEF14 /* SwipingController.swift in Sources */,
 				C19371D722B0FC500017E696 /* AppDelegate.swift in Sources */,
 				C1E5D7AA2302F70F00D23E80 /* ExtensionUIColor.swift in Sources */,
 				C17EEF5822B2934100BF01B5 /* ChatTableViewController.swift in Sources */,
@@ -787,6 +806,7 @@
 				C1C12334231805E400B31989 /* ExtensionUIImage.swift in Sources */,
 				C13355D422BA787D0006D9CD /* BookOpenLibraryResponse.swift in Sources */,
 				C12C124E22B37469006A3F2C /* AddBookViewController.swift in Sources */,
+				C19AE1EC235A077D00ABEF14 /* PageCell.swift in Sources */,
 				C1873FA2233A4117004C1F13 /* ExtensionsView.swift in Sources */,
 				C113699822B2F1FF003F0503 /* FirebaseUtilities.swift in Sources */,
 				C16B2C71232F955A002D4F4B /* AlertEnglish.swift in Sources */,
