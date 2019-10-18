@@ -187,6 +187,7 @@ class AddBookViewController: UIViewController {
      */
     @objc func scanIsbn(){
         let scanMenuViewController = UINavigationController(rootViewController: ScanMenuViewController())
+        scanMenuViewController.modalPresentationStyle = .fullScreen
         present(scanMenuViewController, animated: true, completion: nil)
     }
     /**
@@ -206,6 +207,7 @@ class AddBookViewController: UIViewController {
     @objc func addManually(){
         print("go to add manually")
         let addManuallyViewController = UINavigationController(rootViewController: AddManuallyViewController())
+        addManuallyViewController.modalPresentationStyle = .fullScreen
         present(addManuallyViewController, animated: true, completion: nil)
     }
     
@@ -214,6 +216,7 @@ class AddBookViewController: UIViewController {
             let addManually = AddManuallyViewController()
             addManually.bookToSave = book
             addManually.bookElementFromPhoto = true
+            addManually.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(addManually, animated: true)
     }
     

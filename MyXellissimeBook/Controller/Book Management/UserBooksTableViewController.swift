@@ -29,12 +29,15 @@ class UserBooksTableViewController: UITableViewController {
     /// Timer to delay update data in chatlog
     var timerBook: Timer?
     
-     private let reachability = SCNetworkReachabilityCreateWithName(nil, "www.xellissime.com")
+    /// Variable used to check network reachability
+    // private let reachability = SCNetworkReachabilityCreateWithName(nil, "www.xellissime.com")
+    private let reachability = try! Reachability()
     
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.checkReachable()
+        //self.checkReachable()
+        self.setReachabilityNotifier();
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handelCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Ajouter", style: .plain, target: self, action: #selector(addBook))
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
@@ -56,25 +59,15 @@ class UserBooksTableViewController: UITableViewController {
     
     // MARK: - Methods
     
-    private func checkReachable()
-    {
-        var flags = SCNetworkReachabilityFlags()
-        SCNetworkReachabilityGetFlags(self.reachability!, &flags)
+    
+    private func setReachabilityNotifier () {
+        //declare this inside of viewWillAppear
         
-        if (isNetworkReachable(with: flags))
-        {
-            print (flags)
-            if flags.contains(.isWWAN) {
-                self.alertOnNetwork(message:"via mobile",title:"Reachable")
-                return
-            }
-            
-            self.alertOnNetwork(message:"via wifi",title:"Reachable")
-        }
-        else if (!isNetworkReachable(with: flags)) {
-            self.alertOnNetwork(message:"Sorry no connection",title: "unreachable")
-            print (flags)
-            return
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
+        do{
+            try reachability.startNotifier()
+        }catch{
+            print("could not start reachability notifier")
         }
     }
     
@@ -102,6 +95,9 @@ class UserBooksTableViewController: UITableViewController {
         default:
             print("No information on Network")
         }
+        
+        self.reachability.stopNotifier()
+        NotificationCenter.default.removeObserver(self, name: .reachabilityChanged, object:reachability)
     }
     
     override func didReceiveMemoryWarning() {
@@ -198,6 +194,7 @@ class UserBooksTableViewController: UITableViewController {
     func showDetailAvailableBookViewControllerForBook(book: Book){
         let detailAvailableBookViewController = DetailAvailableBookViewController()
         detailAvailableBookViewController.bookToDisplay = book
+        detailAvailableBookViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(detailAvailableBookViewController, animated: true)
     }
     /**
@@ -206,6 +203,7 @@ class UserBooksTableViewController: UITableViewController {
     func showDetailLentBookViewControllerForBook(book: Book){
         let detailLentBookViewController = DetailLentBookViewController()
         detailLentBookViewController.bookToDisplay = book
+        detailLentBookViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(detailLentBookViewController, animated: true)
     }
     
@@ -216,6 +214,7 @@ class UserBooksTableViewController: UITableViewController {
     @objc func addBook() {
         // present addBookViewController
         let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
+        addBookViewController.modalPresentationStyle = .fullScreen
         present(addBookViewController, animated: true, completion: nil)
     }
     /**

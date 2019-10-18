@@ -508,6 +508,7 @@ class AddManuallyViewController: UIViewController {
         if bookElementFromPhoto {
             bookElementFromPhoto = false
             let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
+            addBookViewController.modalPresentationStyle = .fullScreen
             self.present(addBookViewController, animated: true, completion: nil)
         } else {
             dismiss(animated: true, completion: nil)
