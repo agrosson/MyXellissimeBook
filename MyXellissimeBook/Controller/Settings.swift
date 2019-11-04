@@ -9,13 +9,19 @@
 import Foundation
 import UIKit
 import Firebase
+import GoogleMobileAds
 
 // MARK: - Class InitialViewController
 /**
  This class defines the InitialViewController
  */
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, GADRewardedAdDelegate, GADRewardBasedVideoAdDelegate {
+   
     
+    func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
+        print("here is the reward")
+    }
+   
     let containerView = CustomUI().view
     let modifyUserProfileImageButton = CustomUI().button
     let modifyUserPasswordButton = CustomUI().button
@@ -27,10 +33,19 @@ class SettingsViewController: UIViewController {
     var userProfileImage = UIImage()
     var email: String?
     
+    /// Var to track if user is authorized to see the tutorial : 0 is no
+    var userCanWatchTutorial = 0
+    
+    
     override func viewDidLoad() {
         email = Auth.auth().currentUser?.email
         setupNavigationBar()
         setupViews()
+        
+        // Video reward
+        GADRewardBasedVideoAd.sharedInstance().delegate = self
+        GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),
+            withAdUnitID: "ca-app-pub-3940256099942544/1712485313")
     }
     typealias Completion = (Error?) -> Void
     /**
@@ -150,16 +165,62 @@ class SettingsViewController: UIViewController {
         launchPicker()
         
     }
-    /**
-     Action that modifies user profile photo
-     */
-    @objc private func handleTutorial(){
+    fileprivate func launchTutorial() {
         print("the tutorial is sent")
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let swipingController = SwipingController(collectionViewLayout: layout)
         swipingController.modalPresentationStyle = .fullScreen
         present(swipingController, animated: true, completion: nil)
+    }
+    
+    /**
+     Action that modifies user profile photo
+     */
+    @objc private func handleTutorial(){
+        if GADRewardBasedVideoAd.sharedInstance().isReady == true {
+          GADRewardBasedVideoAd.sharedInstance().present(fromRootViewController: self)
+        }
+        
+        launchTutorial()
+    }
+    
+    func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
+        didRewardUserWith reward: GADAdReward) {
+      print("Reward received with currency: \(reward.type), amount \(reward.amount).")
+    }
+
+    func rewardBasedVideoAdDidReceive(_ rewardBasedVideoAd:GADRewardBasedVideoAd) {
+      print("Reward based video ad is received.")
+    }
+
+    func rewardBasedVideoAdDidOpen(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
+      print("Opened reward based video ad.")
+    }
+
+    func rewardBasedVideoAdDidStartPlaying(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
+      print("Reward based video ad started playing.")
+    }
+
+    func rewardBasedVideoAdDidCompletePlaying(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
+      print("Reward based video ad has completed.")
+    }
+
+    func rewardBasedVideoAdDidClose(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
+      print("Reward based video ad is closed.")
+        // Reload an new videao in the background
+        GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),
+        withAdUnitID: "ca-app-pub-3940256099942544/1712485313")
+        
+    }
+
+    func rewardBasedVideoAdWillLeaveApplication(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
+      print("Reward based video ad will leave application.")
+    }
+
+    func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
+        didFailToLoadWithError error: Error) {
+      print("Reward based video ad failed to load.")
     }
     
     /**
