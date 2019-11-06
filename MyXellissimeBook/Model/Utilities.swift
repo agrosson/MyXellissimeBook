@@ -23,6 +23,10 @@ import Firebase
 
 
 // MARK: - Global properties
+let navStyles = UINavigationBar.appearance()
+// This will set the color of the text for the back buttons.
+
+
 /// Admin email
 let adminEmail = "admin@xellissime.com"
 /// Color for Navigation item

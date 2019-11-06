@@ -419,6 +419,16 @@ class AddManuallyViewController: UIViewController {
         googleBookCall()
         isSearchIndicator(shown: true)
     }
+    
+    func testIfIsbnAlreadyInFirebase() {
+        if let isbn = bookIsbnTextField.text {
+            let rootRef = Database.database().reference()
+                   // Create an object that returns all users with the email
+                let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "email")
+        }
+    }
+    
+    
     @objc private func addAndSaveBookInFireBase(){
         isSaveIndicator(shown: true)
         guard var title = bookTitleTextField.text else {
@@ -511,7 +521,8 @@ class AddManuallyViewController: UIViewController {
             addBookViewController.modalPresentationStyle = .fullScreen
             self.present(addBookViewController, animated: true, completion: nil)
         } else {
-            dismiss(animated: true, completion: nil)
+            let presentingViewController = self.presentingViewController
+            presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         }
         
     }

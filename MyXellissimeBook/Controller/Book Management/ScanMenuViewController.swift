@@ -74,8 +74,6 @@ class ScanMenuViewController: UIViewController {
         label.contentScaleFactor = 0.5
         return label
     }()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(dismissCurrentView))
@@ -101,6 +99,8 @@ class ScanMenuViewController: UIViewController {
     
     
     private func switchDisplay() {
+        
+       print("test switch with isbn \(scannedIsbn)")
         if scannedIsbn == "" {
             containerView.isHidden = true
             scanButton.isHidden = false

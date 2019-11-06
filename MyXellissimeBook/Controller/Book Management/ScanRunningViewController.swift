@@ -81,7 +81,10 @@ class ScanRunningViewController: UIViewController, AVCaptureMetadataOutputObject
                                             message: "L'ISBN a été trouvé: \(codeToDisplay).",
             preferredStyle: .alert)
         actionSheet.addAction(UIAlertAction(title: "Retour", style: .default, handler: { (_: UIAlertAction) in
-            self.dismiss(animated: true)
+           
+            self.scanIsbn()
+        //    self.dismiss(animated: true)
+            print("isbn is \(scannedIsbn)")
         }))
         self.present(actionSheet, animated: true, completion: nil)
     }
@@ -100,5 +103,11 @@ class ScanRunningViewController: UIViewController, AVCaptureMetadataOutputObject
      */
     @objc private func dismissCurrentView(){
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func scanIsbn(){
+        let scanMenuViewController = UINavigationController(rootViewController: ScanMenuViewController())
+        scanMenuViewController.modalPresentationStyle = .fullScreen
+        present(scanMenuViewController, animated: true, completion: nil)
     }
 }

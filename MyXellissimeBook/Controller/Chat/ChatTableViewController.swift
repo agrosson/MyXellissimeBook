@@ -39,6 +39,7 @@ class ChatTableViewController: UITableViewController {
     
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Annuler", style: .plain, target: self, action: #selector(handelCancel))
+        navigationItem.leftBarButtonItem?.tintColor = navigationItemColor
         navigationController?.navigationBar.addSubview(searchBar)
         setupSearchBar()
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)

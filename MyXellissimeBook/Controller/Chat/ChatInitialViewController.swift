@@ -78,9 +78,9 @@ class ChatInitialViewController : UITableViewController {
     func createAndLoadInterstitial() -> GADInterstitial {
         //Interstitial
         // Interstitial real id
-        //let interstitial = GADInterstitial(adUnitID: "ca-app-pub-9970351873403667/5248644445")
+        let interstitial = GADInterstitial(adUnitID: valueForAPIKey(named: "GADInterstitial"))
         // Interstitial test id
-        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        //let interstitial = GADInterstitial(adUnitID: valueForAPIKey(named: "testGADInterstitial"))
         interstitial.delegate = self
         perform(#selector(launchDelayInterstitial), with: nil, afterDelay: 1)
         return interstitial
@@ -229,7 +229,7 @@ class ChatInitialViewController : UITableViewController {
         chatTableViewController.chatInitial = self
         chatTableViewController.modalPresentationStyle = .fullScreen
         let navController = UINavigationController(rootViewController: chatTableViewController)
-        navigationController?.modalPresentationStyle = .fullScreen
+        navController.navigationController?.modalPresentationStyle = .fullScreen
         present(navController, animated: true, completion: nil)
     }
     /**

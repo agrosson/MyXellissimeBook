@@ -31,6 +31,8 @@ extension AppDelegate: UIApplicationDelegate, MessagingDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = CustomInitialTabBarController()
         
+        let navStyles = UINavigationBar.appearance()
+        navStyles.tintColor = navigationItemColor
         // Firebase configuration
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = false

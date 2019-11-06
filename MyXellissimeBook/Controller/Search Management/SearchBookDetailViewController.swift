@@ -58,6 +58,7 @@ class SearchBookDetailViewController: UIViewController {
         containerDataView.addSubview(buttonSendMessage)
         setupUIObjects()
         setupScreen()
+
     }
     
     /**

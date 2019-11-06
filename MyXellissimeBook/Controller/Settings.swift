@@ -44,9 +44,15 @@ class SettingsViewController: UIViewController, GADRewardedAdDelegate, GADReward
         
         // Video reward
         GADRewardBasedVideoAd.sharedInstance().delegate = self
-        GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),
-            withAdUnitID: "ca-app-pub-3940256099942544/1712485313")
+       // GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "GADRewardBasedVideoAd"))
+        // test
+        //GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "testGADRewardBasedVideoAd"))
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+        GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "GADRewardBasedVideoAd"))
+    }
+    
     typealias Completion = (Error?) -> Void
     /**
      Function that sets up views on screen
@@ -209,9 +215,7 @@ class SettingsViewController: UIViewController, GADRewardedAdDelegate, GADReward
     func rewardBasedVideoAdDidClose(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
       print("Reward based video ad is closed.")
         // Reload an new videao in the background
-        GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),
-        withAdUnitID: "ca-app-pub-3940256099942544/1712485313")
-        
+       GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "GADRewardBasedVideoAd"))
     }
 
     func rewardBasedVideoAdWillLeaveApplication(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
@@ -221,6 +225,7 @@ class SettingsViewController: UIViewController, GADRewardedAdDelegate, GADReward
     func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
         didFailToLoadWithError error: Error) {
       print("Reward based video ad failed to load.")
+    // Reload an new videao in the background
     }
     
     /**

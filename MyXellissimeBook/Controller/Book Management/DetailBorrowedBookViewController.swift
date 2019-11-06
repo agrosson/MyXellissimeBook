@@ -107,6 +107,7 @@ class DetailBorrowedBookViewController: UIViewController {
     }
     // MARK: - Methods @objc - Actions
     @objc private func dismissCurrentView(){
-        self.dismiss(animated: true, completion: nil)
+       // self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 }

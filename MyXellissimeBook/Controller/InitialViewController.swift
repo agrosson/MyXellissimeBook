@@ -63,9 +63,9 @@ class InitialViewController: UIViewController {
     private func setupBanner(){
         // Banner
         //real adUnitID for banner
-        //advertisingBannerView.adUnitID = "ca-app-pub-9970351873403667/5083216814"
+        advertisingBannerView.adUnitID = valueForAPIKey(named: "AdvertisingBannerViewId")
         // test id for banner
-        advertisingBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+       // advertisingBannerView.adUnitID = valueForAPIKey(named: "testAdvertisingBannerViewId")
         advertisingBannerView.rootViewController = self
         advertisingBannerView.load(GADRequest())
         advertisingBannerView.delegate = self
@@ -212,7 +212,7 @@ class InitialViewController: UIViewController {
         // present LoginController
         let loginController = LoginController()
         loginController.initialViewController = self
-        loginController.modalPresentationStyle = .fullScreen
+            
         present(loginController, animated: true, completion: nil)
     }
     
