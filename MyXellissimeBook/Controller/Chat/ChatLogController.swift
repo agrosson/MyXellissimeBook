@@ -318,7 +318,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
      */
     private func setupScreen(){
         collectionView.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: navigationItemColor]
         gestureTapCreation()
         gestureswipeCreation()
     }
