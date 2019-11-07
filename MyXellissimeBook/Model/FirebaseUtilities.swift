@@ -111,7 +111,6 @@ class FirebaseUtilities {
         let rootRef = Database.database().reference()
         // Create an object that returns all users with the email
         let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "email")
-        print(query)
         var counter = 0
         var counterTrue = 0
         query.observe(.value) { (snapshot) in

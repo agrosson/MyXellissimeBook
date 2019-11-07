@@ -58,7 +58,8 @@ class Alert {
         emailNotChanged,
         emailChanged,
         nameNotChanged,
-        nameChanged
+        nameChanged,
+        bookAlreadyInDatabase
     }
     // MARK: - Initializer
     init() {}
@@ -193,6 +194,10 @@ class Alert {
             title: "Cher Utilisateur,",
             message: TextAndString.shared.nameNotChanged,
             titleButton: "Retour")
+        case .bookAlreadyInDatabase : controller?.presentAlertDetails(
+            title: "Cher Utilisateur,",
+            message: TextAndString.shared.bookAlreadyInDatabase,
+            titleButton: "Retour")
         }
     }
 }
@@ -233,5 +238,6 @@ struct TextAndString {
     let locationAuthorization = "Merci d'autoriser la géolocalisation pour afficher la carte.\nPour cela, allez dans les paramètres de votre iphone."
     let noLoansForUSer = "Vous ne prétez aucun livre pour l'instant.\n\nPour prêter un livre, aller dans la liste de vos livres, sélectionner un livre et cliquer sur 'Prêter ce livre'"
     let hasNoBorrowedYet = "Vous n'avez emprunté aucun livre pour l'instant.\n\nAller dans l'onglet 'Rechercher' et indiquer le nom du livre recherché.\n\nVous pouvez aussi aller dans l'onglet 'Livres récents' pour voir les derniers livres proposés."
+    let bookAlreadyInDatabase = "Le livre est déjà enregistré.\nVous ne pouvez pas l'enregistrer deux fois."
 }
 

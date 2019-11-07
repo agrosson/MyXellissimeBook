@@ -420,13 +420,19 @@ class AddManuallyViewController: UIViewController {
         isSearchIndicator(shown: true)
     }
     
-    func testIfIsbnAlreadyInFirebase() {
+    func testIfIsbnAlreadyInFirebaseForCurrentUser(callBack: @escaping (Int) -> Void) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userUid = user.uid
         if let isbn = bookIsbnTextField.text {
-            let rootRef = Database.database().reference()
-                   // Create an object that returns all users with the email
-                let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "email")
+            let bookIdToCheck = "\(userUid)\(isbn)"
+            Database.database().reference().child(FirebaseUtilities.shared.books).child(bookIdToCheck)
+            .queryOrderedByValue().queryEqual(toValue: "\(bookIdToCheck)")
+            .observeSingleEvent(of: .value, with: { (snapshot) in
+                print("ici le test sur la présence du livre avec le nombre de node = \(snapshot.childrenCount)")
+                callBack(Int(snapshot.childrenCount))
+            })
+            }
         }
-    }
     
     
     @objc private func addAndSaveBookInFireBase(){
@@ -486,44 +492,60 @@ class AddManuallyViewController: UIViewController {
         guard let uid = Auth.auth().currentUser?.uid else {
             isSaveIndicator(shown: false)
             return}
-        
-        myBookToSave.uniqueId = "\(uid)\(String(describing: myBookToSave.isbn))"
-        FirebaseUtilities.saveBook(book: myBookToSave, fromUserId: uid)
-        // if there is no cover image, this will be the image
-        if myBookToSave.isbn != myBookToSave.coverURL{
-            var dataAsImage = UIImage(named: "profileDefault") ?? UIImage()
-            if myBookToSave.coverURL?.contains("nophoto") ?? true {
-                myBookToSave.coverURL = ""
-            }
-            if myBookToSave.coverURL != "" {
-                if let coverUrl = myBookToSave.coverURL {
-                    if let url = URL(string: coverUrl) {
-                        if  let data = try? Data(contentsOf: url) {
-                            if let datatest = UIImage(data: data) {
-                                dataAsImage = datatest
+        testIfIsbnAlreadyInFirebaseForCurrentUser { (number) in
+            if number == 0 {
+                print("Coucou le livre n'est pas en enregistré number = \(number)")
+                myBookToSave.uniqueId = "\(uid)\(String(describing: myBookToSave.isbn))"
+                FirebaseUtilities.saveBook(book: myBookToSave, fromUserId: uid)
+                // if there is no cover image, this will be the image
+                if myBookToSave.isbn != myBookToSave.coverURL{
+                    var dataAsImage = UIImage(named: "profileDefault") ?? UIImage()
+                    if myBookToSave.coverURL?.contains("nophoto") ?? true {
+                        myBookToSave.coverURL = ""
+                    }
+                    if myBookToSave.coverURL != "" {
+                        if let coverUrl = myBookToSave.coverURL {
+                            if let url = URL(string: coverUrl) {
+                                if  let data = try? Data(contentsOf: url) {
+                                    if let datatest = UIImage(data: data) {
+                                        dataAsImage = datatest
+                                    }
+                                }
                             }
                         }
                     }
+                    guard let isbnToSave = myBookToSave.isbn else {
+                        self.isSaveIndicator(shown: false)
+                        return }
+                    FirebaseUtilities.saveCoverImage(coverImage: dataAsImage, isbn: isbnToSave)
+                    
                 }
+                
+                self.isSaveIndicator(shown: false)
+                scannedIsbn = ""
+                if self.bookElementFromPhoto {
+                    self.bookElementFromPhoto = false
+                    let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
+                    addBookViewController.modalPresentationStyle = .fullScreen
+                    self.present(addBookViewController, animated: true, completion: nil)
+                } else {
+                    let presentingViewController = self.presentingViewController
+                    presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                }
+            } else {
+                print("Coucou le livre est déjà enregistré number = \(number)")
+                print("Coucou on ne fait rien")
+                self.isSaveIndicator(shown: false)
+                scannedIsbn = ""
+                let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Le livre est déjà présent dans votre liste.\nVous ne pouvez pas l'enregistrer deux fois", preferredStyle: .alert)
+                actionSheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: { (action: UIAlertAction) in
+                    let presentingViewController = self.presentingViewController
+                    presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                }))
+                self.present(actionSheet, animated: true, completion : nil)
             }
-            guard let isbnToSave = myBookToSave.isbn else {
-                isSaveIndicator(shown: false)
-                return }
-            FirebaseUtilities.saveCoverImage(coverImage: dataAsImage, isbn: isbnToSave)
-            
         }
         
-        isSaveIndicator(shown: false)
-        scannedIsbn = ""
-        if bookElementFromPhoto {
-            bookElementFromPhoto = false
-            let addBookViewController = UINavigationController(rootViewController: AddBookViewController())
-            addBookViewController.modalPresentationStyle = .fullScreen
-            self.present(addBookViewController, animated: true, completion: nil)
-        } else {
-            let presentingViewController = self.presentingViewController
-            presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-        }
         
     }
     fileprivate func resignAllFirstResponder() {
