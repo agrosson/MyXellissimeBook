@@ -122,7 +122,7 @@ class AllBooksViewController: UITableViewController {
             numberOfAdditionalBooks += 10
             rootRef = Database.database().reference()
             rootRef.child(FirebaseUtilities.shared.books).observe(DataEventType.value, with: { (snapshot) in
-            let numberOfBooks = snapshot.childrenCount
+            let numberOfBooks = max(snapshot.childrenCount,1)
             let query = self.rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "timestamp").queryLimited(toLast: UInt(min(self.numberOfAdditionalBooks,Int(numberOfBooks))))
                query.observe(.value) { (snapshot) in
                    // this to avoid duplicated row when reloaded
@@ -156,8 +156,10 @@ class AllBooksViewController: UITableViewController {
        }
     
     @objc func displayAtBottom() {
-        let indexpath = IndexPath(item: self.allBooks.count-1, section: 0)
-        self.tableView.scrollToRow(at: indexpath, at: .bottom, animated: true)
+        if self.allBooks.count>0 {
+            let indexpath = IndexPath(item: self.allBooks.count-1, section: 0)
+            self.tableView.scrollToRow(at: indexpath, at: .bottom, animated: true)
+        }
     }
     
     @objc private func shuffleBooks(){

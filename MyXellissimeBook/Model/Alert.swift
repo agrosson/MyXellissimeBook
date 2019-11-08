@@ -231,7 +231,7 @@ struct TextAndString {
     let noTitleForBook = "Merci d'indiquer le titre du livre"
     let needAtLeastOneField = "Merci de saisir au moins un élément"
     let noTextFoundOnBookCover = "Aucun texte n'a été trouvé.\nMerci d'essayer en mode paysage"
-    let noBookForUSer = "Il semble que vous n'ayez aucun livre pour l'instant.\nPour ajouter un livre, cliquer sur le bouton 'ajouter' en haut à droite"
+    let noBookForUSer = "Il semble que vous n'ayez aucun livre pour l'instant.\nPour ajouter un livre, cliquer sur le bouton 'Ajouter' en haut à droite"
     let noMessageForUSer = "Vous pouvez écrire un message en cliquant sur l'icône en haut à droite.\n\nLes messages s'effacerons automatiquement au bout de 4 semaines."
     let updateProfileImage = "Vous pouvez changer la photo de votre profil en tappant sur l'image du livre"
     let newMessagesAfterLogin = "Nous sommes heureux de vous revoir.\n\nVous avez reçu de nouveaux messages durant votre absence.\nC'est peut être important 😉"
