@@ -27,6 +27,7 @@ class LoanConfirmationViewController: UIViewController {
     /// Expected date for date of loan
     // test le 25092019 pour les fonctions de firebase deadline 1h
     // a day is 86 400 seconds / a week is 604 800 seconds / 3 weeks are 1 814 400 seconds /4 weeks are 2 419 200 seconds
+    // Test le 08 11 2019 -> 3 heures pour les notification cloud functions
     var toDate: Int {
         let toDate = Int(NSDate().timeIntervalSince1970)+604800
         return toDate
