@@ -135,7 +135,7 @@ class ManageLoanViewController: UIViewController {
         guard var emailString = emailTextField.text else {return}
         // Test if user wants to lent to himself
         guard let currentUserEmail = Auth.auth().currentUser?.email else {return}
-        if emailString == currentUserEmail {
+        if emailString.uppercased() == currentUserEmail.uppercased() {
             let actionSheet = UIAlertController(title: "Désolé", message: "Vous ne pouvez pas vous prêter ce livre à vous même", preferredStyle: .alert)
             actionSheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
             self.present(actionSheet, animated: true, completion : nil)

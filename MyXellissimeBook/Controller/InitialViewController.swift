@@ -19,6 +19,8 @@ import SystemConfiguration
  */
 class InitialViewController: UIViewController {
     
+    let defaults = UserDefaults.standard
+    
     static var titleName = ""
     
     // MARK: - Properties
@@ -36,25 +38,39 @@ class InitialViewController: UIViewController {
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Create the left button
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Déconnexion", style: .plain, target: self, action: #selector(handleConnexion))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(handleSettings))
         navigationItem.leftBarButtonItem?.tintColor = navigationItemColor
         navigationItem.rightBarButtonItem?.tintColor = navigationItemColor
-        checkIfUserIsAlreadyLoggedIn()
-        perform(#selector(testIfNewMessage), with: nil, afterDelay: 1)
         setupBanner()
-        updateUserLocation()
+     
         setupScreen()
-       
+        
+        
+        
+        // First launch
+        if !defaults.bool(forKey: "AlreadyLaunched") {
+            perform(#selector(presentLoginVC), with: nil, afterDelay: 0.5)
+            defaults.set(true, forKey: "AlreadyLaunched")
+        }
+        // Second or later launch
+        else {
+            // Create the left button
+            print("This is not the first launch, do what you want in this block when second or later launch")
+            perform(#selector(checkIfUserIsAlreadyLoggedIn), with: nil, afterDelay: 0.5)
+            perform(#selector(testIfNewMessage), with: nil, afterDelay: 1)
+            updateUserLocation()
+        }
+        // Create the left button
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         setupScreen()
+       // perform(#selector(checkIfUserIsAlreadyLoggedIn), with: nil, afterDelay: 1)
         UIApplication.shared.applicationIconBadgeNumber = 0
         updateUserLocationInFirebase()
-        checkIfUserIsAlreadyLoggedIn()
     }
     // MARK: - Methods
     /**
@@ -82,7 +98,7 @@ class InitialViewController: UIViewController {
     /**
      Function that checks if user already loggedin
      */
-    func checkIfUserIsAlreadyLoggedIn() {
+    @objc func checkIfUserIsAlreadyLoggedIn() {
         // check if user is already logged in
         if Auth.auth().currentUser?.uid == nil {
             print("no current")
