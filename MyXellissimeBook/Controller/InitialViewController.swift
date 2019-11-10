@@ -79,7 +79,7 @@ class InitialViewController: UIViewController {
     private func setupBanner(){
         // Banner
         //real adUnitID for banner
-        advertisingBannerView.adUnitID = valueForAPIKey(named: "AdvertisingBannerViewId")
+        advertisingBannerView.adUnitID = valueForAPIKey(named: "testAdvertisingBannerViewId")
         // test id for banner
        // advertisingBannerView.adUnitID = valueForAPIKey(named: "testAdvertisingBannerViewId")
         advertisingBannerView.rootViewController = self

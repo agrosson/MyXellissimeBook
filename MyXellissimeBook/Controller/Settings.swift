@@ -50,7 +50,7 @@ class SettingsViewController: UIViewController, GADRewardedAdDelegate, GADReward
     }
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "GADRewardBasedVideoAd"))
+        GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "testGADRewardBasedVideoAd"))
     }
     
     typealias Completion = (Error?) -> Void

@@ -78,7 +78,7 @@ class ChatInitialViewController : UITableViewController {
     func createAndLoadInterstitial() -> GADInterstitial {
         //Interstitial
         // Interstitial real id
-        let interstitial = GADInterstitial(adUnitID: valueForAPIKey(named: "GADInterstitial"))
+        let interstitial = GADInterstitial(adUnitID: valueForAPIKey(named: "testGADInterstitial"))
         // Interstitial test id
         //let interstitial = GADInterstitial(adUnitID: valueForAPIKey(named: "testGADInterstitial"))
         interstitial.delegate = self
