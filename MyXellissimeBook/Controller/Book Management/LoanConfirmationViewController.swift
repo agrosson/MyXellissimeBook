@@ -119,6 +119,8 @@ class LoanConfirmationViewController: UIViewController {
     */
     private func testIfUserHasMoreThan5Loans(userBorrower: User){
         print("This function checks number of loans for userBorrower")
+        // Count current loans
+        
     }
     
     // MARK: - Methods  - Actions with objc functions
