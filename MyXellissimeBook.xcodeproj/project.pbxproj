@@ -54,6 +54,7 @@
 		C13355D822BA85680006D9CD /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355D722BA85680006D9CD /* Alert.swift */; };
 		C13355DA22BA87C30006D9CD /* OpenLibraryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355D922BA87C30006D9CD /* OpenLibraryAPI.swift */; };
 		C13355DC22BA88E90006D9CD /* GoodReadsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13355DB22BA88E90006D9CD /* GoodReadsAPI.swift */; };
+		C138697D237B0BB4001C5F5B /* Settings+setupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138697C237B0BB4001C5F5B /* Settings+setupScreen.swift */; };
 		C148A66C2334CA4200CA4717 /* ExtensionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C148A66B2334CA4200CA4717 /* ExtensionDate.swift */; };
 		C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */; };
 		C1596ED822B6807500CBCD08 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1596ED722B6807500CBCD08 /* Message.swift */; };
@@ -163,6 +164,7 @@
 		C13355D722BA85680006D9CD /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		C13355D922BA87C30006D9CD /* OpenLibraryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLibraryAPI.swift; sourceTree = "<group>"; };
 		C13355DB22BA88E90006D9CD /* GoodReadsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodReadsAPI.swift; sourceTree = "<group>"; };
+		C138697C237B0BB4001C5F5B /* Settings+setupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+setupScreen.swift"; sourceTree = "<group>"; };
 		C148A66B2334CA4200CA4717 /* ExtensionDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDate.swift; sourceTree = "<group>"; };
 		C14B9FCB22B90BB8000BDA58 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		C1596ED722B6807500CBCD08 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 				C17EEF5322B28D8B00BF01B5 /* CustomInitialTabBarController.swift */,
 				C19371D822B0FC500017E696 /* InitialViewController.swift */,
 				C114F720234B25CD00D6E115 /* Settings.swift */,
+				C138697C237B0BB4001C5F5B /* Settings+setupScreen.swift */,
 				C19E1EA4232A7EC5001FA746 /* All Books VC */,
 				C100899A22BCD0CA00D3497E /* LogIn */,
 				C100899722BCD01D00D3497E /* Book Management */,
@@ -760,6 +763,7 @@
 				C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */,
 				C12C125B22B40934006A3F2C /* UserCell.swift in Sources */,
 				C1E5D7A32302B97000D23E80 /* MyTextRecognizer.swift in Sources */,
+				C138697D237B0BB4001C5F5B /* Settings+setupScreen.swift in Sources */,
 				C1226F0B22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift in Sources */,
 				C163F9B2230D2F2500458423 /* AddManuallyViewController+setupScreen.swift in Sources */,
 				C13355C722BA45F20006D9CD /* ScanRunningViewController.swift in Sources */,
