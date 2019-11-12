@@ -138,7 +138,7 @@ class FirebaseUtilities {
      - Parameter user: userId
      - Parameter callBack: a closure with the number of loans
      */
-    static func getNumberOfLoansForUSer(userId: String, callBack: @escaping (Int) -> Void){
+    static func getNumberOfLoansForUserId(userId: String, callBack: @escaping (Int) -> Void){
         let rootRef = Database.database().reference().child(FirebaseUtilities.shared.user_loans).child(userId)
         rootRef.observeSingleEvent(of: .value, with: { snapshot in
                 if snapshot.exists() {

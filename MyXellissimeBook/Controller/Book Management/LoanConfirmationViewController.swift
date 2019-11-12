@@ -121,7 +121,8 @@ class LoanConfirmationViewController: UIViewController, GADRewardedAdDelegate, G
     */
     private func testIfUserHasMoreThan5Loans(userUid: String, callBack: @escaping (Bool) -> Void) {
         print("This function checks number of loans and borrow for lender")
-        FirebaseUtilities.getNumberOfLoansForUSer(userId: userUid) { (numberOfLoans) in
+        FirebaseUtilities.getNumberOfLoansForUserId(userId: userUid) { (numberOfLoans) in
+            print("This function checks number of loans and borrow for lender and it is \(numberOfLoans) ")
             callBack(numberOfLoans >= numbersOfLoansAndBorrowsAccepted)
         }
     }
@@ -131,11 +132,8 @@ class LoanConfirmationViewController: UIViewController, GADRewardedAdDelegate, G
      Function that launches registration of the loan
      */
     @objc func confirmLoan() {
-        
          guard let uid = Auth.auth().currentUser?.uid else {return}
-        FirebaseUtilities.testCountChildren(userId: uid)
         // check if lender has more than 10 items lent or borrowed
-        
         // check if borrower has more that 10 items lent or borrowed
         
         testIfUserHasMoreThan5Loans(userUid: uid) { (moreThan5Items) in
