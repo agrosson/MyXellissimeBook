@@ -74,15 +74,15 @@ class FirebaseUtilities {
         - Parameter lenderId: The loan has been sent to toId - delete node toId/loan
         */
        static func deleteLoan(with loanId: String, lenderId: String, borrowerId: String){
-           // delete message
-        let ref = Database.database().reference().child(FirebaseUtilities.shared.loans).child(loanId)
-           ref.removeValue { (error, dataref) in
-               if error != nil {
-                   print("fail to delete loan", error as Any)
-                   return
-               }
-           }
-        // delete message for fromId
+           // delete loan
+//        let ref = Database.database().reference().child(FirebaseUtilities.shared.loans).child(loanId)
+//           ref.removeValue { (error, dataref) in
+//               if error != nil {
+//                   print("fail to delete loan", error as Any)
+//                   return
+//               }
+//           }
+        // delete loan for fromId
         let refFromId = Database.database().reference().child(FirebaseUtilities.shared.user_loans).child(lenderId).child(loanId)
         refFromId.removeValue { (error, dataref) in
             if error != nil {
@@ -90,7 +90,7 @@ class FirebaseUtilities {
                 return
             }
         }
-        // delete message for toId
+        // delete loan for toId
         let refToId = Database.database().reference().child(FirebaseUtilities.shared.user_loans).child(borrowerId).child(loanId)
         refToId.removeValue { (error, dataref) in
             if error != nil {
@@ -141,16 +141,16 @@ class FirebaseUtilities {
     static func getNumberOfLoansForUSer(user: User, callBack: @escaping (Int) -> Void){
         var counter = 0
         guard let uid = user.profileId else {return}
-        let rootRef = Database.database().reference()
-        // Create an object that returns all users with the email
-        rootRef.child(FirebaseUtilities.shared.user_loans).child(uid)
-        .observe(.childAdded) { (snapshot) in
-            print("inside counter before \(counter)")
-            counter += 1
-            print("inside counter after \(counter)")
+            let rootRef = Database.database().reference()
+        let query = rootRef.child(FirebaseUtilities.shared.user_loans).child(uid).queryOrderedByKey()
+        query.observeSingleEvent(of:.value) { (snapshot) in
+            for _ in snapshot.children.allObjects as! [DataSnapshot] {
+                           counter += 1
+            }
+            print("outside counter before call back \(counter)")
+            callBack(counter)
         }
-        print("outside counter before call back \(counter)")
-        callBack(counter)
+
     }
     
     /**
@@ -530,7 +530,7 @@ class FirebaseUtilities {
      This function closes a loan  in Firebase
      - Parameter uniqueLoanBookId:  the loan id to be closed as a String
      */
-    static func closeLoan(for uniqueLoanBookId: String, callBack: @escaping (String,String,String) -> Void) {
+    static func closeLoan(for uniqueLoanBookId: String, callBack: @escaping (_ loanId: String, _ lenderId: String, _ borrowerId: String) -> Void) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.loans).child(uniqueLoanBookId)
         let closeDate = Int(NSDate().timeIntervalSince1970)
         let values = ["effectiveEndDateOfLoan" : closeDate] as [String : Any]

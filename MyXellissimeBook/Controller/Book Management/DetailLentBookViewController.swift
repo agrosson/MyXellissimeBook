@@ -162,6 +162,7 @@ class DetailLentBookViewController: UIViewController {
             FirebaseUtilities.updateBookAfterLoan(book: book, fromUserId: self.currentUid)
             guard let loanIdToClose = self.currentLoanId else {return}
             FirebaseUtilities.closeLoan(for: loanIdToClose) { (loanId, lenderId, borrowerId) in
+                // This delete nodes for user_loans but keep the loans for stats
                 FirebaseUtilities.deleteLoan(with: loanId, lenderId: lenderId, borrowerId: borrowerId)
             }
             self.dismiss(animated: true, completion: nil)
