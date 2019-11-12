@@ -114,7 +114,8 @@ class SearchBookDetailViewController: UIViewController {
         guard let isbn = bookToDisplay.isbn else {return}
         let ownerId = uniqueId.deletingSuffix(isbn)
         FirebaseUtilities.getUserFromProfileId(profileId: ownerId) { user in
-             self.showChatControllerForUser(user: user)
+            messageFromSearch = true
+            self.showChatControllerForUser(user: user)
         }
     }
     

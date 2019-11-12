@@ -29,7 +29,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         guard let titre = payload.userInfo["email"] else {
             return
         }
-        print("l'email est\(titre)" )
+        print("l'email est \(titre)" )
     }
 }
 

@@ -330,7 +330,7 @@ class ChatInitialViewController : UITableViewController {
                 let now = Int(NSDate().timeIntervalSince1970)
                 // a day is 86 400 seconds / a week is 604 800 seconds / 4 weeks are 2 419 200 seconds
                 // if timeStamp is more than 4 weeks, remove message from Firebase
-                if now > timeStamp + 2419200 {
+                if now > timeStamp + 86400 {
                     //remove message from Firebase
                     FirebaseUtilities.deleteMessage(with: messageId, fromId: fromId, toId: toId)
                     // remove message from Storage if message is an image

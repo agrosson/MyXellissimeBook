@@ -114,11 +114,19 @@ class LoanConfirmationViewController: UIViewController {
         setupToDateLabel()
         setupConfirmLoanButton()
     }
+    /**
+        Function that checks if user has more than 5 loans
+    */
+    private func testIfUserHasMoreThan5Loans(userBorrower: User){
+        print("This function checks number of loans for userBorrower")
+    }
+    
     // MARK: - Methods  - Actions with objc functions
     /**
      Function that launches registration of the loan
      */
     @objc func confirmLoan() {
+        testIfUserHasMoreThan5Loans(userBorrower: userBorrower)
         guard let uid = Auth.auth().currentUser?.uid else {return}
         FirebaseUtilities.saveLoan(bookToLend: bookToLend, fromId: uid, toUser: userBorrower, loanStartDate: fromDate, expectedEndDateOfLoan: toDate)
         dismiss(animated: true, completion: nil)

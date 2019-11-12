@@ -290,6 +290,13 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     @objc private func handelCancel(){
         self.dismiss(animated: true, completion: nil)
     }
+    @objc func testIfMessageFromSearch() {
+        if messageFromSearch == true {
+            messageFromSearch = false
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
     /**
      Function that handle send message
      
@@ -312,6 +319,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         // reset the textField
         self.inputTextField.text = nil
         inputTextField.resignFirstResponder()
+        perform(#selector(testIfMessageFromSearch), with: nil, afterDelay: 1)
     }
     /**
      Function that setup screen

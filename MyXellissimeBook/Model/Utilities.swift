@@ -39,6 +39,8 @@ let screenHeight = UIScreen.main.bounds.height
 let screenWidth = UIScreen.main.bounds.width
 /// This string to be used when user scan a new isbn
 var scannedIsbn = ""
+/// This bool to check if message comes from SearchBookDetailViewController
+var messageFromSearch = false
 /// List of french editors to be used in text recognizer activity
 let editors = ["Le Livre de Poche", "Pocket", "J'AI LU", "Bayard","First Edition",
                "Hachette",
