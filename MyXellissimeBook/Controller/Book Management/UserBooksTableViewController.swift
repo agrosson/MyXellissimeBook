@@ -95,15 +95,12 @@ class UserBooksTableViewController: UITableViewController {
         default:
             print("No information on Network")
         }
-        
         self.reachability.stopNotifier()
         NotificationCenter.default.removeObserver(self, name: .reachabilityChanged, object:reachability)
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
     /**
      Function that adds and defines refresh control for collection view
      */
@@ -118,7 +115,6 @@ class UserBooksTableViewController: UITableViewController {
     Function that refreshes table View
     */
     @objc func refresh() {
-        print("refresh selected")
         attemptReloadData()
         self.refreshController.endRefreshing()
     }
@@ -131,7 +127,6 @@ class UserBooksTableViewController: UITableViewController {
         tableView.reloadData()
         observeUserBooks()
         perform(#selector(testIfNoBook), with: nil, afterDelay: 2)
-        
     }
     
     /**

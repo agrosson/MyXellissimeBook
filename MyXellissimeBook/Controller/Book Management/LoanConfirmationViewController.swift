@@ -131,7 +131,9 @@ class LoanConfirmationViewController: UIViewController, GADRewardedAdDelegate, G
      Function that launches registration of the loan
      */
     @objc func confirmLoan() {
+        
          guard let uid = Auth.auth().currentUser?.uid else {return}
+        FirebaseUtilities.testCountChildren(userId: uid)
         // check if lender has more than 10 items lent or borrowed
         
         // check if borrower has more that 10 items lent or borrowed
