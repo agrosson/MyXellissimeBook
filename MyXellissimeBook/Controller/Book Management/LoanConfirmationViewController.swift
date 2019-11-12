@@ -8,12 +8,13 @@
 
 import UIKit
 import  Firebase
+import GoogleMobileAds
 
 // MARK: - Class LoanConfirmationViewController
 /**
  This class enables to confirm and save a book loan
  */
-class LoanConfirmationViewController: UIViewController {
+class LoanConfirmationViewController: UIViewController, GADRewardedAdDelegate, GADRewardBasedVideoAdDelegate {
     // MARK: - Properties
     /// The book to lend
     var bookToLend = Book()
@@ -59,6 +60,10 @@ class LoanConfirmationViewController: UIViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        GADRewardBasedVideoAd.sharedInstance().delegate = self
+        // GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "GADRewardBasedVideoAd"))
+        // test
+        //GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "testGADRewardBasedVideoAd"))
         view.addSubview(containerView)
         containerView.addSubview(bookCoverImageView)
         containerView.addSubview(titleLabel)
@@ -73,7 +78,11 @@ class LoanConfirmationViewController: UIViewController {
         setupUIObjects()
         setupScreen()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+        GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "testGADRewardBasedVideoAd"))
+    }
+     typealias Completion = (Error?) -> Void
     // MARK: - Methods
     /**
      Function that sets up customUI objects
@@ -141,6 +150,7 @@ class LoanConfirmationViewController: UIViewController {
                 
                 actionSheet.addAction(UIAlertAction(title: "Je regarde", style: .default, handler: { (action: UIAlertAction) in
                     print("ici on regarde une publicité")
+                    self.launchAdd()
                 }))
                 actionSheet.addAction(UIAlertAction(title: "Je refuse", style: .default, handler: { (action: UIAlertAction) in
                     print("ici on refuse la publicité")
@@ -152,10 +162,70 @@ class LoanConfirmationViewController: UIViewController {
 
                 
             } else {
-                guard let uid = Auth.auth().currentUser?.uid else {return}
-                FirebaseUtilities.saveLoan(bookToLend: self.bookToLend, fromId: uid, toUser: self.userBorrower, loanStartDate: self.fromDate, expectedEndDateOfLoan: self.toDate)
-                self.dismiss(animated: true, completion: nil)
+                self.saveLoan()
+               
             }
         }
+    }
+    
+    func saveLoan(){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        FirebaseUtilities.saveLoan(bookToLend: self.bookToLend, fromId: uid, toUser: self.userBorrower, loanStartDate: self.fromDate, expectedEndDateOfLoan: self.toDate)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
+            print("here is the reward")
+            print("on reçoit la récompense ici?? rewardedAd")
+       }
+    
+    func launchAdd(){
+        if GADRewardBasedVideoAd.sharedInstance().isReady == true {
+          GADRewardBasedVideoAd.sharedInstance().present(fromRootViewController: self)
+        } else {
+            Alert.shared.controller = self
+            Alert.shared.alertDisplay = .noPubAvailable
+            GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "GADRewardBasedVideoAd"))
+        }
+    }
+    func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
+        didRewardUserWith reward: GADAdReward) {
+        print("Reward received with currency: \(reward.type), amount \(reward.amount).")
+        print("on reçoit la récompense là?? rewardBasedVideoAd")
+    }
+
+    func rewardBasedVideoAdDidReceive(_ rewardBasedVideoAd:GADRewardBasedVideoAd) {
+      print("Reward based video ad is received.")
+    }
+
+    func rewardBasedVideoAdDidOpen(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
+      print("Opened reward based video ad.")
+    }
+
+    func rewardBasedVideoAdDidStartPlaying(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
+      print("Reward based video ad started playing.")
+    }
+
+    func rewardBasedVideoAdDidCompletePlaying(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
+        print("Reward based video ad has completed.")
+        print("on reçoit la récompense là encore ?? rewardBasedVideoAdDidCompletePlaying")
+        saveLoan()
+        self.dismiss(animated: true, completion: nil)
+        GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "GADRewardBasedVideoAd"))
+    }
+
+    func rewardBasedVideoAdDidClose(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
+      print("Reward based video ad is closed.")
+        // Reload an new videao in the background
+       GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "GADRewardBasedVideoAd"))
+    }
+
+    func rewardBasedVideoAdWillLeaveApplication(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
+      print("Reward based video ad will leave application.")
+    }
+
+    func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
+        didFailToLoadWithError error: Error) {
+      print("Reward based video ad failed to load.")
     }
 }

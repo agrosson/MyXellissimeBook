@@ -59,7 +59,8 @@ class Alert {
         emailChanged,
         nameNotChanged,
         nameChanged,
-        bookAlreadyInDatabase
+        bookAlreadyInDatabase,
+        noPubAvailable
     }
     // MARK: - Initializer
     init() {}
@@ -198,6 +199,10 @@ class Alert {
             title: "Cher Utilisateur,",
             message: TextAndString.shared.bookAlreadyInDatabase,
             titleButton: "Retour")
+        case .noPubAvailable : controller?.presentAlertDetails(
+                   title: "Cher Utilisateur,",
+                   message: TextAndString.shared.noPubAvailable,
+                   titleButton: "Retour")
         }
     }
 }
@@ -239,5 +244,6 @@ struct TextAndString {
     let noLoansForUSer = "Il semble que vous ne prétiez aucun livre pour l'instant.\n\nPour prêter un livre, aller dans la liste de vos livres, sélectionner un livre et cliquer sur 'Prêter ce livre'"
     let hasNoBorrowedYet = "Il semble que vous n'ayez emprunté aucun livre pour l'instant.\n\nAller dans l'onglet 'Rechercher' et indiquer le nom du livre recherché.\n\nVous pouvez aussi aller dans l'onglet 'Livres récents' pour voir les derniers livres proposés."
     let bookAlreadyInDatabase = "Le livre est déjà enregistré.\nVous ne pouvez pas l'enregistrer deux fois."
+    let noPubAvailable = "La publicité n'est pas disponible.\nVeuillez réessayer un peu plus tard."
 }
 
