@@ -120,7 +120,9 @@ class LoanConfirmationViewController: UIViewController {
     private func testIfUserHasMoreThan5Loans(userBorrower: User){
         print("This function checks number of loans for userBorrower")
         // Count current loans
-        
+        FirebaseUtilities.getNumberOfLoansForUSer(user: userBorrower) { (numberOfLoans) in
+            print("the number of loan for \(String(describing: userBorrower.name)) is \(numberOfLoans)")
+        }
     }
     
     // MARK: - Methods  - Actions with objc functions

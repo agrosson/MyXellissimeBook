@@ -67,6 +67,38 @@ class FirebaseUtilities {
             }
         }
     }
+    /**
+        This function remove loan from Firebase
+        - Parameter loans: The loan id to delete
+        - Parameter borrowerId: The loan has been sent by fromId - delete node fromId/loan
+        - Parameter lenderId: The loan has been sent to toId - delete node toId/loan
+        */
+       static func deleteLoan(with loanId: String, lenderId: String, borrowerId: String){
+           // delete message
+        let ref = Database.database().reference().child(FirebaseUtilities.shared.loans).child(loanId)
+           ref.removeValue { (error, dataref) in
+               if error != nil {
+                   print("fail to delete loan", error as Any)
+                   return
+               }
+           }
+        // delete message for fromId
+        let refFromId = Database.database().reference().child(FirebaseUtilities.shared.user_loans).child(lenderId).child(loanId)
+        refFromId.removeValue { (error, dataref) in
+            if error != nil {
+                print("fail to delete loan", error as Any)
+                return
+            }
+        }
+        // delete message for toId
+        let refToId = Database.database().reference().child(FirebaseUtilities.shared.user_loans).child(borrowerId).child(loanId)
+        refToId.removeValue { (error, dataref) in
+            if error != nil {
+                print("fail to delete loan", error as Any)
+                return
+            }
+        }
+    }
     
     /**
      This function remove message from Firebase
@@ -99,6 +131,26 @@ class FirebaseUtilities {
                 return
             }
         }
+    }
+    /**
+     This function returns a number of loans  for user
+     
+     - Parameter user: user
+     - Parameter callBack: a closure with the number of loans
+     */
+    static func getNumberOfLoansForUSer(user: User, callBack: @escaping (Int) -> Void){
+        var counter = 0
+        guard let uid = user.profileId else {return}
+        let rootRef = Database.database().reference()
+        // Create an object that returns all users with the email
+        rootRef.child(FirebaseUtilities.shared.user_loans).child(uid)
+        .observe(.childAdded) { (snapshot) in
+            print("inside counter before \(counter)")
+            counter += 1
+            print("inside counter after \(counter)")
+        }
+        print("outside counter before call back \(counter)")
+        callBack(counter)
     }
     
     /**
@@ -478,7 +530,7 @@ class FirebaseUtilities {
      This function closes a loan  in Firebase
      - Parameter uniqueLoanBookId:  the loan id to be closed as a String
      */
-    static func closeLoan(for uniqueLoanBookId: String){
+    static func closeLoan(for uniqueLoanBookId: String, callBack: @escaping (String,String,String) -> Void) {
         let ref = Database.database().reference().child(FirebaseUtilities.shared.loans).child(uniqueLoanBookId)
         let closeDate = Int(NSDate().timeIntervalSince1970)
         let values = ["effectiveEndDateOfLoan" : closeDate] as [String : Any]
@@ -487,6 +539,13 @@ class FirebaseUtilities {
             if error != nil {
                 print(error as Any)
                 return
+            }
+        }
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+                if let dictionary = snapshot.value as? [String : Any] {
+                let borrowerId = (dictionary["toUser"] as? String)!
+                let lenderId = (dictionary["fromUser"] as? String)!
+                callBack(uniqueLoanBookId,lenderId,borrowerId)
             }
         }
     }

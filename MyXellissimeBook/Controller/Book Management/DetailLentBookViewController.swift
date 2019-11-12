@@ -161,7 +161,9 @@ class DetailLentBookViewController: UIViewController {
             // update availability in Firebase
             FirebaseUtilities.updateBookAfterLoan(book: book, fromUserId: self.currentUid)
             guard let loanIdToClose = self.currentLoanId else {return}
-            FirebaseUtilities.closeLoan(for: loanIdToClose)
+            FirebaseUtilities.closeLoan(for: loanIdToClose) { (loanId, lenderId, borrowerId) in
+                FirebaseUtilities.deleteLoan(with: loanId, lenderId: lenderId, borrowerId: borrowerId)
+            }
             self.dismiss(animated: true, completion: nil)
             
         }))
