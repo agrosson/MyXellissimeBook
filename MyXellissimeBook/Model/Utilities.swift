@@ -26,6 +26,7 @@ import Firebase
 let navStyles = UINavigationBar.appearance()
 // This will set the color of the text for the back buttons.
 
+let numbersOfLoansAndBorrowsAccepted = 6
 
 /// Admin email
 let adminEmail = "admin@xellissime.com"
