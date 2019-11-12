@@ -138,16 +138,14 @@ class FirebaseUtilities {
      - Parameter user: user
      - Parameter callBack: a closure with the number of loans
      */
-    static func getNumberOfLoansForUSer(user: User, callBack: @escaping (Int) -> Void){
+    static func getNumberOfLoansForUSer(userId: String, callBack: @escaping (Int) -> Void){
         var counter = 0
-        guard let uid = user.profileId else {return}
-            let rootRef = Database.database().reference()
-        let query = rootRef.child(FirebaseUtilities.shared.user_loans).child(uid).queryOrderedByKey()
+        let rootRef = Database.database().reference()
+        let query = rootRef.child(FirebaseUtilities.shared.user_loans).child(userId).queryOrderedByKey()
         query.observeSingleEvent(of:.value) { (snapshot) in
             for _ in snapshot.children.allObjects as! [DataSnapshot] {
                            counter += 1
             }
-            print("outside counter before call back \(counter)")
             callBack(counter)
         }
 

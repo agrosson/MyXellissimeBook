@@ -117,11 +117,10 @@ class LoanConfirmationViewController: UIViewController {
     /**
         Function that checks if user has more than 5 loans
     */
-    private func testIfUserHasMoreThan5Loans(userBorrower: User){
-        print("This function checks number of loans for userBorrower")
-        // Count current loans
-        FirebaseUtilities.getNumberOfLoansForUSer(user: userBorrower) { (numberOfLoans) in
-            print("the number of loan for \(String(describing: userBorrower.name)) is \(numberOfLoans)")
+    private func testIfUserHasMoreThan5Loans(userUid: String, callBack: @escaping (Bool) -> Void) {
+        print("This function checks number of loans and borrow for lender")
+        FirebaseUtilities.getNumberOfLoansForUSer(userId: userUid) { (numberOfLoans) in
+            callBack(numberOfLoans >= 5)
         }
     }
     
@@ -130,9 +129,33 @@ class LoanConfirmationViewController: UIViewController {
      Function that launches registration of the loan
      */
     @objc func confirmLoan() {
-        testIfUserHasMoreThan5Loans(userBorrower: userBorrower)
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        FirebaseUtilities.saveLoan(bookToLend: bookToLend, fromId: uid, toUser: userBorrower, loanStartDate: fromDate, expectedEndDateOfLoan: toDate)
-        dismiss(animated: true, completion: nil)
+         guard let uid = Auth.auth().currentUser?.uid else {return}
+        // check if lender has more than 10 items lent or borrowed
+        
+        // check if borrower has more that 10 items lent or borrowed
+        
+        testIfUserHasMoreThan5Loans(userUid: uid) { (moreThan5Items) in
+            if moreThan5Items {
+                print("more than 5 items. Alerte")
+                let actionSheet = UIAlertController(title: "Cher utilisateur", message: "Vous avez déjà prêté ou emprunté 5 livres.\n\nRegarder une publicité pour prêter le livre", preferredStyle: .alert)
+                
+                actionSheet.addAction(UIAlertAction(title: "Je regarde", style: .default, handler: { (action: UIAlertAction) in
+                    print("ici on regarde une publicité")
+                }))
+                actionSheet.addAction(UIAlertAction(title: "Je refuse", style: .default, handler: { (action: UIAlertAction) in
+                    print("ici on refuse la publicité")
+                     self.dismiss(animated: true, completion: nil)
+                }))
+                actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                
+                self.present(actionSheet, animated: true, completion : nil)
+
+                
+            } else {
+                guard let uid = Auth.auth().currentUser?.uid else {return}
+                FirebaseUtilities.saveLoan(bookToLend: self.bookToLend, fromId: uid, toUser: self.userBorrower, loanStartDate: self.fromDate, expectedEndDateOfLoan: self.toDate)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
 }
