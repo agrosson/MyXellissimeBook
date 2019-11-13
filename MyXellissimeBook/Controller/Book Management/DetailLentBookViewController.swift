@@ -90,7 +90,7 @@ class DetailLentBookViewController: UIViewController {
         editorLabel.font = UIFont.systemFont(ofSize: 16)
         editorLabel.textAlignment = NSTextAlignment.center
         editorLabel.numberOfLines = 2
-        closeLoanButton.setTitle("Close", for: .normal)
+        closeLoanButton.setTitle("Clore", for: .normal)
         closeLoanButton.addTarget(self, action: #selector(handleCloseLoan), for: .touchUpInside)
     }
     /**
@@ -153,7 +153,7 @@ class DetailLentBookViewController: UIViewController {
      Function that displays message to confirm loan closing
      */
     private func secondConfirmation() {
-        let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Etes vous sûr de vouloir clôturer le prêt?", preferredStyle: .alert)
+        let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Etes vous sûr de vouloir clore le prêt?", preferredStyle: .alert)
         actionSheet.addAction(UIAlertAction(title: "Oui", style: .default, handler: { (action: UIAlertAction) in
             // change availability
             self.bookToDisplay?.isAvailable = true
