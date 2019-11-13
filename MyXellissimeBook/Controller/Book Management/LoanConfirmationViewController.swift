@@ -122,7 +122,7 @@ class LoanConfirmationViewController: UIViewController, GADRewardedAdDelegate, G
     private func testIfUserHasMoreThan5Loans(userUid: String, callBack: @escaping (Bool) -> Void) {
         print("This function checks number of loans and borrow for lender")
         FirebaseUtilities.getNumberOfLoansForUserId(userId: userUid) { (numberOfLoans) in
-            print("This function checks number of loans and borrow for lender and it is \(numberOfLoans) ")
+            print("This function checks number of loans and borrow for lender and it is \(numberOfLoans ) ")
             callBack(numberOfLoans >= numbersOfLoansAndBorrowsAccepted)
         }
     }
