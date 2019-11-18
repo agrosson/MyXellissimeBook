@@ -148,5 +148,54 @@ extension LoginController {
     
     @objc func handleForgotPassword(){
         print("handle forgot password")
+        alertToResetPassword(title: "Mot de passe oublié", message: "Indiquer votre Email")
+    }
+    
+    /**
+        Function that creates an alert with 2 textfields to modify password
+        - Parameter title: The alert title
+        - Parameter message: The alert message
+        */
+    func alertToResetPassword(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction (UIAlertAction(title: "Réinitialiser", style: .default) { (alertAction) in
+            guard let userEmail = alert.textFields![0].text else {
+                return
+            }
+            if self.isValidEmail(testStr: userEmail) {
+                print("sent an email to \(userEmail)")
+                self.resetPassword(email: userEmail, onSuccess: {
+                    print("a email has hust been sent. Follow instructions")
+                }) { (error) in
+                    print("error \(error)")
+                    let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "\(error)", preferredStyle: .alert)
+                    actionSheet.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+                    self.present(actionSheet, animated: true, completion : nil)
+                }
+            } else {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .emailBadlyFormatted
+            }
+        })
+        //Step : 3
+        //For first TF
+        alert.addTextField { (textField) in
+            textField.placeholder = "Votre Email"
+            textField.textColor = mainBackgroundColor
+        }
+        //alertC.setBackgroundColor(color: mainBackgroundColor)
+        //Cancel action
+        alert.addAction(UIAlertAction(title: "Annuler", style: .default) { (alertAction) in })
+        self.present(alert, animated:true, completion: nil)
+    }
+    
+    func resetPassword(email: String, onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
+        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+            if error == nil {
+                onSuccess()
+            } else {
+                onError(error!.localizedDescription)
+            }
+        }
     }
 }
