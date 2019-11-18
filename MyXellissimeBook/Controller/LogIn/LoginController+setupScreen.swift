@@ -152,7 +152,7 @@ extension LoginController {
     }
     
     /**
-        Function that creates an alert with 2 textfields to modify password
+        Function that creates an alert with 1 textfield to reset password
         - Parameter title: The alert title
         - Parameter message: The alert message
         */
@@ -162,10 +162,13 @@ extension LoginController {
             guard let userEmail = alert.textFields![0].text else {
                 return
             }
+            //test email structure
             if self.isValidEmail(testStr: userEmail) {
-                print("sent an email to \(userEmail)")
+
                 self.resetPassword(email: userEmail, onSuccess: {
-                    print("a email has hust been sent. Follow instructions")
+                    let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "Un email vient d'être envoyé à votre adresse \(userEmail).\nMerci de suivre les instructions pour réinitialiser le mot de passe", preferredStyle: .alert)
+                    actionSheet.addAction(UIAlertAction(title: "Retour", style: .cancel, handler: nil))
+                    self.present(actionSheet, animated: true, completion : nil)
                 }) { (error) in
                     print("error \(error)")
                     let actionSheet = UIAlertController(title: "Cher Utilisateur", message: "\(error)", preferredStyle: .alert)
@@ -183,12 +186,14 @@ extension LoginController {
             textField.placeholder = "Votre Email"
             textField.textColor = mainBackgroundColor
         }
-        //alertC.setBackgroundColor(color: mainBackgroundColor)
         //Cancel action
         alert.addAction(UIAlertAction(title: "Annuler", style: .default) { (alertAction) in })
         self.present(alert, animated:true, completion: nil)
     }
-    
+    /**
+        Function that sends an email via Firebase to reset password
+        - Parameter email: The email address that the email has to be sent to
+        */
     func resetPassword(email: String, onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             if error == nil {
