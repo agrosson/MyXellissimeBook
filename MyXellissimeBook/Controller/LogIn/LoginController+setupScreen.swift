@@ -131,4 +131,22 @@ extension LoginController {
         loginRegisterButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
+    /**
+    Function that sets up resetPasswordButton
+    */
+    func setupResetPasswordButton(){
+        
+        resetPasswordButton.setTitle("Mot de passe oublié", for: .normal)
+        resetPasswordButton.layer.borderWidth = 1
+        resetPasswordButton.addTarget(self, action: #selector(handleForgotPassword), for: .touchUpInside)
+        // need x and y , width height contraints
+        resetPasswordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        resetPasswordButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25).isActive = true
+        resetPasswordButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        resetPasswordButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    @objc func handleForgotPassword(){
+        print("handle forgot password")
+    }
 }

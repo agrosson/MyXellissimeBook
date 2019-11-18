@@ -21,6 +21,8 @@ class LoginController: UIViewController {
     let inputsContainerView = CustomUI().view
     /// Register Button
     lazy var loginRegisterButton = CustomUI().button
+    /// Reset Password Button
+    lazy var resetPasswordButton = CustomUI().button
     /// TextField to get user name
     let nameTextField = CustomUI().textField
     /// View as a separator between textField
@@ -68,6 +70,7 @@ class LoginController: UIViewController {
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         view.addSubview(loginRegisteredSegmentedControl)
+        view.addSubview(resetPasswordButton)
         if #available(iOS 12.0, *) {
             passwordTextField.textContentType = .oneTimeCode
         }
@@ -140,6 +143,7 @@ class LoginController: UIViewController {
         setupLoginRegisterButton()
         setupProfileImageView()
         setuploginRegisteredSegmentedControl()
+        setupResetPasswordButton()
         manageTextField()
         gestureTapCreation()
         gestureswipeCreation()
