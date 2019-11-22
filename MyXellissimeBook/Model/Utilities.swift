@@ -24,12 +24,13 @@ import Firebase
 
 // MARK: - Global properties
 let navStyles = UINavigationBar.appearance()
-// This will set the color of the text for the back buttons.
 
 let numbersOfLoansAndBorrowsAccepted = 6
 
 /// Admin email
 let adminEmail = "admin@xellissime.com"
+/// Url for legal conditions
+let urlForConditions = "http://xellissime.com/index.php/conditions-generales-de-vente-et-dutilisation-myxellissimebook/"
 /// Color for Navigation item
  let navigationItemColor = #colorLiteral(red: 0.2744090557, green: 0.4518461823, blue: 0.527189374, alpha: 1)
 /// Color for backGround view

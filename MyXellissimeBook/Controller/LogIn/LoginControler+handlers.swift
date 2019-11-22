@@ -274,7 +274,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
      Function that shows condition on web site with safari
      */
     private func showConditionsInSafariVC(){
-        guard let url = URL(string: "https://xellissime.com/") else {
+        guard let url = URL(string: urlForConditions) else {
             return
         }
         let safariVC = SFSafariViewController(url: url)
