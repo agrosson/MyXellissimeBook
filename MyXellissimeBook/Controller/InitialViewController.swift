@@ -99,6 +99,7 @@ class InitialViewController: UIViewController {
      Function that checks if user already loggedin
      */
     @objc func checkIfUserIsAlreadyLoggedIn() {
+        print("testi loulou")
         // check if user is already logged in
         if Auth.auth().currentUser?.uid == nil {
             print("no current")
@@ -282,7 +283,6 @@ class InitialViewController: UIViewController {
     }
     
     @objc func handletest(){
-        print("last chance")
     }
 }
 
@@ -345,15 +345,21 @@ extension InitialViewController {
             updateUserLocationInFirebase()
             break
         case .denied:
-            Alert.shared.controller = self
-            Alert.shared.alertDisplay = .locationAuthorization
+            let actionSheet = UIAlertController(title: "Cher utilisateur", message: "Merci d'autoriser la géolocalisation pour afficher la carte.\nPour cela, allez dans les paramètres de votre iphone.", preferredStyle: .alert)
+            actionSheet.addAction(UIAlertAction(title: "Retour", style: .cancel, handler: { (action: UIAlertAction) in
+                self.checkIfUserIsAlreadyLoggedIn()
+            }))
+            self.present(actionSheet, animated: true, completion : nil)
             break
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
             break
         case .restricted:
-            Alert.shared.controller = self
-            Alert.shared.alertDisplay = .locationAuthorization
+            let actionSheet = UIAlertController(title: "Cher utilisateur", message: "Merci d'autoriser la géolocalisation pour afficher la carte.\nPour cela, allez dans les paramètres de votre iphone.", preferredStyle: .alert)
+            actionSheet.addAction(UIAlertAction(title: "Retour", style: .cancel, handler: { (action: UIAlertAction) in
+                self.checkIfUserIsAlreadyLoggedIn()
+            }))
+            self.present(actionSheet, animated: true, completion : nil)
             break
         case .authorizedAlways:
             break

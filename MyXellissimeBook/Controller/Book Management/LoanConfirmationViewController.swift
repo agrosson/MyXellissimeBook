@@ -161,6 +161,10 @@ class LoanConfirmationViewController: UIViewController, GADRewardedAdDelegate, G
         FirebaseUtilities.saveLoan(bookToLend: self.bookToLend, fromId: uid, toUser: self.userBorrower, loanStartDate: self.fromDate, expectedEndDateOfLoan: self.toDate)
         self.dismiss(animated: true, completion: nil)
     }
+    func saveLoanWithReward(){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        FirebaseUtilities.saveLoan(bookToLend: self.bookToLend, fromId: uid, toUser: self.userBorrower, loanStartDate: self.fromDate, expectedEndDateOfLoan: self.toDate)
+    }
     func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
        }
     func launchAdd(){
@@ -175,6 +179,7 @@ class LoanConfirmationViewController: UIViewController, GADRewardedAdDelegate, G
     func rewardBasedVideoAd(_ rewardBasedVideoAd: GADRewardBasedVideoAd,
         didRewardUserWith reward: GADAdReward) {
         print("Reward received with currency: \(reward.type), amount \(reward.amount).")
+        saveLoanWithReward()
     }
     func rewardBasedVideoAdDidReceive(_ rewardBasedVideoAd:GADRewardBasedVideoAd) {
     }
@@ -183,12 +188,13 @@ class LoanConfirmationViewController: UIViewController, GADRewardedAdDelegate, G
     func rewardBasedVideoAdDidStartPlaying(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
     }
     func rewardBasedVideoAdDidCompletePlaying(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
-        saveLoan()
-        self.dismiss(animated: true, completion: nil)
+        print("Message avant la sauvegarde")
+       
         GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "GADRewardBasedVideoAd"))
     }
     func rewardBasedVideoAdDidClose(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
         // Reload an new video in the background
+        self.dismiss(animated: true, completion: nil)
        GADRewardBasedVideoAd.sharedInstance().load(GADRequest(),withAdUnitID: valueForAPIKey(named: "GADRewardBasedVideoAd"))
     }
     func rewardBasedVideoAdWillLeaveApplication(_ rewardBasedVideoAd: GADRewardBasedVideoAd) {
