@@ -150,11 +150,10 @@ class FirebaseUtilities {
                 }
               })
     }
-    
     /**
      This function returns a user from a email
      
-     - Parameter email: a userId
+     - Parameter email: a user email
      - Parameter callBack: a closure with the user retrieved from the query
      */
     static func getUserFromEmail(email: String, callBack: @escaping (User) -> Void){
