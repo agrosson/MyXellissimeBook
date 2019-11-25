@@ -232,7 +232,7 @@ struct TextAndString {
     let needAllFieldsCompleted = "Merci de remplir tous les champs"
     let noUserFound = "Aucun utilisateur trouvé avec cet email et/ou mot de passe"
     let noUserFoundForLoan = "Aucun utilisateur trouvé avec cet email"
-    let unableToCreateUser = "L'utilisateur n'a pas été créé.\nMerci d'essayer une nouvelle fois"
+    let unableToCreateUser = "L'utilisateur n'a pas été créé.\nMerci d'essayer une nouvelle fois\n\nSi vous êtes déjà inscrit avec cet email, utiliser l'onglet 'Se connecter'"
     let noTitleForBook = "Merci d'indiquer le titre du livre"
     let needAtLeastOneField = "Merci de saisir au moins un élément"
     let noTextFoundOnBookCover = "Aucun texte n'a été trouvé.\nMerci d'essayer en mode paysage"

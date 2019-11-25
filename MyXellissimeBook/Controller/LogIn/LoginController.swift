@@ -39,9 +39,10 @@ class LoginController: UIViewController {
     lazy var loginRegisteredSegmentedControl: UISegmentedControl = {
         let segment = UISegmentedControl(items: ["Se connecter","S'inscrire"])
         segment.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        segment.selectedSegmentIndex = 1
+        segment.selectedSegmentIndex = 0
         segment.translatesAutoresizingMaskIntoConstraints = false
         segment.addTarget(self, action: #selector(toggleSegment), for: .valueChanged)
+       
         return segment
     }()
     /// Height constraint of the input container
@@ -65,7 +66,8 @@ class LoginController: UIViewController {
     // MARK: - Method viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
         view.addSubview(profileImageView)
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
@@ -138,6 +140,7 @@ class LoginController: UIViewController {
      Function that setup screen
      */
     private func setupScreen(){
+       
         view.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         setupInputsContrainerView()
         setupLoginRegisterButton()
@@ -147,6 +150,7 @@ class LoginController: UIViewController {
         manageTextField()
         gestureTapCreation()
         gestureswipeCreation()
+        toggleSegment()
     }
     /**
      Function that creates a tap Gesture Recognizer

@@ -125,17 +125,9 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                 //Save user's data in database
                 self.registerUserIntoDatabaseWithUid(uid: uid, values: values)
                 
-                // Store the image in Storage
-                self.saveProfileImageForUser(uid: uid)
+                
             }
-            /*************************
-             update the title of the initialVC with new name
-             **************************/
-            self.initialViewController?.fetchUserAndSetupNavBarTitle()
-            /*************************
-             Dismiss the view controller
-             **************************/
-            self.dismiss(animated: true, completion: nil)
+
         }))
         actionSheet.addAction(UIAlertAction(title: "Refuser", style: .cancel, handler: { (action: UIAlertAction) in
             print("conditions refusées")
@@ -158,11 +150,18 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             if errorUpdate != nil {
                 print(errorUpdate?.localizedDescription as Any)
                 return
+            } else {
+                // Store the image in Storage
+                self.saveProfileImageForUser(uid: uid)
+                /*************************
+                 update the title of the initialVC with new name
+                 **************************/
+                self.initialViewController?.fetchUserAndSetupNavBarTitle()
+                /*************************
+                 Dismiss the view controller
+                 **************************/
+                self.dismiss(animated: true, completion: nil)
             }
-            /*************************
-             update the title of the initialVC with new name
-             **************************/
-            self.initialViewController?.fetchUserAndSetupNavBarTitle()
         })
     }
     
