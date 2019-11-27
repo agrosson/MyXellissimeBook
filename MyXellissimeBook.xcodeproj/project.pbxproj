@@ -88,6 +88,7 @@
 		C1A86AE122EF131600AB78EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1A86AE022EF131600AB78EC /* GoogleService-Info.plist */; };
 		C1A86AE422EF134900AB78EC /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A86AE222EF134900AB78EC /* APIKeys.swift */; };
 		C1A86AE522EF134900AB78EC /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1A86AE322EF134900AB78EC /* APIKeys.plist */; };
+		C1B1C7AF238EBFDA0001E172 /* ChatInitialViewController+ExtensionAndTableViewFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B1C7AE238EBFDA0001E172 /* ChatInitialViewController+ExtensionAndTableViewFunctions.swift */; };
 		C1B42B7922B13FAF00982194 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B7822B13FAF00982194 /* User.swift */; };
 		C1B42B8522B140EF00982194 /* MyXellissimeBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */; };
 		C1B42B8D22B1412000982194 /* UserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B42B8C22B1412000982194 /* UserTest.swift */; };
@@ -203,6 +204,7 @@
 		C1A86AE022EF131600AB78EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C1A86AE222EF134900AB78EC /* APIKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		C1A86AE322EF134900AB78EC /* APIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
+		C1B1C7AE238EBFDA0001E172 /* ChatInitialViewController+ExtensionAndTableViewFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatInitialViewController+ExtensionAndTableViewFunctions.swift"; sourceTree = "<group>"; };
 		C1B42B7822B13FAF00982194 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C1B42B8222B140EF00982194 /* MyXellissimeBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyXellissimeBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B42B8422B140EF00982194 /* MyXellissimeBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyXellissimeBookTests.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				C1A5840D22B4F59200EABEBA /* ChatInitialViewController.swift */,
+				C1B1C7AE238EBFDA0001E172 /* ChatInitialViewController+ExtensionAndTableViewFunctions.swift */,
 				C17EEF5722B2934100BF01B5 /* ChatTableViewController.swift */,
 				C1A5840F22B4FE1000EABEBA /* ChatLogController.swift */,
 				C144789A238E743800A4C442 /* ChatLogControllerExtensionForCollectionViewFunctions.swift */,
@@ -765,6 +768,7 @@
 				C1A86AE422EF134900AB78EC /* APIKeys.swift in Sources */,
 				C14B9FCC22B90BB8000BDA58 /* ChatMessageCell.swift in Sources */,
 				C12C125B22B40934006A3F2C /* UserCell.swift in Sources */,
+				C1B1C7AF238EBFDA0001E172 /* ChatInitialViewController+ExtensionAndTableViewFunctions.swift in Sources */,
 				C1E5D7A32302B97000D23E80 /* MyTextRecognizer.swift in Sources */,
 				C138697D237B0BB4001C5F5B /* Settings+setupScreen.swift in Sources */,
 				C1226F0B22BF47C600A35A51 /* ManageLoanViewController+setupScreen.swift in Sources */,
