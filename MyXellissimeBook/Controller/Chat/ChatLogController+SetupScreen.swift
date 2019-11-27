@@ -16,6 +16,7 @@ import UIKit
  This ChatLogController extension gathers functions for screen setup
  */
 extension ChatLogController {
+    // MARK: - Methods
     /**
      Function that sets up all attributes of collectionView
      */
@@ -38,15 +39,11 @@ extension ChatLogController {
     func setInputComponents(){
         inputTextField.placeholder = "Taper votre message"
         inputTextField.delegate = self
-        view.addSubview(containerView)
+        view.addSubviews(containerView,uploadImageView,sendButton,inputTextField,separatorView)
         containerViewSetup()
-        containerView.addSubview(uploadImageView)
         uploadImageViewSetup()
-        containerView.addSubview(sendButton)
         sendButtonSetup()
-        containerView.addSubview(inputTextField)
         inputTextFieldSetup()
-        containerView.addSubview(separatorView)
         separatorViewSetup()
     }
     /**
@@ -54,20 +51,24 @@ extension ChatLogController {
      */
     private func separatorViewSetup() {
         separatorView.backgroundColor = #colorLiteral(red: 0.9092954993, green: 0.865521729, blue: 0.8485594392, alpha: 1)
-        separatorView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-        separatorView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        separatorView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
-        separatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        NSLayoutConstraint.activate([
+            separatorView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
+            separatorView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            separatorView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 1)
+        ])
+        
     }
     /**
      Function that sets up inputTextField
      */
     private func inputTextFieldSetup() {
-        // need x and y , width height contraints
-        inputTextField.leftAnchor.constraint(equalTo: uploadImageView.rightAnchor, constant: 8).isActive = true
-        inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            inputTextField.leftAnchor.constraint(equalTo: uploadImageView.rightAnchor, constant: 8),
+            inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor),
+            inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor)
+        ])
     }
     /**
      Function that sets up sendButton
@@ -77,11 +78,12 @@ extension ChatLogController {
         sendButton.setTitle("Envoyer", for: .normal)
         sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
-        // need x and y , width height contraints
-        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+            sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            sendButton.widthAnchor.constraint(equalToConstant: 80),
+            sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor)
+        ])
     }
     /**
      Function that sets up uploadImageView
@@ -93,23 +95,24 @@ extension ChatLogController {
         uploadImageView.layer.cornerRadius = 0
         uploadImageView.layer.borderWidth = 0
         uploadImageView.addTarget(self, action: #selector(handleUploadTap), for: .touchUpInside)
-        
-        // need x and y , width height contraints
-        uploadImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
-        uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        uploadImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        uploadImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        NSLayoutConstraint.activate([
+            uploadImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8),
+            uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            uploadImageView.widthAnchor.constraint(equalToConstant: 40),
+            uploadImageView.heightAnchor.constraint(equalToConstant: 40)
+        ])
     }
     /**
      Function that sets up containerView
      */
     private func  containerViewSetup() {
         guard let tabbarHeight = self.tabBarController?.tabBar.frame.height else {return}
-        containerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
-        containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         containerViewBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabbarHeight)
         containerViewBottomAnchor?.isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        NSLayoutConstraint.activate([
+            containerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0),
+            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            containerView.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
-    
 }
