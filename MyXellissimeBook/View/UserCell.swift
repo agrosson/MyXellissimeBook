@@ -45,9 +45,7 @@ class UserCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         // add the profile image
-        addSubview(profileImageView)
-        addSubview(timeLabelHour)
-        addSubview(timeLabelDate)
+        addSubviews(profileImageView,timeLabelHour,timeLabelDate)
         setupConstraints()
     }
     

@@ -35,7 +35,7 @@ class ChatInitialViewController : UITableViewController {
     // MARK: - Method - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handelCompose))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action:  #selector(handleCompose))
         fetchUserAndSetupNavBarTitle()
         // Registration of the reused cell
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
@@ -224,7 +224,7 @@ class ChatInitialViewController : UITableViewController {
     /**
      Function that presents chatTableViewController
      */
-    @objc func handelCompose(){
+    @objc func handleCompose(){
         let chatTableViewController = ChatTableViewController()
         chatTableViewController.chatInitial = self
         chatTableViewController.modalPresentationStyle = .fullScreen

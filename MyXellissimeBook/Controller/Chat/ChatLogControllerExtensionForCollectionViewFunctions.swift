@@ -74,7 +74,7 @@ extension ChatLogController {
             // Set the image with original image
             zoomingImageView.image = startingImageView.image
             zoomingImageView.isUserInteractionEnabled = true
-            zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handelZoomOut)))
+            zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomOut)))
             // Add the new imageView and create an animation
             if let keyWindow = UIApplication.shared.keyWindow {
                 // create the black view behind and add the new imageView
@@ -95,7 +95,7 @@ extension ChatLogController {
     /**
      Function that will enable to zoom out a image when tapped
      */
-    @objc private func handelZoomOut(tapGesture: UITapGestureRecognizer){
+    @objc private func handleZoomOut(tapGesture: UITapGestureRecognizer){
         // Define the view tapped on
         if let zoomOutImageView = tapGesture.view {
             zoomOutImageView.layer.cornerRadius = 16

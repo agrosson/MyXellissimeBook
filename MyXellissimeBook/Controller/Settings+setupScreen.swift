@@ -71,7 +71,7 @@ extension SettingsViewController {
      Function that sets up NavigationBar
      */
     func setupNavigationBar(){
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handelCancel))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.leftBarButtonItem?.tintColor = navigationItemColor
         let textAttributes = [NSAttributedString.Key.foregroundColor:navigationItemColor]
         navigationController?.navigationBar.titleTextAttributes = textAttributes

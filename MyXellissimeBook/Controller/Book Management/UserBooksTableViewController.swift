@@ -38,7 +38,7 @@ class UserBooksTableViewController: UITableViewController {
         super.viewDidLoad()
         //self.checkReachable()
         self.setReachabilityNotifier();
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handelCancel))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Ajouter", style: .plain, target: self, action: #selector(addBook))
         tableView.register(UserBookCell.self, forCellReuseIdentifier: cellId)
         navigationItem.leftBarButtonItem?.tintColor = navigationItemColor
@@ -215,7 +215,7 @@ class UserBooksTableViewController: UITableViewController {
     /**
      Action that dismisses VC when "back" button clicked
      */
-    @objc private func handelCancel(){
+    @objc private func handleCancel(){
         self.dismiss(animated: true, completion: nil)
     }
     /**

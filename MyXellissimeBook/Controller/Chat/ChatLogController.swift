@@ -219,7 +219,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     /**
      Function that handle cancel
      */
-    @objc private func handelCancel(){
+    @objc private func handleCancel(){
         self.dismiss(animated: true, completion: nil)
     }
     /**

@@ -29,7 +29,7 @@ class UserBorrowedBooksTableViewController: UITableViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handelCancel))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.leftBarButtonItem?.tintColor = navigationItemColor
         let textAttributes = [NSAttributedString.Key.foregroundColor:navigationItemColor]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
@@ -156,7 +156,7 @@ class UserBorrowedBooksTableViewController: UITableViewController {
     /**
      Action that dismisses VC when "back" button clicked
      */
-    @objc private func handelCancel(){
+    @objc private func handleCancel(){
         self.dismiss(animated: true, completion: nil)
     }
     // MARK: - Methods - override func tableView

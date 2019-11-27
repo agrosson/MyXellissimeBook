@@ -42,7 +42,7 @@ class SettingsViewController: UIViewController {
     /**
      Action that dismisses VC when "Retour" button clicked
      */
-    @objc func handelCancel(){
+    @objc func handleCancel(){
         self.dismiss(animated: true, completion: nil)
     }
     /**
