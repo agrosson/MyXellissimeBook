@@ -9,8 +9,6 @@
 import Foundation
 import UIKit
 
-
-
 // MARK: - Extension ChatLogController
 /**
  This ChatLogController extension gathers functions for screen setup
@@ -57,7 +55,6 @@ extension ChatLogController {
             separatorView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: 1)
         ])
-        
     }
     /**
      Function that sets up inputTextField
