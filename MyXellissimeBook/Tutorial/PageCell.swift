@@ -10,18 +10,12 @@ import Foundation
 import UIKit
 
 class PageCell: UICollectionViewCell {
-    
     var page: Page? {
         didSet {
-//            print(page?.imageName)
-            
             guard let unwrappedPage = page else { return }
-            
-            bearImageView.image = UIImage(named: unwrappedPage.imageName)
-            
+            screenshotImage.image = UIImage(named: unwrappedPage.imageName)
             let attributedTextHeader = NSMutableAttributedString(string: unwrappedPage.headerText, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25)])
             let attributedTextBody = NSMutableAttributedString(string: unwrappedPage.bodyText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.gray])
-            
             descriptionHeaderTextView.attributedText = attributedTextHeader
             descriptionHeaderTextView.textAlignment = .center
             descriptionBodyTextView.attributedText = attributedTextBody
@@ -29,7 +23,7 @@ class PageCell: UICollectionViewCell {
         }
     }
     
-    private let bearImageView: UIImageView = {
+    private let screenshotImage: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "bookAtLaunchScreen"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -40,7 +34,6 @@ class PageCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-     
         label.numberOfLines = 0
          label.adjustsFontSizeToFitWidth = false
         return label
@@ -63,73 +56,37 @@ class PageCell: UICollectionViewCell {
         return view
     }()
     
-//    private let descriptionTextView: UITextView = {
-//        let textView = UITextView()
-//
-//        let attributedText = NSMutableAttributedString(string: "Join us today in our fun and games!", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 25)])
-//
-//        attributedText.append(NSAttributedString(string: "\n\n\nAre you ready for loads and loads of fun? Don't wait any longer! We hope to see you in our stores soon.", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor: UIColor.gray]))
-//
-//        textView.attributedText = attributedText
-//        textView.translatesAutoresizingMaskIntoConstraints = false
-//        textView.textAlignment = .center
-//        textView.isEditable = false
-//        textView.isScrollEnabled = false
-//        return textView
-//    }()
-    
-    
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
     }
-    
     private func setupLayout() {
         let topImageContainerView = UIView()
-        addSubview(topImageContainerView)
+        addSubviews(topImageContainerView,descriptionTextViewContainer)
+        topImageContainerView.addSubview(screenshotImage)
+        descriptionTextViewContainer.addSubviews(descriptionHeaderTextView,descriptionBodyTextView)
         topImageContainerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        topImageContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
-        
-        topImageContainerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        topImageContainerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-     
-        topImageContainerView.addSubview(bearImageView)
-        bearImageView.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor).isActive = true
-        bearImageView.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor).isActive = true
-        bearImageView.heightAnchor.constraint(equalTo: topImageContainerView.heightAnchor, multiplier: 0.85).isActive = true
-        
-        topImageContainerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.70, constant: -120).isActive = true
-        
-        addSubview(descriptionTextViewContainer)
-        
-        descriptionTextViewContainer.topAnchor.constraint(equalTo: topImageContainerView.bottomAnchor).isActive = true
-        descriptionTextViewContainer.leftAnchor.constraint(equalTo: leftAnchor, constant: 24).isActive = true
-        descriptionTextViewContainer.rightAnchor.constraint(equalTo: rightAnchor, constant: -24).isActive = true
-        descriptionTextViewContainer.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120).isActive = true
-       
-        descriptionTextViewContainer.addSubview(descriptionHeaderTextView)
-        descriptionTextViewContainer.addSubview(descriptionBodyTextView)
-        
-        descriptionHeaderTextView.topAnchor.constraint(equalTo: descriptionTextViewContainer.topAnchor).isActive = true
-        descriptionHeaderTextView.leftAnchor.constraint(equalTo: descriptionTextViewContainer.leftAnchor).isActive = true
-        descriptionHeaderTextView.rightAnchor.constraint(equalTo: descriptionTextViewContainer.rightAnchor).isActive = true
-        descriptionHeaderTextView.heightAnchor.constraint(equalTo: descriptionTextViewContainer.heightAnchor, multiplier: 0.3).isActive = true
-        
-        descriptionBodyTextView.topAnchor.constraint(equalTo: descriptionHeaderTextView.bottomAnchor).isActive = true
-        descriptionBodyTextView.leftAnchor.constraint(equalTo: descriptionTextViewContainer.leftAnchor).isActive = true
-        descriptionBodyTextView.rightAnchor.constraint(equalTo: descriptionTextViewContainer.rightAnchor).isActive = true
-        descriptionBodyTextView.heightAnchor.constraint(equalTo: descriptionTextViewContainer.heightAnchor, multiplier: 0.7).isActive = true
-
-        /*
-         addSubview(descriptionTextView)
-         descriptionTextView.topAnchor.constraint(equalTo: topImageContainerView.bottomAnchor).isActive = true
-         descriptionTextView.leftAnchor.constraint(equalTo: leftAnchor, constant: 24).isActive = true
-         descriptionTextView.rightAnchor.constraint(equalTo: rightAnchor, constant: -24).isActive = true
-         descriptionTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120).isActive = true
-         */
+        NSLayoutConstraint.activate([
+         topImageContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+         topImageContainerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+         topImageContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+         screenshotImage.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor),
+         screenshotImage.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor),
+         screenshotImage.heightAnchor.constraint(equalTo: topImageContainerView.heightAnchor, multiplier: 0.85),
+         topImageContainerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.70, constant: -120),
+         descriptionTextViewContainer.topAnchor.constraint(equalTo: topImageContainerView.bottomAnchor),
+         descriptionTextViewContainer.leftAnchor.constraint(equalTo: leftAnchor, constant: 24),
+         descriptionTextViewContainer.rightAnchor.constraint(equalTo: rightAnchor, constant: -24),
+         descriptionTextViewContainer.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120),
+         descriptionHeaderTextView.topAnchor.constraint(equalTo: descriptionTextViewContainer.topAnchor),
+         descriptionHeaderTextView.leftAnchor.constraint(equalTo: descriptionTextViewContainer.leftAnchor),
+         descriptionHeaderTextView.rightAnchor.constraint(equalTo: descriptionTextViewContainer.rightAnchor),
+         descriptionHeaderTextView.heightAnchor.constraint(equalTo: descriptionTextViewContainer.heightAnchor, multiplier: 0.3),
+         descriptionBodyTextView.topAnchor.constraint(equalTo: descriptionHeaderTextView.bottomAnchor),
+         descriptionBodyTextView.leftAnchor.constraint(equalTo: descriptionTextViewContainer.leftAnchor),
+         descriptionBodyTextView.rightAnchor.constraint(equalTo: descriptionTextViewContainer.rightAnchor),
+         descriptionBodyTextView.heightAnchor.constraint(equalTo: descriptionTextViewContainer.heightAnchor, multiplier: 0.7),
+        ])
     }
     
     required init?(coder aDecoder: NSCoder) {

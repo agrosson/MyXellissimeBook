@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// This Struct defines tutorial Page properties
 struct Page {
     let imageName: String
     let headerText: String
