@@ -12,10 +12,10 @@ import UIKit
 class PageCell: UICollectionViewCell {
     var page: Page? {
         didSet {
-            guard let unwrappedPage = page else { return }
-            screenshotImage.image = UIImage(named: unwrappedPage.imageName)
-            let attributedTextHeader = NSMutableAttributedString(string: unwrappedPage.headerText, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25)])
-            let attributedTextBody = NSMutableAttributedString(string: unwrappedPage.bodyText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.gray])
+            guard let pageToDisplay = page else { return }
+            screenshotImage.image = UIImage(named: pageToDisplay.imageName)
+            let attributedTextHeader = NSMutableAttributedString(string: pageToDisplay.headerText, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25)])
+            let attributedTextBody = NSMutableAttributedString(string: pageToDisplay.bodyText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.gray])
             descriptionHeaderTextView.attributedText = attributedTextHeader
             descriptionHeaderTextView.textAlignment = .center
             descriptionBodyTextView.attributedText = attributedTextBody
@@ -40,10 +40,9 @@ class PageCell: UICollectionViewCell {
     }()
     
     private let descriptionBodyTextView: UILabel = {
-              let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-       
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = false
         return label
@@ -51,7 +50,6 @@ class PageCell: UICollectionViewCell {
     
     private let descriptionTextViewContainer: UIView = {
         let view = UIView()
-      
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

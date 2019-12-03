@@ -119,6 +119,7 @@ class SearchViewController: UIViewController {
         setupInputsContrainerView()
         setupsearchBookInDatabaseButton()
         setupShowMap()
+        manageTextField()
     }
     /**
      Function that creates a tap Gesture Recognizer

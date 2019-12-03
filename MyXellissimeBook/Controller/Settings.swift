@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 import GoogleMobileAds
+import SafariServices
 
 // MARK: - Class InitialViewController
 /**
@@ -52,44 +53,43 @@ class SettingsViewController: UIViewController {
         // Display picker to get the new photo/Image
         launchPicker()
     }
-    fileprivate func launchTutorial() {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let swipingController = SwipingController(collectionViewLayout: layout)
-        swipingController.modalPresentationStyle = .fullScreen
-        present(swipingController, animated: true, completion: nil)
-    }
     /**
      Action that modifies user profile photo
      */
     @objc func handleTutorial(){
-        launchTutorial()
+        guard let url = URL(string: urlForTutorials) else {
+            return
+        }
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true, completion: nil)
+//        let layout = UICollectionViewFlowLayout()
+//        layout.scrollDirection = .horizontal
+//        let swipingController = SwipingController(collectionViewLayout: layout)
+//        swipingController.modalPresentationStyle = .fullScreen
+//        present(swipingController, animated: true, completion: nil)
+        
     }
     /**
      Action that modifies user password
      */
     @objc func handleModifyPassword(){
-        print("here modify password")
         alertToModifyPassword(title: "Modification du mot de passe", message: "Indiquer l'ancien mot de passe et\nle nouveau mot de passe")
     }
     /**
      Action that modifies user name
      */
     @objc func handleModifyUserName(){
-        print("here modify user name")
         alertToModifyName(title: "Modification du nom d'utilisateur", message: "Indiquer le mot de passe et\nindiquer votre nouveau nom utilisateur")
     }
     /**
      Action that modifies user name
      */
     @objc func handleModifyEmail(){
-        print("here modify user email")
         alertToModifyEmail(title: "Modification de l'email", message: "Indiquer le mot de passe et\nindiquer votre nouvel email")
     }
     func launchPicker() {
         // create a instance of UIImagePickerController()
         let picker = UIImagePickerController()
-        
         // delegate to self
         picker.delegate = self
         // Enable to edit the photo (zoom, resize etc)
@@ -151,10 +151,10 @@ class SettingsViewController: UIViewController {
         Alert.shared.alertDisplay = .invalidPasswordChangeIdentical
     }
     /**
-        Function that creates an alert with 2 textfields to modify password
-        - Parameter title: The alert title
-        - Parameter message: The alert message
-        */
+     Function that creates an alert with 2 textfields to modify password
+     - Parameter title: The alert title
+     - Parameter message: The alert message
+     */
     func alertToModifyEmail(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction (UIAlertAction(title: "Sauvegarder", style: .default) { (alertAction) in
@@ -196,10 +196,10 @@ class SettingsViewController: UIViewController {
         self.present(alert, animated:true, completion: nil)
     }
     /**
-        Function that creates an alert with 2 textfields to modify password
-        - Parameter title: The alert title
-        - Parameter message: The alert message
-        */
+     Function that creates an alert with 2 textfields to modify password
+     - Parameter title: The alert title
+     - Parameter message: The alert message
+     */
     func alertToModifyPassword(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction (UIAlertAction(title: "Sauvegarder", style: .default) { (alertAction) in
@@ -249,10 +249,10 @@ class SettingsViewController: UIViewController {
         self.present(alert, animated:true, completion: nil)
     }
     /**
-        Function that creates an alert with 2 textfields to modify name
-        - Parameter title: The alert title
-        - Parameter message: The alert message
-        */
+     Function that creates an alert with 2 textfields to modify name
+     - Parameter title: The alert title
+     - Parameter message: The alert message
+     */
     func alertToModifyName(title: String, message: String) {
         //Step : 1
         let alertC = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
@@ -327,19 +327,19 @@ class SettingsViewController: UIViewController {
         }   
     }
     func changeName(email: String, currentPassword: String, newName: String) {
-            guard  let uid = Auth.auth().currentUser?.uid else {return}
-            let credential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
-            Auth.auth().currentUser?.reauthenticateAndRetrieveData(with: credential, completion: { (authResult, error) in
-                if error == nil {
-                    FirebaseUtilities.saveName(with: newName, for: uid)
-                    Alert.shared.controller = self
-                    Alert.shared.alertDisplay = .nameChanged
-                } else {
-                    Alert.shared.controller = self
-                    Alert.shared.alertDisplay = .nameNotChanged
-                }
-            })
-        }
+        guard  let uid = Auth.auth().currentUser?.uid else {return}
+        let credential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
+        Auth.auth().currentUser?.reauthenticateAndRetrieveData(with: credential, completion: { (authResult, error) in
+            if error == nil {
+                FirebaseUtilities.saveName(with: newName, for: uid)
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .nameChanged
+            } else {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .nameNotChanged
+            }
+        })
+    }
 }
 extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func  imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

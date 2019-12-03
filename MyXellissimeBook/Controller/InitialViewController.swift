@@ -32,7 +32,7 @@ class InitialViewController: UIViewController {
     lazy var showUserBooksBorrowedButton = CustomUI().button
     /// View to display adds
     var advertisingBannerView = GADBannerView()
-
+    
     let locationManager = CLLocationManager()
     
     // MARK: - Method - viewDidLoad
@@ -44,33 +44,34 @@ class InitialViewController: UIViewController {
         navigationItem.leftBarButtonItem?.tintColor = navigationItemColor
         navigationItem.rightBarButtonItem?.tintColor = navigationItemColor
         setupBanner()
-     
         setupScreen()
-        
-        
-        
         // First launch
-        if !defaults.bool(forKey: "AlreadyLaunched") {
-            perform(#selector(presentLoginVC), with: nil, afterDelay: 0.5)
-            defaults.set(true, forKey: "AlreadyLaunched")
-        }
-        // Second or later launch
-        else {
-            // Create the left button
-            print("This is not the first launch, do what you want in this block when second or later launch")
-            perform(#selector(checkIfUserIsAlreadyLoggedIn), with: nil, afterDelay: 0.5)
-            perform(#selector(testIfNewMessage), with: nil, afterDelay: 1)
-            updateUserLocation()
-        }
+
         // Create the left button
     }
     // MARK: - Method - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         setupScreen()
-       // perform(#selector(checkIfUserIsAlreadyLoggedIn), with: nil, afterDelay: 1)
         UIApplication.shared.applicationIconBadgeNumber = 0
-        updateUserLocationInFirebase()
+        if !defaults.bool(forKey: "AlreadyLaunched") {
+            perform(#selector(presentLoginVC), with: nil, afterDelay: 0.5)
+            defaults.set(true, forKey: "AlreadyLaunched")
+            
+        }
+        else {
+            if !self.defaults.bool(forKey: "LaunchTutorialFirstTime") {
+                let layout = UICollectionViewFlowLayout()
+                layout.scrollDirection = .horizontal
+                let swipingController = SwipingController(collectionViewLayout: layout)
+                swipingController.modalPresentationStyle = .fullScreen
+                self.present(swipingController, animated: true, completion: nil)
+                self.defaults.set(true, forKey: "LaunchTutorialFirstTime")
+            }
+        }
+        perform(#selector(checkIfUserIsAlreadyLoggedIn), with: nil, afterDelay: 0.5)
+        perform(#selector(testIfNewMessage), with: nil, afterDelay: 1)
+        updateUserLocation()
     }
     // MARK: - Methods
     /**
@@ -81,14 +82,14 @@ class InitialViewController: UIViewController {
         //real adUnitID for banner
         advertisingBannerView.adUnitID = valueForAPIKey(named: "testAdvertisingBannerViewId")
         // test id for banner
-       // advertisingBannerView.adUnitID = valueForAPIKey(named: "testAdvertisingBannerViewId")
+        // advertisingBannerView.adUnitID = valueForAPIKey(named: "testAdvertisingBannerViewId")
         advertisingBannerView.rootViewController = self
         advertisingBannerView.load(GADRequest())
         advertisingBannerView.delegate = self
     }
     /**
-    Function that check if a message has been sent to current user while logged out
-    */
+     Function that check if a message has been sent to current user while logged out
+     */
     @objc func testIfNewMessage(){
         if newMessage {
             Alert.shared.controller = self
@@ -99,7 +100,6 @@ class InitialViewController: UIViewController {
      Function that checks if user already loggedin
      */
     @objc func checkIfUserIsAlreadyLoggedIn() {
-        print("testi loulou")
         // check if user is already logged in
         if Auth.auth().currentUser?.uid == nil {
             print("no current")
@@ -173,7 +173,7 @@ class InitialViewController: UIViewController {
         if #available(iOS 11.0, *) {
             advertisingBannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
         } else {
-           advertisingBannerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+            advertisingBannerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
         }
         advertisingBannerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         advertisingBannerView.widthAnchor.constraint(equalToConstant: 320).isActive = true
@@ -201,7 +201,7 @@ class InitialViewController: UIViewController {
                 
                 
                 self.navigationItem.titleView = setupNavBarWithUser(user: user)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
             }
         }
     }
@@ -213,6 +213,9 @@ class InitialViewController: UIViewController {
             
             actionSheet.addAction(UIAlertAction(title: "Oui", style: .default, handler: { (action: UIAlertAction) in
                 self.handleLogout()
+
+                self.defaults.set(false, forKey: "LaunchTutorialFirstTime")
+                
             }))
             actionSheet.addAction(UIAlertAction(title: "Non", style: .cancel, handler: nil))
             
@@ -221,15 +224,15 @@ class InitialViewController: UIViewController {
         
     }
     @objc func handleSettings(){
-            let settingsViewController = UINavigationController(rootViewController: SettingsViewController())
-            settingsViewController.modalPresentationStyle = .fullScreen
-            present(settingsViewController, animated: true, completion: nil)
+        let settingsViewController = UINavigationController(rootViewController: SettingsViewController())
+        settingsViewController.modalPresentationStyle = .fullScreen
+        present(settingsViewController, animated: true, completion: nil)
     }
     @objc func presentLoginVC() {
         // present LoginController
         let loginController = LoginController()
         loginController.initialViewController = self
-            
+        
         present(loginController, animated: true, completion: nil)
     }
     

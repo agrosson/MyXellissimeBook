@@ -32,6 +32,8 @@ let numbersOfLoansAndBorrowsAccepted = 6
 let adminEmail = "admin@xellissime.com"
 /// Url for legal conditions
 let urlForConditions = "http://xellissime.com/index.php/conditions-generales-de-vente-et-dutilisation-myxellissimebook/"
+/// Url for Tutorials
+let urlForTutorials = "http://xellissime.com/index.php/myxellissimebook/"
 /// Color for Navigation item
  let navigationItemColor = #colorLiteral(red: 0.2744090557, green: 0.4518461823, blue: 0.527189374, alpha: 1)
 /// Color for backGround view

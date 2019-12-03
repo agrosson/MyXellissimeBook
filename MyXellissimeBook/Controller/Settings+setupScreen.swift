@@ -62,7 +62,7 @@ extension SettingsViewController {
      Function that sets up modifyUserProfileImageButton
      */
    func setupTutorialButton() {
-        tutorialButton.setTitle("Lancer le tutoriel", for: .normal)
+        tutorialButton.setTitle("Regarder les tutoriels", for: .normal)
         tutorialButton.layer.cornerRadius = 15
         tutorialButton.titleLabel?.font = .systemFont(ofSize: 25)
         tutorialButton.addTarget(self, action: #selector(handleTutorial), for: .touchUpInside)
