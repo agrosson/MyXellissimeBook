@@ -30,6 +30,8 @@ class SearchBookResultTableViewController: UITableViewController {
     var authorSearch: String?
      /// isbn researched
     var isbnSearch: String?
+    /// email researched
+    var email: String?
     
     var rootRef = DatabaseReference()
     
@@ -44,7 +46,7 @@ class SearchBookResultTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupScreen()
-         rootRef.removeAllObservers()
+        rootRef.removeAllObservers()
     }
     /**
      Function that sets up the screen
@@ -77,56 +79,113 @@ class SearchBookResultTableViewController: UITableViewController {
      function that observes all the books that match with research attributes
      */
     private func observeSearchBooks(){
-        // get the ref of list of message for this uid
-        rootRef = Database.database().reference()
-        let query = rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "title")
-        // observe the node
-        query.observe(.childAdded, with: { (snapshot) in
-            // get the key for the message
-            let bookId = snapshot.key
-            // get the reference of the message
-            let booksReference = Database.database().reference().child(FirebaseUtilities.shared.books).child(bookId)
-            // observe the messages for this user
-            booksReference.observeSingleEvent(of: .value, with: { (snapshot) in
-                guard let dictionary = snapshot.value as? [String : Any] else {return}
-                let book = Book()
-                guard let uniqueId = dictionary["uniqueId"] as? String else {return}
-                guard let title =  dictionary["title"] as? String else {return}
-                guard let author =  dictionary["author"] as? String else {return}
-                guard let isbn =  dictionary["isbn"] as? String else {return}
-                guard let isAvailable =  dictionary["isAvailable"] as? Bool else {return}
-                guard let coverURL =  dictionary["coverURL"] as? String else {return}
-                guard let editor =  dictionary["editor"] as? String else {return}
-                
-                book.uniqueId = uniqueId
-                book.title = title
-                book.author = author
-                book.isbn = isbn
-                book.isAvailable = isAvailable
-                book.coverURL = coverURL
-                book.editor = editor
-                
-                var isbnTemp = UUID().uuidString
-                var titleTemp = UUID().uuidString
-                var authorTemp = UUID().uuidString
-                
-                if self.titleSearch != nil {
-                    titleTemp = self.titleSearch!
-                }
-                if self.isbnSearch != nil {
-                    isbnTemp = self.isbnSearch!
-                }
-                if self.authorSearch != nil {
-                    authorTemp = self.authorSearch!
-                }
-                
-                if isbn.localizedCaseInsensitiveContains(isbnTemp) || title.localizedCaseInsensitiveContains(titleTemp) || author.localizedCaseInsensitiveContains(authorTemp) {
-                         self.books.append(book)
-                }
-                DispatchQueue.main.async { self.tableView.reloadData() }
-            }, withCancel: nil)
+        // get the userId if email is provided
+        var userIdToGet = ""
+        if let email = email {
+            FirebaseUtilities.getUserFromEmail(email: email, callBack: { (user) in
+                userIdToGet = user.profileId ?? ""
+                self.rootRef = Database.database().reference()
+                let query = self.rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "title")
+                // observe the node
+                query.observe(.childAdded, with: { (snapshot) in
+                    // get the key for the message
+                    let bookId = snapshot.key
+                    // get the reference of the message
+                    let booksReference = Database.database().reference().child(FirebaseUtilities.shared.books).child(bookId)
+                    // observe the messages for this user
+                    booksReference.observeSingleEvent(of: .value, with: { (snapshot) in
+                        guard let dictionary = snapshot.value as? [String : Any] else {return}
+                        let book = Book()
+                        guard let uniqueId = dictionary["uniqueId"] as? String else {return}
+                        guard let title =  dictionary["title"] as? String else {return}
+                        guard let author =  dictionary["author"] as? String else {return}
+                        guard let isbn =  dictionary["isbn"] as? String else {return}
+                        guard let isAvailable =  dictionary["isAvailable"] as? Bool else {return}
+                        guard let coverURL =  dictionary["coverURL"] as? String else {return}
+                        guard let editor =  dictionary["editor"] as? String else {return}
+                        book.uniqueId = uniqueId
+                        book.title = title
+                        book.author = author
+                        book.isbn = isbn
+                        book.isAvailable = isAvailable
+                        book.coverURL = coverURL
+                        book.editor = editor
+                        var isbnTemp = UUID().uuidString
+                        var titleTemp = UUID().uuidString
+                        var authorTemp = UUID().uuidString
+                        var ownerTemp = UUID().uuidString
+                        if self.titleSearch != nil {
+                            titleTemp = self.titleSearch!
+                        }
+                        if self.isbnSearch != nil {
+                            isbnTemp = self.isbnSearch!
+                        }
+                        if self.authorSearch != nil {
+                            authorTemp = self.authorSearch!
+                        }
+                        if !userIdToGet.isEmpty {
+                            ownerTemp = userIdToGet
+                        }
+                        if isbn.localizedCaseInsensitiveContains(isbnTemp) || title.localizedCaseInsensitiveContains(titleTemp) || author.localizedCaseInsensitiveContains(authorTemp) || uniqueId.localizedCaseInsensitiveContains(ownerTemp){
+                                 self.books.append(book)
+                        }
+                        DispatchQueue.main.async { self.tableView.reloadData() }
+                    }, withCancel: nil)
 
-        }, withCancel: nil)
+                }, withCancel: nil)
+            })
+        } else {
+            rootRef = Database.database().reference()
+            let query = rootRef.child(FirebaseUtilities.shared.books).queryOrdered(byChild: "title")
+            // observe the node
+            query.observe(.childAdded, with: { (snapshot) in
+                // get the key for the message
+                let bookId = snapshot.key
+                // get the reference of the message
+                let booksReference = Database.database().reference().child(FirebaseUtilities.shared.books).child(bookId)
+                // observe the messages for this user
+                booksReference.observeSingleEvent(of: .value, with: { (snapshot) in
+                    guard let dictionary = snapshot.value as? [String : Any] else {return}
+                    let book = Book()
+                    guard let uniqueId = dictionary["uniqueId"] as? String else {return}
+                    guard let title =  dictionary["title"] as? String else {return}
+                    guard let author =  dictionary["author"] as? String else {return}
+                    guard let isbn =  dictionary["isbn"] as? String else {return}
+                    guard let isAvailable =  dictionary["isAvailable"] as? Bool else {return}
+                    guard let coverURL =  dictionary["coverURL"] as? String else {return}
+                    guard let editor =  dictionary["editor"] as? String else {return}
+                    
+                    book.uniqueId = uniqueId
+                    book.title = title
+                    book.author = author
+                    book.isbn = isbn
+                    book.isAvailable = isAvailable
+                    book.coverURL = coverURL
+                    book.editor = editor
+                    
+                    var isbnTemp = UUID().uuidString
+                    var titleTemp = UUID().uuidString
+                    var authorTemp = UUID().uuidString
+                    
+                    if self.titleSearch != nil {
+                        titleTemp = self.titleSearch!
+                    }
+                    if self.isbnSearch != nil {
+                        isbnTemp = self.isbnSearch!
+                    }
+                    if self.authorSearch != nil {
+                        authorTemp = self.authorSearch!
+                    }
+                    
+                    if isbn.localizedCaseInsensitiveContains(isbnTemp) || title.localizedCaseInsensitiveContains(titleTemp) || author.localizedCaseInsensitiveContains(authorTemp) {
+                             self.books.append(book)
+                    }
+                    DispatchQueue.main.async { self.tableView.reloadData() }
+                }, withCancel: nil)
+
+            }, withCancel: nil)
+        }
+        
 
     }
 
