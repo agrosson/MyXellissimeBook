@@ -32,6 +32,7 @@ class UserBookCell: UITableViewCell {
     let coverImageView = CustomUI().imageView
     /// ImageView that is used to display if book is available or not
     let availabilityImageView = CustomUI().imageView
+    let areaLabel = CustomUI().label
     /*******************************************************
                        UI variables: End
      ********************************************************/
@@ -39,8 +40,7 @@ class UserBookCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         // add the profile image
-        addSubview(coverImageView)
-        addSubview(availabilityImageView)
+        addSubviews(coverImageView,availabilityImageView,areaLabel)
         setupConstraints()
     }
     required init?(coder aDecoder: NSCoder) {
@@ -66,6 +66,16 @@ class UserBookCell: UITableViewCell {
         availabilityImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
         availabilityImageView.widthAnchor.constraint(equalToConstant: 35).isActive = true
         availabilityImageView.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        areaLabel.font = UIFont.systemFont(ofSize: 15)
+        areaLabel.textColor = UIColor.white
+        areaLabel.textAlignment = NSTextAlignment.right
+        areaLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
+        areaLabel.bottomAnchor.constraint(equalTo: self.detailTextLabel!.bottomAnchor, constant: 5).isActive = true
+        areaLabel.widthAnchor.constraint(equalToConstant: self.frame.size.width/2).isActive = true
+        areaLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        
     }
     /**
      Function that configures the cell with book's attributes
@@ -81,6 +91,15 @@ class UserBookCell: UITableViewCell {
             availabilityImageView.image = UIImage(named: "greenButton")
         } else {
             availabilityImageView.image = UIImage(named: "redButton")
+        }
+        guard let isbn = book?.isbn else {return}
+        if let bookOwner = book?.uniqueId?.replacingOccurrences(of: isbn, with: "") {
+            FirebaseUtilities.getUserAreaFromUserId(userId: bookOwner) { (area) in
+                guard let area = area else {
+                    self.areaLabel.text = "Région non renseignée"
+                    return}
+                self.areaLabel.text = area
+            }
         }
     }
     /**

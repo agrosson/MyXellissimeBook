@@ -33,6 +33,8 @@ class FirebaseUtilities {
     let messageImage = "messageImage"
     /// Variable used to retrieve a user name in Firebase
     var name = ""
+    /// Variable used to retrieve a user name in Firebase
+    var area = ""
     /// Variable used to retrieve a mapAnnotationin  Firebase
     var mapAnnotationArray = [MapAnnotation]()
     /**
@@ -64,6 +66,22 @@ class FirebaseUtilities {
             if let dictionary = snapshot.value as? [String : Any] {
                 let name = (dictionary["name"] as? String)!
                 callBack(name)
+            }
+        }
+    }
+    /**
+     This function returns a user area from a user id
+     
+     - Parameter userId: a userId
+     - Parameter callBack: a closure with the area of the user
+     
+     */
+    static func getUserAreaFromUserId(userId: String, callBack: @escaping (String?) -> Void) {
+        Database.database().reference().child(FirebaseUtilities.shared.users).child(userId).observeSingleEvent(of: .value) {  (snapshot) in
+            self.shared.area = ""
+            if let dictionary = snapshot.value as? [String : Any] {
+                let area = dictionary["area"] as? String
+                callBack(area)
             }
         }
     }

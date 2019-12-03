@@ -30,7 +30,7 @@ class LoanConfirmationViewController: UIViewController, GADRewardedAdDelegate, G
     // a day is 86 400 seconds / a week is 604 800 seconds / 3 weeks are 1 814 400 seconds /4 weeks are 2 419 200 seconds
     // Test le 08 11 2019 -> 3 heures pour les notification cloud functions
     var toDate: Int {
-        let toDate = Int(NSDate().timeIntervalSince1970)+604800
+        let toDate = Int(NSDate().timeIntervalSince1970)+2419200
         return toDate
     }
     /// height of text in container data view

@@ -494,7 +494,6 @@ class AddManuallyViewController: UIViewController {
             return}
         testIfIsbnAlreadyInFirebaseForCurrentUser { (number) in
             if number == 0 {
-                print("Coucou le livre n'est pas en enregistré number = \(number)")
                 myBookToSave.uniqueId = "\(uid)\(String(describing: myBookToSave.isbn))"
                 FirebaseUtilities.saveBook(book: myBookToSave, fromUserId: uid)
                 // if there is no cover image, this will be the image

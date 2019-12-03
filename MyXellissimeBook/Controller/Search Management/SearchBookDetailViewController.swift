@@ -73,7 +73,12 @@ class SearchBookDetailViewController: UIViewController {
         reminderLabel.numberOfLines = 0
         FirebaseUtilities.getUserNameFromUserId(userId: ownerId, callBack: { (name) in
             guard let name = name else {return}
-            self.reminderLabel.text = "Ce livre appartient à \(name). Vous pouvez lui envoyer un message pour emprunter le livre"
+            FirebaseUtilities.getUserAreaFromUserId(userId: ownerId) { (area) in
+                let area = area ?? ""
+                let text = area.isEmpty ? "Ce livre appartient à \(name). Vous pouvez lui envoyer un message pour emprunter le livre":
+                "Ce livre appartient à \(name). Il habite \(area). Vous pouvez lui envoyer un message pour emprunter le livre"
+               self.reminderLabel.text = text
+            }
         })
     }
     private func setupScreen(){

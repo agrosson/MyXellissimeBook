@@ -192,7 +192,7 @@ class AllBooksViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! UserBookCell
-       let book = allBooks.reversed()[indexPath.row]
+        let book = allBooks.reversed()[indexPath.row]
         cell.backgroundColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         cell.book  = book
         return cell

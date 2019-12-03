@@ -35,6 +35,8 @@ class User : NSObject {
     var latitude : Double?
     /// User Longitude
     var longitude : Double?
+    /// User Area
+    var area: String?
     
     
     // MARK: - Initializer
