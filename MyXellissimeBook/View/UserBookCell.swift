@@ -96,9 +96,9 @@ class UserBookCell: UITableViewCell {
         if let bookOwner = book?.uniqueId?.replacingOccurrences(of: isbn, with: "") {
             FirebaseUtilities.getUserAreaFromUserId(userId: bookOwner) { (area) in
                 guard let area = area else {
-                    self.areaLabel.text = "Région non renseignée"
+                    self.areaLabel.text = "📍 Région non renseignée"
                     return}
-                self.areaLabel.text = area
+                self.areaLabel.text = "📍 \(area)"
             }
         }
     }
@@ -107,7 +107,13 @@ class UserBookCell: UITableViewCell {
      */
     override func layoutSubviews() {
         super.layoutSubviews()
-        textLabel?.frame = CGRect(x: 76, y: (textLabel?.frame.origin.y)!, width: (textLabel?.frame.width)!, height: (textLabel?.frame.height)!)
-        detailTextLabel?.frame = CGRect(x: 76, y: (detailTextLabel?.frame.origin.y)!, width: (detailTextLabel?.frame.width)!, height: (detailTextLabel?.frame.height)!)
+        textLabel?.frame = CGRect(x: 76,
+                                  y: (textLabel?.frame.origin.y)!,
+                                  width: min((textLabel?.frame.width)!,screenWidth-120),
+                                  height: (textLabel?.frame.height)!)
+        detailTextLabel?.frame = CGRect(x: 76,
+                                        y: (detailTextLabel?.frame.origin.y)!,
+                                        width: min((detailTextLabel?.frame.width)!,screenWidth/2),
+                                        height: (detailTextLabel?.frame.height)!)
     }
 }
