@@ -77,10 +77,10 @@ class SettingsViewController: UIViewController {
         alertToModifyName(title: "Modification du nom d'utilisateur", message: "Indiquer le mot de passe et\nindiquer votre nouveau nom utilisateur")
     }
     /**
-    Action that modifies user name
-    */
+     Action that modifies user name
+     */
     @objc func handleModifyArea() {
-         alertToModifyArea(title: "Modification de la ville", message: "Indiquer votre ville")
+        alertToModifyArea(title: "Modification de la ville", message: "Indiquer votre ville")
     }
     /**
      Action that modifies user name
@@ -255,32 +255,18 @@ class SettingsViewController: UIViewController {
      - Parameter message: The alert message
      */
     func alertToModifyName(title: String, message: String) {
-        //Step : 1
         let alertC = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        
-        //Step : 2
         alertC.addAction (UIAlertAction(title: "Sauvegarder", style: .default) { (alertAction) in
-            guard let password = alertC.textFields![0].text else {
-                return
-            }
-            guard let newname = alertC.textFields![1].text else {
+            guard let newname = alertC.textFields![0].text else {
                 return
             }
             if newname.isEmpty {
                 Alert.shared.controller = self
                 Alert.shared.alertDisplay = .noData
-            }
-            if let email = self.email {
-                self.changeName(email: email, currentPassword: password, newName: newname)
+            } else {
+                self.changeName(newName: newname)
             }
         })
-        
-        //Step : 3
-        //For first TF
-        alertC.addTextField { (textField) in
-            textField.placeholder = "Mot de passe"
-            textField.textColor = mainBackgroundColor
-        }
         //For second TF
         alertC.addTextField { (textField) in
             textField.placeholder = "Nouveau nom d'utilisateur"
@@ -297,33 +283,18 @@ class SettingsViewController: UIViewController {
      - Parameter message: The alert message
      */
     func alertToModifyArea(title: String, message: String) {
-        //Step : 1
         let alertC = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        
-        //Step : 2
         alertC.addAction (UIAlertAction(title: "Sauvegarder", style: .default) { (alertAction) in
-            guard let password = alertC.textFields![0].text else {
-                return
-            }
-            guard let newArea = alertC.textFields![1].text else {
+            guard let newArea = alertC.textFields![0].text else {
                 return
             }
             if newArea.isEmpty {
                 Alert.shared.controller = self
                 Alert.shared.alertDisplay = .noData
-            }
-            if let email = self.email {
-                self.changeArea(email: email, currentPassword: password, newArea: newArea)
+            } else {
+                self.changeArea(newArea: newArea)
             }
         })
-        
-        //Step : 3
-        //For first TF
-        alertC.addTextField { (textField) in
-            textField.placeholder = "Mot de passe"
-            textField.textColor = mainBackgroundColor
-        }
-        //For second TF
         alertC.addTextField { (textField) in
             textField.placeholder = "Votre ville"
             textField.textColor = mainBackgroundColor
@@ -371,33 +342,16 @@ class SettingsViewController: UIViewController {
             })
         }   
     }
-    func changeName(email: String, currentPassword: String, newName: String) {
+    func changeName(newName: String) {
         guard  let uid = Auth.auth().currentUser?.uid else {return}
-        let credential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
-        Auth.auth().currentUser?.reauthenticateAndRetrieveData(with: credential, completion: { (authResult, error) in
-            if error == nil {
-                FirebaseUtilities.saveName(with: newName, for: uid)
+        FirebaseUtilities.saveName(with: newName, for: uid, controller : self)
                 Alert.shared.controller = self
                 Alert.shared.alertDisplay = .nameChanged
-            } else {
-                Alert.shared.controller = self
-                Alert.shared.alertDisplay = .nameNotChanged
-            }
-        })
     }
-    func changeArea(email: String, currentPassword: String, newArea: String) {
+    
+    func changeArea(newArea: String) {
         guard  let uid = Auth.auth().currentUser?.uid else {return}
-        let credential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
-        Auth.auth().currentUser?.reauthenticateAndRetrieveData(with: credential, completion: { (authResult, error) in
-            if error == nil {
-                FirebaseUtilities.saveArea(with: newArea, for: uid)
-                Alert.shared.controller = self
-                Alert.shared.alertDisplay = .areaChanged
-            } else {
-                Alert.shared.controller = self
-                Alert.shared.alertDisplay = .areaNotChanged
-            }
-        })
+        FirebaseUtilities.saveArea(with: newArea.localizedCapitalized, for: uid, controller: self)
     }
 }
 extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

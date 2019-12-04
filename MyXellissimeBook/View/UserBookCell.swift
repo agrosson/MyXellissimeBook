@@ -98,7 +98,7 @@ class UserBookCell: UITableViewCell {
                 guard let area = area else {
                     self.areaLabel.text = "📍 Région non renseignée"
                     return}
-                self.areaLabel.text = "📍 \(area)"
+                self.areaLabel.text = "📍 \(area.localizedCapitalized)"
             }
         }
     }

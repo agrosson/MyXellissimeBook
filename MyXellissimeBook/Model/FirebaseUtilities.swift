@@ -586,14 +586,17 @@ class FirebaseUtilities {
      - Parameter name:  the new name for the user
      - Parameter userUid:  the user uid
      */
-    static func saveName(with name: String, for uid : String){
+    static func saveName(with name: String, for uid : String, controller : UIViewController){
         let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(uid)
         let values = ["name" : name] as [String : Any]
-        // this block to update the variable email
         ref.updateChildValues(values) { (error, ref) in
             if error != nil {
-                print(error as Any)
+                Alert.shared.controller = controller
+                Alert.shared.alertDisplay = .nameNotChanged
                 return
+            } else {
+                Alert.shared.controller = controller
+                Alert.shared.alertDisplay = .nameChanged
             }
         }
     }
@@ -602,15 +605,20 @@ class FirebaseUtilities {
         - Parameter area:  the new name for the user
         - Parameter userUid:  the user uid
         */
-       static func saveArea(with area: String, for uid : String){
+    static func saveArea(with area: String, for uid : String, controller: UIViewController){
            let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(uid)
            let values = ["area" : area] as [String : Any]
            // this block to update the variable email
            ref.updateChildValues(values) { (error, ref) in
                if error != nil {
-                   print(error as Any)
+                Alert.shared.controller = controller
+                Alert.shared.alertDisplay = .areaNotChanged
                    return
                }
+               else {
+                Alert.shared.controller = controller
+                Alert.shared.alertDisplay = .areaChanged
+            }
            }
        }
     
