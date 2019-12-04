@@ -597,6 +597,22 @@ class FirebaseUtilities {
             }
         }
     }
+    /**
+        This function saves  an name for a user  in Firebase
+        - Parameter area:  the new name for the user
+        - Parameter userUid:  the user uid
+        */
+       static func saveArea(with area: String, for uid : String){
+           let ref = Database.database().reference().child(FirebaseUtilities.shared.users).child(uid)
+           let values = ["area" : area] as [String : Any]
+           // this block to update the variable email
+           ref.updateChildValues(values) { (error, ref) in
+               if error != nil {
+                   print(error as Any)
+                   return
+               }
+           }
+       }
     
     /**
      This function removes token in Firebase for a user when logs out and set timestampLastLogout

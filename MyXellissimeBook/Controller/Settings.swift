@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController {
     let modifyUserPasswordButton = CustomUI().button
     let modifyUserNameButton = CustomUI().button
     let modifyUserEmailButton = CustomUI().button
+    let modifyUserAreaButton = CustomUI().button
     let tutorialButton = CustomUI().button
     /// User Profile Image
     var userProfileImage = UIImage()
@@ -62,12 +63,6 @@ class SettingsViewController: UIViewController {
         }
         let safariVC = SFSafariViewController(url: url)
         present(safariVC, animated: true, completion: nil)
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        let swipingController = SwipingController(collectionViewLayout: layout)
-//        swipingController.modalPresentationStyle = .fullScreen
-//        present(swipingController, animated: true, completion: nil)
-        
     }
     /**
      Action that modifies user password
@@ -80,6 +75,12 @@ class SettingsViewController: UIViewController {
      */
     @objc func handleModifyUserName(){
         alertToModifyName(title: "Modification du nom d'utilisateur", message: "Indiquer le mot de passe et\nindiquer votre nouveau nom utilisateur")
+    }
+    /**
+    Action that modifies user name
+    */
+    @objc func handleModifyArea() {
+         alertToModifyArea(title: "Modification de la ville", message: "Indiquer votre ville")
     }
     /**
      Action that modifies user name
@@ -290,6 +291,50 @@ class SettingsViewController: UIViewController {
         alertC.addAction(UIAlertAction(title: "Annuler", style: .default) { (alertAction) in })
         self.present(alertC, animated:true, completion: nil)
     }
+    /**
+     Function that creates an alert with 2 textfields to modify area
+     - Parameter title: The alert title
+     - Parameter message: The alert message
+     */
+    func alertToModifyArea(title: String, message: String) {
+        //Step : 1
+        let alertC = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        //Step : 2
+        alertC.addAction (UIAlertAction(title: "Sauvegarder", style: .default) { (alertAction) in
+            guard let password = alertC.textFields![0].text else {
+                return
+            }
+            guard let newArea = alertC.textFields![1].text else {
+                return
+            }
+            if newArea.isEmpty {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .noData
+            }
+            if let email = self.email {
+                self.changeArea(email: email, currentPassword: password, newArea: newArea)
+            }
+        })
+        
+        //Step : 3
+        //For first TF
+        alertC.addTextField { (textField) in
+            textField.placeholder = "Mot de passe"
+            textField.textColor = mainBackgroundColor
+        }
+        //For second TF
+        alertC.addTextField { (textField) in
+            textField.placeholder = "Votre ville"
+            textField.textColor = mainBackgroundColor
+        }
+        //alertC.setBackgroundColor(color: mainBackgroundColor)
+        //Cancel action
+        alertC.addAction(UIAlertAction(title: "Annuler", style: .default) { (alertAction) in })
+        self.present(alertC, animated:true, completion: nil)
+    }
+    
+    
     func isValidEmail(testStr:String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
@@ -337,6 +382,20 @@ class SettingsViewController: UIViewController {
             } else {
                 Alert.shared.controller = self
                 Alert.shared.alertDisplay = .nameNotChanged
+            }
+        })
+    }
+    func changeArea(email: String, currentPassword: String, newArea: String) {
+        guard  let uid = Auth.auth().currentUser?.uid else {return}
+        let credential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
+        Auth.auth().currentUser?.reauthenticateAndRetrieveData(with: credential, completion: { (authResult, error) in
+            if error == nil {
+                FirebaseUtilities.saveArea(with: newArea, for: uid)
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .areaChanged
+            } else {
+                Alert.shared.controller = self
+                Alert.shared.alertDisplay = .areaNotChanged
             }
         })
     }

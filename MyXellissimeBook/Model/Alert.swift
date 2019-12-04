@@ -60,7 +60,9 @@ class Alert {
         nameNotChanged,
         nameChanged,
         bookAlreadyInDatabase,
-        noPubAvailable
+        noPubAvailable,
+        areaNotChanged,
+        areaChanged
     }
     // MARK: - Initializer
     init() {}
@@ -203,7 +205,15 @@ class Alert {
                    title: "Cher Utilisateur,",
                    message: TextAndString.shared.noPubAvailable,
                    titleButton: "Retour")
-        }
+        case .areaChanged : controller?.presentAlertDetails(
+                              title: "Cher Utilisateur,",
+                              message: TextAndString.shared.areaChanged,
+                              titleButton: "Retour")
+        case .areaNotChanged : controller?.presentAlertDetails(
+                          title: "Cher Utilisateur,",
+                          message: TextAndString.shared.areaNotChanged,
+                          titleButton: "Retour")
+               }
     }
 }
 /**
@@ -211,6 +221,8 @@ class Alert {
  */
 struct TextAndString {
     static let shared = TextAndString()
+    let areaChanged = "La ville a été mise à jour !"
+    let areaNotChanged = "La ville n'a pas été mise à jour.\nMerci de revoir les éléments saisis"
     let nameChanged = "Le nom a été changé !"
     let nameNotChanged = "Le nom n'a pas été changé.\nMerci de revoir les éléments saisis"
     let emailChanged = "L'email a été changé !"

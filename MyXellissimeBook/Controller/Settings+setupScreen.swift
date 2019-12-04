@@ -17,12 +17,13 @@ extension SettingsViewController {
      */
     func setupViews() {
         view.addSubview(containerView)
-        containerView.addSubviews(modifyUserProfileImageButton,modifyUserPasswordButton,modifyUserNameButton,modifyUserEmailButton,tutorialButton)
+        containerView.addSubviews(modifyUserProfileImageButton,modifyUserPasswordButton,modifyUserNameButton,modifyUserEmailButton,modifyUserAreaButton,tutorialButton)
         containerView.backgroundColor? = mainBackgroundColor
         setupModifyUserProfileImageButton()
         setupModifyUserPasswordButton()
         setupModifyUserNameButton()
         setupModifyUserEmailButton()
+        setupModifyUserAreaButton()
         setupTutorialButton()
         NSLayoutConstraint.activate([
             // ContainerView
@@ -51,7 +52,12 @@ extension SettingsViewController {
             modifyUserEmailButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
             modifyUserEmailButton.heightAnchor.constraint(equalToConstant: 60),
             // modifyUserEmailButton
-            tutorialButton.topAnchor.constraint(equalTo: modifyUserEmailButton.bottomAnchor, constant: 25),
+            modifyUserAreaButton.topAnchor.constraint(equalTo: modifyUserEmailButton.bottomAnchor, constant: 25),
+            modifyUserAreaButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            modifyUserAreaButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            modifyUserAreaButton.heightAnchor.constraint(equalToConstant: 60),
+            // modifyUserEmailButton
+            tutorialButton.topAnchor.constraint(equalTo: modifyUserAreaButton.bottomAnchor, constant: 25),
             tutorialButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             tutorialButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
             tutorialButton.heightAnchor.constraint(equalToConstant: 60),
@@ -113,5 +119,11 @@ extension SettingsViewController {
         modifyUserEmailButton.layer.cornerRadius = 15
         modifyUserEmailButton.titleLabel?.font = .systemFont(ofSize: 25)
         modifyUserEmailButton.addTarget(self, action: #selector(handleModifyEmail), for: .touchUpInside)
+    }
+    func setupModifyUserAreaButton() {
+        modifyUserAreaButton.setTitle("Indiquer ma ville", for: .normal)
+        modifyUserAreaButton.layer.cornerRadius = 15
+        modifyUserAreaButton.titleLabel?.font = .systemFont(ofSize: 25)
+        modifyUserAreaButton.addTarget(self, action: #selector(handleModifyArea), for: .touchUpInside)
     }
 }
