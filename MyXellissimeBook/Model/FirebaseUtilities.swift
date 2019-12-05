@@ -70,6 +70,56 @@ class FirebaseUtilities {
         }
     }
     /**
+        This function returns a array of user  from a area
+        
+        - Parameter area: a userId
+        - Parameter callBack: a closure with the name of the user
+        
+        */
+       static func getUsersFromArea(area: String, callBack: @escaping ([User]) -> Void) {
+        let rootRef = Database.database().reference()
+        // Create an object that returns all users with the email
+        let query = rootRef.child(FirebaseUtilities.shared.users).queryOrdered(byChild: "area")
+     //   var counter = 0
+     //   var counterTrue = 0
+        var userAtArea = [User]()
+        query.observe(.value) { (snapshot) in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+          //      counter += 1
+                if let value = child.value as? NSDictionary {
+                    if area.localizedCapitalized == value["area"] as? String {
+                //        counterTrue = +1
+                        let userTemp = User()
+                        let name = value["name"] as? String ?? "Name not found"
+                        let email = value["email"] as? String ?? "Email not found"
+                        let profileId = value["profileId"] as? String ?? "profileId not found"
+                        let fcmToken = value["fcmToken"] as? String ?? "fcmToken not found"
+                        let hasAcceptedConditions = value["hasAcceptedConditions"] as? String ?? "hasAcceptedConditions not found"
+                        let timestampLastLogout = value["timestampLastLogout"] as? Int ?? 0
+                        let timestampLastLogIn = value["timestampLastLogIn"] as? Int ?? 0
+                        let timestamp = value["timestamp"] as? Int ?? 0
+                        let latitude = value["latitude"] as? Double ?? 0
+                        let longitude = value["longitude"] as? Double ?? 0
+                        let area = value["area"] as? String ?? "Non renseigné"
+                        userTemp.name = name
+                        userTemp.email = email
+                        userTemp.profileId = profileId
+                        userTemp.fcmToken = fcmToken
+                        userTemp.hasAcceptedConditions = hasAcceptedConditions
+                        userTemp.timestamp = timestamp
+                        userTemp.timestampLastLogout = timestampLastLogout
+                        userTemp.timestampLastLogIn = timestampLastLogIn
+                        userTemp.latitude = latitude
+                        userTemp.longitude = longitude
+                        userTemp.area = area
+                        userAtArea.append(userTemp)
+                    }
+                }
+            }
+            callBack(userAtArea)
+        }
+       }
+    /**
      This function returns a user area from a user id
      
      - Parameter userId: a userId
@@ -78,7 +128,6 @@ class FirebaseUtilities {
      */
     static func getUserAreaFromUserId(userId: String, callBack: @escaping (String?) -> Void) {
         Database.database().reference().child(FirebaseUtilities.shared.users).child(userId).observeSingleEvent(of: .value) {  (snapshot) in
-            self.shared.area = ""
             if let dictionary = snapshot.value as? [String : Any] {
                 let area = dictionary["area"] as? String
                 callBack(area)
@@ -197,6 +246,7 @@ class FirebaseUtilities {
                         let timestamp = value["timestamp"] as? Int ?? 0
                         let latitude = value["latitude"] as? Double ?? 0
                         let longitude = value["longitude"] as? Double ?? 0
+                        let area = value["area"] as? String ?? "non renseigné"
                         userTemp.name = name
                         userTemp.email = email
                         userTemp.profileId = profileId
@@ -207,6 +257,7 @@ class FirebaseUtilities {
                         userTemp.timestampLastLogIn = timestampLastLogIn
                         userTemp.latitude = latitude
                         userTemp.longitude = longitude
+                        userTemp.area = area
                         callBack(userTemp)
                     }
                 }

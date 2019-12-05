@@ -40,16 +40,16 @@ extension SearchViewController {
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsContainerView.topAnchor.constraint(equalTo: searchLabel.bottomAnchor, constant: 20).isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
-        inputsContainerView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        inputsContainerView.heightAnchor.constraint(equalToConstant: 250).isActive = true
         // add UI objects in the view container
-        inputsContainerView.addSubviews(bookTitleTextField,bookTitleSeparatorView,bookAuthorTextField,bookAuthorSeparatorView,bookIsbnTextField, bookIsbnSeparatorView, ownerTextField)
+        inputsContainerView.addSubviews(bookTitleTextField,bookTitleSeparatorView,bookAuthorTextField,bookAuthorSeparatorView,bookIsbnTextField, bookIsbnSeparatorView, ownerTextField,ownerSeparatorView,areaTextField)
         // need x and y , width height contraints for bookTitleTextField
         bookTitleTextField.placeholder = "Titre du livre"
         bookTitleTextField.textColor = UIColor.black
         bookTitleTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookTitleTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: 0).isActive = true
         bookTitleTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, constant: -10).isActive = true
-        bookTitleTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/4).isActive = true
+        bookTitleTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/5).isActive = true
         // need x and y , width height contraints for bookTitleSeparatorView
          bookTitleSeparatorView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         bookTitleSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
@@ -62,7 +62,7 @@ extension SearchViewController {
         bookAuthorTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
         bookAuthorTextField.topAnchor.constraint(equalTo: bookTitleTextField.bottomAnchor, constant: 0).isActive = true
         bookAuthorTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, constant: -10).isActive = true
-        bookAuthorTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/4).isActive = true
+        bookAuthorTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/5).isActive = true
         // need x and y , width height contraints for bookAuthorSeparatorView
         bookTitleSeparatorView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         bookAuthorSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
@@ -88,6 +88,18 @@ extension SearchViewController {
         ownerTextField.topAnchor.constraint(equalTo: bookIsbnSeparatorView.bottomAnchor, constant: 0).isActive = true
         ownerTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, constant: -10).isActive = true
         ownerTextField.heightAnchor.constraint(equalTo: bookAuthorTextField.heightAnchor).isActive = true
+        ownerSeparatorView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        ownerSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
+        ownerSeparatorView.topAnchor.constraint(equalTo: ownerTextField.bottomAnchor).isActive = true
+        ownerSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        ownerSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        areaTextField
+        areaTextField.placeholder = "Indiquer une ville"
+        areaTextField.textColor = UIColor.black
+        areaTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
+        areaTextField.topAnchor.constraint(equalTo: ownerSeparatorView.bottomAnchor, constant: 0).isActive = true
+        areaTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, constant: -10).isActive = true
+        areaTextField.heightAnchor.constraint(equalTo: bookAuthorTextField.heightAnchor).isActive = true
     }
     /**
      Function that sets up searchBookInDatabaseButton

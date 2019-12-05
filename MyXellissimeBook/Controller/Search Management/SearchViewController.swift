@@ -57,6 +57,10 @@ class SearchViewController: UIViewController {
     let bookIsbnSeparatorView = CustomUI().view
     /// TextField to get book Isbn
     let ownerTextField = CustomUI().textField
+    /// View as a separator between textField
+    let ownerSeparatorView = CustomUI().view
+    /// TextField to get book Isbn
+    let areaTextField = CustomUI().textField
     
     /// Launch search in APIs
     lazy var searchBookInDatabaseButton : UIButton = {
@@ -152,12 +156,13 @@ class SearchViewController: UIViewController {
         bookAuthorTextField.delegate = self
         bookIsbnTextField.delegate = self
         ownerTextField.delegate = self
+        areaTextField.delegate = self
     }
     
     
     // MARK: - Methods @objc - Actions
     @objc private func searchBook(){
-        guard var title = bookTitleTextField.text, var author = bookAuthorTextField.text, var isbn = bookIsbnTextField.text, var email = ownerTextField.text else {
+        guard var title = bookTitleTextField.text, var author = bookAuthorTextField.text, var isbn = bookIsbnTextField.text, var email = ownerTextField.text, var area = areaTextField.text else {
             Alert.shared.controller = self
             Alert.shared.alertDisplay = .needAtLeastOneField
             return
@@ -166,8 +171,9 @@ class SearchViewController: UIViewController {
         author.removeFirstAndLastAndDoubleWhitespace()
         isbn.removeFirstAndLastAndDoubleWhitespace()
         email.removeFirstAndLastAndDoubleWhitespace()
+        area.removeFirstAndLastAndDoubleWhitespace()
         
-        if title.isEmpty && author.isEmpty && isbn.isEmpty && email.isEmpty {
+        if title.isEmpty && author.isEmpty && isbn.isEmpty && email.isEmpty && area.isEmpty {
             Alert.shared.controller = self
             Alert.shared.alertDisplay = .needAtLeastOneField
             return
@@ -178,6 +184,7 @@ class SearchViewController: UIViewController {
         searchBookResultTableViewController.authorSearch = author
         searchBookResultTableViewController.isbnSearch = isbn
         searchBookResultTableViewController.email = email
+        searchBookResultTableViewController.area = area
         
         navigationController?.pushViewController(searchBookResultTableViewController, animated: true)
     }
@@ -189,6 +196,7 @@ class SearchViewController: UIViewController {
         bookAuthorTextField.resignFirstResponder()
         bookIsbnTextField.resignFirstResponder()
         ownerTextField.resignFirstResponder()
+        areaTextField.resignFirstResponder()
     }
     
 }
@@ -203,6 +211,7 @@ extension SearchViewController: UITextFieldDelegate {
         bookAuthorTextField.resignFirstResponder()
         bookIsbnTextField.resignFirstResponder()
         ownerTextField.resignFirstResponder()
+        areaTextField.resignFirstResponder()
         return true
     }
 }
