@@ -16,10 +16,10 @@ extension SearchBookDetailViewController {
      */
     func setupContainerView(){
         // need x and y , width height contraints
-        let height: CGFloat = screenHeight/6
+         let height: CGFloat = typeOfDevice == "large" ? screenHeight/4: screenHeight/6
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10+topbarHeight).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20+topbarHeight).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: height+60).isActive = true
         containerView.widthAnchor.constraint(equalTo : view.widthAnchor, constant: -20).isActive = true
     }
     
@@ -39,7 +39,7 @@ extension SearchBookDetailViewController {
     func setupTitleLabel(){
         titleLabel.text = bookToDisplay.title
         // need x and y , width height contraints
-        titleLabel.leftAnchor.constraint(equalTo: bookCoverImageView.rightAnchor, constant: 15).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: bookCoverImageView.rightAnchor, constant: 20).isActive = true
         titleLabel.topAnchor.constraint(equalTo: bookCoverImageView.topAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
         titleLabel.rightAnchor.constraint(equalTo : containerView.rightAnchor, constant: -8).isActive = true
@@ -50,7 +50,7 @@ extension SearchBookDetailViewController {
     func setupAuthorLabel(){
         authorLabel.text = bookToDisplay.author
         // need x and y , width height contraints
-        authorLabel.leftAnchor.constraint(equalTo: bookCoverImageView.rightAnchor, constant: 15).isActive = true
+        authorLabel.leftAnchor.constraint(equalTo: bookCoverImageView.rightAnchor, constant: 20).isActive = true
         authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
         authorLabel.heightAnchor.constraint(equalToConstant: 18).isActive = true
         authorLabel.rightAnchor.constraint(equalTo : containerView.rightAnchor, constant: -8).isActive = true
