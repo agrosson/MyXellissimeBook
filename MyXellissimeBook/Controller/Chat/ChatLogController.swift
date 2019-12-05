@@ -74,6 +74,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         manageObservers()
+        attemptReloadData()
     }
     // MARK: - Methods
     /**
@@ -134,7 +135,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         let size = CGSize(width: width, height: 1000)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         // this attribute (NSAttributedString.Key.font)  is necessary
-        return  NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0)], context: nil)
+        return  NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: typeOfDevice == "large" ? 25:16)], context: nil)
     }
     /**
      Function that setups the cell with
@@ -219,9 +220,9 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     /**
      Function that handle cancel
      */
-    @objc private func handleCancel(){
-        self.dismiss(animated: true, completion: nil)
-    }
+//    @objc private func handleCancel(){
+//        self.dismiss(animated: true, completion: nil)
+//    }
     /**
     Function that tests if message has been written from search book : if so, you have to pop the view in order to come back to search option
     */

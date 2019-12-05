@@ -60,12 +60,12 @@ class ChatMessageCell: UICollectionViewCell {
     private func setupConstraints(){
         let width = 3*UIScreen.main.bounds.width/4
         // Contraints X Y Width height
-        profileImageView.layer.cornerRadius = 20
+        profileImageView.layer.cornerRadius = typeOfDevice == "large" ? 30:20
         profileImageView.layer.masksToBounds = true
         profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
         profileImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 60:40).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 60:40).isActive = true
         // Contraints X Y Width height
         bubbleViewRightAnchor = bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
         bubbleViewRightAnchor?.isActive = true
@@ -90,9 +90,8 @@ class ChatMessageCell: UICollectionViewCell {
         messageImageView.widthAnchor.constraint(equalTo: bubbleView.widthAnchor).isActive = true
         messageImageView.heightAnchor.constraint(equalTo: bubbleView.heightAnchor).isActive = true
  
-        
         // Contraints X Y Width height : textview is embeded in bubble with left and right anchor
-        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.font = UIFont.systemFont(ofSize: typeOfDevice == "large" ? 25:16)
         textView.isEditable = false
         textView.textColor = #colorLiteral(red: 0.3353713155, green: 0.5528857708, blue: 0.6409474015, alpha: 1)
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 5).isActive = true

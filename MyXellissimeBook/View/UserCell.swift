@@ -45,8 +45,9 @@ class UserCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         // add the profile image
-        addSubviews(profileImageView,timeLabelHour,timeLabelDate)
-        setupConstraints()
+        addSubview(profileImageView)
+        setupConstraintsProfileImageView()
+        perform(#selector(setupConstraints), with: nil, afterDelay: 0.5)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,33 +56,48 @@ class UserCell: UITableViewCell {
     
     // MARK: - Methods
     /**
+        Function that sets up ProfileImageView' constraints
+        */
+       private func setupConstraintsProfileImageView(){
+           if typeOfDevice == "large" {
+               textLabel!.font = UIFont.systemFont(ofSize: 25)
+               detailTextLabel!.font = UIFont.systemFont(ofSize: 20)
+           }
+           // Contraints X Y Width height
+           profileImageView.image = UIImage(named: "profileDefault")
+           profileImageView.layer.cornerRadius = typeOfDevice == "large" ? 40:30
+           profileImageView.layer.masksToBounds = true
+           profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
+           profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+           profileImageView.widthAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 80:60).isActive = true
+           profileImageView.heightAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 80:60).isActive = true
+           
+       }/**
      Function that sets up views' constraints
      */
-    private func setupConstraints(){
+    @objc private func setupConstraints(){
+         addSubviews(timeLabelHour,timeLabelDate)
         // Contraints X Y Width height
-        profileImageView.image = UIImage(named: "profileDefault")
-        profileImageView.layer.cornerRadius = 30
-        profileImageView.layer.masksToBounds = true
-        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
-        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
-        // Contraints X Y Width height
-        timeLabelHour.font = UIFont.systemFont(ofSize: 12)
+        timeLabelHour.font = UIFont.systemFont(ofSize: typeOfDevice == "large" ? 20:15)
         timeLabelHour.textColor = UIColor.white
         timeLabelHour.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        timeLabelHour.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
-        timeLabelHour.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        timeLabelHour.heightAnchor.constraint(equalTo: textLabel!.heightAnchor).isActive = true
-        
-        
-        timeLabelDate.font = UIFont.systemFont(ofSize: 12)
+        if var text = message?.text, !text.isEmpty {
+             timeLabelHour.centerYAnchor.constraint(equalTo: textLabel!.centerYAnchor).isActive = true
+        } else {
+            timeLabelHour.topAnchor.constraint(equalTo: self.topAnchor, constant: +self.frame.height/3).isActive = true
+        }
+        timeLabelHour.widthAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 200:100).isActive = true
+        timeLabelHour.heightAnchor.constraint(equalTo: self.textLabel!.heightAnchor).isActive = true
+        timeLabelDate.font = UIFont.systemFont(ofSize: typeOfDevice == "large" ? 20:15)
         timeLabelDate.textColor = UIColor.white
+        if var text = message?.text, !text.isEmpty {
+             timeLabelDate.centerYAnchor.constraint(equalTo: detailTextLabel!.centerYAnchor).isActive = true
+        } else {
+            timeLabelDate.topAnchor.constraint(equalTo: self.timeLabelHour.bottomAnchor).isActive = true
+        }
         timeLabelDate.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        timeLabelDate.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
-        timeLabelDate.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        timeLabelDate.heightAnchor.constraint(equalTo: textLabel!.heightAnchor).isActive = true
+        timeLabelDate.widthAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 200:100).isActive = true
+        timeLabelDate.heightAnchor.constraint(equalTo: self.textLabel!.heightAnchor).isActive = true
     }
     /**
      Function that sets up the name and the image profile
@@ -134,7 +150,14 @@ class UserCell: UITableViewCell {
      */
     override func layoutSubviews() {
         super.layoutSubviews()
-        textLabel?.frame = CGRect(x: 76, y: (textLabel?.frame.origin.y)!, width: (textLabel?.frame.width)!, height: (textLabel?.frame.height)!)
-        detailTextLabel?.frame = CGRect(x: 76, y: (detailTextLabel?.frame.origin.y)!, width: (detailTextLabel?.frame.width)!, height: (detailTextLabel?.frame.height)!)
+        let width = typeOfDevice == "large" ? 96:textLabel?.frame.width
+        textLabel?.frame = CGRect(x: typeOfDevice == "large" ? 96:76,
+                                  y: (textLabel?.frame.origin.y)!,
+                                  width: (textLabel?.frame.width)!,
+                                  height: (textLabel?.frame.height)!)
+        detailTextLabel?.frame = CGRect(x: typeOfDevice == "large" ? 96:76,
+                                        y: (detailTextLabel?.frame.origin.y)!,
+                                        width: (detailTextLabel?.frame.width)!,
+                                        height: (detailTextLabel?.frame.height)!)
     }
 }

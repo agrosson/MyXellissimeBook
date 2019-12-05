@@ -80,9 +80,11 @@ class ChatTableViewController: UITableViewController {
                     let name = value["name"] as? String ?? "Name not found"
                     let email = value["email"] as? String ?? "Email not found"
                     let profileId = value["profileId"] as? String ?? "profileId not found"
+                    let area = value["area"] as? String ?? "Région non renseignée"
                     user.name = name
                     user.email = email
                     user.profileId = profileId
+                    user.area = area
                     self.users.append(user)
                 }
             }
@@ -114,7 +116,7 @@ class ChatTableViewController: UITableViewController {
         return filteredUsers.count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return typeOfDevice == "large" ? 120:80
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! UserCell
@@ -124,6 +126,8 @@ class ChatTableViewController: UITableViewController {
         cell.textLabel?.textColor = .white
         cell.detailTextLabel?.text = user.email
         cell.detailTextLabel?.textColor = .white
+        let area = user.area ?? "Région non renseignée"
+        cell.timeLabelDate.text = "📍 \(area.localizedCapitalized)"
         cell.imageView?.contentMode = .scaleAspectFill
 
         /*************************

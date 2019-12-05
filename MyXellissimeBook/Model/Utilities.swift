@@ -42,6 +42,10 @@ let urlForTutorials = "http://xellissime.com/index.php/myxellissimebook/"
 let screenHeight = UIScreen.main.bounds.height
 /// Current screen width
 let screenWidth = UIScreen.main.bounds.width
+/// Type of device
+var typeOfDevice:String = {
+    return screenHeight > 1000 ? "large" : screenHeight < 600 ? "small" : screenHeight > 700 ? "big" : "medium"
+}()
 /// This string to be used when user scan a new isbn
 var scannedIsbn = ""
 /// This bool to check if message comes from SearchBookDetailViewController

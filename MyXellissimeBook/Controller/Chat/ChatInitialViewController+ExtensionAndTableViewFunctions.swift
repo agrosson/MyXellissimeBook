@@ -34,7 +34,7 @@ extension ChatInitialViewController {
         }, withCancel: nil)
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return typeOfDevice == "large" ? 120:100
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create a cell of type UserCell

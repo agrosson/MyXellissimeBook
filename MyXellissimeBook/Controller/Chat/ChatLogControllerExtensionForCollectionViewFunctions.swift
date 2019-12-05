@@ -127,7 +127,6 @@ extension ChatLogController : UIImagePickerControllerDelegate, UINavigationContr
      Delegate function get info from picker, get photo
      */
     func  imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print("we pick a image")
         var selectedImageFromPicker = UIImage()
         // Get edited or originl image from picker
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
