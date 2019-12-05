@@ -170,7 +170,7 @@ class UserBorrowedBooksTableViewController: UITableViewController {
      Function that sets height for the row
      */
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return typeOfDevice == "large" ? 150:100
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let book = borrowedBooks[indexPath.row]

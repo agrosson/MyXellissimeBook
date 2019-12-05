@@ -80,7 +80,7 @@ class ChatTableViewController: UITableViewController {
                     let name = value["name"] as? String ?? "Name not found"
                     let email = value["email"] as? String ?? "Email not found"
                     let profileId = value["profileId"] as? String ?? "profileId not found"
-                    let area = value["area"] as? String ?? "Région non renseignée"
+                    let area = value["area"] as? String ?? "Non renseignée"
                     user.name = name
                     user.email = email
                     user.profileId = profileId

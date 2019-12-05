@@ -60,7 +60,7 @@ class DetailBorrowedBookViewController: UIViewController {
         containerView.addSubview(bookCoverImageView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(authorLabel)
-        containerView.addSubview(separateView)
+        view.addSubview(separateView)
         view.addSubview(containerDataView)
         containerDataView.addSubview(reminderLabel)
         containerDataView.addSubview(lenderLabel)

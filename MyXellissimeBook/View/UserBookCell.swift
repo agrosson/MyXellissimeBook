@@ -51,29 +51,33 @@ class UserBookCell: UITableViewCell {
      Function that sets up views' constraints
      */
     private func setupConstraints(){
+        if typeOfDevice == "large" {
+                      textLabel!.font = UIFont.systemFont(ofSize: 25)
+                      detailTextLabel!.font = UIFont.systemFont(ofSize: 20)
+                  }
         // Contraints X Y Width height
         coverImageView.image = UIImage(named: "profileDefault")
         coverImageView.contentMode = .scaleAspectFit
         coverImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
         coverImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        coverImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        coverImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        coverImageView.widthAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 90:60).isActive = true
+        coverImageView.heightAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 120:80).isActive = true
         
         // Contraints X Y Width height
         availabilityImageView.layer.cornerRadius = 25
         availabilityImageView.layer.masksToBounds = true
-        availabilityImageView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
-        availabilityImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
-        availabilityImageView.widthAnchor.constraint(equalToConstant: 35).isActive = true
-        availabilityImageView.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        availabilityImageView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: typeOfDevice == "large" ? -16: -8).isActive = true
+        availabilityImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: typeOfDevice == "large" ? 16 : 8).isActive = true
+        availabilityImageView.widthAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 50 : 35).isActive = true
+        availabilityImageView.heightAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 50 : 35).isActive = true
         
-        areaLabel.font = UIFont.systemFont(ofSize: 15)
+        areaLabel.font = UIFont.systemFont(ofSize: typeOfDevice == "large" ? 20 : 15)
         areaLabel.textColor = UIColor.white
         areaLabel.textAlignment = NSTextAlignment.right
-        areaLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
-        areaLabel.bottomAnchor.constraint(equalTo: self.detailTextLabel!.bottomAnchor, constant: 5).isActive = true
-        areaLabel.widthAnchor.constraint(equalToConstant: self.frame.size.width/2).isActive = true
-        areaLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        areaLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: typeOfDevice == "large" ? -10 :-8).isActive = true
+        areaLabel.bottomAnchor.constraint(equalTo: self.detailTextLabel!.bottomAnchor, constant: typeOfDevice == "large" ? 15 : 5).isActive = true
+        areaLabel.widthAnchor.constraint(equalToConstant: screenWidth/2-10).isActive = true
+        areaLabel.heightAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 50 : 35).isActive = true
         
         
     }
@@ -96,7 +100,7 @@ class UserBookCell: UITableViewCell {
         if let bookOwner = book?.uniqueId?.replacingOccurrences(of: isbn, with: "") {
             FirebaseUtilities.getUserAreaFromUserId(userId: bookOwner) { (area) in
                 guard let area = area else {
-                    self.areaLabel.text = "📍 Région non renseignée"
+                    self.areaLabel.text = "📍 Non renseignée"
                     return}
                 self.areaLabel.text = "📍 \(area.localizedCapitalized)"
             }
@@ -107,11 +111,11 @@ class UserBookCell: UITableViewCell {
      */
     override func layoutSubviews() {
         super.layoutSubviews()
-        textLabel?.frame = CGRect(x: 76,
+        textLabel?.frame = CGRect(x: typeOfDevice == "large" ? 105 : 76,
                                   y: (textLabel?.frame.origin.y)!,
                                   width: min((textLabel?.frame.width)!,screenWidth-120),
                                   height: (textLabel?.frame.height)!)
-        detailTextLabel?.frame = CGRect(x: 76,
+        detailTextLabel?.frame = CGRect(x: typeOfDevice == "large" ? 105 : 76,
                                         y: (detailTextLabel?.frame.origin.y)!,
                                         width: min((detailTextLabel?.frame.width)!,screenWidth/2),
                                         height: (detailTextLabel?.frame.height)!)

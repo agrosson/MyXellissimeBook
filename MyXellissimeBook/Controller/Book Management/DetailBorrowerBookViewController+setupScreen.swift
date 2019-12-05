@@ -17,10 +17,10 @@ extension DetailBorrowedBookViewController {
      */
     func setupContainerView(){
         // need x and y , width height contraints
-        let height: CGFloat = screenHeight/6
+        let height: CGFloat = typeOfDevice == "large" ? screenHeight/4: screenHeight/6
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10+topbarHeight).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20+topbarHeight).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: height+60).isActive = true
         containerView.widthAnchor.constraint(equalTo : view.widthAnchor, constant: -20).isActive = true
     }
     
@@ -29,10 +29,11 @@ extension DetailBorrowedBookViewController {
      */
     func setupBookCoverImageView(){
         // need x and y , width height contraints
+        let height: CGFloat = typeOfDevice == "large" ? screenHeight/4: screenHeight/6
         bookCoverImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: +20).isActive = true
-        bookCoverImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        bookCoverImageView.heightAnchor.constraint(equalTo: containerView.heightAnchor, constant: -30).isActive = true
-        bookCoverImageView.widthAnchor.constraint(equalTo:containerView.widthAnchor, constant: -3*screenWidth/4).isActive = true
+        bookCoverImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: typeOfDevice == "large" ? topbarHeight : 40).isActive = true
+        bookCoverImageView.heightAnchor.constraint(equalToConstant: height - 80).isActive = true
+        bookCoverImageView.widthAnchor.constraint(equalToConstant: 3*(height - 40)/4).isActive = true
     }
     /**
      Function that sets up titleLabel

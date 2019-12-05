@@ -78,25 +78,22 @@ class UserCell: UITableViewCell {
     @objc private func setupConstraints(){
          addSubviews(timeLabelHour,timeLabelDate)
         // Contraints X Y Width height
-        timeLabelHour.font = UIFont.systemFont(ofSize: typeOfDevice == "large" ? 20:15)
+        timeLabelHour.font = UIFont.systemFont(ofSize: typeOfDevice == "large" ? 20:13)
         timeLabelHour.textColor = UIColor.white
         timeLabelHour.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         if var text = message?.text, !text.isEmpty {
              timeLabelHour.centerYAnchor.constraint(equalTo: textLabel!.centerYAnchor).isActive = true
         } else {
-            timeLabelHour.topAnchor.constraint(equalTo: self.topAnchor, constant: +self.frame.height/3).isActive = true
+            timeLabelHour.topAnchor.constraint(equalTo: self.topAnchor, constant: +self.frame.height/4).isActive = true
         }
-        timeLabelHour.widthAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 200:100).isActive = true
+        timeLabelHour.widthAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 200:screenWidth/2-80).isActive = true
         timeLabelHour.heightAnchor.constraint(equalTo: self.textLabel!.heightAnchor).isActive = true
-        timeLabelDate.font = UIFont.systemFont(ofSize: typeOfDevice == "large" ? 20:15)
+        timeLabelDate.font = UIFont.systemFont(ofSize: typeOfDevice == "large" ? 20:13)
         timeLabelDate.textColor = UIColor.white
-        if var text = message?.text, !text.isEmpty {
-             timeLabelDate.centerYAnchor.constraint(equalTo: detailTextLabel!.centerYAnchor).isActive = true
-        } else {
-            timeLabelDate.topAnchor.constraint(equalTo: self.timeLabelHour.bottomAnchor).isActive = true
-        }
+        timeLabelDate.adjustsFontSizeToFitWidth = false
+        timeLabelDate.topAnchor.constraint(equalTo: self.timeLabelHour.bottomAnchor).isActive = true
         timeLabelDate.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        timeLabelDate.widthAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 200:100).isActive = true
+        timeLabelDate.widthAnchor.constraint(equalToConstant: typeOfDevice == "large" ? 200:screenWidth/2-80).isActive = true
         timeLabelDate.heightAnchor.constraint(equalTo: self.textLabel!.heightAnchor).isActive = true
     }
     /**
@@ -153,11 +150,11 @@ class UserCell: UITableViewCell {
         let width = typeOfDevice == "large" ? 96:textLabel?.frame.width
         textLabel?.frame = CGRect(x: typeOfDevice == "large" ? 96:76,
                                   y: (textLabel?.frame.origin.y)!,
-                                  width: (textLabel?.frame.width)!,
+                                  width: min((textLabel?.frame.width)!,screenWidth-120),
                                   height: (textLabel?.frame.height)!)
         detailTextLabel?.frame = CGRect(x: typeOfDevice == "large" ? 96:76,
                                         y: (detailTextLabel?.frame.origin.y)!,
-                                        width: (detailTextLabel?.frame.width)!,
+                                        width: min((detailTextLabel?.frame.width)!,screenWidth/2),
                                         height: (detailTextLabel?.frame.height)!)
     }
 }
